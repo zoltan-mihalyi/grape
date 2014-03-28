@@ -1,7 +1,6 @@
-<script src="js/lib/require.js"></script>
+<script src="build/grape.min.js"></script>
 <script>
-    require.config({baseUrl: 'js/grape'});
-    require(['main'], function (Grape) {
+    (function () {
         A = Grape.Class('A', {
             'final init': function () {
                 this.asd = 1;
@@ -11,7 +10,8 @@
             'abc': function () {
 
             },
-            'event start':function(){}//A
+            'event start': function () {
+            }//A
         });
 
         B = Grape.Class('B', A, {
@@ -21,10 +21,11 @@
             'final override chainable abc': function () {
                 var a = 0;
             },
-            'event abc':function(){
+            'event abc': function () {
 
             },
-            'event start':function(){}//B
+            'event start': function () {
+            }//B
         });
 
         C = Grape.Class('C', [B], {});
@@ -37,5 +38,5 @@
         Z = Grape.Class('Z', [C, X]);
 
         new Z().getClass();
-    });
+    })();
 </script>
