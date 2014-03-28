@@ -24,8 +24,8 @@ module.exports = function (grunt) {
                         start: '(function (originalRequire) {',
                         end: '})(typeof require==="function"?require:null);'
                     },
-                    optimize:'uglify2',
-                    logLevel:3,
+                    optimize: 'uglify2',
+                    logLevel: 3,
                     uglify2: {
                         output: {
                             beautify: true
