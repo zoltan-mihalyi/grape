@@ -1,0 +1,38 @@
+<script src="js/lib/require.js"></script>
+<script>
+    require.config({baseUrl: 'js/grape'});
+    require(['core/class'], function (Class) {
+        A = Class('A', {
+            'final init': function () {
+                this.asd = 1;
+            },
+            'abstract getX': 0,
+            'static asd': 12,
+            'abc':function(){
+
+            }
+        });
+
+        B = Class('B', A, {
+            'override getX':function(){
+
+            },
+            'final override abc':function(){
+
+            },
+            'final abc':function(){
+
+            }
+        });
+
+        C = Class('C', [B], {});
+
+        X=Class('X',{
+            init2:function(){}
+        });
+
+        Z=Class('Z',[C,X]);
+
+        new Z().getClass();
+    });
+</script>
