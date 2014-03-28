@@ -1,11 +1,4 @@
-requirejs.config({
-    baseUrl: 'js/',
-    paths: {
-        'grape': '../../../js/grape/main'
-    }
-});
-define(['grape'], function (Grape) {
-
+(function () {
     var Pong = Grape.Class('Pong', Grape.Std.Game, {
     });
 
@@ -13,4 +6,4 @@ define(['grape'], function (Grape) {
 
 
     return Pong;
-});
+})();

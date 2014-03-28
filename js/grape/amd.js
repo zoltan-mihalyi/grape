@@ -4,7 +4,7 @@
 var require, define;
 (function () {
     "use strict";
-    var STRING_TYPE='[object String]';
+    var STRING_TYPE = '[object String]';
     var defined = {};
     var waiting = {};
 
@@ -75,17 +75,19 @@ var require, define;
      * @param {Function} [callback] The function which is loaded after the dependencies are ready. They are passed as arguments. If no callback function is defined, the require call immediately returns the module.
      * */
     require = function (deps, callback) {
-        var i=0, n, modules=[], global = (function(){return this;})();
-        if(Object.prototype.toString.call(deps)==STRING_TYPE){
+        var i = 0, n, modules = [], global = (function () {
+            return this;
+        })();
+        if (Object.prototype.toString.call(deps) == STRING_TYPE) {
             deps = [deps];
         }
-        for(n=deps.length;i<n;++i){
+        for (n = deps.length; i < n; ++i) {
             loadTree(deps[i]);
-            modules[i]=defined[deps[i]];
+            modules[i] = defined[deps[i]];
         }
         if (callback) {
             callback.apply(global, modules);
-        }else{
+        } else {
             return defined[deps[0]];
         }
 

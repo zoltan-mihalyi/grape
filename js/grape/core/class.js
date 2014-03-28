@@ -61,6 +61,22 @@ define(['utils'], function (Utils) {
             constructor[i] = classInfo[i];
         }
 
+        //TODO to separate place, check overwrite
+        constructor.prototype.getClass = function () {
+            return constructor;
+        };
+        constructor.toString = function () { //debug info
+            return name;
+        };
+        constructor.extend = function (name, methods) {
+            if (typeof name === 'string') { //name given
+                return Class(name, constructor, methods);
+            } else {
+                return Class(constructor, name);
+            }
+        };
+        constructor.prototype.constructor = constructor;
+
         return constructor;
     }
 
@@ -84,13 +100,6 @@ define(['utils'], function (Utils) {
 
         //with this trick we can see the name of the class while debugging
         var constructor = (new Function('', 'this["' + name + '"]=function(){};return this["' + name + '"];')).call({});
-        constructor.toString = function () { //debug info
-            return name;
-        };
-        constructor.prototype.constructor = constructor;
-        constructor.prototype.getClass = function () {
-            return constructor;
-        };
         classInfo.constructor = constructor;
     }
 
@@ -261,14 +270,13 @@ define(['utils'], function (Utils) {
         onFinish: function (classInfo) {
             var i, j, parent, oldToString;
             if (classInfo.isAbstract) {
-                //replace constructor
+                //replace constructor, this happens before extending it with anything
                 oldToString = classInfo.constructor.toString;
                 classInfo.constructor = function () {
                     throw 'Abstract class "' + classInfo.className + '" cannot be instantiated.'
                 };
                 classInfo.constructor.toString = oldToString;
-
-
+                classInfo.constructor.prototype.constructor = classInfo.constructor;
             }
 
             //check all abstract parent methods are implemented, inherited, or marked abstract

@@ -6,16 +6,7 @@
 </head>
 <body>
 <div id="pong"></div>
-<script src="../../js/lib/require.js"></script>
-<script>
-    require.config({baseUrl: '../../js/grape'});
-
-    require(['main'], function (Grape) {
-        require(['./js/pong.js'], function (Pong) {
-           new Pong().start();
-        });
-
-    });
-</script>
+<script src="../../build/grape.min.js"></script>
+<script src="js/pong.js"></script>
 </body>
 </html>
