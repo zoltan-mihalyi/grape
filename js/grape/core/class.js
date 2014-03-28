@@ -1,9 +1,9 @@
 /*
  * TODO
  * duplicated methods with different modifiers
- * keywords
  * init calls
  * .extend
+ * parent methods
  */
 define(['utils'], function (Utils) {
     var nextId = 0;
@@ -154,9 +154,16 @@ define(['utils'], function (Utils) {
         var all = name.split(' ');
         var modifiers = all.slice(0, -1);
         var realName = all.slice(-1)[0];
+        var is = {};
+        var i;
+
+        for (i = modifiers.length - 1; i >= 0; i--) {
+            is[modifiers[i]] = true;
+        }
 
         return {
             modifiers: modifiers,
+            is: is,
             name: realName,
             method: method,
             source: source
@@ -314,6 +321,7 @@ define(['utils'], function (Utils) {
 
 
     Class.registerKeyword = registerKeyword;
+    Class.registerKeywordMatching = registerKeywordMatching;
 
     return Class;
 });

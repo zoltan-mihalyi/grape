@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="pong"></div>
+<script src="../../js/lib/require.js"></script>
+<script>
+    require.config({baseUrl: '../../js/grape'});
+
+    require(['main'], function (Grape) {
+        require(['./js/pong.js'], function (Pong) {
+           new Pong().start();
+        });
+
+    });
+</script>
+</body>
+</html>

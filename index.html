@@ -1,37 +1,40 @@
 <script src="js/lib/require.js"></script>
 <script>
     require.config({baseUrl: 'js/grape'});
-    require(['core/class'], function (Class) {
-        A = Class('A', {
+    require(['main'], function (Grape) {
+        A = Grape.Class('A', {
             'final init': function () {
                 this.asd = 1;
             },
             'abstract getX': 0,
             'static asd': 12,
-            'abc':function(){
+            'abc': function () {
 
+            },
+            'event start':function(){}//A
+        });
+
+        B = Grape.Class('B', A, {
+            'override getX': function () {
+
+            },
+            'final override chainable abc': function () {
+                var a = 0;
+            },
+            'event abc':function(){
+
+            },
+            'event start':function(){}//B
+        });
+
+        C = Grape.Class('C', [B], {});
+
+        X = Grape.Class('X', {
+            init2: function () {
             }
         });
 
-        B = Class('B', A, {
-            'override getX':function(){
-
-            },
-            'final override abc':function(){
-
-            },
-            'final abc':function(){
-
-            }
-        });
-
-        C = Class('C', [B], {});
-
-        X=Class('X',{
-            init2:function(){}
-        });
-
-        Z=Class('Z',[C,X]);
+        Z = Grape.Class('Z', [C, X]);
 
         new Z().getClass();
     });
