@@ -15,6 +15,8 @@ define(['utils'], function (Utils) {
     //TODO parse name?
     // prototype-based (single)?
     //mix-in (multiple)?
+    //unsafe class creation
+    //no override: warning
     //
     function Class(name, parents, methods) {
         var classInfo = {}, constructor, i, id = ++nextId;
@@ -93,13 +95,13 @@ define(['utils'], function (Utils) {
         }
         classInfo.methodDescriptors = methodDescriptors;
         classInfo.methods = {};
+        classInfo.ownMethods = {};
     }
 
     function createConstructor(classInfo) {
-        var name = classInfo.className;
-
+        var name = classInfo.className, initCalls;
         //with this trick we can see the name of the class while debugging
-        var constructor = (new Function('', 'this["' + name + '"]=function(){};return this["' + name + '"];')).call({});
+        var constructor = (new Function('', 'this["' + name + '"]=function(){'+initCalls+'};return this["' + name + '"];')).call({});
         classInfo.constructor = constructor;
     }
 
@@ -121,8 +123,8 @@ define(['utils'], function (Utils) {
         var i = 0, allParent = classInfo.allParent, parentsNum = allParent.length, parent, m;
         for (; i < parentsNum; i++) {
             parent = allParent[i];
-            for (m in parent.methods) {
-                classInfo.methods[m] = parent.methods[m];
+            for (m in parent.ownMethods) {
+                classInfo.methods[m] = parent.ownMethods[m];
             }
         }
     }
@@ -155,6 +157,7 @@ define(['utils'], function (Utils) {
             }
             if (canAdd) {
                 classInfo.methods[methodDescriptor.name] = methodDescriptor.method;
+                classInfo.ownMethods[methodDescriptor.name] = methodDescriptor.method;
             }
         }
     }

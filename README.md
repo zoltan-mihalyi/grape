@@ -7,7 +7,12 @@ On every release, the built grape.js and grape.min.js are generated to the dist 
 
 ## build
 
-Project is built with grunt. To install development dependencies (grunt and grunt-contrib-requirejs) you have to
+Project is built with grunt.
+If you don't have grunt cli, run
+
+    npm install -g grunt-cli
+
+ To install development dependencies (grunt and grunt-contrib-requirejs) you have to
 
     npm install
 

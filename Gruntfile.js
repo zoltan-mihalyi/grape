@@ -22,7 +22,7 @@ module.exports = function (grunt) {
                     out: "build/grape.min.js",
                     wrap: {
                         start: '(function (originalRequire) {',
-                        end: '})(typeof require==="function"?require:null);'
+                        end: 'require("main");})(typeof require==="function"?require:null);'
                     },
                     optimize: 'uglify2',
                     logLevel: 3,

@@ -3,7 +3,7 @@
  * The entire Grape.js package
  */
 /*global define, require*/
-require(['core/main', 'std/main', 'utils'], function (Grape, Std, Utils) {
+define(['core/main', 'std/main', 'utils'], function (Grape, Std, Utils) {
     //Strict mode does not work with getting global object
     var global = (function () {
         return this;
