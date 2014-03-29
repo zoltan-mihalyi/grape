@@ -1,7 +1,7 @@
 require(['grape'], function (Grape) {
     A = Grape.Class('A', {
-        'final init': function () {
-            this.asd = 1;
+        'init': function (a) {
+            this.asd = a;
         },
         'abstract getX': 0,
         'static asd': 12,
@@ -13,6 +13,9 @@ require(['grape'], function (Grape) {
     });
 
     B = Grape.Class('B', A, {
+        'init': function (a,b) {
+            this.asd2 = b;
+        },
         'override getX': function () {
 
         },
@@ -26,7 +29,10 @@ require(['grape'], function (Grape) {
         }//B
     });
 
-    C = Grape.Class('C', [B], {});
+    C = Grape.Class('C', [B], {
+        'init': function () {
+            this.asd3 = 1;
+        }});
 
     X = Grape.Class('X', {
         init2: function () {

@@ -2,11 +2,12 @@ If you are developing your game using the built version of grape.
 
 <script src="../../node_modules/grunt-contrib-requirejs/node_modules/requirejs/require.js"></script>
 <script>
-        requirejs.config({
-            baseUrl:'./js',
-            paths:{
-                grape:'../../../build/grape.min'
-            }
-        });
-        require(['program'],function(){});
+    requirejs.config({
+        baseUrl: './js',
+        paths: {
+            grape: '../../../build/grape.min'
+        }
+    });
+    require(['program'], function () {
+    });
 </script>

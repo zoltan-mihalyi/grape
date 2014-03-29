@@ -42,14 +42,16 @@ define(['utils'], function (Utils) {
 
         classInfo.className = name;
         classInfo.id = id;
+
         createParentInfo(classInfo, parents);
         createMethodDescriptors(classInfo, methods);
-        createConstructor(classInfo);
 
         initializeKeywords(classInfo);
 
         addParentMethods(classInfo); //left to right order
         addOwnMethods(classInfo);
+
+        createConstructor(classInfo);
 
         finishKeywords(classInfo);
 
@@ -96,12 +98,39 @@ define(['utils'], function (Utils) {
         classInfo.methodDescriptors = methodDescriptors;
         classInfo.methods = {};
         classInfo.ownMethods = {};
+        classInfo.init = null;
     }
 
+    /**
+     * We create a custom function for performance and debugging reasons.
+     * @param classInfo
+     */
     function createConstructor(classInfo) {
-        var name = classInfo.className, initCalls;
-        //with this trick we can see the name of the class while debugging
-        var constructor = (new Function('', 'this["' + name + '"]=function(){'+initCalls+'};return this["' + name + '"];')).call({});
+        var name = classInfo.className, initMethods = [], factory = [], i, parent, constructor;
+        //add parent init methods
+        for (i = 0; i < classInfo.allParent.length; i++) {
+            parent = classInfo.allParent[i];
+            if (parent.init) {
+                initMethods.push(parent.init);
+            }
+        }
+        //add own init method
+        if (classInfo.init) {
+            initMethods.push(classInfo.init);
+        }
+
+        for (i = 0; i < initMethods.length; i++) {
+            factory.push('var init' + i + ' = inits[' + i + '];'); //var init0 = inits[0];
+        }
+
+        //With this trick we can see the name of the class while debugging.
+        factory.push('this["' + name + '"] = function(){'); //this["MyClass"] = function(){
+        for (i = 0; i < initMethods.length; i++) {
+            factory.push('init' + i + '.apply(this, arguments);'); //init0.apply(this, arguments)
+        }
+        factory.push('};')
+        factory.push('return this["' + name + '"];'); //return this["MyClass"];
+        constructor = (new Function('inits', factory.join('\n'))).call({}, initMethods);
         classInfo.constructor = constructor;
     }
 
@@ -133,41 +162,54 @@ define(['utils'], function (Utils) {
         var m, methodDescriptors = classInfo.methodDescriptors, methodDescriptor, modifiers, i, j, modifier, canAdd;
         for (m in methodDescriptors) {
             methodDescriptor = methodDescriptors[m];
-            modifiers = methodDescriptor.modifiers;
-            canAdd = true;
-            for (i = 0; i < modifiers.length; i++) {
-                modifier = modifiers[i];
-                if (registeredKeywords[modifier]) {
-                    //iterate over other modifiers checking compatibility
-                    for (j = i + 1; j < modifiers.length; j++) {
-                        if (modifier === modifiers[j]) {
-                            throw 'Modifier "' + modifier + '" duplicated.';
-                        }
-                        if (!registeredKeywords[modifier].matches[modifiers[j]]) {
-                            throw 'Modifier "' + modifier + '" cannot use with "' + modifiers[j] + '".';
-                        }
-                    }
+            if (methodDescriptor.init) {
+                classInfo.init = methodDescriptor.method;
+            } else {
 
-                    if ((registeredKeywords[modifier].onAdd || empty)(classInfo, methodDescriptor) === false) {
-                        canAdd = false;
+                modifiers = methodDescriptor.modifiers;
+                canAdd = true;
+                for (i = 0; i < modifiers.length; i++) {
+                    modifier = modifiers[i];
+                    if (registeredKeywords[modifier]) {
+                        //iterate over other modifiers checking compatibility
+                        for (j = i + 1; j < modifiers.length; j++) {
+                            if (modifier === modifiers[j]) {
+                                throw 'Modifier "' + modifier + '" duplicated.';
+                            }
+                            if (!registeredKeywords[modifier].matches[modifiers[j]]) {
+                                throw 'Modifier "' + modifier + '" cannot use with "' + modifiers[j] + '".';
+                            }
+                        }
+
+                        if ((registeredKeywords[modifier].onAdd || empty)(classInfo, methodDescriptor) === false) {
+                            canAdd = false;
+                        }
+                    } else {
+                        throw 'Unknown modifier "' + modifier + '"';
                     }
-                } else {
-                    throw 'Unknown modifier "' + modifier + '"';
                 }
-            }
-            if (canAdd) {
-                classInfo.methods[methodDescriptor.name] = methodDescriptor.method;
-                classInfo.ownMethods[methodDescriptor.name] = methodDescriptor.method;
+                if (canAdd) {
+                    classInfo.methods[methodDescriptor.name] = methodDescriptor.method;
+                    classInfo.ownMethods[methodDescriptor.name] = methodDescriptor.method;
+                }
             }
         }
     }
 
     function parseMethod(name, method, source) {
-        var all = name.split(' ');
-        var modifiers = all.slice(0, -1);
-        var realName = all.slice(-1)[0];
-        var is = {};
-        var i;
+        var all = name.split(' '),
+            modifiers = all.slice(0, -1),
+            realName = all.slice(-1)[0],
+            is = {},
+            init = false,
+            i;
+
+        if (realName === 'init') {
+            init = true;
+            if (modifiers.length !== 0) {
+                throw 'init method cannot be marked with any modifiers.';
+            }
+        }
 
         for (i = modifiers.length - 1; i >= 0; i--) {
             is[modifiers[i]] = true;
@@ -178,7 +220,8 @@ define(['utils'], function (Utils) {
             is: is,
             name: realName,
             method: method,
-            source: source
+            source: source,
+            init: init
         };
     }
 

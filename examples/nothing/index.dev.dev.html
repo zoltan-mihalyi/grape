@@ -3,12 +3,16 @@ If you are developing grape.js itself.
 <script src="../../node_modules/grunt-contrib-requirejs/node_modules/requirejs/require.js"></script>
 <script>
     requirejs.config({
-        baseUrl:'../../js/grape' //grape engine folder
+        baseUrl: '../../js/grape', //grape engine folder
+        paths: {
+            grape: 'main'
+        }
     });
-    require(['main'],function(Grape){
+    require(['grape'], function (Grape) {
         requirejs.config({
-            baseUrl:'./js'
+            baseUrl: './js'
         });
-        require(['program'],function(){});
+        require(['program'], function () {
+        });
     });
 </script>
