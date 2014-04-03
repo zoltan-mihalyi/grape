@@ -47,7 +47,7 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
         },
 
         'event any': function (type, payload) {
-            if (this._parentNode && !payload.stopPropagation) {
+            if (this._parentNode && payload && payload.bubble) {
                 this._parentNode.emit(type, payload);
             }
         }

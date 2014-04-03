@@ -58,8 +58,8 @@ require(['grape'], function (Grape) {
 
     d3.on('click', function (e) {
         console.log(e.button);
-        e.stopPropagation = true;
+        e.bubble = false;
     });
 
-    d4.emit('click', {button: 1});
+    d4.emit('click', {button: 1, bubble:true});
 });
