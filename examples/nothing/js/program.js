@@ -1,5 +1,5 @@
 require(['grape'], function (Grape) {
-    A = Grape.Class('A', {
+    A = Grape.Class('A', Grape.Std.EventEmitter, {
         'init': function (a) {
             this.asd = a;
         },
@@ -13,7 +13,7 @@ require(['grape'], function (Grape) {
     });
 
     B = Grape.Class('B', A, {
-        'init': function (a,b) {
+        'init': function (a, b) {
             this.asd2 = b;
         },
         'override getX': function () {
@@ -39,7 +39,27 @@ require(['grape'], function (Grape) {
         }
     });
 
-    Z = Grape.Class('Z', [C, X]);
+    Z = Grape.Class('Z', [C, X, Grape.Std.Node]);
 
     new Z().getClass();
+
+
+    var d1 = new Z();
+    var d2 = new Z();
+    var d3 = new Z();
+    var d4 = new Z();
+    d1.appendChild(d2);
+    d1.appendChild(d3);
+    d3.appendChild(d4);
+
+    d1.on('click', function () {
+        throw 'this is wrong';
+    });
+
+    d3.on('click', function (e) {
+        console.log(e.button);
+        e.stopPropagation = true;
+    });
+
+    d4.emit('click', {button: 1});
 });
