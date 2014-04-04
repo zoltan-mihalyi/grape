@@ -14,7 +14,7 @@
         }
     });
 
-    var GameScene = Grape.Class('GameScene', {
+    var GameScene = Grape.Class('GameScene', Grape.Std.Scene, {
         init: function () {
             this.add(new Bat({
                 x: 10,
@@ -54,7 +54,7 @@
 
     var NewGameButton = Grape.Class('NewGameButton', MenuItem, {
         action: function () {
-
+            this.scene.startScene(new GameScene());
         }
     });
 
@@ -90,6 +90,7 @@
             this.resourceManager.loadAll();
         },
         startScene: function (scene) {
+            scene.game = this;
             this.scene = scene;
         }
     });
