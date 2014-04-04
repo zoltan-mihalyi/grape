@@ -13,7 +13,7 @@ define(['core/class', 'std/resource/sprite', 'std/event-emitter'], function (Cla
 
             function onLoad() {
                 remaining--;
-                that.emit('progress', remaining / this.resources.length * 100);
+                that.emit('progress', (1 - remaining / that.resources.length) * 100);
                 if (remaining === 0) {
                     that.emit('complete');
                 }
