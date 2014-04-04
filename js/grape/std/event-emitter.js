@@ -1,16 +1,27 @@
 define(['core/class', 'utils'], function (Class, Utils) {
     var EventEmitter;
 
+    function decompose(method, target, prefix) {
+        var i;
+        if (typeof method === 'object') { //nested methods
+            for (i in method) {
+                decompose(method[i], target, prefix + '.' + i);
+            }
+        } else {
+            target[prefix] = method;
+        }
+    }
+
     Class.registerKeyword('event', {
         onInit: function (classInfo) {
             classInfo.events = {};
             classInfo.allEvent = {};
         },
         onAdd: function (classInfo, methodDescriptor) {
-            classInfo.events[methodDescriptor.name] = methodDescriptor.method;
-            if (!Utils.arrayContains(classInfo.allParent, EventEmitter)) {
+            if (!classInfo.allParentId[EventEmitter.id]) {
                 throw 'To use "event" keyword, inherit the Grape.Std.EventEmitter class!';
             }
+            decompose(methodDescriptor.method, classInfo.events, methodDescriptor.name);
             return false;
         },
         onFinish: function (classInfo) {

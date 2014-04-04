@@ -91,8 +91,13 @@ define(['utils'], function (Utils) {
     }
 
     function createParentInfo(classInfo, parents) {
+        var i;
         classInfo.parents = parents;
         classInfo.allParent = getAllParent(parents);
+        classInfo.allParentId = {};
+        for (i = 0; i < classInfo.allParent.length; i++) {
+            classInfo.allParentId[classInfo.allParent[i].id] = true;
+        }
     }
 
     function createMethodDescriptors(classInfo, methods) {
@@ -245,7 +250,7 @@ define(['utils'], function (Utils) {
             for (i = 0; i < parentsNum; i++) {
                 parent = parents[i];
                 if (!parent) {
-                    throw 'Parent #' + (i+1) + ' is ' + parent + '.';
+                    throw 'Parent #' + (i + 1) + ' is ' + parent + '.';
                 }
                 directly[parent.id] = true;
             }
