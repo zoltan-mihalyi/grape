@@ -1,4 +1,4 @@
-define(['core/class'], function (Class) {
+define(['core/class', 'utils'], function (Class, Utils) {
     var EventEmitter;
 
     Class.registerKeyword('event', {
@@ -8,7 +8,9 @@ define(['core/class'], function (Class) {
         },
         onAdd: function (classInfo, methodDescriptor) {
             classInfo.events[methodDescriptor.name] = methodDescriptor.method;
-            //TODO EE not inherited?
+            if (!Utils.arrayContains(classInfo.allParent, EventEmitter)) {
+                throw 'To use "event" keyword, inherit the Grape.Std.EventEmitter class!';
+            }
             return false;
         },
         onFinish: function (classInfo) {
@@ -29,8 +31,12 @@ define(['core/class'], function (Class) {
     });
 
     EventEmitter = Class('EventEmitter', {
-        init: function () {
+        init: function () { //subscribe to events defined in class
+            var i, myClass = this.getClass();
             this._events = {};
+            for (i in myClass.allEvent) { //TODO separate static and dinamic subscriptions
+                this._events[i] = myClass.allEvent[i].slice(0);
+            }
         },
         on: function (event, listener) {
             (this._events[event] || (this._events[event] = [])).push(listener);
@@ -43,13 +49,18 @@ define(['core/class'], function (Class) {
                 }
             }
         },
-        emit: function (event, payload) {
+        emit: function (event, payload) { //TODO class level listeners?
             var i, listeners = this._events[event];
-            if (!listeners) {
-                return;
+            if (listeners) {
+                for (i = 0; i < listeners.length; i++) {
+                    listeners[i].call(this, payload);
+                }
             }
-            for (i = 0; i < listeners.length; i++) {
-                listeners[i].call(this, payload);
+            listeners = this._events.any;
+            if (listeners) {
+                for (i = 0; i < listeners.length; i++) {
+                    listeners[i].call(this, event, payload);
+                }
             }
         }
     });
