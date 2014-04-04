@@ -35,6 +35,14 @@ define(['core/class'], function (Class) {
         on: function (event, listener) {
             (this._events[event] || (this._events[event] = [])).push(listener);
         },
+        off: function (event, listener) {
+            var i, listeners = this._events[event];
+            for (i = 0; i < listeners.length; i++) {
+                if (listeners[i] === listener) {
+                    listeners.splice(i, 1);
+                }
+            }
+        },
         emit: function (event, payload) {
             var i, listeners = this._events[event];
             if (!listeners) {

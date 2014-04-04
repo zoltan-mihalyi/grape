@@ -2,7 +2,6 @@
  * TODO
  * duplicated methods with different modifiers
  * init calls
- * .extend
  * parent methods
  */
 define(['utils'], function (Utils) {
@@ -21,6 +20,11 @@ define(['utils'], function (Utils) {
     function Class(name, parents, methods) {
         var classInfo = {}, constructor, i, id = ++nextId;
 
+        for (i = 0; i < arguments.length; i++) {
+            if (typeof arguments[i] === 'undefined') {
+                throw 'Argument is undefined: ' + i;
+            }
+        }
         //parameter transformations
         if (typeof name !== 'string') { //no name
             methods = parents;
@@ -69,6 +73,7 @@ define(['utils'], function (Utils) {
         constructor.prototype.getClass = function () {
             return constructor;
         };
+        constructor.prototype.init = constructor;
         constructor.toString = function () { //debug info
             return name;
         };
@@ -237,7 +242,11 @@ define(['utils'], function (Utils) {
         if (!directly) {
             directly = {};
             for (i = 0; i < parentsNum; i++) {
-                directly[parents[i].id] = true;
+                parent = parents[i];
+                if (!parent) {
+                    throw 'Parent #' + (i+1) + ' is ' + parent + '.';
+                }
+                directly[parent.id] = true;
             }
             acc = {
                 list: [],

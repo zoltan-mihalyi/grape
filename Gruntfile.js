@@ -28,13 +28,13 @@ module.exports = function (grunt) {
                     logLevel: 3,
                     uglify2: {
                         output: {
-                            beautify: true
+                            beautify: false
                         },
                         compress: {
                             sequences: false
                         },
                         warnings: true,
-                        mangle: false
+                        mangle: true
                     }
                 }
             }
