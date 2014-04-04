@@ -1,13 +1,9 @@
 define(['core/class', 'utils'], function (Class, Utils) {
     return Class('Game', {
-<<<<<<< HEAD
-        init:function(){
-=======
         init: function (settings) {
             this.settings = Utils.extend({
                 container: document.body
             }, settings);
->>>>>>> origin/master
 
         },
 
