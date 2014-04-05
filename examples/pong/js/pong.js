@@ -2,11 +2,25 @@
     'use strict';
     /*global Grape*/
 
-    var MenuScene=Grape.Class('MenuScene',{
+    var PongScene=Grape.Class('PongScene',Grape.Std.Scene,{
         init:function(){
             this.width=400;
             this.height=300;
             this.backgroundColor='red';
+        }
+    });
+
+    var MenuScene=Grape.Class('MenuScene',PongScene,{
+        init:function(){
+            this.add(new NewGameButton({
+                x: 200,
+                y: 100
+            }));
+        }
+    });
+
+    var GameScene=Grape.Class('GameScene',{
+        init:function(){
             this.add(new NewGameButton({
                 x: 200,
                 y: 100
@@ -20,7 +34,7 @@
 
     var NewGameButton=Grape.Class('NewGameButton', MenuItem,{
         action:function(){
-
+            this.scene.replace();
         }
     });
 
