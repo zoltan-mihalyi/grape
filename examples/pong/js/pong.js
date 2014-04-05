@@ -2,33 +2,16 @@
     'use strict';
     /*global Grape*/
 
-<<<<<<< HEAD
-    var PongScene=Grape.Class('PongScene',Grape.Std.Scene,{
-        init:function(){
-            this.width=400;
-            this.height=300;
-            this.backgroundColor='red';
-        }
-    });
-
-    var MenuScene=Grape.Class('MenuScene',PongScene,{
-        init:function(){
-            this.add(new NewGameButton({
-                x: 200,
-                y: 100
-            }));
-        }
-    });
-
-    var GameScene=Grape.Class('GameScene',{
-        init:function(){
-=======
-    var MenuScene = Grape.Class('MenuScene', Grape.Std.Scene, {
+    var PongScene = Grape.Class('PongScene', Grape.Std.Scene, {
         init: function () {
             this.width = 400;
             this.height = 300;
             this.backgroundColor = 'red';
->>>>>>> b2e90f22db409471351a87c25c72c8034e3d5c30
+        }
+    });
+
+    var MenuScene = Grape.Class('MenuScene', PongScene, {
+        init: function () {
             this.add(new NewGameButton({
                 x: 200,
                 y: 100
@@ -36,7 +19,7 @@
         }
     });
 
-    var GameScene = Grape.Class('GameScene', Grape.Std.Scene, {
+    var GameScene = Grape.Class('GameScene', PongScene, {
         init: function () {
             this.add(new Bat({
                 x: 10,
@@ -70,25 +53,13 @@
         }
     });
 
-<<<<<<< HEAD
-    var NewGameButton=Grape.Class('NewGameButton', MenuItem,{
-        action:function(){
-            this.scene.replace();
-=======
     var MenuItem = Grape.Class('MenuItem', [Grape.Std.GameObject /*Grape.Std.Mouse*/], {
         'abstract action': null
     });
 
     var NewGameButton = Grape.Class('NewGameButton', MenuItem, {
         action: function () {
-            this.scene.startScene(new GameScene());
->>>>>>> b2e90f22db409471351a87c25c72c8034e3d5c30
-        }
-    });
-
-    var LoadingScene = Grape.Std.Scene.extend({
-        init: function () {
-            var newGameButton = new NewGameButton();
+            Grape.startScene(new GameScene());
         }
     });
 
