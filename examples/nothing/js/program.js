@@ -32,7 +32,19 @@ require(['grape'], function (Grape) {
     C = Grape.Class('C', [B], {
         'init': function () {
             this.asd3 = 1;
-        }});
+        },
+
+        'event collision': {
+            Ball: function () {
+
+            },
+            MyGame: {
+                Player: function () {
+
+                }
+            }
+        }
+    });
 
     X = Grape.Class('X', {
         init2: function () {
@@ -61,5 +73,5 @@ require(['grape'], function (Grape) {
         e.bubble = false;
     });
 
-    d4.emit('click', {button: 1, bubble:true});
+    d4.emit('click', {button: 1, bubble: true});
 });

@@ -1,5 +1,6 @@
-define(['core/class', 'std/event-emitter'], function (Class, EventEmitter) {
-    return Class('Scene', EventEmitter, {
+define(['core/class', 'std/layer'], function (Class, Layer) {
+
+    return Class('Scene', Layer, {
         init: function () {
             this.width = 400;
             this.height = 300;
@@ -76,6 +77,11 @@ define(['core/class', 'std/event-emitter'], function (Class, EventEmitter) {
             }
             --instanceNumbersByTypes[typeId];
             --instanceNumber;
+=======
+        },
+        startScene: function (scene) {
+            this.game.startScene(scene);
+>>>>>>> b2e90f22db409471351a87c25c72c8034e3d5c30
         }
     });
 });
