@@ -1,6 +1,19 @@
 (function () {
     'use strict';
     /*global Grape*/
+    var all=new Grape.Std.ResourceCollection();
+    all.sprite('menubg','img/menubg.png');
+    all.sprite('about','img/about.png');
+    all.sprite('newgame','img/newgame.png');
+    all.sprite('bg','img/bg.png');
+    all.add('asd',new Grape.Std.Sprite('asd.png'));
+    var level1=new Grape.Std.ResourceCollection();
+    level1.sprite('ball','img/ball.png', {
+            originX: 12, //ball center coords
+            originY: 12
+        }
+    );
+    all.add(level1);
 
     var PongScene = Grape.Class('PongScene', Grape.Std.Scene, {
         init: function () {
@@ -65,23 +78,14 @@
 
     var Pong = Grape.Std.Game.extend('Pong', {
         init: function () {
-            var that = this, rm = this.resourceManager = new Grape.Std.ResourceManager();
-            rm.sprite('img/menubg.png');
-            rm.sprite('img/about.png');
-            rm.sprite('img/newgame.png');
-            rm.sprite('img/bg.png');
-            rm.sprite('img/ball.png', {
-                    originX: 12, //ball center coords
-                    originY: 12
-                }
-            );
+            var that = this, rl = this.resourceLoader = all.createLoader();
 
-            rm.on('complete', function () {
+            rl.on('complete', function () {
                 that.startScene(new MenuScene());
             });
 
-            rm.on('progress', function (percent) {
-                console.log(percent)
+            rl.on('progress', function (percent) {
+                console.log(percent);
             });
 
         },
