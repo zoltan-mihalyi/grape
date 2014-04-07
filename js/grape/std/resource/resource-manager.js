@@ -19,7 +19,6 @@ define(['core/class', 'std/resource/sprite', 'std/event-emitter'], function (Cla
                 }
             }
 
-            this.emit('progress', 100);
             for (i = 0; i < this.resources.length; i++) {
                 this.resources[i].load(onLoad);
             }

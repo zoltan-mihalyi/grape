@@ -81,7 +81,7 @@
             });
 
             rm.on('progress', function (percent) {
-                //console.log(percent)
+                console.log(percent)
             });
 
         },
@@ -91,6 +91,9 @@
         startScene: function (scene) {
             scene.game = this;
             this.scene = scene;
+        },
+        frame:function(){
+            this.scene.emit('frame');
         }
     });
 

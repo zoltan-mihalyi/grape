@@ -10,6 +10,7 @@ define(['core/class', 'std/event-emitter', 'std/game-object/game-object', 'utils
             this._activeClasses = {};
 
             this.instanceNumber = 0;
+            this._layers = {};
         },
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
@@ -55,6 +56,24 @@ define(['core/class', 'std/event-emitter', 'std/game-object/game-object', 'utils
             }
             this.instanceNumber--;
             instance.emit('remove');
+        },
+        addLayer: function (name, layer) {
+            if (this._layers[name]) {
+                throw 'Layer "' + name + '" already added.';
+            }
+            this._layers[name] = layer;
+        },
+        removeLayer: function (name) {
+            if (!this._layers[name]) {
+                throw 'Layer "' + name + '" does not exists.';
+            }
+            delete this._layers[name];
+        },
+        'event any': function (event, payload) {
+            var i;
+            for (i in this._layers) {
+                this._layers[i].emit(event, payload);
+            }
         }
     });
 });
