@@ -6,6 +6,9 @@ define(['core/class', 'std/event-emitter'], function (Class, EventEmitter) {
                 that.emit('loaded');
             });
         },
+        getEstimatedTime:function(){ //TODO
+            return 1;
+        },
         'abstract load': null
     });
 });

@@ -1,7 +1,7 @@
-define(['std/resource/resource', 'std/resource/resource-manager', 'std/resource/sprite'], function (Resource, ResourceManager, Sprite) {
+define(['std/resource/resource', 'std/resource/resource-collection', 'std/resource/sprite'], function (Resource, ResourceCollection, Sprite) {
     return {
         Resource: Resource,
-        ResourceManager: ResourceManager,
+        ResourceCollection: ResourceCollection,
         Sprite: Sprite
     };
 });
