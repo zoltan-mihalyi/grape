@@ -1,7 +1,10 @@
-(function() {
+(function () {
     'use strict';
     /*global Grape*/
     var commonResources = new Grape.Std.ResourceCollection();
+    commonResources.sprite('menubg1', 'img/menubg.png');
+    commonResources.sprite('menubg2', 'img/menubg.png');
+    commonResources.sprite('menubg3', 'img/menubg.png');
     //commonResources.audio('asd', 'asd.wav');
     var menuResources = new Grape.Std.ResourceCollection();
     menuResources.add(commonResources);
@@ -20,7 +23,7 @@
     allResource.add(gameResources);
 
     var PongScene = Grape.Class('PongScene', Grape.Std.Scene, {
-        init: function() {
+        init: function () {
             this.width = 400;
             this.height = 300;
             this.backgroundColor = 'red';
@@ -28,7 +31,7 @@
     });
 
     var MenuScene = Grape.Class('MenuScene', PongScene, {
-        init: function() {
+        init: function () {
             this.add(new NewGameButton({
                 x: 200,
                 y: 100
@@ -41,7 +44,7 @@
     });
 
     var GameScene = Grape.Class('GameScene', PongScene, {
-        init: function() {
+        init: function () {
             this.add(new Bat({
                 x: 10,
                 y: 100,
@@ -60,13 +63,13 @@
     });
 
     var Bat = Grape.Class('Bat', [Grape.Std.GameObject, Grape.Std.Position, Grape.Std.Rectangle], {
-        init: function(opts) {
-            this.onGlobal('keyDown.' + opts.upKey, function() {
+        init: function (opts) {
+            this.onGlobal('keyDown.' + opts.upKey, function () {
                 if (this.y > 0) {
                     this.y -= 10;
                 }
             });
-            this.onGlobal('keyDown.' + opts.downKey, function() {
+            this.onGlobal('keyDown.' + opts.downKey, function () {
                 if (this.y < 480) {
                     this.y += 10;
                 }
@@ -75,57 +78,63 @@
     });
 
     var MenuItem = Grape.Class('MenuItem', [Grape.Std.GameObject /*Grape.Std.Mouse*/], {
-        init: function() {
+        init: function () {
             this.alpha = 0.6;
         },
-        'event localPress.mouseLeft': function() {
+        'event localPress.mouseLeft': function () {
             this.action();
         },
-        'event mouseOver': function() {
+        'event mouseOver': function () {
             this.alpha = 1;
         },
-        'event mouseOut': function() {
+        'event mouseOut': function () {
             this.alpha = 0.6;
         },
         'abstract action': null
     });
 
     var NewGameButton = Grape.Class('NewGameButton', MenuItem, {
-        action: function() {
+        init: function () {
+            this.sprite = menuResources.get('newgame');
+        },
+        action: function () {
             Grape.startScene(new GameScene());
         }
     });
 
     var AboutButton = Grape.Class('AboutButton', MenuItem, {
-        action: function() {
+        init: function () {
+            this.sprite = menuResources.get('about');
+        },
+        action: function () {
             alert('Grape pong');
         }
     });
 
     var Pong = Grape.Std.Game.extend('Pong', {
-        init: function() {
+        init: function () {
             this.intervalId = null;
         },
-        isRunning: function() {
+        isRunning: function () {
             return this.intervalId !== null;
         },
-        start: function() {
+        start: function () {
             var that = this;
             if (this.isRunning()) {
                 throw 'already running';
             }
-            this.intervalId = setInterval(function() {
+            this.intervalId = setInterval(function () {
                 that.frame();
             }, 16);
-            menuResources.load(function() {
+            menuResources.load(function () {
                 that.startScene(new MenuScene());
-            }, function() {
+            }, function () {
                 //alert('err');
-            }, function(percent) {
+            }, function (percent) {
                 console.log(percent);
             });
         },
-        stop: function() {
+        stop: function () {
 
             if (!this.isRunning()) {
                 throw 'not running';
@@ -133,11 +142,11 @@
             clearInterval(this.intervalId);
             this.intervalId = null;
         },
-        startScene: function(scene) {
+        startScene: function (scene) {
             scene.game = this;
             this.scene = scene;
         },
-        frame: function() {
+        frame: function () {
             if (this.scene) {
                 this.scene.emit('frame');
             }

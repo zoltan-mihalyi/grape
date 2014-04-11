@@ -3,7 +3,7 @@ define(['core/class', 'std/resource/resource'], function(Class, Resource) {
 
     return Class('Cacheable', Resource, {
         'final override load': function(onFinish, onError, onProgress) {
-            var key = this.getResourceKey();
+            var key = this.getResourceKey(), that=this;
             if (cache[key]) {
                 if (!this.processed) {
                     this.process(cache[key]);
@@ -13,8 +13,8 @@ define(['core/class', 'std/resource/resource'], function(Class, Resource) {
             } else {
                 this.loadResource(function(data) {
                     cache[key] = data;
-                    this.process(data);
-                    this.processed = true;
+                    that.process(data);
+                    that.processed = true;
                     onFinish();
                 }, onError, onProgress);
             }

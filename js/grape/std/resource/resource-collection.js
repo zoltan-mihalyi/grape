@@ -1,13 +1,13 @@
-define(['core/class', 'std/resource/resource', 'std/resource/sprite'], function(Class, Resource, Sprite) {
+define(['core/class', 'std/resource/resource', 'std/resource/sprite'], function (Class, Resource, Sprite) {
     function empty() {
     }
 
     return Class('ResourceCollection', Resource, {
-        init: function() {
+        init: function () {
             this.resources = [];
             this.resourcesByName = {};
         },
-        add: function(name, res) {
+        add: function (name, res) {
             if (!res) { //no name given
                 res = name;
                 name = null;
@@ -21,45 +21,83 @@ define(['core/class', 'std/resource/resource', 'std/resource/sprite'], function(
             this.resources.push(res);
 
         },
-        'override load': function(onFinish, onError, onProgress) {
-            var i,
-                    hasError = false,
-                    remaining = this.resources.length,
-                    that = this;
+        get: function (name) {
+            if (!this.resourcesByName[name]) {
+                throw 'Resource "' + name + '" not found';
+            }
+            return this.resourcesByName[name];
+        },
+        'override load': function (onFinish, onError, onProgress) {
+            var i, estimated, originalTimes = [], times = [],
+                estimatedTime = 0,
+                remainingTime,
+                hasError = false,
+                remaining = this.resources.length;
             onFinish = onFinish || empty;
             onProgress = onProgress || empty;
 
-            function onLoad() {
-                remaining--;
-                onProgress((1 - remaining / that.resources.length) * 100);
-                if (remaining === 0) {
-                    onFinish();
+            for (i = 0; i < this.resources.length; i++) {
+                estimated = this.resources[i].getEstimatedTime();
+                times[i] = originalTimes[i] = estimated;
+                estimatedTime += estimated;
+            }
+            remainingTime = estimatedTime;
+
+            function createOnLoad(i) {
+                return function () {
+                    remaining--;
+                    if (times[i] > 0) {
+                        remainingTime -= times[i];
+                        times[i] = 0;
+                        onProgress((1 - remainingTime / estimatedTime) * 100);
+                    }
+                    if (remaining === 0) {
+                        onFinish();
+                    }
                 }
             }
-            
-            if(this.resources.length===0){
+
+            function createOnProgress(i) {
+                return function (progress) {
+                    var n = originalTimes[i] * (1 - progress / 100);
+                    if (times[i] != n) {
+                        remainingTime -= [times[i] - n];
+                        times[i] = n;
+                        onProgress((1 - remainingTime / estimatedTime) * 100);
+                    }
+                }
+            }
+
+            if (this.resources.length === 0) {
                 onFinish();
             }
 
             for (i = 0; i < this.resources.length; i++) {
-                this.resources[i].load(onLoad, function() {
+                this.resources[i].load(createOnLoad(i), function () {
                     if (!hasError) {
                         onError();
                         hasError = true;
                     }
-                });
+                }, createOnProgress(i));
             }
         },
-        createLoader: function() {
+        'override getEstimatedTime': function () {
+            var i, time = 0;
+            for (i = 0; i < this.resources.length; i++) {
+                time += this.resources[i].getEstimatedTime();
+            }
+            return time;
+        },
+        createLoader: function () {
             var loader = new ResourceLoader({collection: this});
             return loader;
         },
-        sprite: function(name, url, settings) {
+        sprite: function (name, url, settings) {
             var spr = new Sprite(url, settings);
             this.add(name, spr);
             return spr;
         },
-        audio: function(name, url, settings) { //TODO
+        audio: function (name, url, settings) { //TODO
             var spr = new Sprite(url, settings);
             this.add(name, spr);
             return spr;
