@@ -21,6 +21,27 @@
     var allResource = new Grape.Std.ResourceCollection();
     allResource.add(menuResources);
     allResource.add(gameResources);
+    
+    var LoadingScene = Grape.Std.Scene.extend('LoadingScene',{
+        init:function(){
+            this.progress=0;
+        },
+        'event start':function(game){
+            var that=this;
+            menuResources.load(function () {
+                game.startScene(new MenuScene());
+            }, function () {
+                alert('error while loading game');
+            }, function (percent) {
+                that.progress = percent;
+                console.log(percent);
+            });
+        },
+        'event render':function(ctx){
+            ctx.fillColor='red';
+            ctx.drawRect(0,100,this.progress*2,20);
+        }
+    });
 
     var PongScene = Grape.Class('PongScene', Grape.Std.Scene, {
         init: function () {
@@ -112,46 +133,8 @@
     });
 
     var Pong = Grape.Std.Game.extend('Pong', {
-        init: function () {
-            this.intervalId = null;
-        },
-        isRunning: function () {
-            return this.intervalId !== null;
-        },
-        start: function () {
-            var that = this;
-            if (this.isRunning()) {
-                throw 'already running';
-            }
-            this.intervalId = setInterval(function () {
-                that.frame();
-            }, 16);
-            menuResources.load(function () {
-                that.startScene(new MenuScene());
-            }, function () {
-                //alert('err');
-            }, function (percent) {
-                console.log(percent);
-            });
-        },
-        stop: function () {
-
-            if (!this.isRunning()) {
-                throw 'not running';
-            }
-            clearInterval(this.intervalId);
-            this.intervalId = null;
-        },
-        startScene: function (scene) {
-            scene.game = this;
-            this.scene = scene;
-        },
-        frame: function () {
-            if (this.scene) {
-                this.scene.emit('frame');
-            }
-        }
+        
     });
 
-    (window.P = new Pong()).start();
+    (window.P = new Pong()).start(new LoadingScene());
 })();
