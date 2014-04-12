@@ -71,6 +71,8 @@ define(['core/class', 'std/event-emitter', 'std/game-object/game-object', 'utils
         },
         'event start': function () {
             this.canvas = document.createElement('canvas');
+            this.canvas.width = 800;
+            this.canvas.height = 600;
             this.ctx = this.canvas.getContext('2d');
             document.body.appendChild(this.canvas);
         },

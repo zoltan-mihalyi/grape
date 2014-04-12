@@ -39,7 +39,7 @@
         },
         'event render': function (ctx) {
             ctx.fillStyle = 'red';
-            ctx.globalAlpha=0.2;
+            ctx.globalAlpha = 0.2;
             ctx.fillRect(0, 100, this.progress * 2, 20);
         }
     });
@@ -54,14 +54,20 @@
 
     var MenuScene = Grape.Class('MenuScene', PongScene, {
         init: function () {
-            this.add(new NewGameButton({
-                x: 200,
-                y: 100
-            }));
-            this.add(new AboutButton({
-                x: 200,
-                y: 200
-            }));
+            var n = 1;
+
+            this.fps = 500;
+
+            for (var i = 0; i < n; i++) {
+                this.add(new NewGameButton({
+                    x: 200,
+                    y: i / n * 500
+                }));
+                this.add(new AboutButton({
+                    x: 200,
+                    y: i / n * 500
+                }));
+            }
         }
     });
 
@@ -99,9 +105,18 @@
         }
     });
 
-    var MenuItem = Grape.Class('MenuItem', [Grape.Std.GameObject /*Grape.Std.Mouse*/], {
-        init: function () {
+    var MenuItem = Grape.Class('MenuItem', [Grape.Std.GameObject /*Grape.Std.Mouse, TODO Grape.Std.Position*/], {
+        init: function (opts) {
+            opts = opts || {};
             this.alpha = 0.6;
+            this.onGlobal('render', function (ctx) {
+                this.emit('render', ctx)
+            });
+            this.onGlobal('frame', function () {
+                this.emit('frame')
+            });
+            this.x = opts.x || 0;
+            this.y = opts.y || 0;
         },
         'event localPress.mouseLeft': function () {
             this.action();
@@ -111,6 +126,17 @@
         },
         'event mouseOut': function () {
             this.alpha = 0.6;
+        },
+        'event render': function (ctx) {
+            ctx.drawImage(this.sprite.img, this.x, this.y);
+        },
+        'event frame': function () {
+            for (var i = 0; i < 2000000; i++) {
+            }
+            this.x++;
+            if (this.x > 500) {
+                this.x = 0;
+            }
         },
         'abstract action': null
     });

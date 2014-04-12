@@ -12,6 +12,15 @@ define(['utils'], function (Utils) {
     function empty() {
     }
 
+    /*
+     * TODO:
+     * views
+     * input handling
+     * select
+     * global events?
+     *
+     * */
+
     //TODO parse name?
     // prototype-based (single)?
     //mix-in (multiple)?

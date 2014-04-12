@@ -23,6 +23,7 @@ define(['core/class', 'std/resource/cacheable'], function (Class, Cacheable) {
             return this.url;
         },
         'override process': function (img) {
+            this.img = img;
             if (this.width === undefined) {
                 this.width = img.width;
             }

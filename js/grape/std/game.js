@@ -21,28 +21,31 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
 
             var backlog = 0;
             var last = now();
+            var lastBacklog = 0;
 
             this.intervalId = setInterval(function () {
                 currentGame = that;
 
-                var frames = 0;
-                backlog += 16; //TODO ellapsed, cut if over 32
+                var start = now(), ellapsed = start - last, wasFrame = false;
+                backlog += ellapsed;
                 while (backlog > 0) {
-                    frames++;
                     backlog -= 1000 / that.scene.fps;
+                    wasFrame = true;
                     that.scene.emit('frame');
-
-                    if (now() - last > 16 + backlog) { //can't keep up
+                    if (now() - start > backlog - lastBacklog + 8) { //TODO better can't keep up - logic
+                        //backlog-= 1000/that.scene.fps;
                         backlog = 0;
+                        console.log('c');
                     }
                 }
-                if (frames > 0) {
-                    last = now();
+                if (wasFrame) {
+                    last = start;
+                    lastBacklog = backlog;
                     that.scene.emit('renderLayer'); //TODO can skip render?
                 }
                 currentGame = null;
             }, 16); //TODO run once before set interval
-            this.emit('start'); //TODO where should we define the starting scene?
+            //this.emit('start'); //TODO where should we define the starting scene?
             if (scene) {
                 this.startScene(scene);
             }
