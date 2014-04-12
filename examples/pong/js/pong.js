@@ -21,13 +21,13 @@
     var allResource = new Grape.Std.ResourceCollection();
     allResource.add(menuResources);
     allResource.add(gameResources);
-    
-    var LoadingScene = Grape.Std.Scene.extend('LoadingScene',{
-        init:function(){
-            this.progress=0;
+
+    var LoadingScene = Grape.Std.Scene.extend('LoadingScene', {
+        init: function () {
+            this.progress = 0;
         },
-        'event start':function(game){
-            var that=this;
+        'event start': function (game) {
+            var that = this;
             menuResources.load(function () {
                 game.startScene(new MenuScene());
             }, function () {
@@ -37,9 +37,10 @@
                 console.log(percent);
             });
         },
-        'event render':function(ctx){
-            ctx.fillColor='red';
-            ctx.drawRect(0,100,this.progress*2,20);
+        'event render': function (ctx) {
+            ctx.fillStyle = 'red';
+            ctx.globalAlpha=0.2;
+            ctx.fillRect(0, 100, this.progress * 2, 20);
         }
     });
 
@@ -133,7 +134,7 @@
     });
 
     var Pong = Grape.Std.Game.extend('Pong', {
-        
+
     });
 
     (window.P = new Pong()).start(new LoadingScene());

@@ -27,8 +27,8 @@ define(['core/class', 'utils'], function (Class, Utils) {
         onFinish: function (classInfo) {
             var i, event, events;
             //add parent events
-            for (i in classInfo.parents) {
-                events = classInfo.parents[i].events;
+            for (i = 0; i < classInfo.allParent.length; i++) {
+                events = classInfo.allParent[i].events;
                 for (event in events) {
                     (classInfo.allEvent[event] || (classInfo.allEvent[event] = [])).push(events[event]);
                 }

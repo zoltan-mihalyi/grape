@@ -57,7 +57,7 @@ define(['core/class', 'std/event-emitter', 'std/game-object/game-object', 'utils
             this.instanceNumber--;
             instance.emit('remove');
         },
-        addLayer: function (name, layer) {
+        addLayer: function (name, layer) { //TODO add without name
             if (this._layers[name]) {
                 throw 'Layer "' + name + '" already added.';
             }
@@ -68,6 +68,18 @@ define(['core/class', 'std/event-emitter', 'std/game-object/game-object', 'utils
                 throw 'Layer "' + name + '" does not exists.';
             }
             delete this._layers[name];
+        },
+        'event start': function () {
+            this.canvas = document.createElement('canvas');
+            this.ctx = this.canvas.getContext('2d');
+            document.body.appendChild(this.canvas);
+        },
+        'event stop': function () {
+            this.canvas.parentNode.removeChild(this.canvas);
+        },
+        'event renderLayer': function () {
+            this.ctx.clearRect(0, 0, 1000, 1000);
+            this.emit('render', this.ctx);
         },
         'event any': function (event, payload) {
             var i;

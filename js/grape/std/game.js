@@ -1,10 +1,10 @@
-define(['core/class','std/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
-    var currentGame=null;
-    
-    var now=Date.now?Date.now:function(){
+define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
+    var currentGame = null;
+
+    var now = Date.now ? Date.now : function () {
         return new Date().getTime();
     };
-    
+
     return Class('Game', EventEmitter, {
         init: function (settings) {
             this.settings = Utils.extend({
@@ -18,27 +18,32 @@ define(['core/class','std/event-emitter', 'utils'], function (Class, EventEmitte
             if (this.isRunning()) {
                 throw 'already running';
             }
-            
+
+            var backlog = 0;
+            var last = now();
+
             this.intervalId = setInterval(function () {
-                currentGame=that;
-//                TODO
-//                var fps=200;
-//                var num=0;
-//                var prev=now();
-//                while(now()<prev+1000/fps){
-//                    
-//                }
-//                
-                if (that.scene) {
-                    
+                currentGame = that;
+
+                var frames = 0;
+                backlog += 16; //TODO ellapsed, cut if over 32
+                while (backlog > 0) {
+                    frames++;
+                    backlog -= 1000 / that.scene.fps;
                     that.scene.emit('frame');
-                    
-                    that.scene.emit('render');
+
+                    if (now() - last > 16 + backlog) { //can't keep up
+                        backlog = 0;
+                    }
                 }
-                currentGame=null;
-            }, 16);
+                if (frames > 0) {
+                    last = now();
+                    that.scene.emit('renderLayer'); //TODO can skip render?
+                }
+                currentGame = null;
+            }, 16); //TODO run once before set interval
             this.emit('start'); //TODO where should we define the starting scene?
-            if(scene){
+            if (scene) {
                 this.startScene(scene);
             }
         },
@@ -53,6 +58,11 @@ define(['core/class','std/event-emitter', 'utils'], function (Class, EventEmitte
             return this.intervalId !== null;
         },
         startScene: function (scene) {
+            if (this.scene) {
+                this.scene.emit('stop');
+                this.scene.game = null;
+            }
+
             scene.game = this;
             this.scene = scene;
             scene.emit('start', this);
