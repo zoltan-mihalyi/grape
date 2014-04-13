@@ -69,20 +69,6 @@ define(['core/class', 'std/event-emitter', 'std/game-object/game-object', 'utils
             }
             delete this._layers[name];
         },
-        'event start': function () {
-            this.canvas = document.createElement('canvas');
-            this.canvas.width = 800;
-            this.canvas.height = 600;
-            this.ctx = this.canvas.getContext('2d');
-            document.body.appendChild(this.canvas);
-        },
-        'event stop': function () {
-            this.canvas.parentNode.removeChild(this.canvas);
-        },
-        'event renderLayer': function () {
-            this.ctx.clearRect(0, 0, 1000, 1000);
-            this.emit('render', this.ctx);
-        },
         'event any': function (event, payload) {
             var i;
             for (i in this._layers) {

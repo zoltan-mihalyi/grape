@@ -18,7 +18,7 @@ define(['utils'], function (Utils) {
      * input handling
      * select
      * global events?
-     *
+     * disable views, layers
      * */
 
     //TODO parse name?

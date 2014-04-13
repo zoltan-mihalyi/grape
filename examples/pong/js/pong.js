@@ -54,20 +54,18 @@
 
     var MenuScene = Grape.Class('MenuScene', PongScene, {
         init: function () {
-            var n = 1;
-
-            this.fps = 500;
-
-            for (var i = 0; i < n; i++) {
-                this.add(new NewGameButton({
-                    x: 200,
-                    y: i / n * 500
-                }));
-                this.add(new AboutButton({
-                    x: 200,
-                    y: i / n * 500
-                }));
-            }
+            this.add(new NewGameButton({
+                x: 200,
+                y: 100
+            }));
+            this.add(new AboutButton({
+                x: 200,
+                y: 200
+            }));
+        },
+        'override initViews': function () {
+            this.addView(new Grape.Std.View({target: this, width: '50%'}));
+            this.addView(new Grape.Std.View({target: this, width: '50%', left: '50%'}));
         }
     });
 
@@ -130,14 +128,6 @@
         'event render': function (ctx) {
             ctx.drawImage(this.sprite.img, this.x, this.y);
         },
-        'event frame': function () {
-            for (var i = 0; i < 2000000; i++) {
-            }
-            this.x++;
-            if (this.x > 500) {
-                this.x = 0;
-            }
-        },
         'abstract action': null
     });
 
@@ -163,5 +153,5 @@
 
     });
 
-    (window.P = new Pong()).start(new LoadingScene());
+    (window.P = new Pong({container: 'game'})).start(new LoadingScene());
 })();

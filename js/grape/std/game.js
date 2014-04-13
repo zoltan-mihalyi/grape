@@ -7,11 +7,11 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
 
     return Class('Game', EventEmitter, {
         init: function (settings) {
-            this.settings = Utils.extend({
+            this.settings = {
                 container: document.body
-            }, settings);
+            };
+            Utils.extend(this.settings, settings);
             this.intervalId = null;
-
         },
         'final start': function (scene) {
             var that = this;
@@ -19,9 +19,19 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
                 throw 'already running';
             }
 
+            //initialize screen
+            if (typeof this.settings.container === 'string') {
+                this.settings.container = document.getElementById(this.settings.container);
+            }
+            if (!this.settings.container) {
+                throw 'Container does not exists!';
+            }
+            this._screen = this.settings.container;
+
+
             var backlog = 0;
             var last = now();
-            var lastBacklog = 0;
+            var lastRenderStart = last;
 
             this.intervalId = setInterval(function () {
                 currentGame = that;
@@ -32,16 +42,15 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
                     backlog -= 1000 / that.scene.fps;
                     wasFrame = true;
                     that.scene.emit('frame');
-                    if (now() - start > backlog - lastBacklog + 8) { //TODO better can't keep up - logic
-                        //backlog-= 1000/that.scene.fps;
+                    if (now() - lastRenderStart > 16 + 1000 / that.scene.fps) { //can't keep up
                         backlog = 0;
                         console.log('c');
                     }
                 }
                 if (wasFrame) {
                     last = start;
-                    lastBacklog = backlog;
-                    that.scene.emit('renderLayer'); //TODO can skip render?
+                    lastRenderStart = now();
+                    that.scene.render(); //TODO can skip render?
                 }
                 currentGame = null;
             }, 16); //TODO run once before set interval
@@ -69,6 +78,12 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
             scene.game = this;
             this.scene = scene;
             scene.emit('start', this);
+        },
+        getScreenWidth: function () {
+            return this._screen.offsetWidth;
+        },
+        getScreenHeight: function () {
+            return this._screen.offsetHeight;
         }
     });
 });
