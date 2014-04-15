@@ -68,6 +68,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
                 if (addedClasses[cd.id]) {
                     return;
                 }
+                addedClasses[cd.id] = true;
                 it = cd.instances.iterator();
                 while (it.hasNext()) {
                     result.push(it.next());
