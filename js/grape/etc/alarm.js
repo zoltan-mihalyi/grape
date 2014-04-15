@@ -1,5 +1,5 @@
-define(['core/class'], function (Class) {
-    return Class('Alarm', {
+define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
+    return Class('Alarm', EventEmitter, {
         init: function () {
             this._alarms = {};
         },

@@ -1,4 +1,4 @@
-define(['utils/list'], function (DoublyLinkedList) {
+define([], function () {
     var objToString = Object.prototype.toString;
     return {
         isArray: function (obj) {
@@ -23,7 +23,6 @@ define(['utils/list'], function (DoublyLinkedList) {
         arrayContains: function (array, element) {
             return array.indexOf(element) !== -1;
             //TODO IE8 fallback
-        },
-        List: DoublyLinkedList
+        }
     };
 });

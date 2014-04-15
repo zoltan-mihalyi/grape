@@ -1,4 +1,4 @@
-define(['core/class'], function (Class) {
+define(['class'], function (Class) {
     return Class('Rectangle', {
         init: function (opts) {
             opts = opts || {};

@@ -1,4 +1,4 @@
-define(['core/class', 'std/resource/resource'], function(Class, Resource) {
+define(['class', 'resource/resource'], function(Class, Resource) {
     var cache = {};
 
     return Class('Cacheable', Resource, {

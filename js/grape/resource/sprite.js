@@ -1,4 +1,4 @@
-define(['core/class', 'std/resource/cacheable'], function (Class, Cacheable) {
+define(['class', 'resource/cacheable'], function (Class, Cacheable) {
     return Class('Sprite', Cacheable, {
         init: function (url, settings) {
             settings = settings || {};

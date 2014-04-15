@@ -1,4 +1,4 @@
-define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
+define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
     var currentGame = null;
 
     var now = Date.now ? Date.now : function () {
@@ -50,7 +50,7 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
                 if (wasFrame) {
                     last = start;
                     lastRenderStart = now();
-                    that.scene.render(); //TODO can skip render?
+                    that.scene.emit('renderLayer'); //TODO can skip render?
                 }
                 currentGame = null;
             }, 16); //TODO run once before set interval

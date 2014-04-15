@@ -1,7 +1,7 @@
 /**
  * This class is used to represent tree-like data like DOM
  */
-define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
+define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
     return Class('Node', EventEmitter, {
         init: function () {
             this._childNodes = [];

@@ -1,4 +1,4 @@
-define(['core/class'], function (Class) {
+define(['class'], function (Class) {
     Class.registerKeyword('chainable', {
         onAdd: function (classInfo, methodDescriptor) {
             var originalMethod;
@@ -16,6 +16,5 @@ define(['core/class'], function (Class) {
     Class.registerKeywordMatching('chainable', 'final');
     Class.registerKeywordMatching('chainable', 'override');
 
-    return Class('Chainable', { //TODO
-    });
+    return null;
 });

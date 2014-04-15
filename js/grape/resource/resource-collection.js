@@ -1,4 +1,4 @@
-define(['core/class', 'std/resource/resource', 'std/resource/sprite'], function (Class, Resource, Sprite) {
+define(['class', 'resource/resource', 'resource/sprite'], function (Class, Resource, Sprite) {
     function empty() {
     }
 

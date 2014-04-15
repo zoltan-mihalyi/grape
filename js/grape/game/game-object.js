@@ -1,4 +1,4 @@
-define(['core/class', 'std/event-emitter'], function (Class, EventEmitter) {
+define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
     return Class('GameObject', EventEmitter, {
         onGlobal: function (event, handler) { //TODO global event keyword
             var that = this,
@@ -15,6 +15,9 @@ define(['core/class', 'std/event-emitter'], function (Class, EventEmitter) {
             this.on('remove', function () {
                 this.scene.off(event, proxy)
             });
+        },
+        remove:function(){
+
         }
     });
 });

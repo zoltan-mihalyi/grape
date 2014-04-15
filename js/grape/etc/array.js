@@ -1,4 +1,4 @@
-define(['core/class'], function (Class) {
+define(['class'], function (Class) {
     var methodNames, methods = {};
 
     if (Object.getOwnPropertyNames) {

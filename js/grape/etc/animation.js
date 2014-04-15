@@ -1,4 +1,4 @@
-define(['core/class', 'std/resources/sprite'], function (Class, Sprite) {
+define(['class', 'resource/sprite'], function (Class, Sprite) {
     return Class('Animation', Sprite, {
         init: function () {
             this.imageSpeed = 1;

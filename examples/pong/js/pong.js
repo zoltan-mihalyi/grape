@@ -1,28 +1,28 @@
 (function () {
     'use strict';
     /*global Grape*/
-    var commonResources = new Grape.Std.ResourceCollection();
+    var commonResources = new Grape.ResourceCollection();
     commonResources.sprite('menubg1', 'img/menubg.png');
     commonResources.sprite('menubg2', 'img/menubg.png');
     commonResources.sprite('menubg3', 'img/menubg.png');
     //commonResources.audio('asd', 'asd.wav');
-    var menuResources = new Grape.Std.ResourceCollection();
+    var menuResources = new Grape.ResourceCollection();
     menuResources.add(commonResources);
     menuResources.sprite('menubg', 'img/menubg.png');
     menuResources.sprite('about', 'img/about.png');
     menuResources.sprite('newgame', 'img/newgame.png');
-    var gameResources = new Grape.Std.ResourceCollection();
+    var gameResources = new Grape.ResourceCollection();
     gameResources.add(commonResources);
     gameResources.sprite('bg', 'img/bg.png');
     gameResources.sprite('ball', 'img/ball.png', {
         originX: 12, //ball center coords
         originY: 12
     });
-    var allResource = new Grape.Std.ResourceCollection();
+    var allResource = new Grape.ResourceCollection();
     allResource.add(menuResources);
     allResource.add(gameResources);
 
-    var LoadingScene = Grape.Std.Scene.extend('LoadingScene', {
+    var LoadingScene = Grape.Scene.extend('LoadingScene', {
         init: function () {
             this.progress = 0;
         },
@@ -44,7 +44,7 @@
         }
     });
 
-    var PongScene = Grape.Class('PongScene', Grape.Std.Scene, {
+    var PongScene = Grape.Class('PongScene', Grape.Scene, {
         init: function () {
             this.width = 400;
             this.height = 300;
@@ -64,8 +64,8 @@
             }));
         },
         'override initViews': function () {
-            this.addView(new Grape.Std.View({target: this, width: '50%'}));
-            this.addView(new Grape.Std.View({target: this, width: '50%', left: '50%'}));
+            this.addView(new Grape.View({target: this, width: '50%'}));
+            this.addView(new Grape.View({target: this, width: '50%', left: '50%'}));
         }
     });
 
@@ -88,7 +88,7 @@
         }
     });
 
-    var Bat = Grape.Class('Bat', [Grape.Std.GameObject, Grape.Std.Position, Grape.Std.Rectangle], {
+    var Bat = Grape.Class('Bat', [Grape.GameObject, Grape.Position, Grape.Rectangle], {
         init: function (opts) {
             this.onGlobal('keyDown.' + opts.upKey, function () {
                 if (this.y > 0) {
@@ -103,7 +103,7 @@
         }
     });
 
-    var MenuItem = Grape.Class('MenuItem', [Grape.Std.GameObject /*Grape.Std.Mouse, TODO Grape.Std.Position*/], {
+    var MenuItem = window.M = Grape.Class('MenuItem', [Grape.GameObject /*Grape.Std.Mouse, TODO Grape.Std.Position*/], {
         init: function (opts) {
             opts = opts || {};
             this.alpha = 0.6;
@@ -131,7 +131,7 @@
         'abstract action': null
     });
 
-    var NewGameButton = Grape.Class('NewGameButton', MenuItem, {
+    var NewGameButton = window.N = Grape.Class('NewGameButton', MenuItem, {
         init: function () {
             this.sprite = menuResources.get('newgame');
         },
@@ -149,7 +149,7 @@
         }
     });
 
-    var Pong = Grape.Std.Game.extend('Pong', {
+    var Pong = Grape.Game.extend('Pong', {
 
     });
 

@@ -1,4 +1,4 @@
-define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
+define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
     //TODO follow player etc.
 
     function propValue(prop, max) {
@@ -39,14 +39,14 @@ define(['core/class', 'std/event-emitter', 'utils'], function (Class, EventEmitt
         'event stop': function () {
             this.canvas.parentNode.removeChild(this.canvas);
         },
-        render: function () {
+        'event renderLayer': function () {
             this.canvas.width = this.getWidth();
             this.canvas.height = this.getHeight();
             this.canvas.style.left = this.getLeft();
             this.canvas.style.top = this.getTop();
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.translate(-this.x, -this.y);
-            this.target.emit('render', this.ctx);
+            this._target.emit('render', this.ctx);
         },
         getLeft: function () {
             return propValue(this.left, this._game.getScreenWidth());

@@ -1,9 +1,9 @@
 define([], function () {
-    var DoublyLinkedList = function () {
+    var List = function () {
         /**
          * The head of the list.
          *
-         * @memberOf Grape.Utils.DoublyLinkedList.prototype
+         * @memberOf Grape.List.prototype
          * @field
          * @type {ListNode}
          */
@@ -11,7 +11,7 @@ define([], function () {
         /**
          * The tail of the list.
          *
-         * @memberOf Grape.Utils.DoublyLinkedList.prototype
+         * @memberOf Grape.List.prototype
          * @field
          * @type {ListNode}
          */
@@ -32,26 +32,26 @@ define([], function () {
      * Detaches a list node from the list.
      *
      * @name detachNode
-     * @memberOf Grape.Utils.DoublyLinkedList
+     * @memberOf Grape.List
      *
      * @param {ListNode} node the list node
      */
-    var detachNode = DoublyLinkedList.detachNode = function (node) {
+    var detachNode = List.detachNode = function (node) {
         var prev, next;
         (prev = node[0])[2] = (next = node[2]);
         next[0] = prev;
     };
 
     /**
-     * A simple iterator for doubly linked list.
+     * A simple iterator for the list.
      * Creates an iterator and sets the current position to the given list node (not inclusive in iteration)
      * @name Iterator
-     * @memberOf Grape.Utils.DoublyLinkedList
+     * @memberOf Grape.List
      * @constructor
      * @param {ListNode} the head
      */
-    var Iterator = DoublyLinkedList.Iterator = function (current) {
-        return /** @lends Grape.Utils.DoublyLinkedList.Iterator.prototype */ {
+    var Iterator = List.Iterator = function (current) {
+        return /** @lends Grape.List.Iterator.prototype */ {
             /**
              * Decides whether the iterator has next element
              * @return {Boolean} true, if there is next element
@@ -78,7 +78,7 @@ define([], function () {
         };
     };
 
-    DoublyLinkedList.prototype = /** @lends Grape.Utils.DoublyLinkedList.prototype */ {
+    List.prototype = /** @lends Grape.List.prototype */ {
         /**
          * Pushes an object to the end of the list.
          *
@@ -109,7 +109,7 @@ define([], function () {
         /**
          * Creates an iterator for the list.
          *
-         * @return {Grape.Utils.DoublyLinkedList.Iterator}
+         * @return {Grape.List.Iterator}
          */
         iterator: function () {
             return new Iterator(this.first);
@@ -132,5 +132,5 @@ define([], function () {
             }
         }
     };
-    return DoublyLinkedList;
+    return List;
 });

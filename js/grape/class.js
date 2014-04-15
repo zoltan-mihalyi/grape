@@ -14,7 +14,6 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
-     * views
      * input handling
      * select
      * global events?
@@ -369,7 +368,7 @@ define(['utils'], function (Utils) {
                 parent = classInfo.allParent[i];
 
                 for (j in parent.methods) {
-                    if (parentFinals[j] && parentFinals[j] !== parent.methods[j]) { //overriding final method by inheriting
+                    if (parentFinals.hasOwnProperty(j) && parentFinals[j] !== parent.methods[j]) { //overriding final method by inheriting
                         throw 'Method "' + j + '" is final and cannot be overridden by inheriting from "' + parent.className + '"';
                     }
                 }

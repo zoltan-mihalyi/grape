@@ -1,4 +1,4 @@
-define(['core/class', 'utils'], function (Class, Utils) {
+define(['class'], function (Class) {
     var EventEmitter;
 
     function decompose(method, target, prefix) {
