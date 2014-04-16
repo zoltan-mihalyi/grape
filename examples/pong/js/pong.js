@@ -107,12 +107,6 @@
         init: function (opts) {
             opts = opts || {};
             this.alpha = 0.6;
-            this.onGlobal('render', function (ctx) {
-                this.emit('render', ctx)
-            });
-            this.onGlobal('frame', function () {
-                this.emit('frame')
-            });
             this.x = opts.x || 0;
             this.y = opts.y || 0;
         },
@@ -125,7 +119,7 @@
         'event mouseOut': function () {
             this.alpha = 0.6;
         },
-        'event render': function (ctx) {
+        'global-event render': function (ctx) {
             ctx.drawImage(this.sprite.img, this.x, this.y);
         },
         'abstract action': null

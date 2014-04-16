@@ -19,7 +19,7 @@ define(['class'], function (Class) {
         },
         onAdd: function (classInfo, methodDescriptor) {
             if (!classInfo.allParentId[EventEmitter.id]) {
-                throw 'To use "event" keyword, inherit the Grape.Std.EventEmitter class!';
+                throw 'To use "event" keyword, inherit the Grape.EventEmitter class!';
             }
             decompose(methodDescriptor.method, classInfo.events, methodDescriptor.name);
             return false;
@@ -45,7 +45,7 @@ define(['class'], function (Class) {
         init: function () { //subscribe to events defined in class
             var i, myClass = this.getClass();
             this._events = {};
-            for (i in myClass.allEvent) { //TODO separate static and dinamic subscriptions
+            for (i in myClass.allEvent) { //TODO separate static and dynamic subscriptions
                 this._events[i] = myClass.allEvent[i].slice(0);
             }
         },
@@ -73,7 +73,8 @@ define(['class'], function (Class) {
                     listeners[i].call(this, event, payload);
                 }
             }
-        }
+        },
+        'static decompose': decompose
     });
 
 

@@ -14,18 +14,18 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
+     *
      * input handling
-     * select
      * global events?
+     *
+     *
      * disable views, layers
+     * layer, view order
+     * prototype-based (single), /mix-in (multiple)?
+     * no override: warning
+     * unsafe class creation
      * */
 
-    //TODO parse name?
-    // prototype-based (single)?
-    //mix-in (multiple)?
-    //unsafe class creation
-    //no override: warning
-    //
     function Class(name, parents, methods) {
         var classInfo = {}, constructor, i, id = ++nextId;
 

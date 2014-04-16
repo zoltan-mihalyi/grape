@@ -16,7 +16,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
             if (!clazz.allParentId[GameObjectId]) { //TODO remove if no check
-                throw 'The instance must be a descendant of Grape.Std.GameObject.';
+                throw 'The instance must be a descendant of Grape.GameObject.';
             }
             instance.scene = this;
 
