@@ -42,7 +42,7 @@ define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
                 for (event in myClass.allGlobalEvent) {
                     listeners = myClass.allGlobalEvent[event];
                     for (var j = 0; j < listeners.length; j++) {
-                        this.scene.on(event, createProxy(this,listeners[j]));
+                        this.layer.on(event, createProxy(this,listeners[j]));
                     }
                 }
             });
@@ -52,15 +52,15 @@ define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
                 proxy = function (payload) {
                     handler.call(that, payload);
                 };
-            if (this.scene) { //already added
-                this.scene.on(event, proxy);
+            if (this.layer) { //already added
+                this.layer.on(event, proxy);
             } else {
                 this.on('add', function () {
-                    this.scene.on(event, proxy);
+                    this.layer.on(event, proxy);
                 });
             }
             this.on('remove', function () {
-                this.scene.off(event, proxy)
+                this.layer.off(event, proxy)
             });
         },
         remove: function () {

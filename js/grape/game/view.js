@@ -22,9 +22,14 @@ define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, U
             this.originY = 0;
             this.x = 0;
             this.y = 0;
+            this.mouse = {x: 0, y: 0}; //TODO default values
             this.zoom = 1;
             this.alpha = 1;
             Utils.extend(this, opts);
+        },
+        'event mouseMove': function (mouse) {
+            this.mouse.x = mouse.x - this.getLeft();
+            this.mouse.y = mouse.y - this.getTop();
         },
         'event start': function (game) {
             this._game = game;
@@ -34,6 +39,7 @@ define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, U
             this.canvas.width = this.getWidth();
             this.canvas.height = this.getHeight();
             this.ctx = this.canvas.getContext('2d');
+            this.ctx.view = this;
             game._screen.appendChild(this.canvas);
         },
         'event stop': function () {

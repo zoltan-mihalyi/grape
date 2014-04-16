@@ -15,6 +15,7 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             }
 
             //initialize screen
+            //TODO create a container with position:absolute
             if (typeof this.container === 'string') {
                 this.container = document.getElementById(this.container);
             }

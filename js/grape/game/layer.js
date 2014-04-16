@@ -1,7 +1,7 @@
 define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-array', 'utils', 'etc/list'], function (Class, EventEmitter, GameObject, GameObjectArray, Utils, List) {
     var GameObjectId = GameObject.id;
 
-    return Class('Layer', EventEmitter, {
+    return Class('Layer', EventEmitter, { //TODO create scene/layer - resource
         init: function () {
             this.width = 400;
             this.height = 300;
@@ -18,7 +18,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             if (!clazz.allParentId[GameObjectId]) { //TODO remove if no check
                 throw 'The instance must be a descendant of Grape.GameObject.';
             }
-            instance.scene = this;
+            instance.layer = this;
 
             if (!(classData = this._classes[classId])) { //instance class is not registered yet
                 this._activeClasses[classId] = this._classes[classId] = classData = {

@@ -349,7 +349,7 @@ define(['utils'], function (Utils) {
             for (i = 0; i < classInfo.allParent.length; ++i) {
                 parent = classInfo.allParent[i];
                 for (j in parent.abstracts) {
-                    if (!classInfo.methods[j] && !classInfo.abstracts[j]) {
+                    if (!classInfo.methods[j] && classInfo.abstracts[j] === undefined) {
                         throw 'Method "' + j + '" is not implemented, inherited, or marked abstract'; //TODO source?
                     }
                 }
