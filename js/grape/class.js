@@ -15,10 +15,7 @@ define(['utils'], function (Utils) {
     /*
      * TODO:
      *
-     * input handling
-     * global events?
-     *
-     *
+     * which view is under mouse, mouse pos relative to views
      * disable views, layers
      * layer, view order
      * prototype-based (single), /mix-in (multiple)?

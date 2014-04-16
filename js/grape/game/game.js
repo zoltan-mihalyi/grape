@@ -1,35 +1,35 @@
-define(['class', 'etc/event-emitter', 'game/gameloop', 'utils'], function (Class, EventEmitter, GameLoop, Utils) {
+define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scene'], function (Class, EventEmitter, GameLoop, Input, Scene) {
     return Class('Game', EventEmitter, {
-        init: function (settings) {
-            this.settings = {
-                container: document.body
+        init: function (opts) {
+            opts = opts || {};
+            this.initialScene = opts.initialScene || function () {
+                return new Scene();
             };
-            Utils.extend(this.settings, settings);
-            this.gameLoop = new GameLoop(this);
+            this.container = opts.container || document.body;
+            this.gameLoop = new GameLoop(this); //TODO move to a function
+            this.input = new Input();
         },
-        'final start': function (scene) {
-            if (!scene) {
-                throw 'Game can started with a scene parameter.';
-            }
+        'final start': function () {
             if (this.gameLoop.isRunning()) {
                 throw 'already running';
             }
 
             //initialize screen
-            if (typeof this.settings.container === 'string') {
-                this.settings.container = document.getElementById(this.settings.container);
+            if (typeof this.container === 'string') {
+                this.container = document.getElementById(this.container);
             }
-            if (!this.settings.container) {
+            if (!this.container) {
                 throw 'Container does not exists!';
             }
-            this._screen = this.settings.container;
+            this._screen = this.container;
 
             this.gameLoop.start();
-
-            this.startScene(scene);
+            this.input.start(this._screen);
+            this.startScene(typeof this.initialScene === 'function' ? this.initialScene() : this.initialScene);
         },
         'final stop': function () {
             this.gameLoop.stop(); //todo tear down logic
+            this.input.stop();
         },
         startScene: function (scene) {
             if (scene.game) {
@@ -43,6 +43,13 @@ define(['class', 'etc/event-emitter', 'game/gameloop', 'utils'], function (Class
             scene.game = this;
             this.scene = scene;
             scene.emit('start', this);
+        },
+        frame:function(){
+            this.scene.emit('frame');
+            this.input.emitEvents(this.scene);
+        },
+        render:function(){
+            this.scene.emit('renderLayer');
         },
         getScreenWidth: function () {
             return this._screen.offsetWidth;

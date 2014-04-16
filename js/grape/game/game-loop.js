@@ -2,7 +2,7 @@ define(['class'], function (Class) {
     var now = Date.now ? Date.now : function () {
         return new Date().getTime();
     };
-    var currentGame = null;
+    var currentGame = null; //TODO use
     return Class('GameLoop', {
         init: function (game) {
             this.intervalId = null;
@@ -21,7 +21,7 @@ define(['class'], function (Class) {
                 while (backlog > 0) {
                     backlog -= 1000 / game.scene.fps; //TODO replace with custom game.getFPS() logic
                     wasFrame = true;
-                    game.scene.emit('frame');
+                    game.frame();
                     if (now() - lastRenderStart > 16 + 1000 / game.scene.fps) { //can't keep up
                         backlog = 0;
                         console.log('c');
@@ -30,7 +30,7 @@ define(['class'], function (Class) {
                 if (wasFrame) {
                     last = start;
                     lastRenderStart = now();
-                    game.scene.emit('renderLayer'); //TODO can skip render?
+                    game.render(); //TODO can skip render?
                 }
                 currentGame = null;
             }, 16); //TODO run once before set interval

@@ -131,6 +131,15 @@
         },
         action: function () {
             Grape.startScene(new GameScene());
+        },
+        'global-event keyDown.mouseLeft': function () {
+            this.x--;
+        },
+        'global-event keyDown.mouseRight': function () {
+            this.x++;
+        },
+        'global-event mouseMove': function (e) {
+            this.x += e.x - e.prevX;
         }
     });
 
@@ -147,5 +156,11 @@
 
     });
 
-    (window.P = new Pong({container: 'game'})).start(new LoadingScene());
+    window.P = new Pong({
+        container: 'game',
+        initialScene: function () {
+            return new LoadingScene();
+        }
+    });
+    P.start();
 })();
