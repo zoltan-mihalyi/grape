@@ -71,6 +71,8 @@
 
     var GameScene = Grape.Class('GameScene', PongScene, {
         init: function () {
+            this.addSystem('collision', new Grape.CollisionSystem());
+
             this.add(new Bat({
                 x: 10,
                 y: 100,
@@ -85,11 +87,35 @@
                 downKey: 'down',
                 backgroundColor: 'green'
             }));
+            this.add(new Ball({
+                x: 160,
+                y: 120
+            }));
         }
     });
 
-    var Bat = Grape.Class('Bat', [Grape.GameObject, Grape.Position, Grape.Rectangle], {
+    var Ball = Grape.Class('Ball', [Grape.Rectangle, Grape.Collidable], {
+        init: function () {
+            this.width = 32;
+            this.height = 32;
+            this.backgroundColor = 'black';
+        }
+    });
+
+    var Bat = Grape.Class('Bat', [Grape.Rectangle, Grape.Collidable], {
+        'static collisions': function () {
+            return [
+                {
+                    target: Ball,
+                    handler: function (other) {
+                        other.destroy();
+                    }
+                }
+            ];
+        },
         init: function (opts) {
+            this.width = 20;
+            this.height = 100;
             this.onGlobal('keyDown.' + opts.upKey, function () {
                 if (this.y > 0) {
                     this.y -= 10;
@@ -103,13 +129,7 @@
         }
     });
 
-    var MenuItem = window.M = Grape.Class('MenuItem', Grape.Mouse, { //TODO to sprite class
-        init: function (opts) {
-            opts = opts || {};
-            this.alpha = 0.6;
-            this.x = opts.x || 0;
-            this.y = opts.y || 0;
-        },
+    var MenuItem = window.M = Grape.Class('MenuItem', [Grape.Mouse, Grape.SpriteVisualizer], {
         'event localPress.mouseLeft': function () {
             this.action();
         },
@@ -119,46 +139,7 @@
         'event mouseOut': function () {
             this.alpha = 0.6;
         },
-        'global-event render': function (ctx) {
-            ctx.globalAlpha = this.alpha;
-            ctx.drawImage(this.sprite.img, this.x, this.y);
-            ctx.globalAlpha = 1;
-        },
         'abstract action': null,
-        'override getBounds': function () {
-            var s = this.sprite;
-            var l = this.x - s.originX;
-            var t = this.y - s.originY;
-            return {
-                left: l + s.leftBounding,
-                top: t + s.topBounding,
-                right: l + s.rightBounding,
-                bottom: t + s.bottomBounding
-            };
-        },
-        'override getLeft': function () {
-            return this.x - this.sprite.originX + this.sprite.leftBounding;
-        },
-
-        'override getTop': function () {
-            return this.y - this.sprite.originY + this.sprite.topBounding;
-        },
-
-        'override getRight': function () {
-            return this.x - this.sprite.originX + this.sprite.rightBounding;
-        },
-
-        'override getBottom': function () {
-            return this.y - this.sprite.originY + this.sprite.bottomBounding;
-        },
-
-        'override getWidth': function () {
-            return this.sprite.rightBounding - this.sprite.leftBounding;
-        },
-
-        'override getHeight': function () {
-            return this.sprite.bottomBounding - this.sprite.topBounding;
-        }
     });
 
     var NewGameButton = window.N = Grape.Class('NewGameButton', MenuItem, {
@@ -166,7 +147,7 @@
             this.sprite = menuResources.get('newgame');
         },
         action: function () {
-            Grape.startScene(new GameScene());
+            this.layer.game.startScene(new GameScene());
         },
         'global-event keyDown.mouseLeft': function () {
             this.x--;

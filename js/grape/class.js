@@ -14,6 +14,10 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
+     * collision detection
+     * rendering is a system too?
+     *
+     * static layers?
      *
      * which view is under mouse, mouse pos relative to views
      * disable views, layers

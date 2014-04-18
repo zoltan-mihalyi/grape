@@ -12,6 +12,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             this.instanceNumber = 0;
             this._layers = {};
             this._views = [];
+            this._systems = [];
         },
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
@@ -23,6 +24,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             if (!(classData = this._classes[classId])) { //instance class is not registered yet
                 this._activeClasses[classId] = this._classes[classId] = classData = {
                     id: classId,
+                    clazz: clazz,
                     instances: new List(),
                     instanceNumber: 1,
                     descendants: []
@@ -33,6 +35,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
                     if (!this._classes[parentId]) { //parent type is not registered yet
                         this._classes[parentId] = {
                             id: parentId,
+                            clazz: allParent[i],
                             instances: new List(),
                             instanceNumber: 0,
                             descendants: [classData]
@@ -59,6 +62,21 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             }
             this.instanceNumber--;
             instance.emit('remove');
+        },
+        getClasses: function (parent) {
+            var result = {}, classData = this._classes[parent.id], i, desc;
+            if (classData) {
+                if (this._activeClasses[classData.id]) {
+                    result[classData.id] = classData;
+                }
+                for (i = 0; i < classData.descendants.length; i++) {
+                    desc = classData.descendants[i];
+                    if (this._activeClasses[desc.id]) {
+                        result[desc.id] = desc;
+                    }
+                }
+            }
+            return result;
         },
         get: function (classes, descendants) {
             var i, j, it,
@@ -141,6 +159,20 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
                 Utils.removeFromArray(this._views, name);
             }
         },
+        addSystem: function (name, system) { //todo add without name
+            if (this._systems[name]) {
+                throw 'System "' + name + '" already added.';
+            }
+            system.layer = this;
+            this._systems[name] = system;
+        },
+        removeSystem: function (name) {
+            if (!this._systems[name]) {
+                throw 'System "' + name + '" does not exists.';
+            }
+            this._systems[name].layer = null;
+            delete this._systems[name];
+        },
         _stopView: function (view) {
             if (!view) {
                 throw 'view does not exists';
@@ -159,6 +191,9 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             }
             for (i in this._views) {
                 this._views[i].emit(event, payload);
+            }
+            for (i in this._systems) {
+                this._systems[i].emit(event, payload);
             }
         }
     });
