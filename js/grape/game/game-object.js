@@ -42,7 +42,12 @@ define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
                 for (event in myClass.allGlobalEvent) {
                     listeners = myClass.allGlobalEvent[event];
                     for (var j = 0; j < listeners.length; j++) {
-                        this.layer.on(event, createProxy(this,listeners[j]));
+                        (function (th, ev, proxy) {
+                            th.layer.on(ev, proxy);
+                            th.on('remove', function () {
+                                this.layer.off(ev, proxy);
+                            });
+                        })(this, event, createProxy(this, listeners[j]));
                     }
                 }
             });
@@ -64,7 +69,7 @@ define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
             });
         },
         remove: function () {
-
+            this.layer.remove(this);
         }
     });
 

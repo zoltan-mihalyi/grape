@@ -14,7 +14,8 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
-     * collision detection
+     *
+     * depth
      * rendering is a system too?
      *
      * static layers?

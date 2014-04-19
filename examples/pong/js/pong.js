@@ -62,10 +62,6 @@
                 x: 200,
                 y: 200
             }));
-        },
-        'override initViews': function () {
-            this.addView(new Grape.View({target: this, width: '50%'}));
-            this.addView(new Grape.View({target: this, width: '50%', left: '50%'}));
         }
     });
 
@@ -89,30 +85,36 @@
             }));
             this.add(new Ball({
                 x: 160,
-                y: 120
+                y: 120,
+                speedX: Math.random() < 0.5 ? 3 : -3,
+                speedY: Math.random() < 0.5 ? 3 : -3
             }));
         }
     });
 
-    var Ball = Grape.Class('Ball', [Grape.Rectangle, Grape.Collidable], {
+    var Ball = window.Ball = Grape.Class('Ball', [Grape.Rectangle, Grape.Collidable, Grape.Physical], {
+        'collision Bat': {
+            target: function () {
+                return Grape.Collidable;
+            },
+            handler: function () {
+                this.speedY *= -1;
+            },
+            descendants: true
+        },
         init: function () {
             this.width = 32;
             this.height = 32;
             this.backgroundColor = 'black';
+        },
+        'global-event frame': function () {
+            if (this.y <= 0 || this.y > 400) {
+                this.speedY *= -1;
+            }
         }
     });
 
     var Bat = Grape.Class('Bat', [Grape.Rectangle, Grape.Collidable], {
-        'static collisions': function () {
-            return [
-                {
-                    target: Ball,
-                    handler: function (other) {
-                        other.destroy();
-                    }
-                }
-            ];
-        },
         init: function (opts) {
             this.width = 20;
             this.height = 100;

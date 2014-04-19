@@ -61,15 +61,16 @@ define(['class'], function (Class) {
             }
         },
         emit: function (event, payload) { //TODO class level listeners?
-            var i, listeners = this._events[event];
+            var i, listeners = this._events[event], n;
             if (listeners) {
-                for (i = 0; i < listeners.length; i++) {
+
+                for (i = 0, n = listeners.length; i < n; i++) {
                     listeners[i].call(this, payload);
                 }
             }
             listeners = this._events.any;
             if (listeners) {
-                for (i = 0; i < listeners.length; i++) {
+                for (i = 0, n = listeners.length; i < n; i++) {
                     listeners[i].call(this, event, payload);
                 }
             }
