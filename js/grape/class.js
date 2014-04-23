@@ -17,9 +17,11 @@ define(['utils'], function (Utils) {
      *
      * depth
      * rendering is a system too?
+     * particle system
      *
      * static layers?
      *
+     * render order
      * which view is under mouse, mouse pos relative to views
      * disable views, layers
      * layer, view order

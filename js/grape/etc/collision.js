@@ -8,6 +8,9 @@ define(['class', 'etc/system'], function (Class, System) {
             classInfo.allCollision = [];
         },
         onAdd: function (classInfo, methodDescriptor) {
+            if (!classInfo.allParentId[Collidable.id]) {
+                throw 'To use "collision" keyword, inherit the Grape.Collidable class!';
+            }
             classInfo.collisions.push(methodDescriptor.method);
         },
         onFinish: function (classInfo) {
@@ -25,13 +28,13 @@ define(['class', 'etc/system'], function (Class, System) {
     });
 
     function createPartition(classData) {
-        var partition, it, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
+        var id, partition, instances, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
         partition = {
             size: classData.instanceNumber
         };
-        it = classData.instances.iterator();
-        while (it.hasNext()) {
-            instance = it.next();
+        instances = classData.instances;
+        for (id = instances.length - 1; id >= 0; id--) {
+            instance = instances[id];
             bounds = instance.getBounds();
             boundsArray = [bounds.left, bounds.right, bounds.top, bounds.bottom];
             leftCell = (boundsArray[0] / block) >> 0;

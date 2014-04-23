@@ -54,9 +54,9 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             return instance;
         },
         remove: function (instance) {
-            var clazz = instance.getClass(), classId = clazz.id, typeData = this._classes[classId], instances = this._activeClasses[classId].instances, idx=instance._index;
+            var clazz = instance.getClass(), classId = clazz.id, typeData = this._classes[classId], instances = this._activeClasses[classId].instances, idx = instance._index;
             instances.remove(idx);
-            if(instances[idx]){
+            if (instances[idx]) {
                 instances[idx]._index = idx; //update the index of the item moved to the position of the removed item
             }
             typeData.instanceNumber -= 1;
@@ -82,7 +82,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             return result;
         },
         get: function (classes, descendants) {
-            var i, j,// it,
+            var i, j, instances,
                 classData, classDataArr = [], addedClasses = {}, result = new GameObjectArray();
 
             function addIfNotAdded(cd) {
@@ -90,11 +90,10 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
                     return;
                 }
                 addedClasses[cd.id] = true;
-                GameObjectArray.prototype.splice.apply(result, [0,0].concat(cd.instances));
-//                it = cd.instances.iterator();
-//                while (it.hasNext()) {
-//                    result.push(it.next());
-//                }
+                instances = cd.instances;
+                for (i = instances.length; i-- > 0;) { //todo use this loop if possible
+                    result.push(instances[i]);
+                }
             }
 
             if (classes) {
