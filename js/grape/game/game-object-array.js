@@ -1,4 +1,4 @@
-define(['class', 'etc/array'], function (Class, Arr) {
+define(['class', 'collections/array'], function (Class, Arr) {
     var GameObjectArray = Class('GameObjectArray', Arr, {
         filter: function (callback) {
             var i = 0, max = this.length, el, filtered = new GameObjectArray();

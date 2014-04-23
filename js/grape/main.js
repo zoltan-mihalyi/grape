@@ -3,7 +3,7 @@
  * The entire Grape.js package
  */
 /*global define, require*/
-define(['class', 'etc/main', 'game/main', 'resource/main', 'utils'], function (Class, Etc, Game, Resource, Utils) {
+define(['class', 'collections/main', 'etc/main', 'game/main', 'resource/main', 'utils'], function (Class, Collections, Etc, Game, Resource, Utils) {
     //Strict mode does not work with getting global object
 
     var Grape = {};
@@ -12,8 +12,9 @@ define(['class', 'etc/main', 'game/main', 'resource/main', 'utils'], function (C
     })(), oldGrape = global.Grape;
 
     Grape.Class = Class;
-    Utils.extend(Grape, Game);
+    Utils.extend(Grape, Collections);
     Utils.extend(Grape, Etc);
+    Utils.extend(Grape, Game);
     Utils.extend(Grape, Resource);
     Grape.Utils = Utils;
     Grape.define = define; //add the inner define and require to the Grape namespace for third party plugins
