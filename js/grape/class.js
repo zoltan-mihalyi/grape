@@ -18,6 +18,14 @@ define(['utils'], function (Utils) {
      * depth
      * rendering is a system too?
      * particle system
+     * indexedbyposition
+     *        byclass
+     *        collision (and other) groups
+     *        static collision
+     * spatial partitioning in rendering
+     * deactivate instances
+     * .hitTest function
+     *
      *
      * static layers?
      *
