@@ -1,0 +1,20 @@
+<body style="margin: 0;">
+    <div id="game" style="height: 400px; width: 100%; position: absolute;"></div>
+</body>
+
+<script src="../../node_modules/grunt-contrib-requirejs/node_modules/requirejs/require.js"></script>
+<script>
+    requirejs.config({
+        baseUrl: '../../js/grape', //grape engine folder
+        paths: {
+            grape: 'main'
+        }
+    });
+    require(['grape'], function (Grape) {
+        requirejs.config({
+            baseUrl: './js'
+        });
+        require(['platformer'], function () {
+        });
+    });
+</script>

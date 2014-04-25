@@ -7,6 +7,7 @@ define(['class', 'resource/cacheable'], function (Class, Cacheable) {
             this.originX = settings.originX || 0;
             this.originY = settings.originY || 0;
             this.url = url;
+            this.subimages = settings.subimages || 1;
             //if the following parameters are not set, they are set if the image is processed.
             this.width = settings.width;
             this.height = settings.height;
@@ -32,16 +33,16 @@ define(['class', 'resource/cacheable'], function (Class, Cacheable) {
         'override process': function (img) {
             this.img = img;
             if (this.width === undefined) {
-                this.width = img.width;
+                this.width = img.width / this.subimages;
             }
             if (this.height === undefined) {
                 this.height = img.height;
             }
             if (this.rightBounding === undefined) {
-                this.rightBounding = img.width;
+                this.rightBounding = this.width;
             }
             if (this.bottomBounding === undefined) {
-                this.bottomBounding = img.height;
+                this.bottomBounding = this.height;
             }
         }
     });

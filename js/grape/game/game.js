@@ -9,7 +9,7 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             this.gameLoop = new GameLoop(this); //TODO move to a function
             this.input = new Input();
         },
-        'final start': function () {
+        'final start': function (scene) {
             if (this.gameLoop.isRunning()) {
                 throw 'already running';
             }
@@ -26,7 +26,8 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
 
             this.gameLoop.start();
             this.input.start(this._screen);
-            this.startScene(typeof this.initialScene === 'function' ? this.initialScene() : this.initialScene);
+            scene = scene || this.initialScene;
+            this.startScene(typeof scene === 'function' ? scene() : scene);
         },
         'final stop': function () {
             this.gameLoop.stop(); //todo tear down logic
@@ -45,11 +46,11 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             this.scene = scene;
             scene.emit('start', this);
         },
-        frame:function(){
+        frame: function () {
             this.scene.emit('frame');
             this.input.emitEvents(this.scene);
         },
-        render:function(){
+        render: function () {
             this.scene.emit('renderLayer');
         },
         getScreenWidth: function () {

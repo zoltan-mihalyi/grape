@@ -1,12 +1,18 @@
 define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Class, AABB, Position, GameObject) {
     return Class('SpriteVisualizer', [GameObject, Position, AABB], {
-        init: function (opts) { //TODO position class...
+        init: function (opts) {
             opts = opts || {};
-            this.alpha = 0.6;
+            if (opts.alpha === undefined) {
+                this.alpha = 1;
+            } else {
+                this.alpha = opts.alpha;
+            }
+            this.subimage = opts.subimage || 0;
         },
         'global-event render': function (ctx) {
+            var sprite = this.sprite;
             ctx.globalAlpha = this.alpha;
-            ctx.drawImage(this.sprite.img, this.x, this.y);
+            ctx.drawImage(sprite.img, sprite.width * (Math.round(this.subimage) % sprite.subimages), 0, sprite.width, sprite.height, this.x, this.y, sprite.width, sprite.height);
             ctx.globalAlpha = 1;
         },
         'override getBounds': function () {

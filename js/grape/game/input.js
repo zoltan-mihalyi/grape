@@ -86,7 +86,7 @@ define(['class', 'utils'], function (Class, Utils) {
             }
             return key === "none";
         }
-        return keySet[rkeys[key]] === true;
+        return keySet[REVERSED_KEYS[key]] === true;
     }
 
     function dispatchKeys(target, keys, prefix) {
