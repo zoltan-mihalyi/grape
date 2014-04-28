@@ -6,19 +6,17 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             this.width = 400;
             this.height = 300;
 
-            this._classes = {};
+            this._tags = {};
+
+            this._classes = {}; //TODO needed?
             this._activeClasses = {};
 
             this.instanceNumber = 0;
             this._layers = {};
             this._views = [];
             this._systems = [];
-<<<<<<< HEAD
 
             this._parentLayer = null;
-=======
-            this._tags={};
->>>>>>> 189caaeba8a86749deaaf39987a2811cd6c16e09
         },
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
@@ -73,16 +71,16 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             this.instanceNumber--;
             instance.emit('remove');
         },
-        getByTag:function(tags){
-            var i,j,  name, instances, result=new GameObjectArray();
-            if(!Utils.isArray(tags)){
-                tags=[tags];
+        getByTag: function (tags) {
+            var i, j, name, instances, result = new GameObjectArray();
+            if (!Utils.isArray(tags)) {
+                tags = [tags];
             }
-            for(i=0;i<tags.length;i++){ //todo optimize
-                name=tags[i];
-                instances=this._tags[name];
-                if(instances){
-                    for(j=0;j<instances.length;j++){ //todo optimize
+            for (i = 0; i < tags.length; i++) { //todo optimize
+                name = tags[i];
+                instances = this._tags[name];
+                if (instances) {
+                    for (j = 0; j < instances.length; j++) { //todo optimize
                         result.push(instances[j]); //TODO distinct
                     }
                 }
@@ -208,13 +206,13 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
                 view.emit('stop');
             }
         },
-        getScene:function(){
-            if(this._parentLayer){
+        getScene: function () {
+            if (this._parentLayer) {
                 return this._parentLayer.getScene();
             }
             return this;
         },
-        getGame:function(){
+        getGame: function () {
             return this.getScene().game;
         },
         'event start': function () {

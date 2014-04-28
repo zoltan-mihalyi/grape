@@ -1,4 +1,4 @@
-define(['class','collections/bag', 'etc/event-emitter'], function (Class, Bag, EventEmitter) {
+define(['class', 'collections/bag', 'etc/event-emitter'], function (Class, Bag, EventEmitter) {
     var GameObject;
     Class.registerKeyword('global-event', {
         onInit: function (classInfo) {
@@ -37,7 +37,7 @@ define(['class','collections/bag', 'etc/event-emitter'], function (Class, Bag, E
 
     GameObject = Class('GameObject', EventEmitter, {
         init: function () {
-            this._tags={};
+            this._tags = {};
             this.on('add', function () {//TODO optimize
                 var myClass = this.getClass(), event, listeners;
                 for (event in myClass.allGlobalEvent) {
@@ -53,20 +53,20 @@ define(['class','collections/bag', 'etc/event-emitter'], function (Class, Bag, E
                 }
             });
         },
-        addTag:function(name){ //todo check
-            var layer=this.layer, tags=layer._tags;
-            if(!tags[name]){
-                tags[name]=new Bag();
+        addTag: function (name) { //todo check
+            var layer = this.layer, tags = layer._tags;
+            if (!tags[name]) {
+                tags[name] = new Bag();
             }
-            this._tags[name] = tags[name].add(this); //store the index for removal purpose
+            this._tags[name] = tags[name].add(this) - 1; //store the index for removal purpose
         },
-        hasTag:function(name){
+        hasTag: function (name) {
             return this._tags[name] !== undefined;
         },
-        removeTag:function(name){ //todo check
-            var idx=this._tags[name], moved=this.layer._tags[name].remove(idx);
-            if(moved){
-                moved._tags[name]=idx;
+        removeTag: function (name) { //todo check
+            var idx = this._tags[name], moved = this.layer._tags[name].remove(idx);
+            if (moved) {
+                moved._tags[name] = idx;
             }
             delete this._tags[name];
         },
@@ -89,23 +89,21 @@ define(['class','collections/bag', 'etc/event-emitter'], function (Class, Bag, E
         'final remove': function () {
             this.layer.remove(this);
         },
-<<<<<<< HEAD
         getGame: function () {
             return this.layer.getGame();
         },
         getScene: function () {
             return this.layer.getScene();
-=======
-        'event remove':function(){
+        },
+        'event remove': function () {
             var idx, name, moved;
-            for(name in this._tags){
-                idx=this._tags[name];
-                moved=this.layer._tags[name].remove(idx);
-                if(moved){
-                    moved._tags[name]=idx;
+            for (name in this._tags) {
+                idx = this._tags[name];
+                moved = this.layer._tags[name].remove(idx);
+                if (moved) {
+                    moved._tags[name] = idx;
                 }
             }
->>>>>>> 189caaeba8a86749deaaf39987a2811cd6c16e09
         }
     });
 
