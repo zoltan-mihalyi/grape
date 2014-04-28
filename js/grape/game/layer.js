@@ -13,6 +13,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             this._layers = {};
             this._views = [];
             this._systems = [];
+            this._tags={};
         },
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
@@ -54,10 +55,9 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             return instance;
         },
         remove: function (instance) {
-            var clazz = instance.getClass(), classId = clazz.id, typeData = this._classes[classId], instances = this._activeClasses[classId].instances, idx = instance._index;
-            instances.remove(idx);
-            if (instances[idx]) {
-                instances[idx]._index = idx; //update the index of the item moved to the position of the removed item
+            var clazz = instance.getClass(), classId = clazz.id, typeData = this._classes[classId], instances = this._activeClasses[classId].instances, idx = instance._index, moved = instances.remove(idx);
+            if (moved) {
+                moved._index = idx; //update the index of the item moved to the position of the removed item
             }
             typeData.instanceNumber -= 1;
             if (typeData.instanceNumber === 0) {
@@ -65,6 +65,22 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             }
             this.instanceNumber--;
             instance.emit('remove');
+        },
+        getByTag:function(tags){
+            var i,j,  name, instances, result=new GameObjectArray();
+            if(!Utils.isArray(tags)){
+                tags=[tags];
+            }
+            for(i=0;i<tags.length;i++){ //todo optimize
+                name=tags[i];
+                instances=this._tags[name];
+                if(instances){
+                    for(j=0;j<instances.length;j++){ //todo optimize
+                        result.push(instances[j]); //TODO distinct
+                    }
+                }
+            }
+            return result;
         },
         getClasses: function (parent) {
             var result = {}, classData = this._classes[parent.id], i, desc;
