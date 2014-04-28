@@ -1,4 +1,4 @@
-define(['class', 'etc/system'], function (Class, System) {
+define(['class', 'etc/system', 'game/game-object'], function (Class, System, GameObject) {
 
     var block = 64;
 
@@ -163,14 +163,17 @@ define(['class', 'etc/system'], function (Class, System) {
         }
     });
     var nextId = 0;
-    var Collidable = Class('Collidable', {
+    var Collidable = Class('Collidable',GameObject, {
         init: function () {
             this.collisionId = nextId++;
+        },
+        'event add':function(){
+            this.addTag('collidable');
         }
     });
 
     return {
         Collidable: Collidable,
         CollisionSystem: CollisionSystem
-    }
+    };
 });

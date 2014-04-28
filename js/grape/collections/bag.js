@@ -5,7 +5,7 @@ define(['class', 'collections/array'], function(Class, Arr) {
             if(index === this.length-1){
                 this.pop();
             }else{
-                this[index] = this.pop();
+                return this[index] = this.pop();
             }
         }
     });
