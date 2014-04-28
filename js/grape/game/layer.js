@@ -13,13 +13,17 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             this._layers = {};
             this._views = [];
             this._systems = [];
+
+            this._parentLayer = null;
         },
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
             if (!clazz.allParentId[GameObjectId]) { //TODO remove if no check
-                throw 'The instance must be a descendant of Grape.GameObject.';
+                throw 'The instance must be a descendant of Grape.GameObject.'; //TODO .is() function
             }
             instance.layer = this;
+
+            this.emit('instanceAdded', instance);
 
             if (!(classData = this._classes[classId])) { //instance class is not registered yet
                 this._activeClasses[classId] = this._classes[classId] = classData = {
@@ -128,6 +132,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
                 throw 'Layer "' + name + '" already added.';
             }
             this._layers[name] = layer;
+            layer._parentLayer = this;
         },
         removeLayer: function (name) {
             if (!this._layers[name]) {
@@ -183,6 +188,15 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             if (this._started) {
                 view.emit('stop');
             }
+        },
+        getScene:function(){
+            if(this._parentLayer){
+                return this._parentLayer.getScene();
+            }
+            return this;
+        },
+        getGame:function(){
+            return this.getScene().game;
         },
         'event start': function () {
             this._started = true;

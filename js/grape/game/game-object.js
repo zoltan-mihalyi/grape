@@ -70,6 +70,12 @@ define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
         },
         remove: function () {
             this.layer.remove(this);
+        },
+        getGame: function () {
+            return this.layer.getGame();
+        },
+        getScene: function () {
+            return this.layer.getScene();
         }
     });
 

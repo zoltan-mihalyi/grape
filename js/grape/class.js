@@ -26,7 +26,6 @@ define(['utils'], function (Utils) {
      * deactivate instances
      * .hitTest function
      *
-     *
      * static layers?
      *
      * render order

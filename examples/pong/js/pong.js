@@ -98,7 +98,7 @@
                 return Grape.Collidable;
             },
             handler: function () {
-                this.speedY *= -1;
+                this.speedX *= -1;
             },
             descendants: true
         },
@@ -141,7 +141,7 @@
         'event mouseOut': function () {
             this.alpha = 0.6;
         },
-        'abstract action': null,
+        'abstract action': null
     });
 
     var NewGameButton = window.N = Grape.Class('NewGameButton', MenuItem, {
