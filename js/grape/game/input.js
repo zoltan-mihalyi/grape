@@ -108,6 +108,9 @@ define(['class', 'utils'], function (Class, Utils) {
     });
 
     return Class('Input', {
+        'static setReservedKeys':function(/*key1, key2*/){
+            //TODO reservedKeys=arguments;
+        },
         init: function () {
             this.downKeys = {};
             this.pressedKeys = {};

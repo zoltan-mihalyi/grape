@@ -138,7 +138,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
                             }
                             box1 = inst1[1];
                             box2 = inst2[1];
-                            if (box1[1] >= box2[0] && box2[1] >= box1[0] && box1[3] >= box2[2] && box2[3] >= box1[2]) { //intersect
+                            if (box1[1] > box2[0] && box2[1] > box1[0] && box1[3] > box2[2] && box2[3] > box1[2]) { //intersect
                                 handler.call(inst1[0], inst2[0]);
                                 emitted[key] = true;
                             }

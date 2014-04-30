@@ -34,6 +34,7 @@ define(['class', 'resource/resource', 'resource/sprite'], function (Class, Resou
                 hasError = false,
                 remaining = this.resources.length;
             onFinish = onFinish || empty;
+            onError = onError || empty;
             onProgress = onProgress || empty;
 
             for (i = 0; i < this.resources.length; i++) {
@@ -96,6 +97,19 @@ define(['class', 'resource/resource', 'resource/sprite'], function (Class, Resou
             var spr = new Sprite(url, settings);
             this.add(name, spr);
             return spr;
+        },
+        tile: function (url, width, height, sprites) {
+            var i, coords;
+            for (i in sprites) {
+                coords = sprites[i];
+                this.sprite(i, url, {
+                    subimages: coords.length == 2 ? 1 : coords[2],
+                    left: coords[0] * width,
+                    top: coords[1] * height,
+                    width: width,
+                    height: height
+                });
+            }
         },
         audio: function (name, url, settings) { //TODO
             var spr = new Sprite(url, settings);

@@ -2,6 +2,8 @@ define(['class', 'resource/cacheable'], function (Class, Cacheable) {
     return Class('Sprite', Cacheable, {
         init: function (url, settings) {
             settings = settings || {};
+            this.left = settings.left || 0;
+            this.top = settings.top || 0;
             this.leftBounding = settings.leftBounding || 0;
             this.topBounding = settings.topBounding || 0;
             this.originX = settings.originX || 0;

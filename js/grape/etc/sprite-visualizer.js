@@ -11,8 +11,16 @@ define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Clas
         },
         'global-event render': function (ctx) {
             var sprite = this.sprite;
-            ctx.globalAlpha = this.alpha;
-            ctx.drawImage(sprite.img, sprite.width * (Math.round(this.subimage) % sprite.subimages), 0, sprite.width, sprite.height, this.x, this.y, sprite.width, sprite.height);
+            if (sprite && sprite.img) {
+                ctx.globalAlpha = this.alpha;
+                ctx.drawImage(sprite.img, sprite.left + sprite.width * (Math.round(this.subimage) % sprite.subimages), sprite.top, sprite.width, sprite.height, this.x, this.y, sprite.width, sprite.height);
+            } else {
+                ctx.fillStyle = 'black';
+                ctx.fillRect(this.x, this.y, sprite.width, sprite.height);
+                ctx.fillStyle = 'white';
+                ctx.font = '20px Arial';
+                ctx.fillText('?', this.x + 11, this.y + 24)
+            }
             ctx.globalAlpha = 1;
         },
         'override getBounds': function () {
