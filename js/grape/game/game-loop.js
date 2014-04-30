@@ -24,7 +24,6 @@ define(['class'], function (Class) {
                     game.frame();
                     if (now() - lastRenderStart > 16 + 1000 / game.scene.fps) { //can't keep up
                         backlog = 0;
-                        console.log('c');
                     }
                 }
                 if (wasFrame) {

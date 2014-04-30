@@ -34,7 +34,6 @@
                 alert('error while loading game');
             }, function (percent) {
                 that.progress = percent;
-                console.log(percent);
             });
         },
         'event render': function (ctx) {

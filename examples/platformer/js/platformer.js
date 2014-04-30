@@ -39,6 +39,9 @@ define(['grape'], function (Grape) {
     var Wall = Grape.Class('Wall', [Grape.Collidable, Grape.SpriteVisualizer], {
         init: function () {
             this.sprite = res.get('wall');
+        },
+        'event add':function(){
+            this.addTag('Solid');
         }
     });
 
@@ -50,19 +53,13 @@ define(['grape'], function (Grape) {
             this.speedY += 0.3;
             this.subimage = this.subimage % this.sprite.subimages;
         },
-        'collision Wall': {
-            target: function () {
-                return Wall;
-            },
-            descendants: true,
-            handler: function (wall) {
-                if (wall.y > this.y) {
-                    this.y = wall.y - this.getHeight();
-                }
-                this.speedY = 0;
-                if (this.layer.game.input.isPressed('up')) {
-                    this.speedY = -6;
-                }
+        'collision Solid':  function (solid) {
+            if (solid.y > this.y) {
+                this.y = solid.y - this.getHeight();
+            }
+            this.speedY = 0;
+            if (this.layer.game.input.isPressed('up')) {
+                this.speedY = -6;
             }
         },
         'global-event keyDown': {
