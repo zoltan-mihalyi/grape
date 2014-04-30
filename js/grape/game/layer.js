@@ -71,13 +71,10 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             this.instanceNumber--;
             instance.emit('remove');
         },
-        getByTag: function (tags) {
+        getByTag: function (/*tag1, tag2...*/) {
             var i, j, name, instances, result = new GameObjectArray();
-            if (!Utils.isArray(tags)) {
-                tags = [tags];
-            }
-            for (i = 0; i < tags.length; i++) { //todo optimize
-                name = tags[i];
+            for (i = 0; i < arguments.length; i++) { //todo optimize
+                name = arguments[i];
                 instances = this._tags[name];
                 if (instances) {
                     for (j = 0; j < instances.length; j++) { //todo optimize

@@ -93,14 +93,8 @@
     });
 
     var Ball = window.Ball = Grape.Class('Ball', [Grape.Rectangle, Grape.Collidable, Grape.Physical], {
-        'collision Bat': {
-            target: function () {
-                return Grape.Collidable;
-            },
-            handler: function () {
-                this.speedX *= -1;
-            },
-            descendants: true
+        'collision Bat': function () {
+            this.speedX *= -1;
         },
         init: function () {
             this.width = 32;
@@ -128,6 +122,9 @@
                     this.y += 10;
                 }
             });
+        },
+        'event add':function(){
+            this.addTag('Bat');
         }
     });
 

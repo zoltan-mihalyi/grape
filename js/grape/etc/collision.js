@@ -4,35 +4,54 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
 
     Class.registerKeyword('collision', {
         onInit: function (classInfo) {
-            classInfo.collisions = [];
-            classInfo.allCollision = [];
+            classInfo.collisions = {};
+            classInfo.allCollision = {};
         },
         onAdd: function (classInfo, methodDescriptor) {
             if (!classInfo.allParentId[Collidable.id]) {
                 throw 'To use "collision" keyword, inherit the Grape.Collidable class!';
             }
-            classInfo.collisions.push(methodDescriptor.method);
+            classInfo.collisions[methodDescriptor.name] = methodDescriptor.method;
         },
         onFinish: function (classInfo) {
-
-            var parents = classInfo.allParent, i, parent, colls = [];
-            for (i = 0; i < parents.length; i++) {
-                parent = parents[i];
+            var parents = classInfo.allParent, colls = classInfo.allCollision, parentsAndMe = parents.concat(classInfo),
+                i, j, parent;
+            for (i = 0; i < parentsAndMe.length; i++) {
+                parent = parentsAndMe[i];
                 if (parent.collisions) {
-                    colls = colls.concat(parent.collisions);
+                    for (j in parent.collisions) {
+                        if (colls[j]) {
+                            colls[j].push(parent.collisions[j]);
+                        } else {
+                            colls[j] = [parent.collisions[j]];
+                        }
+                    }
                 }
             }
-            colls = colls.concat((classInfo.collisions));
-            classInfo.allCollision = colls;
+            for (i in colls) {
+                if (colls[i].length === 1) { //one handler for the collision
+                    colls[i] = colls[i][0];
+                } else {
+                    colls[i] = createF(colls[i]);
+                }
+            }
         }
     });
 
-    function createPartition(classData) {
-        var id, partition, instances, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
+    function createF(fns) { //todo optimize, better name
+        var i;
+        return function () {
+            for (i = 0; i < fns.length; i++) {
+                fns[i].apply(this, arguments);
+            }
+        }
+    }
+
+    function createPartition(instances) {
+        var id, partition, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
         partition = {
-            size: classData.instanceNumber
+            size: instances.length
         };
-        instances = classData.instances;
         for (id = instances.length - 1; id >= 0; id--) {
             instance = instances[id];
             bounds = instance.getBounds();
@@ -58,71 +77,38 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
 
     var CollisionSystem = Class('CollisionSystem', System, {
         'event frame': function () {
-            var partitions = {}, classes = this.layer.getClasses(Collidable), list = [];
-            var i, j, k, l, coll, colls, target, targetId, descendants, hasRealTarget, item, part1, part2, handler, invert, smaller, bigger, emitted, cell1, cell2, inst1, inst2, key, box1, box2;
-
-            for (i in classes) {
-                colls = classes[i].clazz.allCollision;
+            //collision is defined between classes and tags TODO: what can we optimize this way? self collision?
+            var classes = this.layer.getClasses(Collidable),
+                partitionsByTag = {},
+                partitionsByClass = {},
+                list = [],
+                classId, tagName, colls, instances, hasRealTarget, i, j, k, l, item, emitted, part1, part2, handler, invert, bigger, smaller, cell1, cell2, inst1, inst2, key, box1, box2;
+            for (classId in classes) {
+                colls = classes[classId].clazz.allCollision;
                 hasRealTarget = false;
-                for (j = 0; j < colls.length; j++) { //TODO melyek azok a classok, amelyek érdekesek, és a pályán vannak? ennek nagy a költsége
-                    coll = colls[j];
-                    targetId = (target = coll.target()).id;
-                    if (coll.descendants) { //we need descendants
-                        descendants = this.layer.getClasses(target);
-                        for (k in descendants) {
-                            if (!partitions[k]) {
-                                partitions[k] = createPartition(descendants[k]);
-                            }
+                for (tagName in colls) {
+                    if (!partitionsByTag[tagName]) {
+                        instances = this.layer._tags[tagName];
+                        if (instances && instances.length !== 0) {
+                            partitionsByTag[tagName] = createPartition(instances);
                             hasRealTarget = true;
-                            list.push([classes[i], classes[k], coll.handler]);
+                            list.push([classId, tagName, colls[tagName]]);
                         }
-                    } else if (classes[targetId]) { //no descendants, and class is active at the scene
-                        if (!partitions[targetId]) {
-                            partitions[targetId] = createPartition(classes[targetId]);
-                        }
+                    } else {
                         hasRealTarget = true;
-                        list.push([classes[i], classes[targetId], coll.handler]);
                     }
                 }
-                if (hasRealTarget && !partitions[i]) {
-                    partitions[i] = createPartition(classes[i]);
+                if (hasRealTarget && !partitionsByClass[classId]) {
+                    partitionsByClass[classId] = createPartition(classes[classId].instances);
                 }
             }
-            //check partitions against each other
+
             for (i = 0; i < list.length; i++) {
                 item = list[i];
                 emitted = {};
-                part1 = partitions[item[0].id];
-                part2 = partitions[item[1].id];
+                part1 = partitionsByClass[item[0]];
+                part2 = partitionsByTag[item[1]];
                 handler = item[2];
-
-                if (part1 === part2) {//better self-merge-algorithm
-                    for (j in part1) {
-                        if (j === 'size') {
-                            continue;
-                        }
-                        cell1 = part1[j];
-                        for (k = cell1.length - 1; k >= 0; --k) {
-                            inst1 = cell1[k];
-                            for (l = k - 1; l >= 0; --l) {
-                                inst2 = cell1[l];
-
-                                key = inst1[0].collisionId + '-' + inst2[0].collisionId;
-                                if (emitted[key]) {
-                                    continue;
-                                }
-                                box1 = inst1[1];
-                                box2 = inst2[1];
-                                if (box1[1] >= box2[0] && box2[1] >= box1[0] && box1[3] >= box2[2] && box2[3] >= box1[2]) { //intersect
-                                    handler.call(inst1[0], inst2[0]);
-                                    emitted[key] = true;
-                                }
-                            }
-                        }
-                    }
-
-                    continue;
-                }
 
                 if (invert = part1.size > part2.size) {
                     bigger = part1;
@@ -139,7 +125,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
 
                     cell1 = invert ? bigger[j] : smaller[j];
                     cell2 = invert ? smaller[j] : bigger[j];
-                    for (k = cell1.length - 1; k >= 0; --k) { //todo optimize code
+                    for (k = cell1.length - 1; k >= 0; --k) {
                         inst1 = cell1[k];
                         for (l = cell2.length - 1; l >= 0; --l) {
                             inst2 = cell2[l];
@@ -162,13 +148,11 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
             }
         }
     });
+
     var nextId = 0;
-    var Collidable = Class('Collidable',GameObject, {
+    var Collidable = Class('Collidable', GameObject, {
         init: function () {
             this.collisionId = nextId++;
-        },
-        'event add':function(){
-            this.addTag('collidable');
         }
     });
 

@@ -7,7 +7,7 @@ define(['class', 'game/layer', 'game/view', 'utils'], function (Class, Layer, Vi
             this.initViews();
         },
         initViews: function () {
-            this.addView(new View()); //todo override
+            this.addView(new View());
         }
     });
 });
