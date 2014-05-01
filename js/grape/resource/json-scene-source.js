@@ -29,6 +29,12 @@ define(['class', 'game/scene', 'resource/cacheable', 'utils'], function (Class, 
             w = this.data.cellWidth || 1;
             h = this.data.cellHeight || 1;
 
+            if (this.data.attributes) {
+                for (i in this.data.attributes) {
+                    scene[i] = this.data.attributes[i];
+                }
+            }
+
             if (this.data.matrix) {
                 for (i = 0; i < this.data.matrix.length; i++) {
                     row = this.data.matrix[i];

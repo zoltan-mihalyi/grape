@@ -10,17 +10,17 @@ define(['grape'], function (Grape) {
     res.sprite('dot', 'images/dot.png');
 
     var typeMapping = {
-        0:null
+        0: null
     };
 
     var GameScene = Grape.Class('GameScene', [Grape.Scene], {
         init: function () {
             this.addSystem('collision', new Grape.CollisionSystem());
-            this.points = 0;
+            this.score = 0;
         }
     });
 
-    res.scene('level1', 'scene/level1.json', {typeMapping:typeMapping, type: GameScene});
+    res.scene('level1', 'scene/level1.json', {typeMapping: typeMapping, type: GameScene});
 
 
     var Pickupable = Grape.Class('Pickupable', Grape.GameObject, {
@@ -35,7 +35,7 @@ define(['grape'], function (Grape) {
             this.sprite = res.get('dot');
         },
         'override pickUp': function () {
-            this.getScene().points++;
+            this.getScene().score++;
         }
     });
 
