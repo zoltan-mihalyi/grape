@@ -1,4 +1,4 @@
-define(['class', 'resource/resource', 'resource/sprite'], function (Class, Resource, Sprite) {
+define(['class', 'resource/json-scene-source', 'resource/resource', 'resource/sprite'], function (Class, JSONSceneSource, Resource, Sprite) {
     function empty() {
     }
 
@@ -115,6 +115,11 @@ define(['class', 'resource/resource', 'resource/sprite'], function (Class, Resou
             var spr = new Sprite(url, settings);
             this.add(name, spr);
             return spr;
+        },
+        scene: function (name, url, settings) {
+            var scn = new JSONSceneSource(url, settings);
+            this.add(name, scn);
+            return scn;
         }
     });
 });

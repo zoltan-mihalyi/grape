@@ -19,9 +19,7 @@ define(['class', 'resource/cacheable'], function (Class, Cacheable) {
         'override loadResource': function (onFinish, onError) {
             var img = document.createElement('img');
             img.onload = function () {
-                setTimeout(function () {
-                    onFinish(img);
-                }, Math.random() * 500);
+                onFinish(img);
             };
             img.onerror = function () {
                 onError();

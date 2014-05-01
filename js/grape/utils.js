@@ -53,6 +53,20 @@ define([], function () {
             return array.indexOf(element) !== -1;
             //TODO IE8 fallback
         },
+        ajax: function (url, onSuccess, onError) { //TODO browser compatibility
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                onSuccess(xhr.responseText);
+            }
+            xhr.onerror = function () {
+                onError();
+            }
+            xhr.open('get', url);
+            xhr.send();
+        },
+        parseJSON: function (str) {
+            return JSON.parse(str); //TODO fallback
+        },
         addEventListener: addEventListener,
         removeEventListener: removeEventListener,
         domContains: domContains //TODO DOM namespace

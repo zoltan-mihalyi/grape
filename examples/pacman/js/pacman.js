@@ -7,24 +7,39 @@ define(['grape'], function (Grape) {
         pacman_down: [0, 2, 4]
     });
     res.sprite('wall', 'images/wall.png');
+    res.sprite('dot', 'images/dot.png');
+
+    var typeMapping = {
+        0:null
+    };
 
     var GameScene = Grape.Class('GameScene', [Grape.Scene], {
         init: function () {
-            var i, j;
-            for (i = 0; i < 20; i++) {
-                for (j = 0; j < 20; j++) {
-                    if (j == 0 || i == 0 || i == 19 || j == 19) {
-                        this.add(new Wall({x: i * 32, y: j * 32}));
-                    }
-                }
-            }
-
-            this.add(new Player({x: 64, y: 64}));
             this.addSystem('collision', new Grape.CollisionSystem());
+            this.points = 0;
         }
     });
 
-    var Player = Grape.Class('Player', [Grape.Collidable, Grape.SpriteVisualizer, Grape.Animation, Grape.Physical], {
+    res.scene('level1', 'scene/level1.json', {typeMapping:typeMapping, type: GameScene});
+
+
+    var Pickupable = Grape.Class('Pickupable', Grape.GameObject, {
+        'event add': function () {
+            this.addTag('PICKUPABLE');
+        },
+        'abstract pickUp': null
+    });
+
+    var Dot = typeMapping[3] = Grape.Class('Dot', Pickupable, {
+        init: function () {
+            this.sprite = res.get('dot');
+        },
+        'override pickUp': function () {
+            this.getScene().points++;
+        }
+    });
+
+    var Player = typeMapping[2] = Grape.Class('Player', [Grape.Collidable, Grape.SpriteVisualizer, Grape.Animation, Grape.Physical], {
         init: function () {
             this.sprite = res.get('pacman_right');
         },
@@ -32,6 +47,10 @@ define(['grape'], function (Grape) {
             this.x -= this.speedX;
             this.y -= this.speedY;
             this.speedX = this.speedY = 0;
+        },
+        'collision PICKUPABLE': function (pickupable) {
+            pickupable.pickUp();
+            pickupable.remove();
         },
         'global-event frame': function () {
             this.imageSpeed = 0.5;
@@ -67,7 +86,7 @@ define(['grape'], function (Grape) {
         }
     });
 
-    var Wall = Grape.Class('Wall', [Grape.Collidable, Grape.SpriteVisualizer], {
+    var Wall = typeMapping[1] = Grape.Class('Wall', [Grape.Collidable, Grape.SpriteVisualizer], {
         init: function () {
             this.sprite = res.get('wall');
         },
@@ -80,6 +99,6 @@ define(['grape'], function (Grape) {
 
     var Pacman = window.Pacman = new Grape.Game();
     res.load(function () {
-        Pacman.start(new GameScene());
+        Pacman.start(res.get('level1').create());
     });
 });
