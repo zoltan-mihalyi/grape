@@ -130,6 +130,9 @@
     });
 
     var MenuItem = window.M = Grape.Class('MenuItem', [Grape.Mouse, Grape.SpriteVisualizer], {
+        init: function () {
+            this.alpha = 0.6;
+        },
         'event localPress.mouseLeft': function () {
             this.action();
         },
@@ -148,15 +151,6 @@
         },
         action: function () {
             this.getGame().startScene(new GameScene());
-        },
-        'global-event keyDown.mouseLeft': function () {
-            this.x--;
-        },
-        'global-event keyDown.mouseRight': function () {
-            this.x++;
-        },
-        'global-event mouseMove': function (e) {
-            this.x += e.x - e.prevX;
         }
     });
 

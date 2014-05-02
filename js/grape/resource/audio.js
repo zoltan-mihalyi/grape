@@ -1,5 +1,6 @@
 define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Utils) {
     /*global Audio, AudioBuffer, Media*/
+    //TODO partial preload for large files
     var defaultPlayOpts = {
         volume: 100
     };
@@ -41,7 +42,6 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
                 opts = {};
             }
 
-            this.preloadAll = opts.preloadAll || false;
 
             urls = [url1, url2, url3];
             for (i = 0; i < urls.length; ++i) {
@@ -57,30 +57,36 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
             this.url = url;
         },
         'override loadResource': function (onFinish, onError) { //TODO preload phonegap audio
-            var a;
-            if (this.preloadAll && location.protocol !== 'file:') {
-                Utils.ajax(this.url, function (response) {
-                    if (context) {
+            if (location.protocol !== 'file:' && typeof Blob === 'function') {
+                Utils.ajax(this.url, {responseType: 'arraybuffer'}, function (response) {
+                    if (context && false) {
                         context.decodeAudioData(response, function (buffer) {
                             onFinish(buffer);
                         });
                     } else {
-                        onFinish(response);
+                        //TODO test
+                        var blob = new Blob([response], {type: 'audio'});
+                        onFinish({
+                            url: URL.createObjectURL(blob),
+                            blob: blob
+                        });
                     }
                 }, function () {
                     onError();
                 });
-            } else if (typeof Audio === 'function') {
-                a = new Audio();
-                a.addEventListener('canplaythrough', function () {
-                    onFinish(a);
-                }, false);
-                a.addEventListener('error', function () {
-                    onError();
-                }, false);
-                a.src = this.url;
             } else {
-                onFinish(null);
+                //TODO IE9 loads a sound multiple times
+                var a = new Audio();
+                a.src = this.url;
+                a.addEventListener('canplaythrough', function () {
+                    var arr = [];
+                    arr.next = 0;
+                    for (var i = 0; i < 8; ++i) {
+                        arr[i] = a.cloneNode(false);
+                    }
+                    onFinish(arr);
+                }, false);
+                a.load();
             }
         },
         'override getResourceKey': function () {
@@ -97,14 +103,20 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
             opts = opts || defaultPlayOpts; //TODO use
 
             //TODO separate to classes instead of instanceof
-            if (typeof Audio === 'function' && this.buffer instanceof Audio) { //loading created an audio object
-                snd = new Audio(this.url);
+            if (typeof this.buffer === 'object' && this.buffer.url) { //loading created a blob url
+                snd = new Audio(this.buffer.url);
                 snd.play();
             } else if (context && this.buffer instanceof AudioBuffer) {//webAudio
                 src = context.createBufferSource();
                 src.buffer = this.buffer;
                 src.connect(context.destination);
                 src.noteOn(0);
+            } else if (typeof Audio === 'function' && this.buffer instanceof Array) { //IE9
+                snd = this.buffer[this.buffer.next++];
+                if (this.buffer.next === this.buffer.length) {
+                    this.buffer.next = 0;
+                }
+                snd.play();
             } else if (typeof Media !== 'undefined') { //phoneGap
                 src = getPhoneGapPath() + this.url;
                 snd = new Media(src, function () {

@@ -55,15 +55,30 @@ define([], function () {
             return array.indexOf(element) !== -1;
             //TODO IE8 fallback
         },
-        ajax: function (url, onSuccess, onError) { //TODO browser compatibility
+        ajax: function (url, opts, onSuccess, onError) { //TODO browser compatibility
+            if (typeof opts === 'function') { //no opts given
+                onError = onSuccess;
+                onSuccess = opts;
+                opts = {};
+            }
             var xhr = new XMLHttpRequest();
+
             xhr.onload = function () {
-                onSuccess(xhr.responseText);
+                if ((xhr.responseType === 'blob' || xhr.responseType === 'arraybuffer') && xhr.response !== undefined) {
+                    onSuccess(xhr.response);
+                } else {
+                    onSuccess(xhr.responseText);
+                }
             }
             xhr.onerror = function () {
                 onError();
             }
-            xhr.open('get', url);
+            xhr.open('get', url, opts.async === undefined ? true : opts.async);
+
+            if (opts.responseType) {
+                xhr.responseType = opts.responseType;
+            }
+
             xhr.send();
         },
         parseJSON: function (str) {
