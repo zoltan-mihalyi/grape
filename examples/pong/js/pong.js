@@ -5,7 +5,7 @@
     commonResources.sprite('menubg1', 'img/menubg.png');
     commonResources.sprite('menubg2', 'img/menubg.png');
     commonResources.sprite('menubg3', 'img/menubg.png');
-    //commonResources.audio('asd', 'asd.wav');
+    commonResources.audio('bounce', 'audio/bounce.mp3', 'audio/bounce.ogg', 'audio/bounce.mp3');
     var menuResources = new Grape.ResourceCollection();
     menuResources.add(commonResources);
     menuResources.sprite('menubg', 'img/menubg.png');
@@ -94,6 +94,7 @@
     var Ball = window.Ball = Grape.Class('Ball', [Grape.Rectangle, Grape.Collidable, Grape.Physical], {
         'collision Bat': function () {
             this.speedX *= -1;
+            commonResources.get('bounce').play();
         },
         init: function () {
             this.width = 32;
@@ -103,6 +104,7 @@
         'global-event frame': function () {
             if (this.y <= 0 || this.y > 400) {
                 this.speedY *= -1;
+                commonResources.get('bounce').play();
             }
         }
     });
