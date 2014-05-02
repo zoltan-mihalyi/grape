@@ -23,7 +23,8 @@ define(['grape'], function (Grape) {
     res.scene('level1', 'scene/level1.json', {typeMapping: typeMapping, type: GameScene});
 
 
-    var Pickupable = Grape.Class('Pickupable', Grape.GameObject, {
+    var Pickupable = Grape.Class('Pickupable', [Grape.Collidable, Grape.SpriteVisualizer], {
+        sprite:res.get('dot'),
         'event add': function () {
             this.addTag('PICKUPABLE');
         },
