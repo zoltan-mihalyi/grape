@@ -1,7 +1,5 @@
 define(['class', 'etc/system', 'game/game-object'], function (Class, System, GameObject) {
 
-    var block = 64;
-
     Class.registerKeyword('collision', {
         onInit: function (classInfo) {
             classInfo.collisions = {};
@@ -47,19 +45,20 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
         }
     }
 
-    function createPartition(instances) {
-        var id, partition, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
-        partition = {
-            size: instances.length
-        };
+    function createPartition(instances, blockSize) {
+        var partition = {
+                size: instances.length
+            },
+            id, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
+
         for (id = instances.length - 1; id >= 0; id--) {
             instance = instances[id];
             bounds = instance.getBounds();
             boundsArray = [bounds.left, bounds.right, bounds.top, bounds.bottom];
-            leftCell = (boundsArray[0] / block) >> 0;
-            rightCell = (boundsArray[1] / block) >> 0;
-            topCell = (boundsArray[2] / block) >> 0;
-            bottomCell = (boundsArray[3] / block) >> 0;
+            leftCell = (boundsArray[0] / blockSize) >> 0;
+            rightCell = (boundsArray[1] / blockSize) >> 0;
+            topCell = (boundsArray[2] / blockSize) >> 0;
+            bottomCell = (boundsArray[3] / blockSize) >> 0;
             for (i = leftCell; i <= rightCell; ++i) {
                 for (j = topCell; j <= bottomCell; ++j) {
                     if (!(cellItems = partition[cellHash = i + ';' + j])) { //no cell list
@@ -76,7 +75,9 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
     }
 
     var CollisionSystem = Class('CollisionSystem', System, {
-        init: function () {
+        init: function (settings) {
+            settings = settings || {};
+            this.blockSize = settings.blockSize || 64;
             this.ClassPartition = function () {
             };
 
@@ -88,12 +89,12 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
             if (name.id) {//class
                 instances = this.layer._activeClasses[name.id];
                 if (instances) {
-                    this.ClassPartition.prototype[name.id] = createPartition(instances.instances); //store static partition in prototype to speed up the lookup
+                    this.ClassPartition.prototype[name.id] = createPartition(instances.instances, this.blockSize); //store static partition in prototype to speed up the lookup
                 }
             } else {//tag
                 instances = this.layer._tags[name];
                 if (instances) {
-                    this.TagPartition.prototype[name] = createPartition(instances); //store static partition in prototype to speed up the lookup
+                    this.TagPartition.prototype[name] = createPartition(instances, this.blockSize); //store static partition in prototype to speed up the lookup
                 }
             }
         },
@@ -118,7 +119,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
                     if (!partitionsByTag[tagName]) {
                         instances = this.layer._tags[tagName];
                         if (instances && instances.length !== 0) {
-                            partitionsByTag[tagName] = createPartition(instances);
+                            partitionsByTag[tagName] = createPartition(instances, this.blockSize);
                             hasRealTarget = true;
                             list.push([classId, tagName, colls[tagName]]);
                         }
@@ -128,7 +129,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
                     }
                 }
                 if (hasRealTarget && !partitionsByClass[classId]) {
-                    partitionsByClass[classId] = createPartition(classes[classId].instances);
+                    partitionsByClass[classId] = createPartition(classes[classId].instances, this.blockSize);
                 }
             }
 

@@ -25,6 +25,7 @@ define(['utils'], function (Utils) {
      * spatial partitioning in rendering
      * deactivate instances
      * .hitTest function
+     * move default options to prototype
      *
      * static layers?
      *
