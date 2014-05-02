@@ -15,7 +15,11 @@ define(['utils'], function (Utils) {
     /*
      * TODO:
      *
-     * depth
+     * rendering sometimes skip frames!
+     * requestanimationframe
+     * general loop class
+     *
+     * change layer to _layer, etc.
      * rendering is a system too?
      * particle system
      * indexedbyposition
@@ -29,7 +33,7 @@ define(['utils'], function (Utils) {
      *
      * static layers?
      *
-     * render order
+     * render(view) order, depth
      * which view is under mouse, mouse pos relative to views
      * disable views, layers
      * layer, view order

@@ -44,9 +44,9 @@ define(['class', 'collections/bag', 'etc/event-emitter'], function (Class, Bag, 
                     listeners = myClass.allGlobalEvent[event];
                     for (var j = 0; j < listeners.length; j++) {
                         (function (th, ev, proxy) {
-                            th.layer.on(ev, proxy);
+                            th._layer.on(ev, proxy);
                             th.on('remove', function () {
-                                this.layer.off(ev, proxy);
+                                this._layer.off(ev, proxy);
                             });
                         })(this, event, createProxy(this, listeners[j]));
                     }
@@ -54,7 +54,7 @@ define(['class', 'collections/bag', 'etc/event-emitter'], function (Class, Bag, 
             });
         },
         addTag: function (name) { //todo check
-            var layer = this.layer, tags = layer._tags;
+            var layer = this._layer, tags = layer._tags;
             if (!tags[name]) {
                 tags[name] = new Bag();
             }
@@ -64,7 +64,7 @@ define(['class', 'collections/bag', 'etc/event-emitter'], function (Class, Bag, 
             return this._tags[name] !== undefined;
         },
         removeTag: function (name) { //todo check
-            var idx = this._tags[name], moved = this.layer._tags[name].remove(idx);
+            var idx = this._tags[name], moved = this._layer._tags[name].remove(idx);
             if (moved) {
                 moved._tags[name] = idx;
             }
@@ -75,31 +75,31 @@ define(['class', 'collections/bag', 'etc/event-emitter'], function (Class, Bag, 
                 proxy = function (payload) {
                     handler.call(that, payload);
                 };
-            if (this.layer) { //already added
-                this.layer.on(event, proxy);
+            if (this._layer) { //already added
+                this._layer.on(event, proxy);
             } else {
                 this.on('add', function () {
-                    this.layer.on(event, proxy);
+                    this._layer.on(event, proxy);
                 });
             }
             this.on('remove', function () {
-                this.layer.off(event, proxy);
+                this._layer.off(event, proxy);
             });
         },
         'final remove': function () {
-            this.layer.remove(this);
+            this._layer.remove(this);
         },
         getGame: function () {
-            return this.layer.getGame();
+            return this._layer.getGame();
         },
         getScene: function () {
-            return this.layer.getScene();
+            return this._layer.getScene();
         },
         'event remove': function () {
             var idx, name, moved;
             for (name in this._tags) {
                 idx = this._tags[name];
-                moved = this.layer._tags[name].remove(idx);
+                moved = this._layer._tags[name].remove(idx);
                 if (moved) {
                     moved._tags[name] = idx;
                 }

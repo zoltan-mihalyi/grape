@@ -122,7 +122,7 @@
                 }
             });
         },
-        'event add':function(){
+        'event add': function () {
             this.addTag('Bat');
         }
     });
@@ -145,7 +145,7 @@
             this.sprite = menuResources.get('newgame');
         },
         action: function () {
-            this.layer.game.startScene(new GameScene());
+            this.getGame().startScene(new GameScene());
         },
         'global-event keyDown.mouseLeft': function () {
             this.x--;

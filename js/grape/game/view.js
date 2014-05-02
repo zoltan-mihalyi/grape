@@ -1,4 +1,4 @@
-define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, Utils) {
+define(['class', 'etc/system', 'utils'], function (Class, System, Utils) {
     //TODO follow player etc.
 
     function propValue(prop, max) {
@@ -12,7 +12,7 @@ define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, U
         }
     }
 
-    return Class('View', EventEmitter, {
+    return Class('View', System, {
         init: function (opts) {
             this.width = '100%';
             this.height = '100%';
@@ -52,7 +52,7 @@ define(['class', 'etc/event-emitter', 'utils'], function (Class, EventEmitter, U
             this.canvas.style.top = this.getTop();
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.translate(-this.x, -this.y);
-            this._target.emit('render', this.ctx);
+            this._layer.emit('render', this.ctx);
         },
         getLeft: function () {
             return propValue(this.left, this._game.getScreenWidth());

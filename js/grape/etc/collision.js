@@ -87,12 +87,12 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
         createStaticPartition: function (name) {
             var instances;
             if (name.id) {//class
-                instances = this.layer._activeClasses[name.id];
+                instances = this._layer._activeClasses[name.id];
                 if (instances) {
                     this.ClassPartition.prototype[name.id] = createPartition(instances.instances, this.blockSize); //store static partition in prototype to speed up the lookup
                 }
             } else {//tag
-                instances = this.layer._tags[name];
+                instances = this._layer._tags[name];
                 if (instances) {
                     this.TagPartition.prototype[name] = createPartition(instances, this.blockSize); //store static partition in prototype to speed up the lookup
                 }
@@ -107,7 +107,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
         },
         'event frame': function () {
             //collision is defined between classes and tags TODO: what can we optimize this way? self collision?
-            var classes = this.layer.getClasses(Collidable),
+            var classes = this._layer.getClasses(Collidable),
                 partitionsByTag = new this.TagPartition(),
                 partitionsByClass = new this.ClassPartition(),
                 list = [],
@@ -117,7 +117,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
                 hasRealTarget = false;
                 for (tagName in colls) {
                     if (!partitionsByTag[tagName]) {
-                        instances = this.layer._tags[tagName];
+                        instances = this._layer._tags[tagName];
                         if (instances && instances.length !== 0) {
                             partitionsByTag[tagName] = createPartition(instances, this.blockSize);
                             hasRealTarget = true;

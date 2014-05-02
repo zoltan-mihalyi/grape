@@ -42,7 +42,7 @@ define(['grape'], function (Grape) {
         init: function () {
             this.sprite = res.get('wall');
         },
-        'event add':function(){
+        'event add': function () {
             this.addTag('Solid');
         }
     });
@@ -55,12 +55,12 @@ define(['grape'], function (Grape) {
             this.speedY += 0.3;
             this.subimage = this.subimage % this.sprite.subimages;
         },
-        'collision Solid':  function (solid) {
+        'collision Solid': function (solid) {
             if (solid.y > this.y) {
                 this.y = solid.y - this.getHeight();
             }
             this.speedY = 0;
-            if (this.layer.game.input.isPressed('up')) {
+            if (this.getGame().input.isPressed('up')) {
                 this.speedY = -6;
             }
         },

@@ -1,6 +1,32 @@
 define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-array', 'utils', 'collections/bag'], function (Class, EventEmitter, GameObject, GameObjectArray, Utils, Bag) {
     var GameObjectId = GameObject.id;
 
+    function addWithOrWithoutName(target, name, object) {
+        if (object === undefined) { //no name
+            object = name;
+            target.push(object);
+        } else {
+            if (target[name]) {
+                throw 'Element "' + name + '" already added.';
+            }
+            target[name] = object;
+        }
+        return object;
+    }
+
+    function remove(target, name) {
+        if (typeof  name === 'string') { //by name
+            if (!target[name]) {
+                throw 'Element "' + name + '" does not exist.';
+            }
+            delete target[name];
+        } else { //by object
+            if (!Utils.removeFromArray(target, name)) {
+                throw 'Element does not exist.';
+            }
+        }
+    }
+
     return Class('Layer', EventEmitter, { //TODO create scene/layer - resource
         init: function () {
             this.width = 400;
@@ -12,8 +38,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             this._activeClasses = {};
 
             this.instanceNumber = 0;
-            this._layers = {};
-            this._views = [];
+            this._layers = [];
             this._systems = [];
 
             this._parentLayer = null;
@@ -23,7 +48,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             if (!clazz.allParentId[GameObjectId]) { //TODO remove if no check
                 throw 'The instance must be a descendant of Grape.GameObject.'; //TODO .is() function
             }
-            instance.layer = this;
+            instance._layer = this;
 
             this.emit('instanceAdded', instance);
 
@@ -84,7 +109,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             }
             return result;
         },
-        getClasses: function (parent) {
+        getClasses: function (parent) { //TODO private?
             var result = {}, classData = this._classes[parent.id], i, desc;
             if (classData) {
                 if (this._activeClasses[classData.id]) {
@@ -141,70 +166,37 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             }
             return result;
         },
-        addLayer: function (name, layer) { //TODO add without name
-            if (this._layers[name]) {
-                throw 'Layer "' + name + '" already added.';
-            }
-            this._layers[name] = layer;
+        addLayer: function (name, layer) {
+            layer = addWithOrWithoutName(this._layers, name, layer);
             layer._parentLayer = this;
+            /*TODO needed? if (this._started) {
+             layer.emit('start');
+             }*/
         },
-        removeLayer: function (name) {
-            if (!this._layers[name]) {
-                throw 'Layer "' + name + '" does not exists.';
-            }
-            delete this._layers[name];
-        },
-        addView: function (name, view) {
-            if (arguments.length === 1) { //no name given
-                view = name;
-                this._views.push(view);
-            } else {
-                if (this._views[name]) {
-                    throw 'View "' + name + '" already added.';
-                }
-                this._views[name] = view;
-            }
-            view._target = this;
+        addSystem: function (name, system) { //todo add without name
+            system = addWithOrWithoutName(this._systems, name, system);
+            system._layer = this;
             if (this._started) {
-                view.emit('start');
+                system.emit('start');
+            }
+        },
+        addView: function (name, view) { //todo create with view class if config object is given
+            this.addSystem(name, view);
+        },
+        removeLayer: function (name) { //todo stop event
+            remove(this._layers, name);
+        },
+        removeSystem: function (system) {
+            system = remove(this._systems, system);
+            if (this._started) {
+                system.emit('stop');
             }
         },
         removeView: function (name) {
-            if (name + '' === parseInt(name) + '') { //by index
-                this._stopView(this._views[name]);
-                this._views.splice(name, 1);
-            } else if (typeof name === 'string') { //by name
-                this._stopView(this._views[name]);
-                delete this._views[name];
-            } else { //by view
-                this._stopView(name);
-                Utils.removeFromArray(this._views, name);
-            }
-        },
-        addSystem: function (name, system) { //todo add without name
-            if (this._systems[name]) {
-                throw 'System "' + name + '" already added.';
-            }
-            system.layer = this;
-            this._systems[name] = system;
+            this.removeSystem(name);
         },
         getSystem: function (name) {
             return this._systems[name];
-        },
-        removeSystem: function (name) {
-            if (!this._systems[name]) {
-                throw 'System "' + name + '" does not exists.';
-            }
-            this._systems[name].layer = null;
-            delete this._systems[name];
-        },
-        _stopView: function (view) {
-            if (!view) {
-                throw 'view does not exists';
-            }
-            if (this._started) {
-                view.emit('stop');
-            }
         },
         getScene: function () {
             if (this._parentLayer) {
