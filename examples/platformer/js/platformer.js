@@ -24,7 +24,8 @@ define(['grape'], function (Grape) {
 
     var Level1 = Grape.Scene.extend({
         init: function () {
-            this.addSystem('collision', new Grape.CollisionSystem());
+            var collSystem = new Grape.CollisionSystem();
+            this.addSystem('collision', collSystem);
             this.add(new Man({x: 32, y: 128}));
             this.add(new Wall({x: 32, y: 256}));
             this.add(new Wall({x: 64, y: 256}));
@@ -33,6 +34,7 @@ define(['grape'], function (Grape) {
 
             this.add(new Wall({x: 128, y: 192}));
             this.add(new Wall({x: 32, y: 192}));
+            collSystem.createStaticPartition('Solid');
         }
     });
 
@@ -45,7 +47,7 @@ define(['grape'], function (Grape) {
         }
     });
 
-    var Man = Grape.Class('Man', [Grape.Physical, Grape.Collidable, Grape.SpriteVisualizer], {
+    var Man = window.Man = Grape.Class('Man', [Grape.Physical, Grape.Collidable, Grape.SpriteVisualizer], {
         init: function () {
             this.sprite = res.get('man');
         },

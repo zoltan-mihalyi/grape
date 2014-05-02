@@ -188,6 +188,9 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             system.layer = this;
             this._systems[name] = system;
         },
+        getSystem: function (name) {
+            return this._systems[name];
+        },
         removeSystem: function (name) {
             if (!this._systems[name]) {
                 throw 'System "' + name + '" does not exists.';

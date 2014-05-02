@@ -76,11 +76,39 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
     }
 
     var CollisionSystem = Class('CollisionSystem', System, {
+        init: function () {
+            this.ClassPartition = function () {
+            };
+
+            this.TagPartition = function () {
+            };
+        },
+        createStaticPartition: function (name) {
+            var instances;
+            if (name.id) {//class
+                instances = this.layer._activeClasses[name.id];
+                if (instances) {
+                    this.ClassPartition.prototype[name.id] = createPartition(instances.instances); //store static partition in prototype to speed up the lookup
+                }
+            } else {//tag
+                instances = this.layer._tags[name];
+                if (instances) {
+                    this.TagPartition.prototype[name] = createPartition(instances); //store static partition in prototype to speed up the lookup
+                }
+            }
+        },
+        removeStaticPartition: function (name) {
+            if (name.id) {//class
+                delete this.ClassPartition.prototype[name.id];
+            } else {//tag
+                delete  this.TagPartition.prototype[name];
+            }
+        },
         'event frame': function () {
             //collision is defined between classes and tags TODO: what can we optimize this way? self collision?
             var classes = this.layer.getClasses(Collidable),
-                partitionsByTag = {},
-                partitionsByClass = {},
+                partitionsByTag = new this.TagPartition(),
+                partitionsByClass = new this.ClassPartition(),
                 list = [],
                 classId, tagName, colls, instances, hasRealTarget, i, j, k, l, item, emitted, part1, part2, handler, invert, bigger, smaller, cell1, cell2, inst1, inst2, key, box1, box2;
             for (classId in classes) {
@@ -96,6 +124,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
                         }
                     } else {
                         hasRealTarget = true;
+                        list.push([classId, tagName, colls[tagName]]);
                     }
                 }
                 if (hasRealTarget && !partitionsByClass[classId]) {
