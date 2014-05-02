@@ -1,4 +1,4 @@
-define(['class', 'resource/json-scene-source', 'resource/resource', 'resource/sprite'], function (Class, JSONSceneSource, Resource, Sprite) {
+define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resource', 'resource/sprite'], function (Class, GrapeAudio, JSONSceneSource, Resource, Sprite) {
     function empty() {
     }
 
@@ -111,10 +111,10 @@ define(['class', 'resource/json-scene-source', 'resource/resource', 'resource/sp
                 });
             }
         },
-        audio: function (name, url, settings) { //TODO
-            var spr = new Sprite(url, settings);
-            this.add(name, spr);
-            return spr;
+        audio: function (name, url, settings) {
+            var audio = new GrapeAudio(url, settings);
+            this.add(name, audio);
+            return audio;
         },
         scene: function (name, url, settings) {
             var scn = new JSONSceneSource(url, settings);

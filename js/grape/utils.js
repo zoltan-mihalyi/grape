@@ -46,7 +46,9 @@ define([], function () {
             var index = array.indexOf(element);
             if (index !== -1) {
                 array.splice(index, 1);
+                return true;
             }
+            return false;
             //TODO IE8 fallback
         },
         arrayContains: function (array, element) {

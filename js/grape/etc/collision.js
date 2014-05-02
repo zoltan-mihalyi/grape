@@ -1,7 +1,5 @@
 define(['class', 'etc/system', 'game/game-object'], function (Class, System, GameObject) {
 
-    var block = 64;
-
     Class.registerKeyword('collision', {
         onInit: function (classInfo) {
             classInfo.collisions = {};
@@ -47,19 +45,20 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
         }
     }
 
-    function createPartition(instances) {
-        var id, partition, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
-        partition = {
-            size: instances.length
-        };
+    function createPartition(instances, blockSize) {
+        var partition = {
+                size: instances.length
+            },
+            id, instance, bounds, boundsArray, leftCell, rightCell, bottomCell, topCell, i, j, cellItems, cellHash;
+
         for (id = instances.length - 1; id >= 0; id--) {
             instance = instances[id];
             bounds = instance.getBounds();
             boundsArray = [bounds.left, bounds.right, bounds.top, bounds.bottom];
-            leftCell = (boundsArray[0] / block) >> 0;
-            rightCell = (boundsArray[1] / block) >> 0;
-            topCell = (boundsArray[2] / block) >> 0;
-            bottomCell = (boundsArray[3] / block) >> 0;
+            leftCell = (boundsArray[0] / blockSize) >> 0;
+            rightCell = (boundsArray[1] / blockSize) >> 0;
+            topCell = (boundsArray[2] / blockSize) >> 0;
+            bottomCell = (boundsArray[3] / blockSize) >> 0;
             for (i = leftCell; i <= rightCell; ++i) {
                 for (j = topCell; j <= bottomCell; ++j) {
                     if (!(cellItems = partition[cellHash = i + ';' + j])) { //no cell list
@@ -76,11 +75,41 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
     }
 
     var CollisionSystem = Class('CollisionSystem', System, {
+        init: function (settings) {
+            settings = settings || {};
+            this.blockSize = settings.blockSize || 64;
+            this.ClassPartition = function () {
+            };
+
+            this.TagPartition = function () {
+            };
+        },
+        createStaticPartition: function (name) {
+            var instances;
+            if (name.id) {//class
+                instances = this._layer._activeClasses[name.id];
+                if (instances) {
+                    this.ClassPartition.prototype[name.id] = createPartition(instances.instances, this.blockSize); //store static partition in prototype to speed up the lookup
+                }
+            } else {//tag
+                instances = this._layer._tags[name];
+                if (instances) {
+                    this.TagPartition.prototype[name] = createPartition(instances, this.blockSize); //store static partition in prototype to speed up the lookup
+                }
+            }
+        },
+        removeStaticPartition: function (name) {
+            if (name.id) {//class
+                delete this.ClassPartition.prototype[name.id];
+            } else {//tag
+                delete  this.TagPartition.prototype[name];
+            }
+        },
         'event frame': function () {
             //collision is defined between classes and tags TODO: what can we optimize this way? self collision?
-            var classes = this.layer.getClasses(Collidable),
-                partitionsByTag = {},
-                partitionsByClass = {},
+            var classes = this._layer.getClasses(Collidable),
+                partitionsByTag = new this.TagPartition(),
+                partitionsByClass = new this.ClassPartition(),
                 list = [],
                 classId, tagName, colls, instances, hasRealTarget, i, j, k, l, item, emitted, part1, part2, handler, invert, bigger, smaller, cell1, cell2, inst1, inst2, key, box1, box2;
             for (classId in classes) {
@@ -88,18 +117,19 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
                 hasRealTarget = false;
                 for (tagName in colls) {
                     if (!partitionsByTag[tagName]) {
-                        instances = this.layer._tags[tagName];
+                        instances = this._layer._tags[tagName];
                         if (instances && instances.length !== 0) {
-                            partitionsByTag[tagName] = createPartition(instances);
+                            partitionsByTag[tagName] = createPartition(instances, this.blockSize);
                             hasRealTarget = true;
                             list.push([classId, tagName, colls[tagName]]);
                         }
                     } else {
                         hasRealTarget = true;
+                        list.push([classId, tagName, colls[tagName]]);
                     }
                 }
                 if (hasRealTarget && !partitionsByClass[classId]) {
-                    partitionsByClass[classId] = createPartition(classes[classId].instances);
+                    partitionsByClass[classId] = createPartition(classes[classId].instances, this.blockSize);
                 }
             }
 

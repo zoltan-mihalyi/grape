@@ -15,20 +15,32 @@ define(['utils'], function (Utils) {
     /*
      * TODO:
      *
-     * depth
+     * rendering sometimes skip frames!
+     * requestanimationframe
+     * general loop class
+     * how systems work? get classes? tags? emit events?
+     * audio
+     *
+     * environment information, features (audio, webgl, canvas, node...)
+     * change layer to _layer, etc.
      * rendering is a system too?
      * particle system
      * indexedbyposition
-     *        byclass
-     *        collision (and other) groups
-     *        static collision
      * spatial partitioning in rendering
      * deactivate instances
      * .hitTest function
+     * move default options to prototype
+     * collision with two objects:
+     *      bounce back?
+     *      increase score and destroy?
+     *          the only
+     *          the two
      *
-     * static layers?
      *
-     * render order
+     * pre render static objects
+     *
+     * gui
+     * render(view) order, depth
      * which view is under mouse, mouse pos relative to views
      * disable views, layers
      * layer, view order

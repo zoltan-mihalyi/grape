@@ -1,4 +1,4 @@
-define(['class', 'game/layer', 'game/view', 'utils'], function (Class, Layer, View, Utils) {
+define(['class', 'game/layer', 'game/view'], function (Class, Layer, View) {
     //TODO JSON source
     return Class('Scene', Layer, {
         init: function () {

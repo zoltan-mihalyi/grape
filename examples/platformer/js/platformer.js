@@ -24,7 +24,8 @@ define(['grape'], function (Grape) {
 
     var Level1 = Grape.Scene.extend({
         init: function () {
-            this.addSystem('collision', new Grape.CollisionSystem());
+            var collSystem = new Grape.CollisionSystem();
+            this.addSystem('collision', collSystem);
             this.add(new Man({x: 32, y: 128}));
             this.add(new Wall({x: 32, y: 256}));
             this.add(new Wall({x: 64, y: 256}));
@@ -33,6 +34,7 @@ define(['grape'], function (Grape) {
 
             this.add(new Wall({x: 128, y: 192}));
             this.add(new Wall({x: 32, y: 192}));
+            collSystem.createStaticPartition('Solid');
         }
     });
 
@@ -40,12 +42,12 @@ define(['grape'], function (Grape) {
         init: function () {
             this.sprite = res.get('wall');
         },
-        'event add':function(){
+        'event add': function () {
             this.addTag('Solid');
         }
     });
 
-    var Man = Grape.Class('Man', [Grape.Physical, Grape.Collidable, Grape.SpriteVisualizer], {
+    var Man = window.Man = Grape.Class('Man', [Grape.Physical, Grape.Collidable, Grape.SpriteVisualizer], {
         init: function () {
             this.sprite = res.get('man');
         },
@@ -53,12 +55,12 @@ define(['grape'], function (Grape) {
             this.speedY += 0.3;
             this.subimage = this.subimage % this.sprite.subimages;
         },
-        'collision Solid':  function (solid) {
+        'collision Solid': function (solid) {
             if (solid.y > this.y) {
                 this.y = solid.y - this.getHeight();
             }
             this.speedY = 0;
-            if (this.layer.game.input.isPressed('up')) {
+            if (this.getGame().input.isPressed('up')) {
                 this.speedY = -6;
             }
         },
