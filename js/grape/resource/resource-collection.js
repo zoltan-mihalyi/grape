@@ -3,7 +3,9 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
     }
 
     return Class('ResourceCollection', Resource, {
-        init: function () {
+        init: function (opts) {
+            opts = opts || {};
+            this.prefix = opts.prefix || '';
             this.resources = [];
             this.resourcesByName = {};
         },
@@ -94,7 +96,7 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
             return loader;
         },
         sprite: function (name, url, settings) {
-            var spr = new Sprite(url, settings);
+            var spr = new Sprite(this.prefix + url, settings);
             this.add(name, spr);
             return spr;
         },
@@ -102,7 +104,7 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
             var i, coords;
             for (i in sprites) {
                 coords = sprites[i];
-                this.sprite(i, url, {
+                this.sprite(i, this.prefix + url, {
                     subimages: coords.length == 2 ? 1 : coords[2],
                     left: coords[0] * width,
                     top: coords[1] * height,
@@ -112,12 +114,12 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
             }
         },
         audio: function (name, url, settings) {
-            var audio = new GrapeAudio(url, settings);
+            var audio = new GrapeAudio(this.prefix + url, settings);
             this.add(name, audio);
             return audio;
         },
         scene: function (name, url, settings) {
-            var scn = new JSONSceneSource(url, settings);
+            var scn = new JSONSceneSource(this.prefix + url, settings);
             this.add(name, scn);
             return scn;
         }
