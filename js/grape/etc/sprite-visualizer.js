@@ -13,7 +13,7 @@ define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Clas
             var sprite = this.sprite;
             if (sprite && sprite.img) {
                 ctx.globalAlpha = this.alpha;
-                ctx.drawImage(sprite.img, sprite.left + sprite.width * (Math.round(this.subimage) % sprite.subimages), sprite.top, sprite.width, sprite.height, this.x, this.y, sprite.width, sprite.height);
+                ctx.drawImage(sprite.img, sprite.left + sprite.width * (Math.round(this.subimage) % sprite.subimages), sprite.top, sprite.width, sprite.height, this.x - sprite.originX, this.y - sprite.originY, sprite.width, sprite.height);
             } else {
                 ctx.fillStyle = 'black';
                 ctx.fillRect(this.x, this.y, sprite.width, sprite.height);

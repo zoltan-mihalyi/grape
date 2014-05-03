@@ -22,7 +22,13 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             if (!this.container) {
                 throw 'Container does not exists!';
             }
-            this._screen = this.container;
+            this._screen = document.createElement('div');
+            this._screen.style.position = 'relative';
+            this._screen.style.float = 'left';
+            this._screen.style.width = '100%';
+            this._screen.style.height = '100%';
+            this._screen.style.overflow = 'hidden';
+            this.container.appendChild(this._screen);
 
             this.gameLoop.start();
             this.input.start(this._screen);
@@ -58,6 +64,9 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
         },
         getScreenHeight: function () {
             return this._screen.offsetHeight;
+        },
+        setCursor: function (cursor) {
+            this._screen.style.cursor = cursor;
         }
     });
 });

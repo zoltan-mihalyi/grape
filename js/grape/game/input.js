@@ -162,8 +162,8 @@ define(['class', 'utils'], function (Class, Utils) {
             };
             this.onMouseMove = function (event) {
                 var rect = screen.getBoundingClientRect(), current = event.target;
-                that.mouse.x = event.pageX - rect.left;
-                that.mouse.y = event.pageY - rect.top;
+                that.mouse.x = event.clientX - rect.left;
+                that.mouse.y = event.clientY - rect.top;
             };
             Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODO to loop
             Utils.addEventListener(document, 'keyup', this.onKeyUp);

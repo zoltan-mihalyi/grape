@@ -210,6 +210,19 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
         'event start': function () {
             this._started = true;
         },
+        'event render': function (ctx) {
+            if (this.backgroundColor) { //TODO create function
+                ctx.fillStyle = this.backgroundColor;
+                ctx.fillRect(0, 0, this.width, this.height);
+            }
+            if (this.background) {
+                var pattern = ctx.createPattern(this.background.img, 'repeat'); //TODO create function
+                ctx.rect(0, 0, this.width, this.height);
+                ctx.fillStyle = pattern;
+                ctx.fill();
+                ctx.fillStyle = '';
+            }
+        },
         'event any': function (event, payload) {
             var i;
             for (i in this._layers) {
