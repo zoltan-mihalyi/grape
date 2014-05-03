@@ -1,0 +1,9 @@
+{
+    "name": "pong-required",
+    "version": "1.0.0",
+    "devDependencies": {
+        "almond":"~0.2.9",
+        "grunt": "~0.4.2",
+        "grunt-contrib-requirejs": "~0.4.3"
+    }
+}

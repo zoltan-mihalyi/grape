@@ -1,4 +1,4 @@
-/*! Grape.js JavaScript game engine | (c) 2014 Zoltan Mihalyi. | https://github.com/zoltan-mihalyi/grape2/blob/master/MIT-LICENSE.txt*/
+/*! Grape.js JavaScript game engine | (c) 2012-2014 Zoltan Mihalyi. | https://github.com/zoltan-mihalyi/grape2/blob/master/MIT-LICENSE.txt*/
 /**
  * The entire Grape.js package
  */

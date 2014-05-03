@@ -2,15 +2,14 @@
 
 </div>
 
-<script src="../../node_modules/grunt-contrib-requirejs/node_modules/requirejs/require.js"></script>
+<script src="../../../node_modules/grunt-contrib-requirejs/node_modules/requirejs/require.js"></script>
 <script>
     requirejs.config({
-        baseUrl: '../../js/grape', //grape engine folder
         paths: {
-            grape: 'main'
+            grape: '../../../build/grape.min'
         }
     });
-    require(['grape'], function (Grape) {
+    require(['grape'], function () {
         requirejs.config({
             baseUrl: './js'
         });

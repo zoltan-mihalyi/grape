@@ -2,7 +2,7 @@
     'use strict';
     /*global Grape*/
     //DEFINE RESOURCES
-    var res = new Grape.ResourceCollection();
+    var res = new Grape.ResourceCollection({prefix: '../'});
 
     //-----sounds------
     res.audio('bounce', 'audio/bounce.mp3', 'audio/bounce.ogg', 'audio/bounce.wav');
@@ -18,7 +18,7 @@
         originY: 12
     });
 
-    //-----scenes-----
+    //DEFINE SCENES
     var PongScene = Grape.Class('PongScene', Grape.Scene, {
         init: function () {
             this.width = 800;
@@ -63,7 +63,7 @@
         }
     });
 
-    //DEFINE COMPONENTS
+    //DEFINE CLASSES
     //-----menu-----
     var MenuItem = Grape.Class('MenuItem', [Grape.Mouse, Grape.SpriteVisualizer], {
         init: function () {
@@ -114,22 +114,22 @@
             this.sprite = res.get('ball');
         },
         'global-event frame': function () {
-            if (this.y <= 0 || this.y + this.getHeight() >= this.getScene().height) {
+            if (this.getTop() <= 0 || this.getBottom() >= this.getScene().height) {
                 this.speedY *= -1;
                 res.get('bounce').play();
             }
-            if (this.x <= 0) {
-                res.get('applause').play();
-                alert('Right player won!');
-                this.getGame().input.resetKeys();
-                this.getGame().startScene(new MenuScene());
+            if (this.getLeft() <= 0) {
+                this.handleEnd('Right player won!');
             }
-            if (this.x + this.getWidth() >= this.getScene().width) {
-                res.get('applause').play();
-                alert('Left player won!');
-                this.getGame().input.resetKeys();
-                this.getGame().startScene(new MenuScene());
+            if (this.getRight() >= this.getScene().width) {
+                this.handleEnd('Left player won!');
             }
+        },
+        handleEnd: function (text) {
+            res.get('applause').play();
+            alert(text);
+            this.getGame().input.resetKeys();
+            this.getGame().startScene(new MenuScene());
         }
     });
 
