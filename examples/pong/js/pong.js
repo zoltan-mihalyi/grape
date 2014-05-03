@@ -5,7 +5,8 @@
     var res = new Grape.ResourceCollection();
 
     //-----sounds------
-    res.audio('bounce', 'audio/bounce.mp3', 'audio/bounce.ogg', 'audio/bounce.mp3');
+    res.audio('bounce', 'audio/bounce.mp3', 'audio/bounce.ogg', 'audio/bounce.wav');
+    res.audio('applause', 'audio/applause.mp3');
 
     //-----sprites-----
     res.sprite('menubg', 'img/menubg.png');
@@ -118,11 +119,13 @@
                 res.get('bounce').play();
             }
             if (this.x <= 0) {
+                res.get('applause').play();
                 alert('Right player won!');
                 this.getGame().input.resetKeys();
                 this.getGame().startScene(new MenuScene());
             }
             if (this.x + this.getWidth() >= this.getScene().width) {
+                res.get('applause').play();
                 alert('Left player won!');
                 this.getGame().input.resetKeys();
                 this.getGame().startScene(new MenuScene());

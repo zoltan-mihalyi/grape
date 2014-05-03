@@ -11,18 +11,18 @@ define(['class', 'etc/position', 'game/game-object'], function (Class, Position,
         setSpeed: function (speed) {
             var s = this.getSpeed();
             if (s !== 0) {
-                this.vspeed *= speed / s;
-                this.hspeed *= speed / s;
+                this.speedX *= speed / s;
+                this.speedY *= speed / s;
             } else {
-                this.hspeed = speed;
+                this.speedX = speed; //if speed was 0, start moving right
             }
             return this;
         },
         accelerate: function (plus) {
             var s = this.getSpeed();
             if (s !== 0) {
-                this.vspeed *= (s + plus) / s;
-                this.hspeed *= (s + plus) / s;
+                this.speedX *= (s + plus) / s;
+                this.speedY *= (s + plus) / s;
             } else {
                 this.setSpeed(plus);
             }
