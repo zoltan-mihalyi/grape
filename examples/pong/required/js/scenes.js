@@ -1,4 +1,4 @@
-define(['classes', 'exports', 'grape', 'resources'], function (Classes, exports, Grape, Resources) {
+define(['classes', 'grape', 'resources'], function (Classes, Grape, Resources) {
     'use strict';
 
     //DEFINE SCENES
@@ -45,9 +45,9 @@ define(['classes', 'exports', 'grape', 'resources'], function (Classes, exports,
             }));
         }
     });
-
-    //exports is used because of circular runtime dependencies between scenes and classes
-    exports.PongScene = PongScene;
-    exports.MenuScene = MenuScene;
-    exports.GameScene = GameScene;
+    return {
+        PongScene: PongScene,
+        MenuScene: MenuScene,
+        GameScene: GameScene
+    };
 });
