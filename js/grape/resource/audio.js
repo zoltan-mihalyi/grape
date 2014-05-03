@@ -9,7 +9,7 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
 
     var canPlay = (function () {
         var extensions, formats, i, max, canPlayTypes, audio, can;
-        if (true/*has audio*/) {
+        if (typeof Audio === 'function') {
             extensions = ['mp3', 'wav', 'ogg'];
             formats = ['audio/mpeg', 'audio/wav; codecs="1"', 'audio/ogg; codecs="vorbis"'];
             audio = new Audio();
@@ -59,12 +59,11 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
         'override loadResource': function (onFinish, onError) { //TODO preload phonegap audio
             if (location.protocol !== 'file:' && typeof Blob === 'function') {
                 Utils.ajax(this.url, {responseType: 'arraybuffer'}, function (response) {
-                    if (context && false) {
+                    if (context) {
                         context.decodeAudioData(response, function (buffer) {
                             onFinish(buffer);
                         });
                     } else {
-                        //TODO test
                         var blob = new Blob([response], {type: 'audio'});
                         onFinish({
                             url: URL.createObjectURL(blob),
