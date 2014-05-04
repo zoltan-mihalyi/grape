@@ -33,26 +33,31 @@ define(['class', 'etc/system', 'utils'], function (Class, System, Utils) {
         },
         'event start': function (game) {
             this._game = game;
-
-            this.canvas = document.createElement('canvas');
-            this.canvas.style.position = 'absolute';
-            this.canvas.width = this.getWidth();
-            this.canvas.height = this.getHeight();
-            this.ctx = this.canvas.getContext('2d');
-            this.ctx.view = this;
-            game._screen.appendChild(this.canvas);
+            if (typeof window !== 'undefined') { //todo env.browser
+                this.canvas = document.createElement('canvas');
+                this.canvas.style.position = 'absolute';
+                this.canvas.width = this.getWidth();
+                this.canvas.height = this.getHeight();
+                this.ctx = this.canvas.getContext('2d');
+                this.ctx.view = this;
+                game._screen.appendChild(this.canvas);
+            }
         },
         'event stop': function () {
-            this.canvas.parentNode.removeChild(this.canvas);
+            if (this.canvas) {
+                this.canvas.parentNode.removeChild(this.canvas);
+            }
         },
         'event renderLayer': function () {
-            this.canvas.width = this.getWidth();
-            this.canvas.height = this.getHeight();
-            this.canvas.style.left = this.getLeft();
-            this.canvas.style.top = this.getTop();
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.translate(-this.x, -this.y);
-            this._layer.emit('render', this.ctx);
+            if (this.canvas) {
+                this.canvas.width = this.getWidth();
+                this.canvas.height = this.getHeight();
+                this.canvas.style.left = this.getLeft();
+                this.canvas.style.top = this.getTop();
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.translate(-this.x, -this.y);
+                this._layer.emit('render', this.ctx);
+            }
         },
         getLeft: function () {
             return propValue(this.left, this._game.getScreenWidth());

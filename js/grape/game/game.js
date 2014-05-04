@@ -5,7 +5,7 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             this.initialScene = opts.initialScene || function () {
                 return new Scene();
             };
-            this.container = opts.container || document.body;
+            this.container = opts.container || (typeof window != 'undefined' ? document.body : null); //todo env.browser
             this.gameLoop = new GameLoop(this); //TODO move to a function
             this.input = new Input();
         },
@@ -15,23 +15,24 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             }
 
             //initialize screen
-            //TODO create a container with position:absolute
-            if (typeof this.container === 'string') {
-                this.container = document.getElementById(this.container);
+            if (typeof window != 'undefined') { //todo env.browser
+                if (typeof this.container === 'string') {
+                    this.container = document.getElementById(this.container);
+                }
+                if (!this.container) {
+                    throw 'Container does not exists!';
+                }
+                this._screen = document.createElement('div');
+                this._screen.style.position = 'relative';
+                this._screen.style.float = 'left';
+                this._screen.style.width = '100%';
+                this._screen.style.height = '100%';
+                this._screen.style.overflow = 'hidden';
+                this.container.appendChild(this._screen);
             }
-            if (!this.container) {
-                throw 'Container does not exists!';
-            }
-            this._screen = document.createElement('div');
-            this._screen.style.position = 'relative';
-            this._screen.style.float = 'left';
-            this._screen.style.width = '100%';
-            this._screen.style.height = '100%';
-            this._screen.style.overflow = 'hidden';
-            this.container.appendChild(this._screen);
 
             this.gameLoop.start();
-            this.input.start(this._screen);
+            if (typeof window != 'undefined')this.input.start(this._screen); //todo env.browser
             scene = scene || this.initialScene;
             this.startScene(typeof scene === 'function' ? scene() : scene);
         },
@@ -60,12 +61,15 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             this.scene.emit('renderLayer');
         },
         getScreenWidth: function () {
-            return this._screen.offsetWidth;
+            return this._screen ? this._screen.offsetWidth : 1;
         },
         getScreenHeight: function () {
-            return this._screen.offsetHeight;
+            return this._screen ? this._screen.offsetHeight : 1;
         },
         setCursor: function (cursor) {
+            if (!this._screen) {
+                return;
+            }
             this._screen.style.cursor = cursor;
         }
     });

@@ -1,4 +1,41 @@
 define(['class', 'resource/cacheable'], function (Class, Cacheable) {
+    function readUInt32(data) {
+        var b1, b2, b3, b4;
+        b1 = data[data.pos++] << 24;
+        b2 = data[data.pos++] << 16;
+        b3 = data[data.pos++] << 8;
+        b4 = data[data.pos++];
+        return b1 | b2 | b3 | b4;
+    }
+
+    function readSection(data) {
+        var i, _i, chars; //TODO _i ???
+        chars = [];
+        for (i = _i = 0; _i < 4; i = ++_i) {
+            chars.push(String.fromCharCode(data[data.pos++]));
+        }
+        return chars.join('');
+    }
+
+    function getImageSize(data) {
+        //TODO works only for png
+        var chunkSize, section;
+        data.pos = 8; //TODO before this should be '..PNG...'
+        while (data.pos < data.length) {
+            chunkSize = readUInt32(data);
+            section = readSection(data);
+            if (section === 'IHDR') {
+                return  {
+                    width: readUInt32(data),
+                    height: readUInt32(data)
+                };
+            } else {
+                data.pos += chunkSize;
+            }
+        }
+        throw 'Failed to determine image size';
+    }
+
     return Class('Sprite', Cacheable, {
         init: function (url, settings) {
             settings = settings || {};
@@ -17,15 +54,26 @@ define(['class', 'resource/cacheable'], function (Class, Cacheable) {
             this.bottomBounding = settings.bottomBounding;
         },
         'override loadResource': function (onFinish, onError) {
-            var img = document.createElement('img');
-            img.onload = function () {
-                onFinish(img);
-            };
-            img.onerror = function () {
-                onError();
-            };
+            if (typeof process === 'object' && typeof process.env === 'object') { //todo env.node
+                var fs = require('fs');
+                fs.readFile(this.url, function (err, file) {
+                    if (err) {
+                        onError();
+                    } else {
+                        onFinish(getImageSize(file));
+                    }
+                });
+            } else { //todo env.browser
+                var img = document.createElement('img');
+                img.onload = function () {
+                    onFinish(img);
+                };
+                img.onerror = function () {
+                    onError();
+                };
 
-            img.src = this.url;
+                img.src = this.url;
+            }
         },
         'override getResourceKey': function () {
             return this.url;

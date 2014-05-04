@@ -1,4 +1,4 @@
-define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-array', 'utils', 'collections/bag'], function (Class, EventEmitter, GameObject, GameObjectArray, Utils, Bag) {
+define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-object-array', 'utils', 'collections/bag'], function (Class, EventEmitter, Tag, GameObject, GameObjectArray, Utils, Bag) {
     var GameObjectId = GameObject.id;
 
     function addWithOrWithoutName(target, name, object) {
@@ -27,12 +27,10 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
         }
     }
 
-    return Class('Layer', EventEmitter, { //TODO create scene/layer - resource
+    return Class('Layer', [EventEmitter, Tag.TagContainer], {
         init: function () {
             this.width = 400;
             this.height = 300;
-
-            this._tags = {};
 
             this._classes = {}; //TODO needed?
             this._activeClasses = {};
@@ -48,6 +46,7 @@ define(['class', 'etc/event-emitter', 'game/game-object', 'game/game-object-arra
             if (!clazz.allParentId[GameObjectId]) { //TODO remove if no check
                 throw 'The instance must be a descendant of Grape.GameObject.'; //TODO .is() function
             }
+            instance.addToTagContainer(this);
             instance._layer = this;
 
             this.emit('instanceAdded', instance);

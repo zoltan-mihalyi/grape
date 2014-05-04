@@ -103,12 +103,13 @@ define(['class', 'utils'], function (Class, Utils) {
         }
     }
 
-    Utils.addEventListener(document, 'mousemove', function (event) {
-
-    });
-
+    if (typeof window !== 'undefined') { //todo env.browser
+        Utils.addEventListener(document, 'mousemove', function (event) {
+            //todo
+        });
+    }
     return Class('Input', {
-        'static setReservedKeys':function(/*key1, key2*/){
+        'static setReservedKeys': function (/*key1, key2*/) {
             //TODO reservedKeys=arguments;
         },
         init: function () {

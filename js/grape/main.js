@@ -28,9 +28,11 @@ define(['class', 'collections/main', 'etc/main', 'game/main', 'resource/main', '
 
     //node.js
     if (global.requirejsVars) {
-        global.requirejsVars.define([], function () {
-            return Grape;
-        });
+        if(define !==global.requirejsVars.define) { //grape is built
+            global.requirejsVars.define([], function () {
+                return Grape;
+            });
+        }
     }
 
     if (typeof global.define === 'function' && global.define !== define) { //if grape is built, we define it as an AMD module

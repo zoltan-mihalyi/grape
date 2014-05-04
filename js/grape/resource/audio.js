@@ -51,13 +51,15 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
                 }
             }
             if (url === null) {
-                throw 'None of the given formats is supported by your browser!';
+                //TODO warning None of the given formats is supported by your browser!
             }
 
             this.url = url;
         },
         'override loadResource': function (onFinish, onError) { //TODO preload phonegap audio
-            if (location.protocol !== 'file:' && typeof Blob === 'function') {
+            if (typeof process === 'object' && typeof process.env === 'object') { //TODO env.node
+                onFinish(null);
+            } else if (location.protocol !== 'file:' && typeof Blob === 'function') { //load as blob
                 Utils.ajax(this.url, {responseType: 'arraybuffer'}, function (response) {
                     if (context) {
                         context.decodeAudioData(response, function (buffer) {
@@ -73,7 +75,7 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
                 }, function () {
                     onError();
                 });
-            } else {
+            } else if (typeof Audio === 'function') {
                 //TODO IE9 loads a sound multiple times
                 var a = new Audio();
                 a.src = this.url;
@@ -86,6 +88,9 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
                     onFinish(arr);
                 }, false);
                 a.load();
+            } else {
+                //No audio support
+                onFinish(null);
             }
         },
         'override getResourceKey': function () {
@@ -102,7 +107,9 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
             opts = opts || defaultPlayOpts; //TODO use
 
             //TODO separate to classes instead of instanceof
-            if (typeof this.buffer === 'object' && this.buffer.url) { //loading created a blob url
+            if (this.buffer === null) { //no sound
+
+            } else if (typeof this.buffer === 'object' && this.buffer.url) { //loading created a blob url
                 snd = new Audio(this.buffer.url);
                 snd.play();
             } else if (context && this.buffer instanceof AudioBuffer) {//webAudio
