@@ -28,11 +28,14 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
     }
 
     return Class('Layer', [EventEmitter, Tag.TagContainer], {
-        init: function () {
-            this.width = 400;
-            this.height = 300;
+        init: function (opts) {
+            opts = opts || {};
+            this.width = opts.widht || 400;
+            this.height = opts.height || 300;
+            this.background = opts.background || null;
+            this.backgroundColor = opts.backgroundColor || null;
 
-            this._classes = {}; //TODO needed?
+            this._classes = {};
             this._activeClasses = {};
 
             this.instanceNumber = 0;
@@ -93,6 +96,7 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
                 delete this._activeClasses[classId];
             }
             this.instanceNumber--;
+            instance.removeFromTagContainer();
             instance.emit('remove');
         },
         getByTag: function (/*tag1, tag2...*/) {

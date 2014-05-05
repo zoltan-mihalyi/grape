@@ -7,7 +7,9 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             };
             this.container = opts.container || (typeof window != 'undefined' ? document.body : null); //todo env.browser
             this.gameLoop = new GameLoop(this); //TODO move to a function
-            this.input = new Input();
+            if (typeof window != 'undefined') { //todo env.browser
+                this.input = new Input();
+            }
         },
         'final start': function (scene) {
             if (this.gameLoop.isRunning()) {
@@ -32,13 +34,18 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             }
 
             this.gameLoop.start();
-            if (typeof window != 'undefined')this.input.start(this._screen); //todo env.browser
+            if (this.input) {
+                this.input.start(this._screen);
+            }
             scene = scene || this.initialScene;
             this.startScene(typeof scene === 'function' ? scene() : scene);
         },
         'final stop': function () {
             this.gameLoop.stop(); //todo tear down logic
-            this.input.stop();
+            if (this.input) {
+                this.input.stop();
+            }
+            this.emit('stop');
         },
         startScene: function (scene) {
             if (scene.game) {
@@ -55,7 +62,9 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
         },
         frame: function () {
             this.scene.emit('frame');
-            this.input.emitEvents(this.scene);
+            if (this.input) {
+                this.input.emitEvents(this.scene); //TODO is it wrong? ie. keyPress.none?
+            }
         },
         render: function () {
             this.scene.emit('renderLayer');

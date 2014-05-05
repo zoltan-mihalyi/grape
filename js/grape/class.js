@@ -14,6 +14,8 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
+     * UMD pattern for build? http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/
+     * avoid nested require calls?
      *
      * rendering sometimes skip frames!
      * requestanimationframe
