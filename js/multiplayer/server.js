@@ -62,16 +62,17 @@ define(['common'], function (Common) {
         },
         startGame: function (opts) { //todo use custom game class
             var server = this,
-                sceneId = opts.scene,
+                sceneName = opts.scene,
                 users = opts.users || [],
                 sceneParameters = opts.sceneParameters || {},
                 game = new Grape.Game(), //TODO
-                Scene = this._mapper[sceneId],
+                sceneId=this._mapper.getId(sceneName),
+                Scene = this._mapper.get(sceneName),
                 scene, i;
             if (Scene) {
                 scene = new Scene(sceneParameters);
             } else {
-                throw 'Scene ' + sceneId + ' is missing from the mapper.';
+                throw 'Scene ' + sceneName + ' is missing from the mapper.';
             }
             game._gameIdx = this._games.add(game) - 1; //TODO this indexing functionality to a separate component
             game._users = users.slice(0);

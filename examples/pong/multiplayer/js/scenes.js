@@ -72,7 +72,7 @@ define(['classes', 'mapper', 'grape', 'resources'], function (Classes, Mapper, G
         }
     });
 
-    Mapper.GameScene = GameScene;
+    Mapper.add('GameScene', GameScene);
 
     return {
         PongScene: PongScene,

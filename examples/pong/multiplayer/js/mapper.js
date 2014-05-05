@@ -1,3 +1,3 @@
-define([], function () {
-    return {};
+define(['grape'], function (Grape) {
+    return new Grape.Multiplayer.Mapper();
 });

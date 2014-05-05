@@ -39,7 +39,7 @@ define(['grape', 'common'], function (Grape, Common) {
         },
         'event gameStarted': function (data) {
             console.log(data.sceneParameters);
-            var Scene = this._mapper[data.sceneId];
+            var Scene = this._mapper.getById(data.sceneId);
             if (!Scene) {
                 throw 'Scene does not exist in mapper: ' + data.sceneId;
             }
