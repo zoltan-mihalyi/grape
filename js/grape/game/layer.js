@@ -83,7 +83,7 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
             }
             this.instanceNumber++;
             instance._index = classData.instances.add(instance) - 1; //store the index in the bag for efficient remove
-            instance.emit('add');
+            instance.emit('add', this);
             return instance;
         },
         remove: function (instance) {

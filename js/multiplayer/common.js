@@ -32,6 +32,26 @@ define(['class'], function (Class) { //todo normalize multiplayer module loading
             //on server we do nothing
         }
     });
+    Class.registerKeyword('command', { //todo require controllable class?
+        onAdd: function (classInfo, methodDescriptor) {
+            var originalMethod, name;
+            if (!isServer) {
+                originalMethod=methodDescriptor.method;
+                name=methodDescriptor.name;
+                methodDescriptor.method=function(){
+                   if(this._controllable){                       
+                       this.getGame().sendMessage('command', {
+                            command:name,
+                            id:this._syncedId,
+                            parameters:arguments
+                        }); //todo apply command restrictions (once per frame, etc.)
+                       return originalMethod.apply(this, arguments);
+                   }
+               };
+               methodDescriptor.method._original=originalMethod;
+            }
+        }
+    });
 
     var Mapper = Grape.Class('Mapper', {
         init: function () {
@@ -58,11 +78,16 @@ define(['class'], function (Class) { //todo normalize multiplayer module loading
     
     var Synchronized=Grape.Class('Multiplayer.Synchronized',Grape.GameObject,{
         init:function(){
-            this._syncedId=1;//TODOthis.getGame().nextSyncedId();
             this._dirtyAttrs={};
             this._isDirty=false;
         },
-        'serverSide syncedAttr':function(attrs){
+        'event add':function(layer){
+            if(!layer._nextSyncedId){ //TODO not this way
+                layer._nextSyncedId=1;
+            }
+            this._syncedId=layer._nextSyncedId++;
+        },
+        'serverSide syncedAttr':function(attrs){ //todo use as prop, value
             console.log(attrs);
             var i;
             for(i in attrs){
@@ -71,9 +96,9 @@ define(['class'], function (Class) { //todo normalize multiplayer module loading
                 this._isDirty=true;
             }
         },
-        'global-event multiplayer':function(messages){ //TODO name
+        'global-event sendMessages':function(messages){ //TODO name
             if(this._isDirty){
-                messages.push({
+                messages.sendForAll({
                     command:'attrSync',
                     data:{id:this._syncedId, attrs:this._dirtyAttrs}
                 });
@@ -82,9 +107,34 @@ define(['class'], function (Class) { //todo normalize multiplayer module loading
             }
         }
     });
+    
+    var Controllable=Grape.Class('Controllable', Synchronized,{
+        init:function(){
+            this._commands=[];
+            //todo control added to someone else
+            this._controller=null; //todo multiple controllers
+            this._isDirtyC=false; //todo variables with same name?
+        },
+        addController:function(user){
+            this._controller=user; //TODO on user reconnect who is the controller? free the resource! offline user?
+            this._isDirtyC=true;
+        },
+        'global-event sendMessages':function(messages){
+            if(this._isDirtyC){
+                messages.sendForUser(this._controller, {
+                    command:'controlAdded',
+                    data:{
+                        id:this._syncedId
+                    }
+                });
+                this._isDirtyC=false;
+            }
+        }
+    });
 
     return Grape.Multiplayer = {
         Mapper: Mapper,
-        Synchronized: Synchronized
+        Synchronized: Synchronized,
+        Controllable: Controllable
     };
 });

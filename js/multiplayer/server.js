@@ -1,14 +1,7 @@
 define(['common'], function (Common) {
     /*global Grape*/
     var WebSocketServer = require('ws').Server; //TODO 'not running' error
-    
-    function broadcast(game, messages){
-        var i;
-        for(i=0;i<game._users.length;i++){
-            game._users[i].sendAll(messages);
-        }
-    }
-
+   
     var User = Grape.Class('Multiplayer.User', [Grape.EventEmitter, Grape.Taggable], {
         init: function (ws) {
             var user = this;
@@ -22,7 +15,19 @@ define(['common'], function (Common) {
             });
         },
         'event message': function (message) {
-            console.log('received: %s', message);
+            message=JSON.parse(message);
+            var data=message.data;
+            //todo dispatch by command
+            if(message.command==='command'){
+                this.send('command',data);
+                //TODO optimize
+                var all=this._game.scene.get();
+                for(var i=0;i<all.length;i++){
+                    if(all[i]._syncedId===data.id){
+                        all[i][data.command].apply(all[i],data.parameters);
+                    }
+                }
+            }
         },
         disconnect: function () {
             this.ws.close();
@@ -40,6 +45,30 @@ define(['common'], function (Common) {
         'event disconnect':function(){ //todo remove user from game's list
             if(this._game){
                 this._game.emit('userLeft', this);
+            }
+        }
+    });
+    
+    var MessageList=Grape.Class('Multiplayer.MessageList', {
+        init:function(){
+            this._forAll=[];
+            this._forUser=[];
+        },
+        sendForAll:function(message){
+            this._forAll.push(message);
+        },
+        sendForUser:function(user, message){
+            this._forUser.push({user:user, message:message});
+        },
+        sendReal:function(game){ //todo confusing name, send one message/user
+            var i;
+            if(this._forAll.length){
+                for(i=0;i<game._users.length;i++){
+                    game._users[i].sendAll(this._forAll);
+                }
+            }
+            for(i=0;i<this._forUser.length;i++){
+                this._forUser[i].user.send(this._forUser[i].message.command, this._forUser[i].message.data); //todo ugly
             }
         }
     });
@@ -105,11 +134,9 @@ define(['common'], function (Common) {
                 }
             });
             scene.on('frame', function(){
-                var messages=[];
-                this.emit('multiplayer', messages);
-                if(messages.length){
-                    broadcast(game, messages); //TODO which user is permitted to know?
-                }
+                var messages=new MessageList();
+                this.emit('sendMessages', messages);
+                messages.sendReal(game);
             });
             game.start(scene);
             for (i = 0; i < users.length; ++i) {
@@ -118,6 +145,7 @@ define(['common'], function (Common) {
                     sceneParameters: sceneParameters
                 });
             }
+            return game;
         }
     });
 

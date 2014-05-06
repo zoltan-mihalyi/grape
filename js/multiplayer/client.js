@@ -63,8 +63,34 @@ define(['grape', 'common'], function (Grape, Common) {
                 }
             }
         },
+        'event controlAdded': function (data) {
+            var id=data.id;
+            var all=this._game.scene.get(); //todo improve performance
+            for(var i=0;i<all.length;i++){
+                if(all[i]._syncedId===id){
+                    all[i]._controllable=true;
+                }
+            }
+        },
+        'event command': function (data) {
+            //console.log(data);
+            var id=data.id;
+            var all=this._game.scene.get(); //todo improve performance
+            for(var i=0;i<all.length;i++){
+                if(all[i]._syncedId===id){
+                        console.log(all[i].backgroundColor);
+                    all[i][data.command]._original.apply(all[i], []);
+                }
+            }
+        },
         getStatus: function () {
             return this._status;
+        },
+        sendMessage:function(command, data){
+            this._ws.send(JSON.stringify({
+                command:command,
+                data:data
+            }));
         }
     });
 
@@ -76,6 +102,9 @@ define(['grape', 'common'], function (Grape, Common) {
         },
         getConnection: function () {
             return this._connection;
+        },
+        sendMessage:function(command, data){
+            this._connection.sendMessage(command,data);
         }
     });
 

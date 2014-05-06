@@ -23,14 +23,14 @@ define(['classes', 'mapper', 'grape', 'resources'], function (Classes, Mapper, G
 
             this.addSystem('collision', new Grape.CollisionSystem());
 
-            this.add(new Classes.Bat({
+            this.leftBat=this.add(new Classes.Bat({
                 x: 10,
                 y: 220,
                 upKey: 'w',
                 downKey: 's',
                 backgroundColor: 'red'
             }));
-            this.add(new Classes.Bat({
+            this.rightBat=this.add(new Classes.Bat({
                 x: 766,
                 y: 220,
                 upKey: 'up',

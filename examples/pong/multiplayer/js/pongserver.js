@@ -10,13 +10,15 @@ require(['grape', 'mapper', 'resources', 'scenes'], function (Grape, Mapper, Res
                 for (i = 0; i < users.length; i++) {
                     users[i].removeTag('WAITING');
                 }
-                this.startGame({
+                var game=this.startGame({
                     scene: 'GameScene',
                     sceneParameters: {
                         bla: 1
                     },
                     users: users
                 });
+                game.scene.leftBat.addController(users[0]);
+                game.scene.rightBat.addController(users[1]);
             }
         }
     });

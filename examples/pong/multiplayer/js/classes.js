@@ -78,25 +78,34 @@ define(['grape', 'resources'], function (Grape, Resources) {
             //TODO disconnect
             this.getGame().startScene(new Scenes.MenuScene());
         },
-        'serverSide handleEnd': function () {
+        'serverSide handleEnd': function (text) {
+            console.log(text);
             this.getGame().stop();
         }
     });
 
-    var Bat = Grape.Class('Bat', [Grape.Rectangle, Grape.Collidable], {
+    var Bat = Grape.Class('Bat', [Grape.Rectangle, Grape.Collidable, Grape.Multiplayer.Controllable], {
         init: function (opts) {
             this.width = 24;
             this.height = 160;
-            this.onGlobal('keyDown.' + opts.upKey, function () {
-                if (this.y > 0) {
-                    this.y -= 10;
-                }
-            });
-            this.onGlobal('keyDown.' + opts.downKey, function () {
-                if (this.y + this.height < this.getScene().height) {
-                    this.y += 10;
-                }
-            });
+            //if(this.isControllable()){
+                this.onGlobal('keyDown.' + opts.upKey, function () {
+                    this.up();
+                });
+                this.onGlobal('keyDown.' + opts.downKey, function () {
+                    this.down();
+                });
+            //}
+        },
+        'command up':function(){
+            if (this.y > 0) {
+                this.y -= 10;
+            }
+        },
+        'command down':function(){
+            if (this.y + this.height < this.getScene().height) {
+                this.y += 10;
+            }
         },
         'event add': function () {
             this.addTag('BAT');
