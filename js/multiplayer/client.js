@@ -29,7 +29,14 @@ define(['grape', 'common'], function (Grape, Common) {
             };
             websocket.onmessage = function (evt) {
                 var message = JSON.parse(evt.data);
-                conn.emit(message.command, message.data);
+                if(message.command){ //single message
+                    conn.emit(message.command, message.data);
+                }else{//multiple message
+                    for(var i=0;i<message.length;i++){
+                        //console.log(message[i]);
+                        conn.emit(message[i].command, message[i].data); //todo ugly
+                    }
+                }
             };
             websocket.onerror = function (evt) {
                 conn._status = conn.STATUS_ERROR;
@@ -38,12 +45,23 @@ define(['grape', 'common'], function (Grape, Common) {
             delete this._opts;
         },
         'event gameStarted': function (data) {
-            console.log(data.sceneParameters);
             var Scene = this._mapper.getById(data.sceneId);
             if (!Scene) {
                 throw 'Scene does not exist in mapper: ' + data.sceneId;
             }
             this._game.startScene(new Scene(data.sceneParameters));
+        },
+        'event attrSync': function (data) {
+            var id=data.id;
+            var attrs=data.attrs;
+            var all=this._game.scene.get(); //todo improve performance
+            for(var i=0;i<all.length;i++){
+                if(all[i]._syncedId===id){
+                    for(var j in attrs){
+                        all[i][j]=attrs[j];
+                    }
+                }
+            }
         },
         getStatus: function () {
             return this._status;
@@ -52,7 +70,7 @@ define(['grape', 'common'], function (Grape, Common) {
 
     var Game = Grape.Class('Multiplayer.Game', Grape.Game, {
         connect: function (opts) { //todo check
-            this._connection = new Grape.Multiplayer.Connection(opts);
+            this._connection = new Connection(opts);
             this._connection._game = this;
             this._connection._start();
         },

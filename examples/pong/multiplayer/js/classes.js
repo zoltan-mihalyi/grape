@@ -46,14 +46,18 @@ define(['grape', 'resources'], function (Grape, Resources) {
     });
 
     //-----game-----
-    var Ball = Grape.Class('Ball', [Grape.SpriteVisualizer, Grape.Collidable, Grape.Physical], {
+    var Ball = Grape.Class('Ball', [Grape.SpriteVisualizer, Grape.Collidable, Grape.Physical, Grape.Multiplayer.Synchronized], {
+        init: function () {
+            this.sprite = Resources.get('ball');
+            this.syncedAttr({
+                speedX: Math.random() < 0.5 ? 5 : -5,
+                speedY: Math.random() < 0.5 ? 5 : -5
+            });
+        },
         'collision BAT': function () {
             this.speedX *= -1;
             this.accelerate(0.5);
             Resources.get('bounce').play();
-        },
-        init: function () {
-            this.sprite = Resources.get('ball');
         },
         'global-event frame': function () {
             if (this.getTop() <= 0 || this.getBottom() >= this.getScene().height) {

@@ -39,16 +39,11 @@ define(['classes', 'mapper', 'grape', 'resources'], function (Classes, Mapper, G
             }));
             this.add(new Classes.Ball({
                 x: 400,
-                y: 300,
-                speedX: Math.random() < 0.5 ? 5 : -5,
-                speedY: Math.random() < 0.5 ? 5 : -5
+                y: 300
             }));
         },
         'event userLeft': function () { //todo
             console.log('user left!');
-        },
-        'event frame': function () {
-            console.log('tick')
         }
     });
 

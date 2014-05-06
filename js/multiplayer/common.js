@@ -1,4 +1,4 @@
-define(['class'], function (Class) {
+define(['class'], function (Class) { //todo normalize multiplayer module loading
     var isServer = typeof process === 'object' && typeof process.env === 'object'; //todo env.node
 
     function empty() {
@@ -55,8 +55,36 @@ define(['class'], function (Class) {
             return this._byId[id];
         }
     });
+    
+    var Synchronized=Grape.Class('Multiplayer.Synchronized',Grape.GameObject,{
+        init:function(){
+            this._syncedId=1;//TODOthis.getGame().nextSyncedId();
+            this._dirtyAttrs={};
+            this._isDirty=false;
+        },
+        'serverSide syncedAttr':function(attrs){
+            console.log(attrs);
+            var i;
+            for(i in attrs){
+                this._dirtyAttrs[i]=attrs[i];
+                this[i]=attrs[i];
+                this._isDirty=true;
+            }
+        },
+        'global-event multiplayer':function(messages){ //TODO name
+            if(this._isDirty){
+                messages.push({
+                    command:'attrSync',
+                    data:{id:this._syncedId, attrs:this._dirtyAttrs}
+                });
+                this._dirtyAttrs={};
+                this._isDirty=false;
+            }
+        }
+    });
 
     return Grape.Multiplayer = {
-        Mapper: Mapper
+        Mapper: Mapper,
+        Synchronized: Synchronized
     };
 });

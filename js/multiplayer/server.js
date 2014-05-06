@@ -1,6 +1,13 @@
 define(['common'], function (Common) {
     /*global Grape*/
     var WebSocketServer = require('ws').Server; //TODO 'not running' error
+    
+    function broadcast(game, messages){
+        var i;
+        for(i=0;i<game._users.length;i++){
+            game._users[i].sendAll(messages);
+        }
+    }
 
     var User = Grape.Class('Multiplayer.User', [Grape.EventEmitter, Grape.Taggable], {
         init: function (ws) {
@@ -22,11 +29,18 @@ define(['common'], function (Common) {
             this.emit('disconnect');
         },
         send: function (command, data) {
-            console.log(data);
             this._ws.send(JSON.stringify({
                 command: command,
                 data: data
             }));
+        },
+        sendAll: function (messages) {
+            this._ws.send(JSON.stringify(messages));
+        },
+        'event disconnect':function(){ //todo remove user from game's list
+            if(this._game){
+                this._game.emit('userLeft', this);
+            }
         }
     });
 
@@ -88,6 +102,13 @@ define(['common'], function (Common) {
                 //remove users from game
                 for (i = 0; i < this._users.length; ++i) {
                     this._users[i]._game = null;
+                }
+            });
+            scene.on('frame', function(){
+                var messages=[];
+                this.emit('multiplayer', messages);
+                if(messages.length){
+                    broadcast(game, messages); //TODO which user is permitted to know?
                 }
             });
             game.start(scene);
