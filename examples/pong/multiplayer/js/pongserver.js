@@ -10,14 +10,14 @@ require(['grape', 'mapper', 'resources', 'scenes'], function (Grape, Mapper, Res
                 for (i = 0; i < users.length; i++) {
                     users[i].removeTag('WAITING');
                 }
-                var game=this.startGame({
+                var game = this.startGame({
                     scene: 'GameScene',
                     sceneParameters: {
                         bla: 1
                     },
                     users: users
                 });
-                game.scene.leftBat.addController(users[0]);
+                game.scene.leftBat.addController(users[0]); //todo set timeout before start
                 game.scene.rightBat.addController(users[1]);
             }
         }
@@ -25,6 +25,6 @@ require(['grape', 'mapper', 'resources', 'scenes'], function (Grape, Mapper, Res
 
     //START SERVER
     Resources.load(function () {
-        new PongServer({port: 8080, mapper: Mapper});
+        new PongServer({port: 8080, mapper: Mapper, server: true});
     });
 });

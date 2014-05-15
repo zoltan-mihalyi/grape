@@ -1,41 +1,58 @@
-define(['server/user'],function(User){
-    var WebSocketServer = require('ws').Server; //TODO 'not running' error
+define(['server/user'], function (User) {
+    var WebSocketServer = require('ws').Server;
 
-    var MessageList=Grape.Class('Multiplayer.MessageList', { //todo remove
-        init:function(){
-            this._forAll=[];
-            this._forUser=[];
+    var MessageList = Grape.Class('Multiplayer.MessageList', { //todo remove
+        init: function () {
+            this._forAll = [];
+            this._forUser = [];
         },
-        sendForAll:function(message){
+        sendForAll: function (message) {
             this._forAll.push(message);
         },
-        sendForUser:function(user, message){
-            this._forUser.push({user:user, message:message});
+        sendForUser: function (user, message) {
+            this._forUser.push({user: user, message: message});
         },
-        sendReal:function(game){ //todo confusing name, send one message/user
+        sendReal: function (game) { //todo confusing name, send one message/user
             var i;
-            if(this._forAll.length){
-                for(i=0;i<game._users.length;i++){
+            if (this._forAll.length) {
+                for (i = 0; i < game._users.length; i++) {
                     game._users[i].sendAll(this._forAll);
                 }
             }
-            for(i=0;i<this._forUser.length;i++){
+            for (i = 0; i < this._forUser.length; i++) {
                 this._forUser[i].user.send(this._forUser[i].message.command, this._forUser[i].message.data); //todo ugly
             }
         }
     });
 
-    var Server = Grape.Class('Multiplayer.Server', Grape.EventEmitter, {
+    var Server = Grape.Class('Multiplayer.Server', Grape.EventEmitter, { //todo use socket.io
         init: function (opts) {
             opts = opts || {};
-            var server = this;
+            var server = this, httpServer = opts.server, port = opts.port || 8080, wssOpts = {};
+
             this._mapper = opts.mapper || {};
             this._users = new Grape.TagContainer();
             this._games = new Grape.Bag();
 
-            this.wss = new WebSocketServer({
-                port: opts.port || 8080
-            });
+            if (httpServer) { //bind the ws server on the top of a http server
+                if (httpServer === true) { //create a new http server
+
+                    httpServer = require('http').createServer(function (req, res) {
+                        res.writeHead(200, {'Content-Type': 'text/plain'});
+                        res.end('This is a default http server for Grape.js multiplayer websocket server.\n');
+                    }).listen(port);
+                } else { //bind to an existing http server
+                    if (opts.port) { //server and port parameter are exclusive
+                        throw 'If you bind the server to an existing http server, you can not set a port parameter!';
+                    }
+                }
+
+                wssOpts.server = httpServer;
+            } else {
+                wssOpts.port = port;
+            }
+
+            this.wss = new WebSocketServer(wssOpts);
             this.wss.on('connection', function (ws) {
                 var user = new User(ws);
                 user._server = server;
@@ -61,7 +78,7 @@ define(['server/user'],function(User){
                 users = opts.users || [],
                 sceneParameters = opts.sceneParameters || {},
                 game = new Grape.Game(), //TODO
-                sceneId=this._mapper.getId(sceneName),
+                sceneId = this._mapper.getId(sceneName),
                 Scene = this._mapper.get(sceneName),
                 scene, i;
             if (Scene) {
@@ -85,8 +102,8 @@ define(['server/user'],function(User){
                     this._users[i]._game = null;
                 }
             });
-            scene.on('frame', function(){
-                var messages=new MessageList();
+            scene.on('frame', function () {
+                var messages = new MessageList();
                 this.emit('sendMessages', messages);
                 messages.sendReal(game);
             });
