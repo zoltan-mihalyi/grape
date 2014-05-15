@@ -88,16 +88,14 @@ define(['grape', 'resources'], function (Grape, Resources) {
         init: function (opts) {
             this.width = 24;
             this.height = 160;
-            //if(this.isControllable()){
-                this.onGlobal('keyDown.' + opts.upKey, function () {
-                    this.up();
-                });
-                this.onGlobal('keyDown.' + opts.downKey, function () {
-                    this.down();
-                });
-            //}
+            this.onGlobal('keyDown.' + opts.upKey, function () {
+                this.up();
+            });
+            this.onGlobal('keyDown.' + opts.downKey, function () {
+                this.down();
+            });
         },
-        'command up':function(){
+        'command up':function(){ //todo validated on server or client side?
             if (this.y > 0) {
                 this.y -= 10;
             }

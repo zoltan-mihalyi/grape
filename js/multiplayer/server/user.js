@@ -12,7 +12,7 @@ define([],function(){
                 user.emit('disconnect');
             });
         },
-        'event message': function (message) {
+        'event message': function (message) { //TODO what if game is closed?
             message=JSON.parse(message);
             var data=message.data;
             //todo dispatch by command
