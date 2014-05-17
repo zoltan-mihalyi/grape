@@ -5,10 +5,11 @@ define(['common/interfaces'], function (Interfaces) {
         init: function (ws) {
             var user = this;
             this._id = nextId++;
+            console.log('USER CONNECTED: ' + this._id);
             this._ws = ws;
-            this._target = null;
+            this._game = null;
             ws.on('message', function (message) {
-                if (this._target !== null) {
+                if (user._game !== null) {
                     Interfaces.serverInterface.receiveMessages(message, user, function (method, parameters) {
                         user.remote[method].apply(user, parameters);
                     });
@@ -26,23 +27,23 @@ define(['common/interfaces'], function (Interfaces) {
             this.emit('disconnect');
         },
         'event disconnect': function () { //todo remove user from game's list
-            if (this._target) {
-                this._target.emit('userLeft', this);
+            if (this._game) {
+                this._game.emit('userLeft', this);
             }
         },
         addMessage: function (method, parameters) {
-            this._target._dirtyUsers[this._id] = this;
+            this._game._dirtyUsers[this._id] = this;
             this._messageBuffer.addMessage(method, parameters);
         },
         remote: {
             command: function (command, instance, parameters) {
                 var i;
                 instance[command](parameters);
-                for (i = 0; i < this._target._users.length; i++) { //todo optimize loop
-                    if (this._target._users[i] === this) {
+                for (i = 0; i < this._game._users.length; i++) { //todo optimize loop
+                    if (this._game._users[i] === this) {
                         continue;
                     }
-                    this._target._users[i].addMessage('command', { //broadcast to the other users
+                    this._game._users[i].addMessage('command', { //broadcast to the other users
                         command: command,
                         instance: instance,
                         parameters: parameters

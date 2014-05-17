@@ -31,6 +31,12 @@ define(['grape', 'resources'], function (Grape, Resources) {
             this.sprite = Resources.get('newgame');
         },
         action: function () {
+            this.getGame().useHeroku=false;
+            this.getGame().startScene(new Scenes.WaitingScene());
+        },
+        'event localPress.mouseRight':function(){
+            this.getGame().useHeroku=true;
+            this.getGame().setCursor('auto');
             this.getGame().startScene(new Scenes.WaitingScene());
         }
     });
@@ -53,6 +59,7 @@ define(['grape', 'resources'], function (Grape, Resources) {
                 speedX: Math.random() < 0.5 ? 5 : -5,
                 speedY: Math.random() < 0.5 ? 5 : -5
             });
+            this.counter=0;
         },
         'collision BAT': function () {
             this.speedX *= -1;
@@ -70,6 +77,15 @@ define(['grape', 'resources'], function (Grape, Resources) {
             if (this.getRight() >= this.getScene().width) {
                 this.handleEnd('Left player won!');
             }
+            this.counter=(this.counter+1)%10;
+            if(this.counter===0) { //sync every tenth frame TODO settimeout component
+                this.syncedAttr({ // todo pass attrs as list
+                    x: this.x,
+                    y: this.y,
+                    speedX:this.speedX,
+                    speedY:this.speedY
+                });
+            }
         },
         'clientSide handleEnd': function (text) {
             Resources.get('applause').play();
@@ -84,17 +100,7 @@ define(['grape', 'resources'], function (Grape, Resources) {
             for (var i = 0; i < users.length; i++) {
                 users[i].disconnect();
             }
-            try {
-                this.getGame().stop();
-            }catch(e){
-                console.log(users);
-            }
-        },
-        'event frame':function(){
-            this.syncedAttr({
-                x:this.x,
-                y:this.y
-            });
+            this.getGame().stop();
         }
     });
 

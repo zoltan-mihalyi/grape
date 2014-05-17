@@ -208,7 +208,7 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
             return this;
         },
         getGame: function () {
-            return this.getScene()._target;
+            return this.getScene()._game;
         },
         'event start': function () {
             this._started = true;

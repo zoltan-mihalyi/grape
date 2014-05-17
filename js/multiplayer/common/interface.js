@@ -10,9 +10,6 @@ define([], function () {
             this._send = send;
             this._messages = [];
         },
-        getGame: function () {
-            return this._target;
-        },
         addMessage: function (method, parameters) {
             var commandData = this._interface._methodsByName[method],
                 ret = [],

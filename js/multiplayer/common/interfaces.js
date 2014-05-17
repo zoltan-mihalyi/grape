@@ -1,7 +1,7 @@
 define(['common/interface'], function (Interface) { //todo rename to clientInterface
 
     function decompressInstanceOnServer(syncedId) {
-        return this._target.getScene()._syncedInstances[syncedId];
+        return this._game.getScene()._syncedInstances[syncedId];
     }
 
     function decompressInstanceOnClient(syncedId) {

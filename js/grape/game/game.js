@@ -48,15 +48,15 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             this.emit('stop');
         },
         startScene: function (scene) {
-            if (scene._target) {
+            if (scene._game) {
                 throw 'Scene already started!';
             }
             if (this.scene) {
                 this.scene.emit('stop');
-                this.scene._target = null;
+                this.scene._game = null;
             }
 
-            scene._target = this;
+            scene._game = this;
             this.scene = scene;
             scene.emit('start', this);
         },

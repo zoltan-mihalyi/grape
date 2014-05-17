@@ -62,7 +62,7 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
             } else {
                 throw 'Scene ' + sceneName + ' is missing from the mapper.';
             }
-            game._server=this;
+            game._server = this;
             game._gameIdx = this._games.add(game) - 1; //TODO this indexing functionality to a separate component
             game._users = users.slice(0);
             game._dirtyUsers = {};
@@ -73,7 +73,7 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
                 }
             };
             for (i = 0; i < users.length; ++i) {
-                users[i]._target = game;
+                users[i]._game = game;
             }
             game.on('stop', function () {
                 //remove game from server
@@ -83,7 +83,7 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
                 }
                 //remove users from game
                 for (i = 0; i < this._users.length; ++i) {
-                    this._users[i]._target = null;
+                    this._users[i]._game = null;
                 }
             });
             scene.on('frame', function () { //todo change scene inside game?
@@ -98,6 +98,11 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
                 sceneParameters: sceneParameters
             });
             game.start(scene);
+            var userIds = [];
+            for (i = 0; i < users.length; i++) {
+                userIds.push(users[i]._id);
+            }
+            console.log('Game started: ' + sceneName + ', users: ' + userIds);
             return game;
         }
     });

@@ -45,7 +45,7 @@ define(['common/interfaces'], function (Interfaces) {
             this._messageBuffer = Interfaces.serverInterface.createBuffer(game, function (msg) {
                 websocket.send(msg);
             });
-            this._target = game;
+            this._game = game;
         },
         isActive: function () {
             return this._status <= 1;
