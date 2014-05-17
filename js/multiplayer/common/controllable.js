@@ -1,25 +1,50 @@
 define(['common/synchronized'], function (Synchronized) {
+    var isServer = typeof process === 'object' && typeof process.env === 'object'; //todo env.node
+
+    Grape.Class.registerKeyword('command', { //todo require controllable class
+        onAdd: function (classInfo, methodDescriptor) {
+            var originalMethod, name;
+            if (!isServer) {
+                originalMethod = methodDescriptor.method;
+                name = methodDescriptor.name;
+                methodDescriptor.method = function () {
+                    if (this.isControllable()) {
+                        this.getGame().addMessage('command', {
+                            command: name, //todo compress
+                            instance: this,
+                            parameters: arguments
+                        }); //todo apply command restrictions (once per frame, etc.)
+                        return originalMethod.apply(this, arguments);
+                    }
+                };
+                methodDescriptor.method._original = originalMethod;
+            }
+        }
+    });
+
     var Controllable = Grape.Class('Controllable', Synchronized, {
         init: function () {
-            this._commands = [];
-            //todo control added to someone else
             this._controller = null; //todo multiple controllers
-            this._isDirtyC = false; //todo variables with same name?
         },
-        addController: function (user) {
-            this._controller = user; //TODO on user reconnect who is the controller? free the resource! offline user?
-            this._isDirtyC = true;
-        },
-        'global-event sendMessages': function (messages) {
-            if (this._isDirtyC) {
-                messages.sendForUser(this._controller, {
-                    command: 'controlAdded',
-                    data: {
-                        id: this._syncedId
-                    }
+        'serverSide setControllable': function (user) {
+            if (this._controller !== null) {
+                this._controller._messageBuffer.addMessage('unsetControllable', { //if the instance was controllable, we revoke the control.
+                    instance: this
                 });
-                this._isDirtyC = false;
+                this.emit('unsetControllable');
             }
+            this._controller = user; //TODO on user reconnect who is the controller? free the resource! offline user?
+            user._messageBuffer.addMessage('setControllable', {
+                instance: this
+            });
+            this.emit('setControllable');
+        },
+        'clientSide setControllable': function () {
+            this._controller = true;
+            this.emit('setControllable');
+        },
+        isControllable: function () {
+            return this._controller !== null;
         }
     });
 

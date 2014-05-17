@@ -80,33 +80,57 @@ define(['grape', 'resources'], function (Grape, Resources) {
         },
         'serverSide handleEnd': function (text) {
             console.log(text);
-            this.getGame().stop();
+            var users = this.getGame()._users;
+            for (var i = 0; i < users.length; i++) {
+                users[i].disconnect();
+            }
+            try {
+                this.getGame().stop();
+            }catch(e){
+                console.log(users);
+            }
+        },
+        'event frame':function(){
+            this.syncedAttr({
+                x:this.x,
+                y:this.y
+            });
         }
     });
 
     var Bat = Grape.Class('Bat', [Grape.Rectangle, Grape.Collidable, Grape.Multiplayer.Controllable], {
-        init: function (opts) {
+        init: function () {
             this.width = 24;
             this.height = 160;
-            this.onGlobal('keyDown.' + opts.upKey, function () {
-                this.up();
-            });
-            this.onGlobal('keyDown.' + opts.downKey, function () {
-                this.down();
-            });
         },
-        'command up':function(){ //todo validated on server or client side?
+        'command up': function () { //todo validated on server or client side?
             if (this.y > 0) {
                 this.y -= 10;
             }
         },
-        'command down':function(){
+        'command down': function () {
             if (this.y + this.height < this.getScene().height) {
                 this.y += 10;
             }
         },
         'event add': function () {
             this.addTag('BAT');
+        },
+        'event setControllable': function () {
+            this.onGlobal('keyDown.up', function () {
+                this.up();
+            });
+            this.onGlobal('keyDown.down', function () {
+                this.down();
+            });
+        },
+        'global-event render': function (ctx) {
+            if (this.isControllable()) {
+                ctx.beginPath();
+                ctx.lineWidth = "4";
+                ctx.rect(this.x - 3, this.y - 3, this.width + 6, this.height + 6);
+                ctx.stroke();
+            }
         }
     });
 

@@ -17,8 +17,8 @@ require(['grape', 'mapper', 'resources', 'scenes'], function (Grape, Mapper, Res
                     },
                     users: users
                 });
-                game.scene.leftBat.addController(users[0]); //todo set timeout before start
-                game.scene.rightBat.addController(users[1]);
+                game.scene.leftBat.setControllable(users[0]); //todo set timeout before start
+                game.scene.rightBat.setControllable(users[1]);
             }
         }
     });

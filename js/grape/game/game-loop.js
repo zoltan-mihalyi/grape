@@ -76,6 +76,7 @@ define(['class'], function (Class) {
                     wasFrame = true;
                     game.frame();
                     if (now() - lastRenderStart > 16 + 1000 / game.scene.fps) { //can't keep up
+                        //console.log('DROP FRAME',backlog)
                         backlog = 0;
                     }
                 }
@@ -89,7 +90,7 @@ define(['class'], function (Class) {
         },
         stop: function () {
             if (!this.isRunning()) {
-                throw 'not running';
+                throw new Error('not running');
             }
             clearReqInterval(this.intervalId);
             this.intervalId = null;

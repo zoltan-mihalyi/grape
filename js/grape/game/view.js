@@ -32,7 +32,7 @@ define(['class', 'etc/system', 'utils'], function (Class, System, Utils) {
             this.mouse.y = mouse.y - this.getTop();
         },
         'event start': function (game) {
-            this._game = game;
+            this._target = game;
             if (typeof window !== 'undefined') { //todo env.browser
                 this.canvas = document.createElement('canvas');
                 this.canvas.style.position = 'absolute';
@@ -60,16 +60,16 @@ define(['class', 'etc/system', 'utils'], function (Class, System, Utils) {
             }
         },
         getLeft: function () {
-            return propValue(this.left, this._game.getScreenWidth());
+            return propValue(this.left, this._target.getScreenWidth());
         },
         getTop: function () {
-            return propValue(this.top, this._game.getScreenHeight());
+            return propValue(this.top, this._target.getScreenHeight());
         },
         getWidth: function () {
-            return propValue(this.width, this._game.getScreenWidth());
+            return propValue(this.width, this._target.getScreenWidth());
         },
         getHeight: function () {
-            return propValue(this.height, this._game.getScreenHeight());
+            return propValue(this.height, this._target.getScreenHeight());
         },
         getOriginX: function () {
             return propValue(this.originX, this.getWidth());

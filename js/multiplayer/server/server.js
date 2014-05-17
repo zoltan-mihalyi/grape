@@ -1,30 +1,6 @@
-define(['server/user'], function (User) {
+define(['common/interfaces', 'server/user'], function (Interfaces, User) {
     var WebSocketServer = require('ws').Server;
-
-    var MessageList = Grape.Class('Multiplayer.MessageList', { //todo remove
-        init: function () {
-            this._forAll = [];
-            this._forUser = [];
-        },
-        sendForAll: function (message) {
-            this._forAll.push(message);
-        },
-        sendForUser: function (user, message) {
-            this._forUser.push({user: user, message: message});
-        },
-        sendReal: function (game) { //todo confusing name, send one message/user
-            var i;
-            if (this._forAll.length) {
-                for (i = 0; i < game._users.length; i++) {
-                    game._users[i].sendAll(this._forAll);
-                }
-            }
-            for (i = 0; i < this._forUser.length; i++) {
-                this._forUser[i].user.send(this._forUser[i].message.command, this._forUser[i].message.data); //todo ugly
-            }
-        }
-    });
-
+    //TODO settings for logging
     var Server = Grape.Class('Multiplayer.Server', Grape.EventEmitter, { //todo use socket.io
         init: function (opts) {
             opts = opts || {};
@@ -86,10 +62,18 @@ define(['server/user'], function (User) {
             } else {
                 throw 'Scene ' + sceneName + ' is missing from the mapper.';
             }
+            game._server=this;
             game._gameIdx = this._games.add(game) - 1; //TODO this indexing functionality to a separate component
             game._users = users.slice(0);
+            game._dirtyUsers = {};
+            game.addMessage = function (type, parameters) { //todo inherit somehow
+                var i = 0, n = this._users.length;
+                for (; i < n; i++) {
+                    this._users[i].addMessage(type, parameters);
+                }
+            };
             for (i = 0; i < users.length; ++i) {
-                users[i]._game = game;
+                users[i]._target = game;
             }
             game.on('stop', function () {
                 //remove game from server
@@ -99,21 +83,21 @@ define(['server/user'], function (User) {
                 }
                 //remove users from game
                 for (i = 0; i < this._users.length; ++i) {
-                    this._users[i]._game = null;
+                    this._users[i]._target = null;
                 }
             });
-            scene.on('frame', function () {
-                var messages = new MessageList();
-                this.emit('sendMessages', messages);
-                messages.sendReal(game);
+            scene.on('frame', function () { //todo change scene inside game?
+                var i;
+                for (i in game._dirtyUsers) {
+                    game._dirtyUsers[i]._messageBuffer.flushMessages();
+                }
+                game._dirtyUsers = {};
+            });
+            game.addMessage('startScene', {
+                sceneId: sceneId,
+                sceneParameters: sceneParameters
             });
             game.start(scene);
-            for (i = 0; i < users.length; ++i) {
-                users[i].send('gameStarted', {
-                    sceneId: sceneId,
-                    sceneParameters: sceneParameters
-                });
-            }
             return game;
         }
     });

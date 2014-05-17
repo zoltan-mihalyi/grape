@@ -48,19 +48,20 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             this.emit('stop');
         },
         startScene: function (scene) {
-            if (scene.game) {
+            if (scene._target) {
                 throw 'Scene already started!';
             }
             if (this.scene) {
                 this.scene.emit('stop');
-                this.scene.game = null;
+                this.scene._target = null;
             }
 
-            scene.game = this;
+            scene._target = this;
             this.scene = scene;
             scene.emit('start', this);
         },
         frame: function () {
+            this.emit('frame');
             this.scene.emit('frame');
             if (this.input) {
                 this.input.emitEvents(this.scene); //TODO is it wrong? ie. keyPress.none?
@@ -80,6 +81,9 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
                 return;
             }
             this._screen.style.cursor = cursor;
+        },
+        getScene: function () {
+            return this.scene; //todo rename to _scene
         }
     });
 });

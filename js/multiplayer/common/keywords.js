@@ -1,4 +1,4 @@
-define([],function(){
+define(['common/interfaces'], function (Interfaces) { //todo separate this to different files
     var isServer = typeof process === 'object' && typeof process.env === 'object'; //todo env.node
 
     function empty() {
@@ -30,26 +30,6 @@ define([],function(){
                 }
             }
             //on server we do nothing
-        }
-    });
-    Grape.Class.registerKeyword('command', { //todo require controllable class? need different file?
-        onAdd: function (classInfo, methodDescriptor) {
-            var originalMethod, name;
-            if (!isServer) {
-                originalMethod=methodDescriptor.method;
-                name=methodDescriptor.name;
-                methodDescriptor.method=function(){
-                    if(this._controllable){
-                        this.getGame().sendMessage('command', {
-                            command:name,
-                            id:this._syncedId,
-                            parameters:arguments
-                        }); //todo apply command restrictions (once per frame, etc.)
-                        return originalMethod.apply(this, arguments);
-                    }
-                };
-                methodDescriptor.method._original=originalMethod;
-            }
         }
     });
 

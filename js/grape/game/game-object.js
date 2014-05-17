@@ -76,6 +76,9 @@ define(['class', 'collections/bag', 'etc/event-emitter', 'etc/tag'], function (C
         },
         getScene: function () {
             return this._layer.getScene();
+        },
+        getLayer: function () {
+            return this._layer;
         }
     });
 
