@@ -12,12 +12,16 @@ define(['class', 'collections/bag'], function (Class, Bag) {
         addToTagContainer: function (container) {
             this._tagContainer = container;
         },
-        addTag: function (name) { //todo check
+        addTag: function (name) {
             var container = this._tagContainer, tags = container._tags;
+            if (this._tags[name]) {
+                return false;
+            }
             if (!tags[name]) {
                 tags[name] = new Bag();
             }
             this._tags[name] = tags[name].add(this) - 1; //store the index for removal purpose
+            return true;
         },
         hasTag: function (name) {
             return this._tags[name] !== undefined;

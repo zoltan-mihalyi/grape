@@ -1,6 +1,6 @@
 define(['class', 'game/abstract-view'], function (Class, AbstractView) {
     return Class('GUIView', AbstractView, {
-        'event start': function () {
+        'event domCreated': function () {
             this.render();
         },
         createDom: function () {
