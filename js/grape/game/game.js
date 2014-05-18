@@ -68,7 +68,12 @@ define(['class', 'env', 'etc/event-emitter', 'game/game-loop', 'game/input', 'ga
             }
         },
         render: function () {
-            this.scene.emit('renderLayer');
+            if (Env.browser) {
+                this.scene.emit('renderLayer');
+            }
+        },
+        getScreen: function () {
+            return this._screen;
         },
         getScreenWidth: function () {
             return this._screen ? this._screen.offsetWidth : 1;

@@ -5,6 +5,21 @@ define(['grape'], function (Grape) {
     });
     res.sprite('wall', 'sprite/wall.png');
 
+    var IngameGUIView = Grape.Class('IngameGUIView', Grape.GUIView, {
+        render: function () {
+            this.el.innerHTML = '<input type="button" class="keyButton" value="LEFT" data-key="keyDown.left">' +
+                '<input type="button" class="keyButton" value="RIGHT" data-key="keyDown.right">';
+        },
+        'event domCreated': function (el) {
+            var view = this;
+            el.onclick = function (e) {
+                if (e.target.className === 'keyButton') {
+                    view.getGame().getScene().emit(e.target.getAttribute('data-key'));
+                }
+            }
+        }
+    });
+
     var LoadingScene = Grape.Scene.extend({
         'event start': function (game) {
             var that = this;
@@ -18,13 +33,14 @@ define(['grape'], function (Grape) {
         },
         'event render': function (ctx) {
             ctx.fillStyle = 'black';
-            ctx.fillRect(0, 200, this.progress * this.game.getScreenWidth() / 100, 60);
+            ctx.fillRect(0, 200, this.progress * this.getGame().getScreenWidth() / 100, 60);
         }
     });
 
     var Level1 = Grape.Scene.extend({
         init: function () {
             var collSystem = new Grape.CollisionSystem();
+            this.addView(new IngameGUIView());
             this.addSystem('collision', collSystem);
             this.add(new Man({x: 32, y: 128}));
             this.add(new Wall({x: 32, y: 256}));

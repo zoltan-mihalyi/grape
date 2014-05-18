@@ -1,0 +1,16 @@
+define(['class', 'game/abstract-view'], function (Class, AbstractView) {
+    return Class('GUIView', AbstractView, {
+        'event start': function () {
+            this.render();
+        },
+        createDom: function () {
+            var el = document.createElement('div');
+            if (typeof jQuery !== 'undefined') {
+                this.$el = jQuery(el);
+            }
+            return el;
+        },
+        render: function () {
+        }
+    });
+});
