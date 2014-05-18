@@ -1,5 +1,8 @@
 define(['common/interfaces', 'server/user'], function (Interfaces, User) {
     var WebSocketServer = require('ws').Server;
+
+    var nextId = 1;
+
     //TODO settings for logging
     var Server = Grape.Class('Multiplayer.Server', Grape.EventEmitter, { //todo use socket.io
         init: function (opts) {
@@ -39,8 +42,9 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
                 });
                 server.emit('connection', user);
             });
+            console.log('Server listening on ' + port);
         },
-        getUsers: function (tag) { //TDOO copy?
+        getUsers: function (tag) { //TODO copy?
             var result = this._users._tags[tag || 'ALL'];
             if (result) {
                 return result.slice(0);
@@ -62,6 +66,7 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
             } else {
                 throw 'Scene ' + sceneName + ' is missing from the mapper.';
             }
+            game._id = nextId++;
             game._server = this;
             game._gameIdx = this._games.add(game) - 1; //TODO this indexing functionality to a separate component
             game._users = users.slice(0);
@@ -82,9 +87,12 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
                     moved._gameIdx = game._gameIdx;
                 }
                 //remove users from game
+                var dropped = [];
                 for (i = 0; i < this._users.length; ++i) {
+                    dropped.push(this._users[i]._id);
                     this._users[i]._game = null;
                 }
+                console.log('Game stopped: ' + game._id + ', dropped users: ' + dropped);
             });
             scene.on('frame', function () { //todo change scene inside game?
                 var i;
@@ -102,7 +110,7 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
             for (i = 0; i < users.length; i++) {
                 userIds.push(users[i]._id);
             }
-            console.log('Game started: ' + sceneName + ', users: ' + userIds);
+            console.log('Game started: ' + game._id + '. Scene: ' + sceneName + ', users: ' + userIds);
             return game;
         }
     });

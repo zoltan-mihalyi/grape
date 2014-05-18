@@ -1,13 +1,13 @@
-define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scene'], function (Class, EventEmitter, GameLoop, Input, Scene) {
+define(['class', 'env', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scene'], function (Class, Env, EventEmitter, GameLoop, Input, Scene) {
     return Class('Game', EventEmitter, {
         init: function (opts) {
             opts = opts || {};
             this.initialScene = opts.initialScene || function () {
                 return new Scene();
             };
-            this.container = opts.container || (typeof window != 'undefined' ? document.body : null); //todo env.browser
+            this.container = opts.container || (Env.browser ? document.body : null);
             this.gameLoop = new GameLoop(this); //TODO move to a function
-            if (typeof window != 'undefined') { //todo env.browser
+            if (Env.browser) {
                 this.input = new Input();
             }
         },
@@ -17,7 +17,7 @@ define(['class', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scen
             }
 
             //initialize screen
-            if (typeof window != 'undefined') { //todo env.browser
+            if (Env.browser) {
                 if (typeof this.container === 'string') {
                     this.container = document.getElementById(this.container);
                 }

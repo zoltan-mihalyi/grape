@@ -14,6 +14,7 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
+     * fullscreen
      * UMD pattern for build? http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/
      * avoid nested require calls?
      * protocolbuffer-like way to compress data in communication

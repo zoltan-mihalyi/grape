@@ -1,4 +1,4 @@
-define(['class', 'etc/system', 'utils'], function (Class, System, Utils) {
+define(['class', 'env', 'etc/system', 'utils'], function (Class, Env, System, Utils) {
     //TODO follow player etc.
 
     function propValue(prop, max) {
@@ -33,7 +33,7 @@ define(['class', 'etc/system', 'utils'], function (Class, System, Utils) {
         },
         'event start': function (game) {
             this._game = game;
-            if (typeof window !== 'undefined') { //todo env.browser
+            if (Env.browser) {
                 this.canvas = document.createElement('canvas');
                 this.canvas.style.position = 'absolute';
                 this.canvas.width = this.getWidth();

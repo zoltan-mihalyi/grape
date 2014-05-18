@@ -1,4 +1,4 @@
-define(['class', 'utils'], function (Class, Utils) {
+define(['class', 'env', 'utils'], function (Class, Env, Utils) {
     //TODO node environment
     var KEYS = {
         any: 'any',
@@ -103,7 +103,7 @@ define(['class', 'utils'], function (Class, Utils) {
         }
     }
 
-    if (typeof window !== 'undefined') { //todo env.browser
+    if (Env.browser) {
         Utils.addEventListener(document, 'mousemove', function (event) {
             //todo
         });

@@ -56,7 +56,7 @@ define(['classes', 'mapper', 'grape', 'resources'], function (Classes, Mapper, G
         init: function () {
         },
         'event start': function () {
-            this.getGame().connect({address: this.getGame().useHeroku?'zoltan-mihalyi.herokuapps.com':'localhost:8080', mapper: Mapper});
+            this.getGame().connect({address: this.getGame().useHeroku?'zoltan-mihalyi.herokuapp.com':'localhost:8080', mapper: Mapper});
         },
         'event render': function (ctx) {
             ctx.fillText(statusTexts[this.getGame().getConnection().getStatus()], 100, 100);

@@ -5,7 +5,7 @@ define(['common/interfaces'], function (Interfaces) {
         init: function (ws) {
             var user = this;
             this._id = nextId++;
-            console.log('USER CONNECTED: ' + this._id);
+            console.log('User connected: ' + this._id);
             this._ws = ws;
             this._game = null;
             ws.on('message', function (message) {
@@ -16,10 +16,15 @@ define(['common/interfaces'], function (Interfaces) {
                 }
             });
             ws.on('close', function () {
+                console.log('User socket closed: ' + user._id)
                 user.emit('disconnect');
             });
             this._messageBuffer = Interfaces.clientInterface.createBuffer(this, function (msg) {
-                ws.send(msg);
+                try {
+                    ws.send(msg);
+                } catch (e) {
+                    console.log('Failed to send message to ' + user._id);
+                }
             });
         },
         disconnect: function () {
@@ -27,13 +32,18 @@ define(['common/interfaces'], function (Interfaces) {
             this.emit('disconnect');
         },
         'event disconnect': function () { //todo remove user from game's list
+            console.log('User disconnected: ' + this._id);
             if (this._game) {
                 this._game.emit('userLeft', this);
             }
         },
         addMessage: function (method, parameters) {
-            this._game._dirtyUsers[this._id] = this;
-            this._messageBuffer.addMessage(method, parameters);
+            if (this._game) {
+                this._game._dirtyUsers[this._id] = this;
+                this._messageBuffer.addMessage(method, parameters);
+            } else {
+                console.log('User is not in game: ' + this._id);
+            }
         },
         remote: {
             command: function (command, instance, parameters) {

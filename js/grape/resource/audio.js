@@ -1,4 +1,4 @@
-define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Utils) {
+define(['class', 'env', 'resource/cacheable', 'utils'], function (Class, Env, Cacheable, Utils) {
     /*global Audio, AudioBuffer, Media*/
     //TODO partial preload for large files
     var defaultPlayOpts = {
@@ -57,7 +57,7 @@ define(['class', 'resource/cacheable', 'utils'], function (Class, Cacheable, Uti
             this.url = url;
         },
         'override loadResource': function (onFinish, onError) { //TODO preload phonegap audio
-            if (typeof process === 'object' && typeof process.env === 'object') { //TODO env.node
+            if (Env.node) {
                 onFinish(null);
             } else if (location.protocol !== 'file:' && typeof Blob === 'function') { //load as blob
                 Utils.ajax(this.url, {responseType: 'arraybuffer'}, function (response) {

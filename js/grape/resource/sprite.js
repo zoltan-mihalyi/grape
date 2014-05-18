@@ -1,4 +1,4 @@
-define(['class', 'resource/cacheable'], function (Class, Cacheable) {
+define(['class', 'env', 'resource/cacheable'], function (Class, Env, Cacheable) {
     function readUInt32(data) {
         var b1, b2, b3, b4;
         b1 = data[data.pos++] << 24;
@@ -54,7 +54,7 @@ define(['class', 'resource/cacheable'], function (Class, Cacheable) {
             this.bottomBounding = settings.bottomBounding;
         },
         'override loadResource': function (onFinish, onError) {
-            if (typeof process === 'object' && typeof process.env === 'object') { //todo env.node
+            if (Env.node) {
                 var fs = require('fs');
                 fs.readFile(this.url, function (err, file) {
                     if (err) {
@@ -63,7 +63,7 @@ define(['class', 'resource/cacheable'], function (Class, Cacheable) {
                         onFinish(getImageSize(file));
                     }
                 });
-            } else { //todo env.browser
+            } else {
                 var img = document.createElement('img');
                 img.onload = function () {
                     onFinish(img);

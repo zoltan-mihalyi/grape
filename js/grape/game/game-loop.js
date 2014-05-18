@@ -1,6 +1,8 @@
-define(['class'], function (Class) {
+define(['class', 'env'], function (Class, Env) {
+    var DROP_FRAME_THRESHOLD = Env.node ? 100 : 0;
+    //todo different parameters: don't drop frame?
     var reqTimeout, clearReqTimeout, reqInterval, clearReqInterval;
-    if (typeof window !== 'undefined') { //todo env.browser
+    if (Env.browser) {
         reqTimeout = window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.oRequestAnimationFrame ||
@@ -55,7 +57,6 @@ define(['class'], function (Class) {
     var now = Date.now ? Date.now : function () {
         return new Date().getTime();
     };
-    var currentGame = null; //TODO use
     return Class('GameLoop', {
         init: function (game) {
             this.intervalId = null;
@@ -67,7 +68,6 @@ define(['class'], function (Class) {
             var last = now();
             var lastRenderStart = last;
             this.intervalId = reqInterval(function () {
-                currentGame = game;
 
                 var start = now(), wasFrame = false;
                 backlog += start - last;
@@ -75,8 +75,8 @@ define(['class'], function (Class) {
                     backlog -= 1000 / game.scene.fps; //TODO replace with custom game.getFPS() logic
                     wasFrame = true;
                     game.frame();
-                    if (now() - lastRenderStart > 16 + 1000 / game.scene.fps) { //can't keep up
-                        //console.log('DROP FRAME',backlog)
+                    if (now() - lastRenderStart > 16 + DROP_FRAME_THRESHOLD + 1000 / game.scene.fps) { //can't keep up
+                        console.log('DROP FRAME', backlog)
                         backlog = 0;
                     }
                 }
@@ -85,7 +85,6 @@ define(['class'], function (Class) {
                     lastRenderStart = now();
                     game.render(); //TODO can skip render?
                 }
-                currentGame = null;
             }); //TODO run once before set interval
         },
         stop: function () {
@@ -93,6 +92,7 @@ define(['class'], function (Class) {
                 throw new Error('not running');
             }
             clearReqInterval(this.intervalId);
+            console.log('Game loop stopped');
             this.intervalId = null;
         },
         isRunning: function () {

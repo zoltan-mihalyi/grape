@@ -1,5 +1,5 @@
-define(['common/interfaces'], function (Interfaces) { //todo separate this to different files
-    var isServer = typeof process === 'object' && typeof process.env === 'object'; //todo env.node
+define([], function () { //todo separate this to different files
+    var isServer = Grape.Env.node;
 
     function empty() {
     }

@@ -3,7 +3,7 @@
  * The entire Grape.js package
  */
 /*global define, require*/
-define(['class', 'collections/main', 'etc/main', 'game/main', 'resource/main', 'utils'], function (Class, Collections, Etc, Game, Resource, Utils) {
+define(['class', 'collections/main', 'env', 'etc/main', 'game/main', 'resource/main', 'utils'], function (Class, Collections, Env, Etc, Game, Resource, Utils) {
     //Strict mode does not work with getting global object
 
     var Grape = {};
@@ -13,6 +13,7 @@ define(['class', 'collections/main', 'etc/main', 'game/main', 'resource/main', '
 
     Grape.Class = Class;
     Utils.extend(Grape, Collections);
+    Grape.Env = Env;
     Utils.extend(Grape, Etc);
     Utils.extend(Grape, Game);
     Utils.extend(Grape, Resource);
@@ -28,7 +29,7 @@ define(['class', 'collections/main', 'etc/main', 'game/main', 'resource/main', '
 
     //node.js
     if (global.requirejsVars) {
-        if(define !==global.requirejsVars.define) { //grape is built
+        if (define !== global.requirejsVars.define) { //grape is built
             global.requirejsVars.define([], function () {
                 return Grape;
             });

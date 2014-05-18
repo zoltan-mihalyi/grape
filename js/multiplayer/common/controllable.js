@@ -1,5 +1,5 @@
 define(['common/synchronized'], function (Synchronized) {
-    var isServer = typeof process === 'object' && typeof process.env === 'object'; //todo env.node
+    var isServer = Grape.Env.node; //todo configure?
 
     Grape.Class.registerKeyword('command', { //todo require controllable class
         onAdd: function (classInfo, methodDescriptor) {
