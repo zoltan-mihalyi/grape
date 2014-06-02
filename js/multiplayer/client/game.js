@@ -1,15 +1,4 @@
-define(['client/connection', 'common/interfaces'], function (Connection, Interfaces) {
-
-    function decompressInstance(syncedId){
-        return this.getScene()._syncedInstances[syncedId];
-    }
-
-    //todo refactor this part
-
-    function compressInstance(instance){
-        return instance._syncedId;
-    }
-
+define(['client/connection', 'common/interfaces'], function (Connection/*, Interfaces*/) {
 
     var Game = Grape.Class('Multiplayer.Game', Grape.Game, {
         connect: function (opts) { //todo check

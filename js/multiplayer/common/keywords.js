@@ -5,8 +5,6 @@ define([], function () { //todo separate this to different files
     }
 
     Grape.Class.registerKeyword('clientSide', {
-        onInit: function (classInfo) {
-        },
         onAdd: function (classInfo, methodDescriptor) {
             if (isServer) {
                 if (classInfo.methods[methodDescriptor.name]) { //we have a serverSide method
@@ -15,9 +13,6 @@ define([], function () { //todo separate this to different files
                     methodDescriptor.method = empty;
                 }
             } //on client we do nothing
-        },
-        onFinish: function (classInfo) {
-
         }
     });
     Grape.Class.registerKeyword('serverSide', {

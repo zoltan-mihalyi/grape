@@ -1,5 +1,6 @@
 define(['class', 'env', 'etc/system', 'utils'], function (Class, Env, System, Utils) {
     function propValue(prop, max) {
+        /*jslint evil: true */
         if (typeof (prop) === 'function') {
             return prop();
         }

@@ -57,18 +57,18 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
                     if (remaining === 0) {
                         onFinish();
                     }
-                }
+                };
             }
 
             function createOnProgress(i) {
                 return function (progress) {
                     var n = originalTimes[i] * (1 - progress / 100);
-                    if (times[i] != n) {
+                    if (times[i] !== n) {
                         remainingTime -= [times[i] - n];
                         times[i] = n;
                         onProgress((1 - remainingTime / estimatedTime) * 100);
                     }
-                }
+                };
             }
 
             if (this.resources.length === 0) {
@@ -76,6 +76,7 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
             }
 
             for (i = 0; i < this.resources.length; i++) {
+                /*jshint -W083 */
                 this.resources[i].load(createOnLoad(i), function () {
                     if (!hasError) {
                         onError();
@@ -91,10 +92,6 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
             }
             return time;
         },
-        createLoader: function () {
-            var loader = new ResourceLoader({collection: this});
-            return loader;
-        },
         sprite: function (name, url, settings) {
             var spr = new Sprite(this.prefix + url, settings);
             this.add(name, spr);
@@ -105,7 +102,7 @@ define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resou
             for (i in sprites) {
                 coords = sprites[i];
                 this.sprite(i, this.prefix + url, {
-                    subimages: coords.length == 2 ? 1 : coords[2],
+                    subimages: coords.length === 2 ? 1 : coords[2],
                     left: coords[0] * width,
                     top: coords[1] * height,
                     width: width,

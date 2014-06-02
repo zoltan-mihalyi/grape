@@ -8,5 +8,5 @@ define(['game/game', 'game/game-object', 'game/game-object-array', 'game/gui-vie
         Layer: Layer,
         Scene: Scene,
         View: View
-    }
+    };
 });

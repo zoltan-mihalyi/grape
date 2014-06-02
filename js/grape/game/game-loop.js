@@ -51,7 +51,7 @@ define(['class', 'env'], function (Class, Env) {
 
         clearReqInterval = function (handle) {
             clearInterval(handle);
-        }
+        };
     }
 
     var now = Date.now ? Date.now : function () {
@@ -76,7 +76,6 @@ define(['class', 'env'], function (Class, Env) {
                     wasFrame = true;
                     game.frame();
                     if (now() - lastRenderStart > 16 + DROP_FRAME_THRESHOLD + 1000 / game.scene.fps) { //can't keep up
-                        console.log('DROP FRAME', backlog)
                         backlog = 0;
                     }
                 }
@@ -92,7 +91,6 @@ define(['class', 'env'], function (Class, Env) {
                 throw new Error('not running');
             }
             clearReqInterval(this.intervalId);
-            console.log('Game loop stopped');
             this.intervalId = null;
         },
         isRunning: function () {

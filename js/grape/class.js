@@ -53,6 +53,15 @@ define(['utils'], function (Utils) {
      * unsafe class creation
      * */
 
+
+    /** TODO
+     * Creates a class.
+     * @param name
+     * @param parents
+     * @param methods
+     * @returns {*}
+     * @constructor
+     */
     function Class(name, parents, methods) {
         var classInfo = {}, constructor, i, id = ++nextId;
 
@@ -109,6 +118,11 @@ define(['utils'], function (Utils) {
         constructor.prototype.getClass = function () {
             return constructor;
         };
+
+        constructor.prototype.instanceOf = constructor.inherits = function (Class) {
+            return !!classInfo.allParentId[Class.id];
+        };
+
         constructor.prototype.init = constructor;
         constructor.toString = function () { //debug info
             return name;
@@ -152,6 +166,7 @@ define(['utils'], function (Utils) {
      * @param classInfo
      */
     function createConstructor(classInfo) {
+        /*jslint evil: true */
         var name = classInfo.className, initMethods = [], factory = [], i, parent, constructor;
         //add parent init methods
         for (i = 0; i < classInfo.allParent.length; i++) {
@@ -174,7 +189,7 @@ define(['utils'], function (Utils) {
         for (i = 0; i < initMethods.length; i++) {
             factory.push('init' + i + '.apply(this, arguments);'); //init0.apply(this, arguments)
         }
-        factory.push('};')
+        factory.push('};');
         factory.push('return this["' + name + '"];'); //return this["MyClass"];
         constructor = (new Function('inits', factory.join('\n'))).call({}, initMethods);
         classInfo.constructor = constructor;
@@ -369,7 +384,7 @@ define(['utils'], function (Utils) {
                 //replace constructor, this happens before extending it with anything
                 oldToString = classInfo.constructor.toString;
                 classInfo.constructor = function () {
-                    throw 'Abstract class "' + classInfo.className + '" cannot be instantiated.'
+                    throw 'Abstract class "' + classInfo.className + '" cannot be instantiated.';
                 };
                 classInfo.constructor.toString = oldToString;
                 classInfo.constructor.prototype.constructor = classInfo.constructor;

@@ -4,6 +4,7 @@
 var require, define;
 (function () {
     "use strict";
+    /*jshint -W020 */ //redefine require
     var STRING_TYPE = '[object String]';
     var defined = {};
     var waiting = {};
@@ -12,7 +13,6 @@ var require, define;
     var hasProp = function (obj, prop) {
         return hasOwn.call(obj, prop);
     };
-
     define = function (name, deps, callback) {
         if (hasProp(defined, name) || hasProp(waiting, name)) {
             throw 'Already defined: ' + name;
@@ -41,7 +41,7 @@ var require, define;
         var i = 0, n, modules = [], global = (function () {
             return this;
         })();
-        if (Object.prototype.toString.call(deps) == STRING_TYPE) {
+        if (Object.prototype.toString.call(deps) === STRING_TYPE) {
             deps = [deps];
         }
         for (n = deps.length; i < n; ++i) {

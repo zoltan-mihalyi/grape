@@ -5,6 +5,8 @@ define(['class', 'env', 'resource/cacheable', 'utils'], function (Class, Env, Ca
         volume: 100
     };
 
+    /*jshint newcap:false */
+    /*global webkitAudioContext */
     var context = typeof webkitAudioContext === 'function' ? new webkitAudioContext() : null;
 
     var canPlay = (function () {

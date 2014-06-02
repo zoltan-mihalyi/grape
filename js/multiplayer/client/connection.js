@@ -24,11 +24,11 @@ define(['common/interfaces'], function (Interfaces) {
             websocket = new WebSocket(address);
             this._status = this.STATUS_CONNECTING;
             this._ws = websocket;
-            websocket.onopen = function (evt) {
+            websocket.onopen = function () {
                 conn._status = conn.STATUS_OPEN;
                 conn.emit('connect');
             };
-            websocket.onclose = function (evt) {
+            websocket.onclose = function () {
                 conn._status = conn.STATUS_CLOSED;
                 conn.emit('close');
             };
@@ -37,7 +37,7 @@ define(['common/interfaces'], function (Interfaces) {
                     game.remote[method].apply(game, parameters);
                 });
             };
-            websocket.onerror = function (evt) {
+            websocket.onerror = function () {
                 conn._status = conn.STATUS_ERROR;
                 conn.emit('error');
             };

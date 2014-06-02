@@ -42,7 +42,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
             for (i = 0; i < fns.length; i++) {
                 fns[i].apply(this, arguments);
             }
-        }
+        };
     }
 
     function createPartition(instances, blockSize) {

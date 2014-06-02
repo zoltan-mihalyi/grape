@@ -19,7 +19,7 @@ define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Clas
                 ctx.fillRect(this.x, this.y, sprite.width, sprite.height);
                 ctx.fillStyle = 'white';
                 ctx.font = '20px Arial';
-                ctx.fillText('?', this.x + 11, this.y + 24)
+                ctx.fillText('?', this.x + 11, this.y + 24);
             }
             ctx.globalAlpha = 1;
         },
@@ -58,4 +58,4 @@ define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Clas
             return this.sprite.bottomBounding - this.sprite.topBounding;
         }
     });
-})
+});

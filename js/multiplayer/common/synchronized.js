@@ -1,5 +1,5 @@
 //todo server send instance creation event to the client (e.g. New Ball({...}) ). it should use a different syncedId-like member.
-define([ 'common/keywords', 'common/interfaces'], function (keywords, Interfaces) {
+define([ 'common/keywords', 'common/interfaces'], function (/*keywords, Interfaces*/) {
 
     var Synchronized = Grape.Class('Multiplayer.Synchronized', Grape.GameObject, {
         'event add': function (layer) {
