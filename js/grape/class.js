@@ -14,6 +14,12 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
+     * tests
+     * documentation
+     * npm
+     * readme update: build status
+     * examples
+     * tutorials
      * fullscreen
      * UMD pattern for build? http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/
      * avoid nested require calls?

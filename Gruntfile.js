@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        karma: {
+        karma: { //todo test after build if we build
             all: {
                 configFile: 'karma.conf.js',
                 autoWatch: false,

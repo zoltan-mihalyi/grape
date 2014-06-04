@@ -10,6 +10,7 @@
         "grunt-karma": "~0.8.0",
         "grunt-contrib-yuidoc": "~0.5.2",
         "karma": "~0.12.16",
+        "karma-coverage": "~0.1",
         "requirejs": "~2.1.13",
         "jshint": "~2.5.1",
         "yuidocjs": "~0.3.50",
