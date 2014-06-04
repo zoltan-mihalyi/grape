@@ -5,7 +5,7 @@
         "describe": false,
         "it": false,
         "expect": false,
-        "Grape": false
+        "Grape": true
     },
     "curly": true,
     "eqeqeq": true,

@@ -20,6 +20,8 @@ require.config({
     }
 });
 
+Grape = 42;
+
 require(['grape'], function () {
     require.config({
         // Karma serves files under /base, which is the basePath from your config file
