@@ -1,4 +1,4 @@
-define(['class', 'etc/system', 'game/game-object'], function (Class, System, GameObject) {
+define(['class', 'etc/aabb', 'etc/system', 'game/game-object'], function (Class, AABB, System, GameObject) {
 
     Class.registerKeyword('collision', {
         onInit: function (classInfo) {
@@ -6,7 +6,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
             classInfo.allCollision = {};
         },
         onAdd: function (classInfo, methodDescriptor) {
-            if (!classInfo.allParentId[Collidable.id]) {
+            if (!classInfo.extends(Collidable)) {
                 throw 'To use "collision" keyword, inherit the Grape.Collidable class!';
             }
             classInfo.collisions[methodDescriptor.name] = methodDescriptor.method;
@@ -180,10 +180,17 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
     });
 
     var nextId = 0;
-    var Collidable = Class('Collidable', GameObject, {
+    var Collidable = Class('Collidable', [GameObject, AABB], {
         init: function () {
             this.collisionId = nextId++;
-        }
+        },
+        'abstract getBounds': null,
+        'abstract getLeft': null,
+        'abstract getTop': null,
+        'abstract getRight': null,
+        'abstract getBottom': null,
+        'abstract getWidth': null,
+        'abstract getHeight': null
     });
 
     return {

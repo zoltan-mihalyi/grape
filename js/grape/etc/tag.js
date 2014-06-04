@@ -13,6 +13,7 @@ define(['class', 'collections/bag'], function (Class, Bag) {
             this._tagContainer = container;
         },
         addTag: function (name) { //todo check
+            //TODO defer the adding until the item is added to a container
             var container = this._tagContainer, tags = container._tags;
             if (!tags[name]) {
                 tags[name] = new Bag();

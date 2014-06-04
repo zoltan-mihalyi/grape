@@ -1,5 +1,5 @@
-define(['class', 'game/game-object'], function (Class, GameObject) {
-    return Class('Animation', GameObject, {
+define(['class', 'etc/sprite-visualizer'], function (Class, SpriteVisualizer) {
+    return Class('Animation', SpriteVisualizer, {
         init: function () {
             this.imageSpeed = 1;
         },

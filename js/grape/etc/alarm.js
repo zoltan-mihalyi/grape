@@ -1,5 +1,5 @@
-define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
-    return Class('Alarm', EventEmitter, {
+define(['class', 'game/game-object'], function (Class, GameObject) {
+    return Class('Alarm', GameObject, {
         init: function () {
             this._alarms = {};
         },
@@ -24,7 +24,7 @@ define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
             return this._alarms[id] !== undefined;
         },
 
-        'event frame': function () {
+        'global-event frame': function () {
             var id;
             for (id in this._alarms) {
                 if (--this._alarms[id] <= 0) {

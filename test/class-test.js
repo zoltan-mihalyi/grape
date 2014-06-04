@@ -18,24 +18,24 @@ describe('class tests', function () {
         var All2 = Grape.Class('All2', [Nothing], {foo: 6});
 
         expect(Name.className).toBe('Name');
-        expect(Inheritance.inherits(Nothing)).toBe(true);
-        expect(Inheritance2.inherits(Nothing)).toBe(true);
+        expect(Inheritance.extends(Nothing)).toBe(true);
+        expect(Inheritance2.extends(Nothing)).toBe(true);
         expect(NameAndInheritance.className).toBe('NameAndInheritance');
-        expect(NameAndInheritance.inherits(Nothing)).toBe(true);
+        expect(NameAndInheritance.extends(Nothing)).toBe(true);
         expect(NameAndInheritance2.className).toBe('NameAndInheritance2');
-        expect(NameAndInheritance2.inherits(Nothing)).toBe(true);
+        expect(NameAndInheritance2.extends(Nothing)).toBe(true);
         expect(Body.prototype.foo).toBe(1);
         expect(NameAndBody.className).toBe('NameAndBody');
         expect(NameAndBody.prototype.foo).toBe(2);
-        expect(InheritanceAndBody.inherits(Nothing)).toBe(true);
+        expect(InheritanceAndBody.extends(Nothing)).toBe(true);
         expect(InheritanceAndBody.prototype.foo).toBe(3);
-        expect(InheritanceAndBody2.inherits(Nothing)).toBe(true);
+        expect(InheritanceAndBody2.extends(Nothing)).toBe(true);
         expect(InheritanceAndBody2.prototype.foo).toBe(4);
         expect(All.className).toBe('All');
-        expect(All.inherits(Nothing)).toBe(true);
+        expect(All.extends(Nothing)).toBe(true);
         expect(All.prototype.foo).toBe(5);
         expect(All2.className).toBe('All2');
-        expect(All2.inherits(Nothing)).toBe(true);
+        expect(All2.extends(Nothing)).toBe(true);
         expect(All2.prototype.foo).toBe(6);
     });
 
@@ -66,19 +66,19 @@ describe('class tests', function () {
         var E = A.extend('E');
 
         expect(new A().getClass()).toBe(A);
-        expect(A.inherits(A)).toBe(false);
-        expect(A.inherits(B)).toBe(false);
-        expect(B.inherits(A)).toBe(true);
+        expect(A.extends(A)).toBe(false);
+        expect(A.extends(B)).toBe(false);
+        expect(B.extends(A)).toBe(true);
         expect(new A().instanceOf(A)).toBe(true);
         expect(new B().instanceOf(A)).toBe(true);
         expect(new A().instanceOf(B)).toBe(false);
 
         expect(C.prototype.foo).toBe(1);
         expect(C.className).toBe('C');
-        expect(C.inherits(A)).toBe(true);
+        expect(C.extends(A)).toBe(true);
         expect(D.prototype.foo).toBe(2);
-        expect(D.inherits(A)).toBe(true);
-        expect(E.inherits(A)).toBe(true);
+        expect(D.extends(A)).toBe(true);
+        expect(E.extends(A)).toBe(true);
         expect(E.className).toBe('E');
 
         expect(A + '').not.toBeFalsy(); //toString

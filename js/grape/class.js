@@ -10,7 +10,7 @@ define(['utils'], function (Utils) {
     var registeredKeywords = {};
 
     var classMethods = {
-        inherits: function (Class) {
+        extends: function (Class) {
             return !!this.allParentId[Class.id];
         },
         extend: function (name, methods) {
@@ -44,6 +44,7 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
+     * replace throw 'a'
      * tests
      * documentation
      * npm
@@ -128,6 +129,10 @@ define(['utils'], function (Utils) {
         classInfo.className = name;
         classInfo.id = id;
 
+        for (i in classMethods) { //plugins can use 'extends' check
+            classInfo[i] = classMethods[i];
+        }
+
         createParentInfo(classInfo, parents);
         createMethodDescriptors(classInfo, methods);
 
@@ -151,10 +156,6 @@ define(['utils'], function (Utils) {
         //extend constructor with class info
         for (i in classInfo) {
             constructor[i] = classInfo[i];
-        }
-
-        for (i in classMethods) {
-            constructor[i] = classMethods[i];
         }
 
         for (i in instanceMethods) {

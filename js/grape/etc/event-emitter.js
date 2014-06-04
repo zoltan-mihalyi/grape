@@ -18,7 +18,7 @@ define(['class'], function (Class) {
             classInfo.allEvent = {};
         },
         onAdd: function (classInfo, methodDescriptor) {
-            if (!classInfo.allParentId[EventEmitter.id]) {
+            if (!classInfo.extends(EventEmitter)) {
                 throw 'To use "event" keyword, inherit the Grape.EventEmitter class!';
             }
             decompose(methodDescriptor.method, classInfo.events, methodDescriptor.name);
