@@ -274,7 +274,7 @@ define(['utils'], function (Utils) {
                             }
                         }
 
-                        if ((registeredKeywords[modifier].onAdd || empty)(classInfo, methodDescriptor) === false) {
+                        if ((registeredKeywords[modifier].onAdd)(classInfo, methodDescriptor) === false) {
                             canAdd = false;
                         }
                     } else {
