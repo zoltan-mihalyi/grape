@@ -9,6 +9,36 @@ define(['utils'], function (Utils) {
     var nextId = 0;
     var registeredKeywords = {};
 
+    var classMethods = {
+        inherits: function (Class) {
+            return !!this.allParentId[Class.id];
+        },
+        extend: function (name, methods) {
+            if (typeof name === 'string') { //name given
+                if (methods) { //avoid undefined arguments
+                    return Class(name, this, methods);
+                } else {
+                    return Class(name, this);
+                }
+            } else {
+                if (name) { //avoid undefined arguments
+                    return Class(this, name);
+                } else {
+                    return Class(this);
+                }
+            }
+        }
+    };
+
+    var instanceMethods = {
+        instanceOf: function (Class) {
+            return (this instanceof Class) || !!this.getClass().allParentId[Class.id];
+        },
+        getClass: function () {
+            return this.constructor;
+        }
+    };
+
     function empty() {
     }
 
@@ -62,8 +92,8 @@ define(['utils'], function (Utils) {
 
     /** TODO
      * Creates a class.
-     * @param name
-     * @param parents
+     * @param name {string} The name of the class (mainly for debugging purposes)
+     * @param parents {}
      * @param methods
      * @returns {*}
      * @constructor
@@ -113,6 +143,9 @@ define(['utils'], function (Utils) {
         constructor = classInfo.constructor;
         //extend prototype with methods
         for (i in classInfo.methods) {
+            if (instanceMethods.hasOwnProperty(i)) {
+                throw 'The method name "' + i + '" is reserved';
+            }
             constructor.prototype[i] = classInfo.methods[i];
         }
         //extend constructor with class info
@@ -120,26 +153,19 @@ define(['utils'], function (Utils) {
             constructor[i] = classInfo[i];
         }
 
-        //TODO to separate place, check overwrite
-        constructor.prototype.getClass = function () {
-            return constructor;
-        };
+        for (i in classMethods) {
+            constructor[i] = classMethods[i];
+        }
 
-        constructor.prototype.instanceOf = constructor.inherits = function (Class) {
-            return !!classInfo.allParentId[Class.id];
-        };
+        for (i in instanceMethods) {
+            constructor.prototype[i] = instanceMethods[i];
+        }
 
         constructor.prototype.init = constructor;
         constructor.toString = function () { //debug info
             return name;
         };
-        constructor.extend = function (name, methods) {
-            if (typeof name === 'string') { //name given
-                return Class(name, constructor, methods);
-            } else {
-                return Class(constructor, name);
-            }
-        };
+
         constructor.prototype.constructor = constructor;
 
         return constructor;
@@ -343,7 +369,7 @@ define(['utils'], function (Utils) {
 
     registerKeyword('static', {
         onAdd: function (classInfo, methodDescriptor) {
-            if (classInfo[methodDescriptor.name]) {
+            if (classInfo[methodDescriptor.name] || classMethods[methodDescriptor.name]) {
                 throw 'Static method "' + methodDescriptor.name + '" hides a reserved attribute.';
             }
             classInfo[methodDescriptor.name] = methodDescriptor.method;
