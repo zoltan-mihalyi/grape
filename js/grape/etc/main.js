@@ -1,5 +1,5 @@
-define(['etc/aabb', 'etc/alarm', 'etc/animation', 'etc/chainable', 'etc/collision', 'etc/event-emitter', 'etc/mouse', 'etc/node', 'etc/physical', 'etc/position', 'etc/rectangle', 'etc/sprite-visualizer', 'etc/system', 'etc/tag'],
-    function (AABB, Alarm, Animation, Chainable, Collision, EventEmitter, Mouse, Node, Physical, Position, Rectangle, SpriteVisualizer, System, Tag) {
+define(['etc/aabb', 'etc/alarm', 'etc/animation', 'etc/chainable', 'etc/collision', 'etc/event-emitter', 'etc/mouse', 'etc/physical', 'etc/position', 'etc/rectangle', 'etc/sprite-visualizer', 'etc/system', 'etc/tag'],
+    function (AABB, Alarm, Animation, Chainable, Collision, EventEmitter, Mouse, Physical, Position, Rectangle, SpriteVisualizer, System, Tag) {
         return {
             AABB: AABB,
             Alarm: Alarm,
@@ -8,7 +8,6 @@ define(['etc/aabb', 'etc/alarm', 'etc/animation', 'etc/chainable', 'etc/collisio
             CollisionSystem: Collision.CollisionSystem,
             EventEmitter: EventEmitter,
             Mouse: Mouse,
-            Node: Node,
             Physical: Physical,
             Position: Position,
             Rectangle: Rectangle,

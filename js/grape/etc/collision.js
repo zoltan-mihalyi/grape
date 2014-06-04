@@ -88,14 +88,10 @@ define(['class', 'etc/aabb', 'etc/system', 'game/game-object'], function (Class,
             var instances;
             if (name.id) {//class
                 instances = this._layer._activeClasses[name.id];
-                if (instances) {
-                    this.ClassPartition.prototype[name.id] = createPartition(instances.instances, this.blockSize); //store static partition in prototype to speed up the lookup
-                }
+                this.ClassPartition.prototype[name.id] = createPartition(instances ? instances.instances : [], this.blockSize); //store static partition in prototype to speed up the lookup
             } else {//tag
                 instances = this._layer._tags[name];
-                if (instances) {
-                    this.TagPartition.prototype[name] = createPartition(instances, this.blockSize); //store static partition in prototype to speed up the lookup
-                }
+                this.TagPartition.prototype[name] = createPartition(instances || [], this.blockSize); //store static partition in prototype to speed up the lookup
             }
         },
         removeStaticPartition: function (name) {

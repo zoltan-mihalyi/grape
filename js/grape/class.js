@@ -48,7 +48,7 @@ define(['utils'], function (Utils) {
      * tests
      * documentation
      * npm
-     * readme update: build status
+     * readme update: build status, https://github.com/cainus/node-coveralls
      * examples
      * tutorials
      * fullscreen

@@ -173,6 +173,39 @@ describe('chainable test', function () {
     });
 });
 
+describe('EventEmitter test', function () {
+    var Grape = require('grape');
+
+    it('event keyword should work only on event subclasses', function () {
+        expect(function () {
+            Grape.Class({
+                'event a': function () {
+                }
+            });
+        }).toThrow();
+    });
+
+    it('on off', function () {
+        var e = new Grape.EventEmitter();
+        var count = 0;
+
+        function a(x) {
+            count += x;
+        }
+
+        e.on('a', a);
+        e.emit('a', 1);
+        expect(count).toBe(1);
+        e.on('a', a);
+        e.emit('a', 2);
+        expect(count).toBe(5); //+2*2
+        e.on('a', function () {
+        });
+        e.off('a', a);
+        e.emit('a', 3);
+        expect(count).toBe(5); //no change
+    });
+});
 
 describe('collision test', function () {
     var Grape = require('grape');
@@ -183,6 +216,8 @@ describe('collision test', function () {
         },
         'collision B': function () {
             this.counter++;
+        },
+        'collision C': function () {
         }
     });
 
@@ -201,7 +236,7 @@ describe('collision test', function () {
         }).toThrow();
     });
 
-    it('collision', function () {
+    it('simple collision', function () {
         var a = new A({x: 10, y: 10, width: 10, height: 10});
         var b = new B({x: 10, y: 15, width: 10, height: 10});
         var layer = new Grape.Layer();
@@ -209,10 +244,152 @@ describe('collision test', function () {
         layer.add(b);
         layer.addSystem(new Grape.CollisionSystem());
 
-        expect(layer.getByTag('B').length).toBe(1);
-
         expect(a.counter).toBe(0);
         layer.emit('frame');
         expect(a.counter).toBe(1);
     });
+
+    it('collision set in parents', function () {
+        var C = A.extend({
+            init: function () {
+                this.counter2 = 0;
+            },
+            'collision B': function () {
+                this.counter2++;
+            }
+        });
+
+        var c = new C({x: 10, y: 10, width: 10, height: 10});
+        var b = new B({x: 10, y: 15, width: 10, height: 10});
+        var layer = new Grape.Layer();
+        layer.add(c);
+        layer.add(b);
+        layer.addSystem(new Grape.CollisionSystem());
+
+        expect(c.counter).toBe(0);
+        expect(c.counter2).toBe(0);
+        layer.emit('frame');
+        expect(c.counter).toBe(1);
+        expect(c.counter2).toBe(1);
+    });
+
+    it('multiple instances in the same grid', function () {
+        var a1 = new A({x: 10, y: 10, width: 10, height: 10});
+        var a2 = new A({x: 15, y: 10, width: 10, height: 10});
+        var b1 = new B({x: 10, y: 15, width: 10, height: 10});
+        var b2 = new B({x: 10, y: 10, width: 10, height: 125}); //grid overlapping
+        var layer = new Grape.Layer();
+        layer.add(a1);
+        layer.add(a2);
+        layer.add(b1);
+        layer.add(b2);
+        layer.addSystem(new Grape.CollisionSystem());
+
+        layer.emit('frame');
+        expect(a1.counter).toBe(2);
+        expect(a2.counter).toBe(2);
+    });
+
+    it('corners', function () {
+        var left = new A({x: 0, y: 10, width: 10, height: 10});
+        var top = new A({x: 10, y: 0, width: 10, height: 10});
+        var right = new A({x: 20, y: 10, width: 10, height: 10});
+        var bottom = new A({x: 10, y: 20, width: 10, height: 10});
+        var center = new A({x: 10, y: 10, width: 10, height: 10});
+        var target = new B({x: 10, y: 10, width: 10, height: 10});
+        var layer = new Grape.Layer();
+        layer.add(left);
+        layer.add(top);
+        layer.add(right);
+        layer.add(bottom);
+        layer.add(center);
+        layer.add(target);
+        layer.addSystem(new Grape.CollisionSystem());
+
+        layer.emit('frame');
+        expect(left.counter).toBe(0);
+        expect(top.counter).toBe(0);
+        expect(right.counter).toBe(0);
+        expect(bottom.counter).toBe(0);
+        expect(center.counter).toBe(1);
+    });
+
+    it('static partition', function () {
+        var a = new A({x: 10, y: 10, width: 10, height: 10});
+        var b = new B({x: 10, y: 15, width: 10, height: 10});
+        var layer = new Grape.Layer();
+        var cs = new Grape.CollisionSystem();
+        layer.addSystem(cs);
+        cs.createStaticPartition(A);
+        cs.createStaticPartition('B'); //no instance added when partitions created
+        layer.add(a);
+        layer.add(b);
+        layer.emit('frame');
+        expect(a.counter).toBe(0);
+        cs.createStaticPartition(A);
+        layer.emit('frame');
+        expect(a.counter).toBe(0);
+        cs.removeStaticPartition('B');
+        layer.emit('frame');
+        expect(a.counter).toBe(1);
+        a.x += 10;
+        layer.emit('frame');
+        expect(a.counter).toBe(2);
+        cs.removeStaticPartition(A);
+        layer.emit('frame');
+        expect(a.counter).toBe(2);
+    });
+
+    it('same instance, double emission', function () {
+        var a = new A({x: 60, y: 60, width: 10, height: 10}); //place at grid corner
+        var b = new B({x: 60, y: 60, width: 10, height: 10});
+        var layer = new Grape.Layer();
+        layer.add(a);
+        layer.add(b);
+        a.addTag('B'); //check avoid self collision
+        layer.addSystem(new Grape.CollisionSystem());
+
+        layer.emit('frame');
+        expect(a.counter).toBe(1); //
+    });
+});
+
+describe('Physical test', function () {
+    var Grape = require('grape');
+
+    var PRECISION = 5;
+
+    it('test methods', function () {
+        var p = new Grape.Physical();
+        p.speedX = 4;
+        p.speedY = 3;
+        expect(p.getSpeed()).toBeCloseTo(5, PRECISION);
+
+        p.setSpeed(0);
+        expect(p.getSpeed()).toBe(0);
+        expect(p.speedX).toBe(0);
+        expect(p.speedY).toBe(0);
+        p.setSpeed(2);
+        expect(p.getSpeed()).toBeCloseTo(2, PRECISION);
+        p.speedY = 1.5;
+        p.accelerate(-7.5);
+        expect(p.getSpeed()).toBeCloseTo(5, PRECISION);
+        expect(p.speedX).toBeCloseTo(-4, PRECISION);
+        expect(p.speedY).toBeCloseTo(-3, PRECISION);
+    });
+
+    it('should change position correctly each frame', function () {
+        var p = new Grape.Physical({x: 10, y: 10});
+        p.speedX = 2;
+        p.speedY = -1;
+        var layer = new Grape.Layer();
+        layer.add(p);
+        layer.emit('frame');
+        expect(p.x).toBe(12);
+        expect(p.y).toBe(9);
+    });
+});
+
+describe('rectangle test', function () {
+    it('');
 });

@@ -57,6 +57,7 @@ define(['class'], function (Class) {
             for (i = 0; i < listeners.length; i++) {
                 if (listeners[i] === listener) {
                     listeners.splice(i, 1);
+                    i--;
                 }
             }
         },
