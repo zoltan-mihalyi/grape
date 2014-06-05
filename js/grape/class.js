@@ -444,7 +444,7 @@ define(['utils'], function (Utils) {
 
                 for (j in parent.methods) {
                     if (parentFinals.hasOwnProperty(j) && parentFinals[j] !== parent.methods[j]) { //overriding final method by inheriting
-                        throw 'Method "' + j + '" is final and cannot be overridden by inheriting from "' + parent.className + '"';
+                        throw new Error('Method "' + j + '" is final and cannot be overridden by inheriting from "' + parent.className + '"');
                     }
                 }
 
