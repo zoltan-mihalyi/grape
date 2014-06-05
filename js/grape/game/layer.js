@@ -102,6 +102,9 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
         getByTag: function (/*tag1, tag2, ...*/) {
             return this.parent(Tag.TagContainer, 'get').apply(this, arguments);
         },
+        'override createResultContainer': function () {
+            return new GameObjectArray();
+        },
         getClasses: function (parent) { //TODO private?
             var result = {}, classData = this._classes[parent.id], i, desc;
             if (classData) {
