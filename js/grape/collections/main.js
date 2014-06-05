@@ -1,7 +1,6 @@
-define(['collections/array','collections/bag','collections/list'],function(Arr,Bag,List){
+define(['collections/array', 'collections/bag'], function (Arr, Bag) {
     return {
-        Array:Arr,
-        Bag:Bag,
-        List:List
+        Array: Arr,
+        Bag: Bag
     };
 });

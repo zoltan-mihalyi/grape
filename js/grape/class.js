@@ -9,11 +9,48 @@ define(['utils'], function (Utils) {
     var nextId = 0;
     var registeredKeywords = {};
 
+    var classMethods = {
+        extends: function (Class) {
+            return !!this.allParentId[Class.id];
+        },
+        extend: function (name, methods) {
+            if (typeof name === 'string') { //name given
+                if (methods) { //avoid undefined arguments
+                    return Class(name, this, methods);
+                } else {
+                    return Class(name, this);
+                }
+            } else {
+                if (name) { //avoid undefined arguments
+                    return Class(this, name);
+                } else {
+                    return Class(this);
+                }
+            }
+        }
+    };
+
+    var instanceMethods = {
+        instanceOf: function (Class) {
+            return (this instanceof Class) || !!this.getClass().allParentId[Class.id];
+        },
+        getClass: function () {
+            return this.constructor;
+        }
+    };
+
     function empty() {
     }
 
     /*
      * TODO:
+     * replace throw 'a'
+     * tests
+     * documentation
+     * npm
+     * readme update: build status, https://github.com/cainus/node-coveralls
+     * examples
+     * tutorials
      * fullscreen
      * UMD pattern for build? http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/
      * avoid nested require calls?
@@ -53,6 +90,15 @@ define(['utils'], function (Utils) {
      * unsafe class creation
      * */
 
+
+    /** TODO
+     * Creates a class.
+     * @param name {string} The name of the class (mainly for debugging purposes)
+     * @param parents {}
+     * @param methods
+     * @returns {*}
+     * @constructor
+     */
     function Class(name, parents, methods) {
         var classInfo = {}, constructor, i, id = ++nextId;
 
@@ -83,6 +129,10 @@ define(['utils'], function (Utils) {
         classInfo.className = name;
         classInfo.id = id;
 
+        for (i in classMethods) { //plugins can use 'extends' check
+            classInfo[i] = classMethods[i];
+        }
+
         createParentInfo(classInfo, parents);
         createMethodDescriptors(classInfo, methods);
 
@@ -98,6 +148,9 @@ define(['utils'], function (Utils) {
         constructor = classInfo.constructor;
         //extend prototype with methods
         for (i in classInfo.methods) {
+            if (instanceMethods.hasOwnProperty(i)) {
+                throw 'The method name "' + i + '" is reserved';
+            }
             constructor.prototype[i] = classInfo.methods[i];
         }
         //extend constructor with class info
@@ -105,21 +158,15 @@ define(['utils'], function (Utils) {
             constructor[i] = classInfo[i];
         }
 
-        //TODO to separate place, check overwrite
-        constructor.prototype.getClass = function () {
-            return constructor;
-        };
+        for (i in instanceMethods) {
+            constructor.prototype[i] = instanceMethods[i];
+        }
+
         constructor.prototype.init = constructor;
         constructor.toString = function () { //debug info
             return name;
         };
-        constructor.extend = function (name, methods) {
-            if (typeof name === 'string') { //name given
-                return Class(name, constructor, methods);
-            } else {
-                return Class(constructor, name);
-            }
-        };
+
         constructor.prototype.constructor = constructor;
 
         return constructor;
@@ -152,6 +199,7 @@ define(['utils'], function (Utils) {
      * @param classInfo
      */
     function createConstructor(classInfo) {
+        /*jslint evil: true */
         var name = classInfo.className, initMethods = [], factory = [], i, parent, constructor;
         //add parent init methods
         for (i = 0; i < classInfo.allParent.length; i++) {
@@ -174,7 +222,7 @@ define(['utils'], function (Utils) {
         for (i = 0; i < initMethods.length; i++) {
             factory.push('init' + i + '.apply(this, arguments);'); //init0.apply(this, arguments)
         }
-        factory.push('};')
+        factory.push('};');
         factory.push('return this["' + name + '"];'); //return this["MyClass"];
         constructor = (new Function('inits', factory.join('\n'))).call({}, initMethods);
         classInfo.constructor = constructor;
@@ -227,7 +275,7 @@ define(['utils'], function (Utils) {
                             }
                         }
 
-                        if ((registeredKeywords[modifier].onAdd || empty)(classInfo, methodDescriptor) === false) {
+                        if ((registeredKeywords[modifier].onAdd)(classInfo, methodDescriptor) === false) {
                             canAdd = false;
                         }
                     } else {
@@ -322,7 +370,7 @@ define(['utils'], function (Utils) {
 
     registerKeyword('static', {
         onAdd: function (classInfo, methodDescriptor) {
-            if (classInfo[methodDescriptor.name]) {
+            if (classInfo[methodDescriptor.name] || classMethods[methodDescriptor.name]) {
                 throw 'Static method "' + methodDescriptor.name + '" hides a reserved attribute.';
             }
             classInfo[methodDescriptor.name] = methodDescriptor.method;
@@ -369,7 +417,7 @@ define(['utils'], function (Utils) {
                 //replace constructor, this happens before extending it with anything
                 oldToString = classInfo.constructor.toString;
                 classInfo.constructor = function () {
-                    throw 'Abstract class "' + classInfo.className + '" cannot be instantiated.'
+                    throw 'Abstract class "' + classInfo.className + '" cannot be instantiated.';
                 };
                 classInfo.constructor.toString = oldToString;
                 classInfo.constructor.prototype.constructor = classInfo.constructor;

@@ -29,10 +29,14 @@ define(['class', 'collections/bag', 'etc/event-emitter', 'etc/tag'], function (C
         }
     });
 
-    function createProxy(ctx, fn) {
-        return function (payload) {
-            fn.call(ctx, payload);
+    function subscribe(th, ev, fn) {
+        var proxy = function (payload) {
+            fn.call(th, payload);
         };
+        th._layer.on(ev, proxy);
+        th.on('remove', function () {
+            this._layer.off(ev, proxy);
+        });
     }
 
     GameObject = Class('GameObject', [EventEmitter, Tag.Taggable], {
@@ -42,12 +46,7 @@ define(['class', 'collections/bag', 'etc/event-emitter', 'etc/tag'], function (C
                 for (event in myClass.allGlobalEvent) {
                     listeners = myClass.allGlobalEvent[event];
                     for (var j = 0; j < listeners.length; j++) {
-                        (function (th, ev, proxy) {
-                            th._layer.on(ev, proxy);
-                            th.on('remove', function () {
-                                this._layer.off(ev, proxy);
-                            });
-                        })(this, event, createProxy(this, listeners[j]));
+                        subscribe(this, event, listeners[j]);
                     }
                 }
             });

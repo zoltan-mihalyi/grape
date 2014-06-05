@@ -1,4 +1,4 @@
-define(['class', 'etc/system', 'game/game-object'], function (Class, System, GameObject) {
+define(['class', 'etc/aabb', 'etc/system', 'game/game-object'], function (Class, AABB, System, GameObject) {
 
     Class.registerKeyword('collision', {
         onInit: function (classInfo) {
@@ -6,7 +6,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
             classInfo.allCollision = {};
         },
         onAdd: function (classInfo, methodDescriptor) {
-            if (!classInfo.allParentId[Collidable.id]) {
+            if (!classInfo.extends(Collidable)) {
                 throw 'To use "collision" keyword, inherit the Grape.Collidable class!';
             }
             classInfo.collisions[methodDescriptor.name] = methodDescriptor.method;
@@ -42,7 +42,7 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
             for (i = 0; i < fns.length; i++) {
                 fns[i].apply(this, arguments);
             }
-        }
+        };
     }
 
     function createPartition(instances, blockSize) {
@@ -88,14 +88,10 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
             var instances;
             if (name.id) {//class
                 instances = this._layer._activeClasses[name.id];
-                if (instances) {
-                    this.ClassPartition.prototype[name.id] = createPartition(instances.instances, this.blockSize); //store static partition in prototype to speed up the lookup
-                }
+                this.ClassPartition.prototype[name.id] = createPartition(instances ? instances.instances : [], this.blockSize); //store static partition in prototype to speed up the lookup
             } else {//tag
                 instances = this._layer._tags[name];
-                if (instances) {
-                    this.TagPartition.prototype[name] = createPartition(instances, this.blockSize); //store static partition in prototype to speed up the lookup
-                }
+                this.TagPartition.prototype[name] = createPartition(instances || [], this.blockSize); //store static partition in prototype to speed up the lookup
             }
         },
         removeStaticPartition: function (name) {
@@ -180,10 +176,17 @@ define(['class', 'etc/system', 'game/game-object'], function (Class, System, Gam
     });
 
     var nextId = 0;
-    var Collidable = Class('Collidable', GameObject, {
+    var Collidable = Class('Collidable', [GameObject, AABB], {
         init: function () {
             this.collisionId = nextId++;
-        }
+        },
+        'abstract getBounds': null,
+        'abstract getLeft': null,
+        'abstract getTop': null,
+        'abstract getRight': null,
+        'abstract getBottom': null,
+        'abstract getWidth': null,
+        'abstract getHeight': null
     });
 
     return {

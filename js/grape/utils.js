@@ -72,10 +72,10 @@ define([], function () {
                 } else {
                     onSuccess(xhr.responseText);
                 }
-            }
+            };
             xhr.onerror = function () {
                 onError();
-            }
+            };
             xhr.open('get', url, opts.async === undefined ? true : opts.async);
 
             if (opts.responseType) {

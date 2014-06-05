@@ -12,7 +12,7 @@ define(['class', 'game/layer-base'], function (Class, LayerBase) {
             }
             this._map[key].push(instance);
         },
-        remove:function(instance){
+        remove: function (/*instance*/) {
 
         }
     });

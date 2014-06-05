@@ -19,14 +19,7 @@ define(['class', 'etc/position', 'game/game-object'], function (Class, Position,
             return this;
         },
         accelerate: function (plus) {
-            var s = this.getSpeed();
-            if (s !== 0) {
-                this.speedX *= (s + plus) / s;
-                this.speedY *= (s + plus) / s;
-            } else {
-                this.setSpeed(plus);
-            }
-            return this;
+            this.setSpeed(this.getSpeed() + plus);
         },
         'global-event frame': function () {
             this.x += this.speedX;

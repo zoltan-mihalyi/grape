@@ -16,7 +16,7 @@ define(['common/interfaces'], function (Interfaces) {
                 }
             });
             ws.on('close', function () {
-                console.log('User socket closed: ' + user._id)
+                console.log('User socket closed: ' + user._id);
                 user.emit('disconnect');
             });
             this._messageBuffer = Interfaces.clientInterface.createBuffer(this, function (msg) {

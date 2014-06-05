@@ -153,6 +153,7 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
                     }
                 }
             } else {
+                /*jshint -W088 */ //due an issue: https://github.com/jshint/jshint/issues/1016
                 for (i in this._activeClasses) {
                     classDataArr.push(this._activeClasses[i]);
                 }

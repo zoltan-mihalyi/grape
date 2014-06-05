@@ -1,4 +1,5 @@
 define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Class, AABB, Position, GameObject) {
+    /* istanbul ignore next */
     return Class('Rectangle', [Position, AABB, GameObject], {
         init: function (opts) {
             opts = opts || {};

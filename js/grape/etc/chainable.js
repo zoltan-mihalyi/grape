@@ -4,7 +4,7 @@ define(['class'], function (Class) {
             var originalMethod;
             originalMethod = methodDescriptor.method;
             methodDescriptor.method = function () {
-                originalMethod.apply(arguments);
+                originalMethod.apply(this, arguments);
                 return this;
             };
             if (methodDescriptor.is.final) { //on final methods we replace the final reference too

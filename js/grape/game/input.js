@@ -104,7 +104,7 @@ define(['class', 'env', 'utils'], function (Class, Env, Utils) {
     }
 
     if (Env.browser) {
-        Utils.addEventListener(document, 'mousemove', function (event) {
+        Utils.addEventListener(document, 'mousemove', function () {
             //todo
         });
     }
@@ -162,7 +162,7 @@ define(['class', 'env', 'utils'], function (Class, Env, Utils) {
                 up('mouse' + event.which);
             };
             this.onMouseMove = function (event) {
-                var rect = screen.getBoundingClientRect(), current = event.target;
+                var rect = screen.getBoundingClientRect();
                 that.mouse.x = event.clientX - rect.left;
                 that.mouse.y = event.clientY - rect.top;
             };

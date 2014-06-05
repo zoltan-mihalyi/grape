@@ -1,0 +1,23 @@
+{
+    "globals": {
+        "require": true,
+        "define": true,
+        "describe": false,
+        "it": false,
+        "expect": false,
+        "Grape": true
+    },
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "latedef": "nofunc",
+    "noarg": true,
+    "sub": true,
+    "undef": true,
+    "unused": true,
+    "boss": true,
+    "eqnull": true,
+    "node": true,
+    "browser": true,
+    "newcap": false
+}
