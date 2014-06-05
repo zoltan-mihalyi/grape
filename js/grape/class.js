@@ -35,15 +35,15 @@ define(['utils'], function (Utils) {
             return (this instanceof clazz) || !!this.getClass().allParentId[clazz.id];
         },
         parent: function (clazz, method) {
-            if(!this.instanceOf(clazz)){
+            if (!this.instanceOf(clazz)) {
                 throw new Error('Accessing parent member of not inherited class');
             }
             var m = clazz.prototype[method], that = this;
-            if(Utils.isFunction(m)) {
+            if (Utils.isFunction(m)) {
                 return function () {
                     return m.apply(that, arguments);
                 };
-            }else{
+            } else {
                 return m;
             }
         },
@@ -57,49 +57,53 @@ define(['utils'], function (Utils) {
 
     /*
      * TODO:
+     * LEVEL 1:
+     * mouse fix
+     * which view is under mouse, mouse pos relative to views
+     * check todos
      * replace throw 'a'
      * tests
-     * documentation
+     * documentation, doc coverage check
      * npm
      * readme update: build status, https://github.com/cainus/node-coveralls
      * examples
      * tutorials
+     *
+     * LEVEL 2:
+     * check if instance is at a place
+     *      indexed by position
      * fullscreen
+     * Entity-System pattern
+     *      how systems work? get classes? tags? emit events?
      * UMD pattern for build? http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/
      * avoid nested require calls?
-     * protocolbuffer-like way to compress data in communication
-     *
-     * rendering sometimes skip frames!
-     * requestanimationframe
-     * general loop class
-     * how systems work? get classes? tags? emit events?
+     * no override: warning
+     * rendering sometimes skip frames?
+     * general loop class, turn based games
      * audio
-     *
      * environment information, features (audio, webgl, canvas, node...)
      * change layer to _layer, etc.
-     * rendering is a system too?
      * particle system
-     * indexedbyposition
-     * spatial partitioning in rendering
+     * spatial partitioning in rendering, static rendering
      * deactivate instances
      * .hitTest function
-     * move default options to prototype
+     * move default options to prototype?
      * collision with two objects:
      *      bounce back?
      *      increase score and destroy?
      *          the only
      *          the two
      *
-     *
-     * pre render static objects
-     *
      * gui
-     * render(view) order, depth
-     * which view is under mouse, mouse pos relative to views
+     * layer, view order, depth
      * disable views, layers
-     * layer, view order
      * prototype-based (single), /mix-in (multiple)?
-     * no override: warning
+     * karma on node: https://www.npmjs.org/package/jasmine-node-karma
+     * multiplayer support
+     *
+     * LEVEL 3:
+     * protocolbuffer-like way to compress data in communication
+     * Backbone view
      * unsafe class creation
      * */
 

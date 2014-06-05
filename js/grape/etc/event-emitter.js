@@ -52,7 +52,8 @@ define(['class'], function (Class) {
         on: function (event, listener) {
             (this._events[event] || (this._events[event] = [])).push(listener);
         },
-        off: function (event, listener) {
+        off: function (event, listener) { //todo check remove with indexOf speed
+            //todo remove all listeners
             var i, listeners = this._events[event];
             for (i = 0; i < listeners.length; i++) {
                 if (listeners[i] === listener) {
@@ -61,6 +62,7 @@ define(['class'], function (Class) {
                 }
             }
         },
+        //todo once
         emit: function (event, payload) { //TODO class level listeners?
             var i, listeners = this._events[event], n;
             if (listeners) {

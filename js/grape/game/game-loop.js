@@ -72,7 +72,7 @@ define(['class', 'env'], function (Class, Env) {
                 var start = now(), wasFrame = false;
                 backlog += start - last;
                 while (backlog > 0) {
-                    backlog -= 1000 / game.scene.fps; //TODO replace with custom game.getFPS() logic
+                    backlog -= 1000 / game.getRequiredFps();
                     wasFrame = true;
                     game.frame();
                     if (now() - lastRenderStart > 16 + DROP_FRAME_THRESHOLD + 1000 / game.scene.fps) { //can't keep up

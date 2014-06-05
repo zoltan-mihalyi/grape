@@ -33,6 +33,7 @@ define(['class', 'env', 'game/system', 'utils'], function (Class, Env, System, U
         'event start': function (game) {
             var el;
             this._game = game;
+            /* istanbul ignore else */
             if (Env.browser) {
                 el = this.el = this.createDom();
                 el.style.position = 'absolute';
@@ -43,6 +44,7 @@ define(['class', 'env', 'game/system', 'utils'], function (Class, Env, System, U
             }
         },
         'event stop': function () {
+            /* istanbul ignore else */
             if (Env.browser) {
                 this.el.parentNode.removeChild(this.el);
             }

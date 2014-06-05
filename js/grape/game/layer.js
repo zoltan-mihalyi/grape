@@ -46,7 +46,7 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
         },
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
-            if (!clazz.allParentId[GameObjectId]) { //TODO remove if no check
+            if (!instance.instanceOf(GameObject)) {
                 throw 'The instance must be a descendant of Grape.GameObject.'; //TODO .is() function
             }
             instance.addToTagContainer(this);
