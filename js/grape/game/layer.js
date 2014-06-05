@@ -99,18 +99,8 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
             instance.removeFromTagContainer();
             instance.emit('remove');
         },
-        getByTag: function (/*tag1, tag2...*/) {
-            var i, j, name, instances, result = new GameObjectArray();
-            for (i = 0; i < arguments.length; i++) { //todo optimize
-                name = arguments[i];
-                instances = this._tags[name];
-                if (instances) {
-                    for (j = 0; j < instances.length; j++) { //todo optimize
-                        result.push(instances[j]); //TODO distinct
-                    }
-                }
-            }
-            return result;
+        getByTag: function (/*tag1, tag2, ...*/) {
+            return this.parent(Tag.TagContainer, 'get').apply(this, arguments);
         },
         getClasses: function (parent) { //TODO private?
             var result = {}, classData = this._classes[parent.id], i, desc;

@@ -2,7 +2,7 @@ define(['class', 'env', 'game/system', 'utils'], function (Class, Env, System, U
     function propValue(prop, max) {
         /*jslint evil: true */
         if (typeof (prop) === 'function') {
-            return prop();
+            return prop(max);
         }
         if (parseFloat(prop) + '' === prop + '') { //number format
             return prop * 1;

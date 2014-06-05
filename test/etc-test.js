@@ -390,6 +390,26 @@ describe('Physical test', function () {
     });
 });
 
-describe('rectangle test', function () {
-    it('');
+describe('tag test', function () {
+    it('', function () {
+        var t1 = new Grape.Taggable();
+        var t2 = new Grape.Taggable();
+        var c = new Grape.TagContainer();
+
+        t1.addToTagContainer(c);
+        t2.addToTagContainer(c);
+
+        expect(t1.hasTag('T1')).toBe(false);
+
+        t1.addTag('T1');
+        t2.addTag('T2');
+        t1.addTag('T');
+        t2.addTag('T');
+
+        expect(t1.hasTag('T1')).toBe(true);
+
+        t1.removeTag('T1');
+
+        expect(t1.hasTag('T1')).toBe(false);
+    });
 });

@@ -2,6 +2,22 @@ define(['class', 'collections/bag'], function (Class, Bag) {
     var TagContainer = Class('TagContainer', {
         init: function () {
             this._tags = {};
+        },
+        get: function (/*tag1, tag2...*/) {
+            var i, j, name, instances, result = this.createResultContainer();
+            for (i = 0; i < arguments.length; i++) { //todo optimize
+                name = arguments[i];
+                instances = this._tags[name];
+                if (instances) {
+                    for (j = 0; j < instances.length; j++) { //todo optimize
+                        result.push(instances[j]); //TODO distinct
+                    }
+                }
+            }
+            return result;
+        },
+        createResultContainer: function () {
+            return [];
         }
     });
 
@@ -12,7 +28,7 @@ define(['class', 'collections/bag'], function (Class, Bag) {
         addToTagContainer: function (container) {
             this._tagContainer = container;
         },
-        addTag: function (name) { //todo check
+        addTag: function (name) {
             //TODO defer the adding until the item is added to a container
             var container = this._tagContainer, tags = container._tags;
             if (this._tags[name]) {
@@ -27,7 +43,7 @@ define(['class', 'collections/bag'], function (Class, Bag) {
         hasTag: function (name) {
             return this._tags[name] !== undefined;
         },
-        removeTag: function (name) { //todo check
+        removeTag: function (name) { //todo check if exists
             var idx = this._tags[name], moved = this._tagContainer._tags[name].remove(idx);
             if (moved) {
                 moved._tags[name] = idx;

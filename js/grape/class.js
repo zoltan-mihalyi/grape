@@ -31,8 +31,21 @@ define(['utils'], function (Utils) {
     };
 
     var instanceMethods = {
-        instanceOf: function (Class) {
-            return (this instanceof Class) || !!this.getClass().allParentId[Class.id];
+        instanceOf: function (clazz) {
+            return (this instanceof clazz) || !!this.getClass().allParentId[clazz.id];
+        },
+        parent: function (clazz, method) {
+            if(!this.instanceOf(clazz)){
+                throw new Error('Accessing parent member of not inherited class');
+            }
+            var m = clazz.prototype[method], that = this;
+            if(Utils.isFunction(m)) {
+                return function () {
+                    return m.apply(that, arguments);
+                };
+            }else{
+                return m;
+            }
         },
         getClass: function () {
             return this.constructor;

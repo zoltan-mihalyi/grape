@@ -97,11 +97,47 @@ describe('class tests', function () {
         });
 
         var E = Grape.Class([C, D]);
+        var F = Grape.Class([D, C]);
 
         expect(new B().a).toBe(1); //simple inheritance
         expect(new C().a).toBe(1); //chain inheritance
         expect(new D().a).toBe(2); //override
         expect(new E().a).toBe(2); //override by inheriting
+        expect(new F().a).toBe(2); //C.a is defined in A therefore should not override D.a
+    });
+
+    it('super calls', function () {
+        var A = Grape.Class({
+            a: 1,
+            b: function (p) {
+                return [this, p, 1];
+            }
+        });
+
+        var B = A.extend();
+        var C = B.extend();
+
+        var D = B.extend({
+            a: 2,
+            b: function (p) {
+                return [this, p, 2];
+            }
+        });
+
+        var E = Grape.Class([C, D]);
+
+        //members
+        expect(new B().parent(A, 'a')).toBe(1); //getting directly
+        expect(new D().parent(B, 'a')).toBe(1); //not directly B owns the method
+        expect(function () {
+            new D().parent(C, 'a');
+        }).toThrow();
+        expect(new E().parent(C, 'a')).toBe(1);
+
+        //methods
+        var e = new E();
+        expect(e.parent(C, 'b')('x')).toEqual([e, 'x', 1]); //checking correct this, parameter and return value
+        expect(new E().parent(D, 'b')('x')).toEqual([e, 'x', 2]);
     });
 
     it('init calls', function () {

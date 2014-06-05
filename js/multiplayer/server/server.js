@@ -45,6 +45,7 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
             console.log('Server listening on ' + port);
         },
         getUsers: function (tag) { //TODO copy?
+            //todo use TagContainer.get method
             var result = this._users._tags[tag || 'ALL'];
             if (result) {
                 return result.slice(0);
