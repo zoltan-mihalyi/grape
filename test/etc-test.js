@@ -411,6 +411,7 @@ describe('tag test', function () {
         var c = new Grape.TagContainer();
 
         t.setTagContainer(c);
+        t.setTagContainer(c); //should do nothing
         expect(c.get('T').length).toBe(0);
 
         t.addTag('T');
@@ -464,12 +465,11 @@ describe('tag test', function () {
         expect(c.get('T').indexOf(t1)).not.toBe(-1);
         expect(c.get('T').indexOf(t2)).not.toBe(-1);
         expect(c.get('T1')[0]).toBe(t1);
+        t1.removeTag('T');
+        expect(c.get('T').length).toBe(1);
+        t1.addTag('T');
+        t1.removeTag('T');
+        expect(c.get('T').length).toBe(1);
     });
 });
-
-describe('rectangle test', function () {
-    //var Grape = require('grape');
-    it('', function () {
-        //todo
-    });
-});
+//todo review ignored

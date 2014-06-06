@@ -3,15 +3,12 @@ define(['class', 'collections/bag'], function (Class, Bag) {
         init: function () {
             this._tags = {};
         },
-        get: function (/*tag1, tag2...*/) {
-            var i, j, name, instances, result = this.createResultContainer();
-            for (i = 0; i < arguments.length; i++) { //todo optimize
-                name = arguments[i];
-                instances = this._tags[name];
-                if (instances) {
-                    for (j = 0; j < instances.length; j++) { //todo optimize
-                        result.push(instances[j]); //TODO distinct
-                    }
+        get: function (tag) { //TODO multiple tags
+            var i, instances, result = this.createResultContainer();
+            instances = this._tags[tag];
+            if (instances) {
+                for (i = instances.length - 1; i >= 0; i--) {
+                    result.push(instances[i]);
                 }
             }
             return result;
@@ -86,16 +83,12 @@ define(['class', 'collections/bag'], function (Class, Bag) {
             delete this._tags[name];
         },
         removeTagContainer: function () {
-            var idx, name, moved;
+            var name;
             if (!this._tagContainer) { //nothing to do
                 return;
             }
             for (name in this._tags) {
-                idx = this._tags[name];
-                moved = this._tagContainer._tags[name].remove(idx);
-                if (moved) {
-                    moved._tags[name] = idx;
-                }
+                this._tagContainer._remove(this, name);
             }
         }
     });

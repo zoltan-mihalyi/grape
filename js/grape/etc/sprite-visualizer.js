@@ -1,5 +1,4 @@
 define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Class, AABB, Position, GameObject) {
-    /* istanbul ignore next */
     return Class('SpriteVisualizer', [GameObject, Position, AABB], {
         init: function (opts) {
             opts = opts || {};
@@ -9,6 +8,7 @@ define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Clas
                 this.alpha = opts.alpha;
             }
             this.subimage = opts.subimage || 0;
+            this.sprite = opts.sprite;
         },
         'global-event render': function (ctx) {
             var sprite = this.sprite;
@@ -17,7 +17,7 @@ define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Clas
                 ctx.drawImage(sprite.img, sprite.left + sprite.width * (Math.round(this.subimage) % sprite.subimages), sprite.top, sprite.width, sprite.height, this.x - sprite.originX, this.y - sprite.originY, sprite.width, sprite.height);
             } else {
                 ctx.fillStyle = 'black';
-                ctx.fillRect(this.x, this.y, sprite.width, sprite.height);
+                ctx.fillRect(this.x, this.y, 32, 32);
                 ctx.fillStyle = 'white';
                 ctx.font = '20px Arial';
                 ctx.fillText('?', this.x + 11, this.y + 24);
