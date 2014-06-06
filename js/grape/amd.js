@@ -38,6 +38,7 @@ var require, define;
     };
 
     require = function (deps, callback) {
+        /* global originalRequire */
         var i = 0, n, modules = [], global = (function () {
             return this;
         })();
@@ -51,7 +52,7 @@ var require, define;
         if (callback) {
             callback.apply(global, modules);
         } else {
-            return defined[deps[0]];
+            return defined[deps[0]] || originalRequire(deps[0]);
         }
 
     };

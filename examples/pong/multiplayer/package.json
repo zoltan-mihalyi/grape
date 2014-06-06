@@ -1,8 +1,0 @@
-{
-    "name": "pong-multiplayer",
-    "version": "1.0.0",
-    "dependencies": {
-        "ws": "~0.4.31",
-        "requirejs": "~2.1.11"
-    }
-}

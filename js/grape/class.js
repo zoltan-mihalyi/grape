@@ -68,8 +68,11 @@ define(['utils'], function (Utils) {
      * readme update: build status, https://github.com/cainus/node-coveralls
      * examples
      * tutorials
+     * build without min
      *
      * LEVEL 2:
+     * move examples to different repositories
+     * move node.js codes to grape.multiplayer
      * check if instance is at a place
      *      indexed by position
      * fullscreen
