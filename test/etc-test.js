@@ -391,25 +391,85 @@ describe('Physical test', function () {
 });
 
 describe('tag test', function () {
-    it('', function () {
+    var Grape = require('grape');
+
+    it('tag add remove has', function () {
+        var t1 = new Grape.Taggable();
+
+        t1.addTag('T1');
+        expect(t1.hasTag('T1')).toBe(true);
+        t1.addTag('T1'); //no problem adding tag twice
+        t1.removeTag('T1');
+        t1.removeTag('T1'); //no problem removing not existing tag
+
+        expect(t1.hasTag('T1')).toBe(false);
+        t1.removeTagContainer(); //no problem
+    });
+
+    it('tag add remove has when added to tagContainer', function () {
+        var t = new Grape.Taggable();
+        var c = new Grape.TagContainer();
+
+        t.setTagContainer(c);
+        expect(c.get('T').length).toBe(0);
+
+        t.addTag('T');
+        expect(c.get('T')[0]).toBe(t);
+        t.addTag('T');
+        expect(c.get('T').length).toBe(1); //don't add twice
+        t.removeTag('T');
+        expect(c.get('T').length).toBe(0);
+        t.removeTag('T'); //no problem
+
+    });
+
+    it('adding to tag container after tags added', function () {
+        var t = new Grape.Taggable();
+        var c = new Grape.TagContainer();
+
+        t.addTag('T');
+        t.addTag('Q');
+
+        t.setTagContainer(c);
+        expect(c.get('T')[0]).toBe(t);
+        expect(c.get('Q')[0]).toBe(t);
+    });
+
+    it('moving between tag containers', function () {
+        var t = new Grape.Taggable();
+        var c1 = new Grape.TagContainer();
+        var c2 = new Grape.TagContainer();
+
+        t.setTagContainer(c1);
+        t.addTag('T');
+        t.setTagContainer(c2);
+        expect(c1.get('T').length).toBe(0);
+        expect(c2.get('T')[0]).toBe(t);
+
+    });
+
+    it('handling multiple tags and items', function () {
         var t1 = new Grape.Taggable();
         var t2 = new Grape.Taggable();
         var c = new Grape.TagContainer();
 
-        t1.addToTagContainer(c);
-        t2.addToTagContainer(c);
-
-        expect(t1.hasTag('T1')).toBe(false);
-
-        t1.addTag('T1');
-        t2.addTag('T2');
+        t1.setTagContainer(c);
         t1.addTag('T');
+        t1.addTag('T1');
+        t2.setTagContainer(c);
         t2.addTag('T');
+        t2.addTag('T2');
 
-        expect(t1.hasTag('T1')).toBe(true);
+        expect(c.get('T').length).toBe(2);
+        expect(c.get('T').indexOf(t1)).not.toBe(-1);
+        expect(c.get('T').indexOf(t2)).not.toBe(-1);
+        expect(c.get('T1')[0]).toBe(t1);
+    });
+});
 
-        t1.removeTag('T1');
-
-        expect(t1.hasTag('T1')).toBe(false);
+describe('rectangle test', function () {
+    //var Grape = require('grape');
+    it('', function () {
+        //todo
     });
 });

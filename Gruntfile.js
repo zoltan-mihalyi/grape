@@ -5,12 +5,12 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         karma: { //todo test after build if we build
             all: {
-                configFile: 'karma.conf.js',
+                configFile: 'karma.conf.all.js',
                 autoWatch: false,
                 singleRun: true
             },
             continuous: {
-                configFile: 'karma.conf.js',
+                configFile: 'karma.conf.continuous.js',
                 autoWatch: true
             }
         },

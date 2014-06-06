@@ -49,7 +49,7 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
             if (!instance.instanceOf(GameObject)) {
                 throw 'The instance must be a descendant of Grape.GameObject.'; //TODO .is() function
             }
-            instance.addToTagContainer(this);
+            instance.setTagContainer(this);
             instance._layer = this;
 
             this.emit('instanceAdded', instance);
@@ -96,7 +96,7 @@ define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-
                 delete this._activeClasses[classId];
             }
             this.instanceNumber--;
-            instance.removeFromTagContainer();
+            instance.removeTagContainer();
             instance.emit('remove');
         },
         getByTag: function (/*tag1, tag2, ...*/) {

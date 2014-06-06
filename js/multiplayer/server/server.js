@@ -35,23 +35,17 @@ define(['common/interfaces', 'server/user'], function (Interfaces, User) {
             this.wss.on('connection', function (ws) {
                 var user = new User(ws);
                 user._server = server;
-                user.addToTagContainer(server._users);
+                user.setTagContainer(server._users);
                 user.addTag('ALL');
                 user.on('disconnect', function () {
-                    user.removeFromTagContainer();
+                    user.removeTagContainer();
                 });
                 server.emit('connection', user);
             });
             console.log('Server listening on ' + port);
         },
-        getUsers: function (tag) { //TODO copy?
-            //todo use TagContainer.get method
-            var result = this._users._tags[tag || 'ALL'];
-            if (result) {
-                return result.slice(0);
-            } else {
-                return [];
-            }
+        getUsers: function (tag) {
+            return this._users.get(tag || 'ALL');
         },
         startGame: function (opts) { //todo use custom game class
             var server = this,
