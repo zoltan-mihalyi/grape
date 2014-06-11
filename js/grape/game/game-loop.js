@@ -63,6 +63,9 @@ define(['class', 'env'], function (Class, Env) {
             this.game = game;
         },
         start: function () {
+            if (this.isRunning()) {
+                throw new Error('already running');
+            }
             var game = this.game;
             var backlog = 0;
             var last = now();

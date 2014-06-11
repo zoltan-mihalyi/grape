@@ -41,6 +41,7 @@ define(['class', 'collections/bag', 'etc/event-emitter', 'etc/tag'], function (C
 
     GameObject = Class('GameObject', [EventEmitter, Tag.Taggable], {
         init: function () {
+            this._layer = null;
             this.on('add', function () {//TODO optimize
                 var myClass = this.getClass(), event, listeners;
                 for (event in myClass.allGlobalEvent) {
@@ -71,13 +72,13 @@ define(['class', 'collections/bag', 'etc/event-emitter', 'etc/tag'], function (C
             this._layer.remove(this);
         },
         getGame: function () {
-            return this._layer.getGame();
+            return this._layer === null ? null : this._layer.getGame();
         },
         getScene: function () {
-            return this._layer.getScene();
+            return this._layer === null ? null : this._layer.getScene();
         },
         getLayer: function () {
-            return this._layer;
+            return this._layer === null ? null : this._layer;
         }
     });
 

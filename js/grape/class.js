@@ -64,7 +64,7 @@ define(['utils'], function (Utils) {
      * replace throw 'a'
      * tests
      * documentation, doc coverage check
-     * npm
+     * npm, bower
      * readme update: build status, https://github.com/cainus/node-coveralls
      * examples
      * tutorials
