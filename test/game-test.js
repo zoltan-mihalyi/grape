@@ -84,5 +84,142 @@ describe('game tests', function () {
 
 describe('game loop test', function () {
     var Grape = require('grape');
-    //TODO
+
+    it('game loop start, stop', function () {
+        var loop = new Grape.GameLoop();
+
+        expect(loop.isRunning()).toBe(false);
+
+        expect(function () {
+            loop.stop();
+        }).toThrow();
+
+        expect(loop.isRunning()).toBe(false);
+
+        loop.start();
+
+        expect(loop.isRunning()).toBe(true);
+
+        expect(function () {
+            loop.start();
+        }).toThrow();
+
+
+        expect(loop.isRunning()).toBe(true);
+
+        loop.stop();
+
+        expect(loop.isRunning()).toBe(false);
+    });
 });
+
+describe('game object test', function () {
+    var Grape = require('grape');
+    it('global-event keyword', function () {
+
+        expect(function () {
+            Grape.Class({
+                'global-event x': function () {
+
+                }
+            });
+        }).toThrow();
+
+        var X = Grape.Class(Grape.GameObject, {
+            init: function () {
+                this.count = 0;
+            },
+            'global-event x': function (ev) {
+                this.count++;
+                this.ev = ev;
+            }
+        });
+
+        var x = new X();
+        var layer = new Grape.Layer();
+        layer.add(x);
+        layer.emit('x', 123);
+        expect(x.count).toBe(1);
+        expect(x.ev).toBe(123);
+
+        x.remove();
+        layer.emit('x', 123);
+        expect(x.count).toBe(1);
+    });
+
+    it('onGlobal', function () {
+        var g = new Grape.GameObject();
+        var layer = new Grape.Layer();
+        g.count = 0;
+        g.onGlobal('x', function (e) { //before adding to layer
+            this.count += e;
+        });
+
+        layer.add(g)
+
+        g.onGlobal('x', function (e) { //after adding
+            this.count += e * 10;
+        });
+
+        layer.emit('x', 20);
+        expect(g.count).toBe(220);
+        layer.emit('x', 10);
+        expect(g.count).toBe(330);
+        g.remove();
+        layer.emit('x', 10);
+        expect(g.count).toBe(330);
+
+        g.emit('remove');
+
+    });
+
+    it('get layer delegates', function () {
+        var g = new Grape.GameObject();
+        var layer = new Grape.Layer();
+        var scene = new Grape.Scene();
+        var game = new Grape.Game();
+        game.start(scene);
+        scene.addLayer(layer);
+
+        expect(g.getLayer()).toBe(null);
+        expect(g.getScene()).toBe(null);
+        expect(g.getGame()).toBe(null);
+
+        layer.add(g);
+
+        expect(g.getLayer()).toBe(layer);
+        expect(g.getScene()).toBe(scene);
+        expect(g.getGame()).toBe(game);
+    });
+});
+
+describe('game object array test', function () {
+    var Grape = require('grape');
+
+    it('batch methods', function () {
+        var g1 = new Grape.GameObject();
+        var g2 = new Grape.GameObject();
+        var g3 = new Grape.GameObject();
+        var arr = new Grape.GameObjectArray();
+        g1.x = 1;
+        g2.x = 2;
+        g3.x = 3;
+        arr.push(g1);
+        arr.push(g2);
+        arr.push(g3);
+
+        spyOn(g1, 'emit');
+        spyOn(g2, 'emit');
+        spyOn(g3, 'emit');
+
+        arr.emit('test', 123);
+
+        expect(g1.emit).toHaveBeenCalledWith('test', 123);
+        expect(g2.emit).toHaveBeenCalledWith('test', 123);
+        expect(g3.emit).toHaveBeenCalledWith('test', 123);
+    });
+});
+
+
+//todo test array proxy methods+toArray
+//todo move attr, call, etc to array
