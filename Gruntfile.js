@@ -5,13 +5,10 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         karma: { //todo test after build if we build
             all: {
-                configFile: 'karma.conf.all.js',
-                autoWatch: false,
-                singleRun: true
+                configFile: 'karma.conf.all.js'
             },
             continuous: {
-                configFile: 'karma.conf.continuous.js',
-                autoWatch: true
+                configFile: 'karma.conf.continuous.js'
             }
         },
         yuidoc: {
@@ -23,33 +20,7 @@ module.exports = function (grunt) {
                 options: {
                     paths: 'js/',
                     /*themedir: 'path/to/custom/theme/',*/
-                    outdir: 'build/docs'
-                }
-            }
-        },
-        requirejs: {
-            compile: {
-                options: {
-                    baseUrl: "js/grape",
-                    name: "amd", // using my amd implementation
-                    include: ["main"], //grape
-                    out: "build/grape.min.js",
-                    wrap: {
-                        start: '(function (originalRequire) {',
-                        end: 'require("main");})(typeof require==="function"?require:null);'
-                    },
-                    optimize: 'uglify2',
-                    logLevel: 3,
-                    uglify2: {
-                        output: {
-                            beautify: false
-                        },
-                        compress: {
-                            sequences: false
-                        },
-                        warnings: true,
-                        mangle: true
-                    }
+                    outdir: 'dist/docs'
                 }
             }
         },
@@ -59,16 +30,17 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadTasks('build'); //build/*
+
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('default', ['jshint', 'test', 'build', 'generate-docs']);
 
-    grunt.registerTask('build', ['requirejs']);
     grunt.registerTask('hint', ['jshint']);
     grunt.registerTask('test', ['karma:all']);
     grunt.registerTask('continuous testing', ['karma:continuous']);
+    //TODO dev
     grunt.registerTask('generate-docs', ['yuidoc']);
 };

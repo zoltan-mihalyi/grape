@@ -1,4 +1,4 @@
-define(['class', 'game/game-object', 'etc/aabb'], function (Class, GameObject, AABB) { //TODO scroll fail
+define(['../class', '../game/game-object', './aabb'], function (Class, GameObject, AABB) { //TODO scroll fail
     var detectMouseOver = function (el, ctx) {
         var bounds = el.getBounds(), mouse = ctx.view.mouse;
         if (mouse.x >= bounds.left && mouse.x < bounds.right && mouse.y >= bounds.top && mouse.y < bounds.bottom) {

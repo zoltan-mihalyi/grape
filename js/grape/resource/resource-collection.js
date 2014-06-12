@@ -1,4 +1,4 @@
-define(['class', 'resource/audio', 'resource/json-scene-source', 'resource/resource', 'resource/sprite'], function (Class, GrapeAudio, JSONSceneSource, Resource, Sprite) {
+define(['../class', './audio', './json-scene-source', './resource', './sprite'], function (Class, GrapeAudio, JSONSceneSource, Resource, Sprite) {
     function empty() {
     }
 

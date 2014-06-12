@@ -10,7 +10,8 @@
             grape: 'main'
         }
     });
-    require(['grape'], function () {
+    require(['grape'], function (grape) {
+        Grape = grape;
         requirejs.config({
             baseUrl: './js'
         });

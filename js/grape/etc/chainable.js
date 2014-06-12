@@ -1,4 +1,4 @@
-define(['class'], function (Class) {
+define(['../class'], function (Class) {
     Class.registerKeyword('chainable', {
         onAdd: function (classInfo, methodDescriptor) {
             var originalMethod;

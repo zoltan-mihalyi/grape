@@ -1,4 +1,4 @@
-define(['etc/aabb', 'etc/alarm', 'etc/animation', 'etc/chainable', 'etc/collision', 'etc/event-emitter', 'etc/mouse', 'etc/physical', 'etc/position', 'etc/rectangle', 'etc/sprite-visualizer', 'etc/tag'],
+define(['./aabb', './alarm', './animation', './chainable', './collision', './event-emitter', './mouse', './physical', './position', './rectangle', './sprite-visualizer', './tag'],
     function (AABB, Alarm, Animation, Chainable, Collision, EventEmitter, Mouse, Physical, Position, Rectangle, SpriteVisualizer, Tag) {
         return {
             AABB: AABB,

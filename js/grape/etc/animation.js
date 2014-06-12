@@ -1,4 +1,4 @@
-define(['class', 'etc/sprite-visualizer'], function (Class, SpriteVisualizer) {
+define(['../class', './sprite-visualizer'], function (Class, SpriteVisualizer) {
     return Class('Animation', SpriteVisualizer, {
         init: function () {
             this.imageSpeed = 1;

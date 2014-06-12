@@ -1,4 +1,4 @@
-define(['class', 'env','game/abstract-view'], function (Class, Env, AbstractView) {
+define(['../class', '../env','./abstract-view'], function (Class, Env, AbstractView) {
     return Class('View', AbstractView, {
         createDom: function () {
             var canvas = document.createElement('canvas');

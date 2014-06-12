@@ -1,4 +1,4 @@
-define(['collections/array', 'collections/bag'], function (Arr, Bag) {
+define(['./array', './bag'], function (Arr, Bag) {
     return {
         Array: Arr,
         Bag: Bag

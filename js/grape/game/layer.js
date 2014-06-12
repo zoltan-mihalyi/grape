@@ -1,5 +1,12 @@
-define(['class', 'etc/event-emitter', 'etc/tag', 'game/game-object', 'game/game-object-array', 'utils', 'collections/bag'], function (Class, EventEmitter, Tag, GameObject, GameObjectArray, Utils, Bag) {
-    var GameObjectId = GameObject.id;
+define([
+    '../class',
+    '../etc/event-emitter',
+    '../etc/tag',
+    './game-object',
+    './game-object-array',
+    '../utils',
+    '../collections/bag'
+], function (Class, EventEmitter, Tag, GameObject, GameObjectArray, Utils, Bag) {
 
     function addWithOrWithoutName(target, name, object) {
         if (object === undefined) { //no name

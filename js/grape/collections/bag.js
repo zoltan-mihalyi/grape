@@ -1,4 +1,4 @@
-define(['class', 'collections/array'], function (Class, Arr) {
+define(['../class', './array'], function (Class, Arr) {
     /**
      * A bag class, ie. an unordered list.
      * It is an array, but if you remove an item, and the bag contains at least one more item, the last item replaces the item, and length is reduced by 1.

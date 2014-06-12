@@ -1,4 +1,4 @@
-define(['class', 'env', 'resource/cacheable'], function (Class, Env, Cacheable) {
+define(['../class', '../env', './cacheable'], function (Class, Env, Cacheable) {
     function readUInt32(data) {
         var b1, b2, b3, b4;
         b1 = data[data.pos++] << 24;
@@ -55,7 +55,8 @@ define(['class', 'env', 'resource/cacheable'], function (Class, Env, Cacheable) 
         },
         'override loadResource': function (onFinish, onError) {
             if (Env.node) {
-                var fs = require('fs');
+                /*global originalRequire*/
+                var fs = originalRequire('fs');
                 fs.readFile(this.url, function (err, file) {
                     if (err) {
                         onError();

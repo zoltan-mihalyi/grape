@@ -1,4 +1,4 @@
-define(['class', 'game/scene', 'resource/cacheable', 'utils'], function (Class, Scene, Cacheable, Utils) {
+define(['../class', '../game/scene', './cacheable', '../utils'], function (Class, Scene, Cacheable, Utils) {
     return Class('JSONSceneSource', Cacheable, { //TODO unload unnecessary scenes?
         init: function (url, settings) {
             this.url = url;

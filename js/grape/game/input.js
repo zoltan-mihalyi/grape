@@ -1,4 +1,4 @@
-define(['class', 'env', 'utils'], function (Class, Env, Utils) {
+define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
     //TODO node environment
     var KEYS = {
         any: 'any',

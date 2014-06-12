@@ -21,4 +21,4 @@ If you installed the dependencies, you can build with
 
     grunt
 
-Then build/grape.min.js appears.
+Then dist/grape.min.js appears.

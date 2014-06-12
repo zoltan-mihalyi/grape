@@ -1,4 +1,4 @@
-define(['class', 'collections/bag', 'etc/event-emitter', 'etc/tag'], function (Class, Bag, EventEmitter, Tag) {
+define(['../class', '../collections/bag', '../etc/event-emitter', '../etc/tag'], function (Class, Bag, EventEmitter, Tag) {
     var GameObject;
     Class.registerKeyword('global-event', {
         onInit: function (classInfo) {

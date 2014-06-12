@@ -1,4 +1,4 @@
-define(['class', 'collections/bag'], function (Class, Bag) {
+define(['../class', '../collections/bag'], function (Class, Bag) {
     var TagContainer = Class('TagContainer', {
         init: function () {
             this._tags = {};

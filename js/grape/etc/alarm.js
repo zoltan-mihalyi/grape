@@ -1,4 +1,4 @@
-define(['class', 'game/game-object'], function (Class, GameObject) {
+define(['../class', '../game/game-object'], function (Class, GameObject) {
     return Class('Alarm', GameObject, {
         init: function () {
             this._alarms = {};

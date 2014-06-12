@@ -29,7 +29,6 @@ var ResbarGui = Grape.GUIView.extend({
             }
         }
         this.goldSpan = this.el.getElementsByClassName('gold')[0];
-        console.log(this.goldSpan);
     },
     'event renderLayer': function () {
         this.goldSpan.innerHTML = this.getLayer().gold >> 0;
@@ -49,7 +48,7 @@ var SelectionGui = Grape.GUIView.extend({
     },
     'event renderLayer': function () {
         var res = '<ul>';
-        this.getLayer().getByTag('SELECTED').each(function (i, unit) {
+        this.getLayer().getByTag('SELECTED').forEach(function (unit, i) {
             res += '<li>' + unit.name + ' (hp: ' + unit.hp + '/' + unit.maxHp + ') ' + (unit.target ? '➜' : '') + '</li>';
         });
         res += '</ul>';
@@ -72,7 +71,7 @@ var LevelScene = Grape.Scene.extend('LevelScene', {
         u2.addTag('MINE');
     },
     'event render': function (ctx) {
-        this.getByTag('SELECTED').each(function (i, unit) {
+        this.getByTag('SELECTED').forEach(function (unit, i) {
             ctx.fillStyle = 'red';
             ctx.fillRect(unit.x, unit.y - 50, 100, 10);
             ctx.fillStyle = 'green';
@@ -81,7 +80,7 @@ var LevelScene = Grape.Scene.extend('LevelScene', {
     },
     'event keyPress.mouseRight': function () {
         var mouse = this._systems[0].mouse; //todo access mouse
-        this.getByTag('SELECTED').each(function (i, unit) {
+        this.getByTag('SELECTED').forEach(function (unit, i) {
             unit.target = {type: 'move', x: mouse.x, y: mouse.y};
         });
     },
@@ -103,7 +102,7 @@ var Unit = Grape.Class('Unit', [Grape.Mouse, Grape.SpriteVisualizer], {
     },
     'event localPress.mouseLeft': function () {
         if (!this.getGame().input.isDown('ctrl')) { //single selection
-            this.getLayer().getByTag('SELECTED').each(function (i, unit) {
+            this.getLayer().getByTag('SELECTED').forEach(function (unit, i) {
                 unit.removeTag('SELECTED')
             });
         }

@@ -2,18 +2,14 @@
 
 </div>
 
-<script src="../../lib/require.js"></script>
+<script src="../../lib/require.js" data-main="js/pong"></script>
 <script>
     requirejs.config({
+        baseUrl:'./js',
         paths: {
-            grape: '../../../build/grape.min'
+            grape: '../../../../dist/grape.min'
         }
     });
-    require(['grape'], function () {
-        requirejs.config({
-            baseUrl: './js'
-        });
-        require(['pong'], function () {
-        });
+    require(['pong'], function () {
     });
 </script>

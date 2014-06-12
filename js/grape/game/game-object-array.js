@@ -1,4 +1,4 @@
-define(['class', 'collections/array', 'game/game-object'], function (Class, Arr, GameObject) {
+define(['../class', '../collections/array', './game-object'], function (Class, Arr, GameObject) {
     var methods = {};
 
     function createProxy(method) {
@@ -8,7 +8,7 @@ define(['class', 'collections/array', 'game/game-object'], function (Class, Arr,
                 this[i][method].apply(this[i], arguments);
             }
             return this;
-        }
+        };
     }
 
     for (var i in GameObject.methods) {

@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                         }
                     },
                     paths:{
-                        grape:'../../../../build/grape.min'
+                        grape:'../../../../dist/grape.min'
                     },
                     baseUrl: "js",
                     name: "../node_modules/almond/almond",

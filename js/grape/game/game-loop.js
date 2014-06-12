@@ -1,4 +1,4 @@
-define(['class', 'env'], function (Class, Env) {
+define(['../class', '../env'], function (Class, Env) {
     var DROP_FRAME_THRESHOLD = Env.node ? 100 : 0;
     //todo different parameters: don't drop frame?
     var reqTimeout, clearReqTimeout, reqInterval, clearReqInterval;

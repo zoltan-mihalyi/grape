@@ -1,4 +1,4 @@
-define(['class', 'env', 'etc/event-emitter', 'game/game-loop', 'game/input', 'game/scene'], function (Class, Env, EventEmitter, GameLoop, Input, Scene) {
+define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', './scene'], function (Class, Env, EventEmitter, GameLoop, Input, Scene) {
     return Class('Game', EventEmitter, {
         init: function (opts) {
             opts = opts || {};

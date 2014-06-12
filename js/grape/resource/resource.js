@@ -1,4 +1,4 @@
-define(['class', 'etc/event-emitter'], function (Class, EventEmitter) {
+define(['../class', '../etc/event-emitter'], function (Class, EventEmitter) {
     return Class('Resource', EventEmitter, {
         getEstimatedTime:function(){ //TODO
             return 1;

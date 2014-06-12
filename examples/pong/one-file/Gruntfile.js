@@ -7,13 +7,13 @@ module.exports = function (grunt) {
             compile: {
                 options: {
                     baseUrl: ".",
-                    name: "../../../build/grape.min",
+                    name: "../../../dist/grape.min",
                     include: ["js/pong"],
                     wrap: {
                         start: '(function(){var define=function(){};', //the project doesn't use amd, but the compiler creates define calls, we solve it this way.
                         end: '})()'
                     },
-                    out: "build/pong.min.js",
+                    out: "dist/pong.min.js",
                     optimize: 'uglify2',
                     logLevel: 3,
                     uglify2: {

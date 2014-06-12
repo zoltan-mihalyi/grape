@@ -1,4 +1,4 @@
-define(['class', 'env', 'resource/cacheable', 'utils'], function (Class, Env, Cacheable, Utils) {
+define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, Cacheable, Utils) {
     /*global Audio, AudioBuffer, Media*/
     //TODO partial preload for large files
     var defaultPlayOpts = {

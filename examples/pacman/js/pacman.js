@@ -40,7 +40,7 @@ define(['grape'], function (Grape) {
         }
     });
 
-    var Player = typeMapping[2] = Grape.Class('Player', [Grape.Collidable, Grape.SpriteVisualizer, Grape.Animation, Grape.Physical], {
+    var Player = typeMapping[2] = Grape.Class('Player', [Grape.Collidable, Grape.Animation, Grape.Physical], {
         init: function () {
             this.sprite = res.get('pacman_right');
         },

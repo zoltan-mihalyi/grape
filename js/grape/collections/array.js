@@ -1,4 +1,4 @@
-define(['class'], function (Class) {
+define(['../class'], function (Class) {
     var returnsNewArray = ['slice', 'filter', 'map'], //must return a new instance of the class instead of the native array
         slice = Array.prototype.slice,
         splice = Array.prototype.splice,
@@ -54,7 +54,7 @@ define(['class'], function (Class) {
         },
 
         random: function (num) {
-            var result, rand;
+            var result;
             if (num === undefined) {
                 return this[Math.random() * this.length >> 0];
             }
@@ -95,7 +95,7 @@ define(['class'], function (Class) {
             origResult.splice(0, 0, 0, 0); //push 0 twitce at the beginning
             splice.apply(result, origResult); //result.splice(0,0,r1,r2,r3..): push all elements to the result array
             return result;
-        }
+        };
     }
 
     for (i = returnsNewArray.length - 1; i >= 0; i--) {

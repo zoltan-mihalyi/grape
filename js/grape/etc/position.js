@@ -1,4 +1,4 @@
-define(['class'], function (Class) {
+define(['../class'], function (Class) {
     return Class('Position', {
         init: function (opts) {
             opts = opts || {};

@@ -1,4 +1,4 @@
-define(['class', 'etc/aabb', 'etc/position', 'game/game-object'], function (Class, AABB, Position, GameObject) {
+define(['../class', './aabb', './position', '../game/game-object'], function (Class, AABB, Position, GameObject) {
     return Class('SpriteVisualizer', [GameObject, Position, AABB], {
         init: function (opts) {
             opts = opts || {};

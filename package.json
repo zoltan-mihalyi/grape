@@ -5,13 +5,12 @@
     "version": "0.0.1",
     "devDependencies": {
         "grunt": "~0.4.2",
-        "grunt-contrib-requirejs": "~0.4.3",
+        "grunt-cli": "~0.1.13",
         "grunt-contrib-jshint": "~0.10.0",
         "grunt-karma": "~0.8.0",
         "grunt-contrib-yuidoc": "~0.5.2",
         "karma": "~0.12.16",
         "karma-coverage": "~0.2.4",
-        "requirejs": "~2.1.13",
         "jshint": "~2.5.1",
         "yuidocjs": "~0.3.50",
         "karma-requirejs": "~0.2.2",
@@ -21,6 +20,7 @@
         "karma-jasmine": "~0.2.1"
     },
     "scripts": {
-        "test": "grunt test"
+        "test": "grunt test",
+        "build": "npm install && grunt"
     }
 }

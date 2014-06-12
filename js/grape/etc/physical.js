@@ -1,4 +1,4 @@
-define(['class', 'etc/position', 'game/game-object'], function (Class, Position, GameObject) {
+define(['../class', './position', '../game/game-object'], function (Class, Position, GameObject) {
     return Class('Physical', [Position, GameObject], { //TODO more method
         init: function (opts) {
             opts = opts || {};

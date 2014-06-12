@@ -5,7 +5,7 @@
  * init calls
  * parent methods
  */
-define(['utils'], function (Utils) {
+define(['./utils'], function (Utils) {
     var nextId = 0;
     var registeredKeywords = {};
 
@@ -69,8 +69,11 @@ define(['utils'], function (Utils) {
      * examples
      * tutorials
      * build without min
+     * define with relative dependencies
+     * use a similar build tool as jquery
      *
      * LEVEL 2:
+     * jscs
      * move examples to different repositories
      * move node.js codes to grape.multiplayer
      * check if instance is at a place
@@ -78,7 +81,6 @@ define(['utils'], function (Utils) {
      * fullscreen
      * Entity-System pattern
      *      how systems work? get classes? tags? emit events?
-     * UMD pattern for build? http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/
      * avoid nested require calls?
      * no override: warning
      * rendering sometimes skip frames?

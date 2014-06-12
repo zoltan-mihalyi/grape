@@ -1,4 +1,4 @@
-define(['class', 'etc/aabb', 'game/game-object', 'game/system'], function (Class, AABB, GameObject, System) {
+define(['../class', './aabb', '../game/game-object', '../game/system'], function (Class, AABB, GameObject, System) {
 
     Class.registerKeyword('collision', {
         onInit: function (classInfo) {
