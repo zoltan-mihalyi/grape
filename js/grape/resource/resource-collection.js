@@ -16,7 +16,7 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
             }
             if (name !== null) {
                 if (this.resourcesByName[name]) {
-                    throw 'resource with name "' + name + '" already exists.';
+                    throw new Error('resource with name "' + name + '" already exists.');
                 }
                 this.resourcesByName[name] = res;
             }
@@ -25,7 +25,7 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
         },
         get: function (name) {
             if (!this.resourcesByName[name]) {
-                throw 'Resource "' + name + '" not found';
+                throw new Error('Resource "' + name + '" not found');
             }
             return this.resourcesByName[name];
         },
@@ -110,7 +110,7 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
                 });
             }
         },
-        audio: function (name, url, settings) {
+        audio: function (name, url, settings) { //TODOv2 add from audio.js
             var audio = new GrapeAudio(this.prefix + url, settings);
             this.add(name, audio);
             return audio;

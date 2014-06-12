@@ -7,7 +7,7 @@ define(['../class', '../collections/bag', '../etc/event-emitter', '../etc/tag'],
         },
         onAdd: function (classInfo, methodDescriptor) {
             if (!classInfo.allParentId[GameObject.id]) {
-                throw 'To use "global-event" keyword, inherit the Grape.GameObject class!';
+                throw new Error('To use "global-event" keyword, inherit the Grape.GameObject class!');
             }
             EventEmitter.decompose(methodDescriptor.method, classInfo.globalEvents, methodDescriptor.name);
             return false;

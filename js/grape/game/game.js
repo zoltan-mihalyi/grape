@@ -22,7 +22,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
         },
         'final start': function (scene) {
             if (this.gameLoop.isRunning()) {
-                throw 'already running';
+                throw new Error('already running');
             }
 
             //initialize screen
@@ -32,7 +32,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
                     this.container = document.getElementById(this.container);
                 }
                 if (!this.container) {
-                    throw 'Container does not exists!';
+                    throw new Error('Container does not exists!');
                 }
                 this._screen = document.createElement('div');
                 this._screen.style.position = 'relative';
@@ -67,7 +67,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             }
 
             if (scene._game) {
-                throw 'Scene already started!';
+                throw new Error('Scene already started!');
             }
             if (this.scene) {
                 this.scene.emit('stop');

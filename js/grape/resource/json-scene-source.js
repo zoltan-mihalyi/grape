@@ -22,7 +22,7 @@ define(['../class', '../game/scene', './cacheable', '../utils'], function (Class
         'create': function () {
             var i, j, scene, row, inst, clazz, data, typeProp, w, h, instances = this.data.instances ? this.data.instances.slice(0) : [];
             if (this.data === null) {
-                throw 'Scene not loaded yet.';
+                throw new Error('Scene not loaded yet.');
             }
             scene = new this.type();
 
@@ -57,7 +57,7 @@ define(['../class', '../game/scene', './cacheable', '../utils'], function (Class
                 clazz = this.typeMapping[inst[typeProp]];
                 if (clazz !== null) {
                     if (!clazz) { //undefined
-                        throw 'Type "' + inst[typeProp] + '" is not registered in the type mapping.';
+                        throw new Error('Type "' + inst[typeProp] + '" is not registered in the type mapping.');
                     }
                     scene.add(new clazz(data));
                 }

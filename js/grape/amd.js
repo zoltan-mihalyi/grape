@@ -15,7 +15,7 @@ var require, define;
     };
     define = function (name, deps, callback) {
         if (hasProp(defined, name) || hasProp(waiting, name)) {
-            throw 'Already defined: ' + name;
+            throw new Error('Already defined: ' + name);
         }
         waiting[name] = [deps, callback];
     };

@@ -55,7 +55,6 @@ define(['./utils'], function (Utils) {
      * mouse fix
      * which view is under mouse, mouse pos relative to views
      * check todos
-     * replace throw 'a'
      * tests
      * documentation, doc coverage check
      * npm, bower
@@ -118,7 +117,7 @@ define(['./utils'], function (Utils) {
 
         for (i = 0; i < arguments.length; i++) {
             if (typeof arguments[i] === 'undefined') {
-                throw 'Argument is undefined: ' + i;
+                throw new Error('Argument is undefined: ' + i);
             }
         }
         //parameter transformations
@@ -163,7 +162,7 @@ define(['./utils'], function (Utils) {
         //extend prototype with methods
         for (i in classInfo.methods) {
             if (instanceMethods.hasOwnProperty(i)) {
-                throw 'The method name "' + i + '" is reserved';
+                throw new Error('The method name "' + i + '" is reserved');
             }
             constructor.prototype[i] = classInfo.methods[i];
         }
@@ -282,10 +281,10 @@ define(['./utils'], function (Utils) {
                         //iterate over other modifiers checking compatibility
                         for (j = i + 1; j < modifiers.length; j++) {
                             if (modifier === modifiers[j]) {
-                                throw 'Modifier "' + modifier + '" duplicated.';
+                                throw new Error('Modifier "' + modifier + '" duplicated.');
                             }
                             if (!registeredKeywords[modifier].matches[modifiers[j]]) {
-                                throw 'Modifier "' + modifier + '" cannot use with "' + modifiers[j] + '".';
+                                throw new Error('Modifier "' + modifier + '" cannot use with "' + modifiers[j] + '".');
                             }
                         }
 
@@ -293,7 +292,7 @@ define(['./utils'], function (Utils) {
                             canAdd = false;
                         }
                     } else {
-                        throw 'Unknown modifier "' + modifier + '"';
+                        throw new Error('Unknown modifier "' + modifier + '"');
                     }
                 }
                 if (canAdd) {
@@ -315,7 +314,7 @@ define(['./utils'], function (Utils) {
         if (realName === 'init') {
             init = true;
             if (modifiers.length !== 0) {
-                throw 'init method cannot be marked with any modifiers.';
+                throw new Error('init method cannot be marked with any modifiers.');
             }
         }
 
@@ -347,7 +346,7 @@ define(['./utils'], function (Utils) {
             for (i = 0; i < parentsNum; i++) {
                 parent = parents[i];
                 if (!parent) {
-                    throw 'Parent #' + (i + 1) + ' is ' + parent + '.';
+                    throw new Error('Parent #' + (i + 1) + ' is ' + parent + '.');
                 }
                 directly[parent.id] = true;
             }
@@ -371,7 +370,7 @@ define(['./utils'], function (Utils) {
 
     function registerKeyword(name, handlers) {
         if (registeredKeywords[name]) {
-            throw 'keyword "' + name + '" already registered';
+            throw new Error('keyword "' + name + '" already registered');
         }
         handlers.matches = {};
         registeredKeywords[name] = handlers;
@@ -385,7 +384,7 @@ define(['./utils'], function (Utils) {
     registerKeyword('static', {
         onAdd: function (classInfo, methodDescriptor) {
             if (classInfo[methodDescriptor.name] || classMethods[methodDescriptor.name]) {
-                throw 'Static method "' + methodDescriptor.name + '" hides a reserved attribute.';
+                throw new Error('Static method "' + methodDescriptor.name + '" hides a reserved attribute.');
             }
             classInfo[methodDescriptor.name] = methodDescriptor.method;
             return false;
@@ -407,7 +406,7 @@ define(['./utils'], function (Utils) {
                     }
                 }
                 //no abstract method found
-                throw 'Method "' + methodDescriptor.name + '" does not override a method from its superclass';
+                throw new Error('Method "' + methodDescriptor.name + '" does not override a method from its superclass');
             }
         }
     });
@@ -421,7 +420,7 @@ define(['./utils'], function (Utils) {
             classInfo.abstracts[methodDescriptor.name] = methodDescriptor.method;
             classInfo.isAbstract = true;
             if (classInfo.methods[methodDescriptor.name]) { //inherited method with the same name
-                throw 'Method "' + methodDescriptor.name + '" cannot be abstract, because it is inherited from a parent.';
+                throw new Error('Method "' + methodDescriptor.name + '" cannot be abstract, because it is inherited from a parent.');
             }
             return false;
         },
@@ -431,7 +430,7 @@ define(['./utils'], function (Utils) {
                 //replace constructor, this happens before extending it with anything
                 oldToString = classInfo.constructor.toString;
                 classInfo.constructor = function () {
-                    throw 'Abstract class "' + classInfo.className + '" cannot be instantiated.';
+                    throw new Error('Abstract class "' + classInfo.className + '" cannot be instantiated.');
                 };
                 classInfo.constructor.toString = oldToString;
                 classInfo.constructor.prototype.constructor = classInfo.constructor;
@@ -477,7 +476,7 @@ define(['./utils'], function (Utils) {
 
             for (i in classInfo.parentFinals) {
                 if (classInfo.methods[i] !== classInfo.parentFinals[i]) {
-                    throw 'Overriding final method "' + i + '"';
+                    throw new Error('Overriding final method "' + i + '"');
                 }
             }
         }

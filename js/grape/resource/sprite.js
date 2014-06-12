@@ -33,7 +33,7 @@ define(['../class', '../env', './cacheable'], function (Class, Env, Cacheable) {
                 data.pos += chunkSize;
             }
         }
-        throw 'Failed to determine image size';
+        throw new Error('Failed to determine image size');
     }
 
     return Class('Sprite', Cacheable, {

@@ -14,7 +14,7 @@ define([
             target.push(object);
         } else {
             if (target[name]) {
-                throw 'Element "' + name + '" already added.';
+                throw new Error('Element "' + name + '" already added.');
             }
             target[name] = object;
         }
@@ -24,12 +24,12 @@ define([
     function remove(target, name) {
         if (typeof  name === 'string') { //by name
             if (!target[name]) {
-                throw 'Element "' + name + '" does not exist.';
+                throw new Error('Element "' + name + '" does not exist.');
             }
             delete target[name];
         } else { //by object
             if (!Utils.removeFromArray(target, name)) {
-                throw 'Element does not exist.';
+                throw new Error('Element does not exist.');
             }
         }
     }

@@ -7,7 +7,7 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
         },
         onAdd: function (classInfo, methodDescriptor) {
             if (!classInfo.extends(Collidable)) {
-                throw 'To use "collision" keyword, inherit the Grape.Collidable class!';
+                throw new Error('To use "collision" keyword, inherit the Grape.Collidable class!');
             }
             classInfo.collisions[methodDescriptor.name] = methodDescriptor.method;
         },

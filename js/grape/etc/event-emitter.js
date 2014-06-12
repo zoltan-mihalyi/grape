@@ -19,7 +19,7 @@ define(['../class'], function (Class) {
         },
         onAdd: function (classInfo, methodDescriptor) {
             if (!classInfo.extends(EventEmitter)) {
-                throw 'To use "event" keyword, inherit the Grape.EventEmitter class!';
+                throw new Error('To use "event" keyword, inherit the Grape.EventEmitter class!');
             }
             decompose(methodDescriptor.method, classInfo.events, methodDescriptor.name);
             return false;

@@ -104,7 +104,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
         'play': function (opts) {
             var src, snd;
             if (this.buffer === undefined) {
-                throw 'Audio is not loaded yet.';
+                throw new Error('Audio is not loaded yet.');
             }
             opts = opts || defaultPlayOpts; //TODOv2 use
 
