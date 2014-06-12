@@ -1,5 +1,5 @@
 define(['../class', '../game/scene', './cacheable', '../utils'], function (Class, Scene, Cacheable, Utils) {
-    return Class('JSONSceneSource', Cacheable, { //TODO unload unnecessary scenes?
+    return Class('JSONSceneSource', Cacheable, { //TODOv2 unload unnecessary scenes?
         init: function (url, settings) {
             this.url = url;
             this.typeMapping = settings.typeMapping || {};

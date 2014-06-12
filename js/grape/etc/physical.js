@@ -1,5 +1,5 @@
 define(['../class', './position', '../game/game-object'], function (Class, Position, GameObject) {
-    return Class('Physical', [Position, GameObject], { //TODO more method
+    return Class('Physical', [Position, GameObject], { //TODOv2 more method
         init: function (opts) {
             opts = opts || {};
             this.speedX = opts.speedX || 0;

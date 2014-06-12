@@ -1,5 +1,5 @@
 define(['../class', './layer', './view'], function (Class, Layer, View) {
-    //TODO JSON source
+    //TODOv2 JSON source
     return Class('Scene', Layer, {
         init: function () {
             this._started = false;

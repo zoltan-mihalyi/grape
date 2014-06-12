@@ -54,7 +54,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this.gameLoop.start();
         },
         'final stop': function () {
-            this.gameLoop.stop(); //todo tear down logic
+            this.gameLoop.stop();
             /* istanbul ignore else */
             if (this.input) {
                 this.input.stop();

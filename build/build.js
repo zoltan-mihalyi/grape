@@ -1,5 +1,5 @@
-module.exports = function (grunt) { //TODO minify
-    var version = grunt.config('pkg.version'); //todo build file code quality
+module.exports = function (grunt) {
+    var version = grunt.config('pkg.version'); //todov2 build file code quality
 
     function getFileName(base, name) {
         return base + '/' + name + '.js';
@@ -77,7 +77,7 @@ module.exports = function (grunt) { //TODO minify
     }
 
     grunt.registerTask('build', function () {
-        var options = this.options({ //todo move to gruntfile
+        var options = this.options({ //todov2 move to gruntfile
             base: 'js/grape',
             name: 'main',
             amd: 'js/grape/amd.js',

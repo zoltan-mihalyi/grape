@@ -3,7 +3,7 @@
  */
 define(['./class', './collections/main', './env', './etc/main', './game/main', './resource/main', './utils'], function (Class, Collections, Env, Etc, Game, Resource, Utils) {
 
-    var Grape = {}; //todo Grape=select
+    var Grape = {};
     Grape.Class = Class;
     Grape.Env = Env;
     Grape.Utils = Utils;

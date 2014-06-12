@@ -11,7 +11,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
         }
     }
 
-    //TODO follow player etc.
+    //TODOv2 follow player etc.
     return Class('AbstractView', System, {
         init: function (opts) {
             this.width = '100%';

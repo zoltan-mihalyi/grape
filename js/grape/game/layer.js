@@ -112,7 +112,7 @@ define([
         'override createResultContainer': function () {
             return new GameObjectArray();
         },
-        getClasses: function (parent) { //TODO private?
+        _getClasses: function (parent) {
             var result = {}, classData = this._classes[parent.id], i, desc;
             if (classData) {
                 if (this._activeClasses[classData.id]) {
@@ -127,6 +127,13 @@ define([
             }
             return result;
         },
+        _get: function (clazz) {
+            var instances = this._activeClasses[clazz.id];
+            if (instances) {
+                return instances.instances;
+            }
+            return [];
+        },
         get: function (classes, descendants) {
             var i, j, instances,
                 classData, classDataArr = [], addedClasses = {}, result = new GameObjectArray();
@@ -137,7 +144,7 @@ define([
                 }
                 addedClasses[cd.id] = true;
                 instances = cd.instances;
-                for (i = instances.length; i-- > 0;) { //todo use this loop if possible
+                for (i = instances.length; i-- > 0;) { //todov2 use this loop everywhere if possible
                     result.push(instances[i]);
                 }
             }
@@ -173,21 +180,21 @@ define([
         addLayer: function (name, layer) {
             layer = addWithOrWithoutName(this._layers, name, layer);
             layer._parentLayer = this;
-            /*TODO needed? if (this._started) {
+            /*TODOv2 needed? if (this._started) {
              layer.emit('start');
              }*/
         },
-        addSystem: function (name, system) { //todo add without name
+        addSystem: function (name, system) { //todov2 add without name
             system = addWithOrWithoutName(this._systems, name, system);
             system._layer = this;
             if (this._started) {
                 system.emit('start');
             }
         },
-        addView: function (name, view) { //todo create with view class if config object is given
+        addView: function (name, view) { //todv2o create with view class if config object is given
             this.addSystem(name, view);
         },
-        removeLayer: function (name) { //todo stop event
+        removeLayer: function (name) { //todov2 stop event?
             remove(this._layers, name);
         },
         removeSystem: function (system) {
@@ -215,12 +222,12 @@ define([
             this._started = true;
         },
         'event render': function (ctx) {
-            if (this.backgroundColor) { //TODO create function
+            if (this.backgroundColor) {
                 ctx.fillStyle = this.backgroundColor;
                 ctx.fillRect(0, 0, this.width, this.height);
             }
             if (this.background) {
-                var pattern = ctx.createPattern(this.background.img, 'repeat'); //TODO create function
+                var pattern = ctx.createPattern(this.background.img, 'repeat'); //TODOv2 create function for bg drawing
                 ctx.rect(0, 0, this.width, this.height);
                 ctx.fillStyle = pattern;
                 ctx.fill();

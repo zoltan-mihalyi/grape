@@ -79,9 +79,9 @@ describe('collection test', function () {
             expect(o1.x).toHaveBeenCalledWith(1, 2, 3);
             expect(o2.x).toHaveBeenCalledWith(1, 2, 3);
             expect(o3.x).toHaveBeenCalledWith(1, 2, 3);
-            o1.x.reset();
-            o2.x.reset();
-            o3.x.reset();
+            o1.x.calls.reset();
+            o2.x.calls.reset();
+            o3.x.calls.reset();
             expect(a.apply('x', [3, 2, 1])).toBe(a); //chainable
             expect(o1.x).toHaveBeenCalledWith(3, 2, 1);
             expect(o2.x).toHaveBeenCalledWith(3, 2, 1);

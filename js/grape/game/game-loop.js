@@ -1,6 +1,6 @@
 define(['../class', '../env'], function (Class, Env) {
     var DROP_FRAME_THRESHOLD = Env.node ? 100 : 0;
-    //todo different parameters: don't drop frame?
+    //todov2 different parameters: don't drop frame?
     var reqTimeout, clearReqTimeout, reqInterval, clearReqInterval;
     if (Env.browser) {
         reqTimeout = window.requestAnimationFrame ||
@@ -85,9 +85,9 @@ define(['../class', '../env'], function (Class, Env) {
                 if (wasFrame) {
                     last = start;
                     lastRenderStart = now();
-                    game.render(); //TODO can skip render?
+                    game.render(); //TODOv2 can skip render?
                 }
-            }); //TODO run once before set interval
+            }); //TODOv2 run once before set interval?
         },
         stop: function () {
             if (!this.isRunning()) {

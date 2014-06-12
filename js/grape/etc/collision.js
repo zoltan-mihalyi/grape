@@ -30,13 +30,13 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
                 if (colls[i].length === 1) { //one handler for the collision
                     colls[i] = colls[i][0];
                 } else {
-                    colls[i] = createF(colls[i]);
+                    colls[i] = createBatchFunction(colls[i]);
                 }
             }
         }
     });
 
-    function createF(fns) { //todo optimize, better name
+    function createBatchFunction(fns) { //todov2 optimize (compile)
         var i;
         return function () {
             for (i = 0; i < fns.length; i++) {
@@ -87,10 +87,9 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
         createStaticPartition: function (name) {
             var instances;
             if (name.id) {//class
-                instances = this._layer._activeClasses[name.id]; //todo get function
-                this.ClassPartition.prototype[name.id] = createPartition(instances ? instances.instances : [], this.blockSize); //store static partition in prototype to speed up the lookup
+                this.ClassPartition.prototype[name.id] = createPartition(this._layer._get(name), this.blockSize); //store static partition in prototype to speed up the lookup
             } else {//tag
-                this.TagPartition.prototype[name] = createPartition(this._layer._get(name), this.blockSize); //store static partition in prototype to speed up the lookup
+                this.TagPartition.prototype[name] = createPartition(this._layer._getTag(name), this.blockSize); //store static partition in prototype to speed up the lookup
             }
         },
         removeStaticPartition: function (name) {
@@ -102,7 +101,7 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
         },
         'event frame': function () {
             //collision is defined between classes and tags TODO: what can we optimize this way? self collision?
-            var classes = this._layer.getClasses(Collidable),
+            var classes = this._layer._getClasses(Collidable),
                 partitionsByTag = new this.TagPartition(),
                 partitionsByClass = new this.ClassPartition(),
                 list = [],

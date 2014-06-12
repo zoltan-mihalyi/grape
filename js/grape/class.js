@@ -1,10 +1,4 @@
-/*
- * TODO
- * create from existing
- * duplicated methods with different modifiers
- * init calls
- * parent methods
- */
+//TODOv2 duplicated methods with different modifiers
 define(['./utils'], function (Utils) {
     var nextId = 0;
     var registeredKeywords = {};
@@ -68,11 +62,9 @@ define(['./utils'], function (Utils) {
      * readme update: build status, https://github.com/cainus/node-coveralls
      * examples
      * tutorials
-     * build without min
-     * define with relative dependencies
-     * use a similar build tool as jquery
      *
      * LEVEL 2:
+     * example require config (nested require calls are ugly)
      * jscs
      * move examples to different repositories
      * move node.js codes to grape.multiplayer
@@ -113,7 +105,7 @@ define(['./utils'], function (Utils) {
      * */
 
 
-    /** TODO
+    /** TODOv2 doc
      * Creates a class.
      * @param name {string} The name of the class (mainly for debugging purposes)
      * @param parents {}
@@ -371,7 +363,7 @@ define(['./utils'], function (Utils) {
                 acc.list.push(parent);
                 acc.set[parent.id] = true;
             } else if (directly[parent.id]) { //added directly
-                throw 'Class "' + parent.className + '" is set as parent twice, or implied by a parent class'; //TODO format global string
+                throw new Error('Class "' + parent.className + '" is set as parent twice, or implied by a parent class'); //TODOv2 format global string
             }
         }
         return acc.list;
@@ -450,7 +442,7 @@ define(['./utils'], function (Utils) {
                 parent = classInfo.allParent[i];
                 for (j in parent.abstracts) {
                     if (!classInfo.methods[j] && classInfo.abstracts[j] === undefined) {
-                        throw 'Method "' + j + '" is not implemented, inherited, or marked abstract'; //TODO source?
+                        throw new Error('Method "' + j + '" is not implemented, inherited, or marked abstract'); //TODOv2 source?
                     }
                 }
             }

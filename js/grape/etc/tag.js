@@ -3,7 +3,7 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
         init: function () {
             this._tags = {};
         },
-        get: function (tag) { //TODO multiple tags
+        get: function (tag) { //TODOv2 multiple tags
             var i, instances, result = this.createResultContainer();
             instances = this._tags[tag];
             if (instances) {
@@ -13,7 +13,7 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
             }
             return result;
         },
-        _get: function (tag) {
+        _getTag: function (tag) {
             return this._tags[tag] || this.createResultContainer();
         },
         createResultContainer: function () {
@@ -44,13 +44,13 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
         init: function () {
             this._tags = {};
         },
-        setTagContainer: function (container) { //todo instanceOf check
+        setTagContainer: function (container) { //todov2 instanceOf check
             var i;
             if (this._tagContainer) { //should remove old tag container first
                 if (this._tagContainer === container) {
                     return;
                 }
-                this.removeTagContainer(); //todo better move
+                this.removeTagContainer(); //todov2 better move
             }
             this._tagContainer = container;
             for (i in this._tags) {

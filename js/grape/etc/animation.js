@@ -3,7 +3,7 @@ define(['../class', './sprite-visualizer'], function (Class, SpriteVisualizer) {
         init: function () {
             this.imageSpeed = 1;
         },
-        'global-event frame': function () { //TODO
+        'global-event frame': function () {
             if (!this.sprite) {
                 return;
             }

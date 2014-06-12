@@ -1,5 +1,5 @@
 define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
-    //TODO node environment
+    //TODOv2 node environment
     var KEYS = {
         any: 'any',
         none: 'none',
@@ -93,7 +93,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         var keyNum = 0;
         for (var i in keys) {
             if (keyNum === 0) { //first key
-                target.emit(prefix + '.any', i); //TODO {key:i}?
+                target.emit(prefix + '.any', i);
             }
             ++keyNum;
             target.emit(prefix + '.' + KEYS[i]);
@@ -166,7 +166,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
                 that.mouse.x = event.clientX - rect.left;
                 that.mouse.y = event.clientY - rect.top;
             };
-            Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODO to loop
+            Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODOv2 to loop
             Utils.addEventListener(document, 'keyup', this.onKeyUp);
             Utils.addEventListener(document, 'contextmenu', this.onContextMenu);
             Utils.addEventListener(document, 'mousedown', this.onMouseDown);

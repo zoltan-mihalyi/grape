@@ -45,15 +45,15 @@ define(['../class'], function (Class) {
         init: function () { //subscribe to events defined in class
             var i, myClass = this.getClass();
             this._events = {};
-            for (i in myClass.allEvent) { //TODO separate static and dynamic subscriptions
+            for (i in myClass.allEvent) { //TODOv2 separate static and dynamic subscriptions
                 this._events[i] = myClass.allEvent[i].slice(0);
             }
         },
         on: function (event, listener) {
             (this._events[event] || (this._events[event] = [])).push(listener);
         },
-        off: function (event, listener) { //todo check remove with indexOf speed
-            //todo remove all listeners
+        off: function (event, listener) { //todov2 check remove with indexOf speed
+            //todov2 remove all listeners
             var i, listeners = this._events[event];
             for (i = 0; i < listeners.length; i++) {
                 if (listeners[i] === listener) {
@@ -62,8 +62,8 @@ define(['../class'], function (Class) {
                 }
             }
         },
-        //todo once
-        emit: function (event, payload) { //TODO class level listeners?
+        //todov2 once
+        emit: function (event, payload) { //TODOv2 class level listeners?
             var i, listeners = this._events[event], n;
             if (listeners) {
 

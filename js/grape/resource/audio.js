@@ -1,6 +1,6 @@
 define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, Cacheable, Utils) {
     /*global Audio, AudioBuffer, Media*/
-    //TODO partial preload for large files
+    //TODOv2 partial preload for large files
     var defaultPlayOpts = {
         volume: 100
     };
@@ -53,12 +53,12 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 }
             }
             if (url === null) {
-                //TODO warning None of the given formats is supported by your browser!
+                //TODOv2 warning None of the given formats is supported by your browser!
             }
 
             this.url = url;
         },
-        'override loadResource': function (onFinish, onError) { //TODO preload phonegap audio
+        'override loadResource': function (onFinish, onError) { //TODOv2 preload phonegap audio
             if (Env.node) {
                 onFinish(null);
             } else if (location.protocol !== 'file:' && typeof Blob === 'function') { //load as blob
@@ -78,7 +78,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                     onError();
                 });
             } else if (typeof Audio === 'function') {
-                //TODO IE9 loads a sound multiple times
+                //TODOv2 IE9 loads a sound multiple times
                 var a = new Audio();
                 a.src = this.url;
                 a.addEventListener('canplaythrough', function () {
@@ -106,9 +106,9 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
             if (this.buffer === undefined) {
                 throw 'Audio is not loaded yet.';
             }
-            opts = opts || defaultPlayOpts; //TODO use
+            opts = opts || defaultPlayOpts; //TODOv2 use
 
-            //TODO separate to classes instead of instanceof
+            //TODOv2 separate to classes instead of instanceof
             if (this.buffer === null) { //no sound
 
             } else if (typeof this.buffer === 'object' && this.buffer.url) { //loading created a blob url
@@ -130,7 +130,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 snd = new Media(src, function () {
                     snd.release();
                 }, function () {
-                    //TODO handle error
+                    //TODOv2 handle error
                 });
                 snd.play();
             }

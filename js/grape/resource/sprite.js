@@ -9,7 +9,7 @@ define(['../class', '../env', './cacheable'], function (Class, Env, Cacheable) {
     }
 
     function readSection(data) {
-        var i, _i, chars; //TODO _i ???
+        var i, _i, chars;
         chars = [];
         for (i = _i = 0; _i < 4; i = ++_i) {
             chars.push(String.fromCharCode(data[data.pos++]));
@@ -18,9 +18,9 @@ define(['../class', '../env', './cacheable'], function (Class, Env, Cacheable) {
     }
 
     function getImageSize(data) {
-        //TODO works only for png
+        //TODOv2 works only for png
         var chunkSize, section;
-        data.pos = 8; //TODO before this should be '..PNG...'
+        data.pos = 8; //TODOv2 before this should be '..PNG...'
         while (data.pos < data.length) {
             chunkSize = readUInt32(data);
             section = readSection(data);

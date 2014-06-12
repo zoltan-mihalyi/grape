@@ -1,11 +1,10 @@
-define([], function () {
+define(['./env'], function (Env) {
     var objToString = Object.prototype.toString;
 
     var addEventListener, removeEventListener, domContains;
 
-    if (typeof window !== 'undefined') { //TODO check as env.browser or sg.
-
-        if (typeof window.addEventListener === 'function') { //TODO get real event object in listeners, with which, preventDefault, target...
+    if (Env.browser) {
+        if (typeof window.addEventListener === 'function') { //TODOv2 get real event object in listeners, with which, preventDefault, target...
             addEventListener = function (el, ev, fn) {
                 el.addEventListener(ev, fn, false);
             };
@@ -52,13 +51,13 @@ define([], function () {
                 return true;
             }
             return false;
-            //TODO IE8 fallback
+            //TODOv2 IE8 fallback
         },
         arrayContains: function (array, element) {
             return array.indexOf(element) !== -1;
-            //TODO IE8 fallback
+            //TODOv2 IE8 fallback
         },
-        ajax: function (url, opts, onSuccess, onError) { //TODO browser compatibility
+        ajax: function (url, opts, onSuccess, onError) { //TODOv2 browser compatibility
             if (typeof opts === 'function') { //no opts given
                 onError = onSuccess;
                 onSuccess = opts;
@@ -85,10 +84,10 @@ define([], function () {
             xhr.send();
         },
         parseJSON: function (str) {
-            return JSON.parse(str); //TODO fallback
+            return JSON.parse(str); //TODOv2 fallback
         },
         addEventListener: addEventListener,
         removeEventListener: removeEventListener,
-        domContains: domContains //TODO DOM namespace
+        domContains: domContains //TODOv2 DOM namespace
     };
 });

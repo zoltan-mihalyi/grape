@@ -42,7 +42,7 @@ define(['../class', '../collections/bag', '../etc/event-emitter', '../etc/tag'],
     GameObject = Class('GameObject', [EventEmitter, Tag.Taggable], {
         init: function () {
             this._layer = null;
-            this.on('add', function () {//TODO optimize
+            this.on('add', function () {//TODOv2 optimize
                 var myClass = this.getClass(), event, listeners;
                 for (event in myClass.allGlobalEvent) {
                     listeners = myClass.allGlobalEvent[event];

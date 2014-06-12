@@ -29,7 +29,7 @@ define(['../class'], function (Class) {
             return slice.call(this, 0);
         },
 
-        attr: function (name, newVal) { //todo use as attr({x:10, y:20})
+        attr: function (name, newVal) { //todov2 use as attr({x:10, y:20})
             var i = 0, max = this.length;
             for (; i < max; ++i) {
                 this[i][name] = newVal;
@@ -59,7 +59,7 @@ define(['../class'], function (Class) {
                 return this[Math.random() * this.length >> 0];
             }
 
-            result = this.clone(); //todo performance
+            result = this.clone(); //todov2 performance
             while (result.length > num) {
                 result.splice(Math.random() * result.length >> 0, 1);
             }
@@ -73,11 +73,11 @@ define(['../class'], function (Class) {
         size: function () {
             return this.length;
         }
-        //TODO union, intersect, complement, etc.);
+        //TODOv2 union, intersect, complement, etc.);
 
     };
 
-    //TODO implement methods if not available
+    //TODOv2 implement methods if not available
     if (Object.getOwnPropertyNames) {
         methodNames = Object.getOwnPropertyNames(Array.prototype);
     } else {
