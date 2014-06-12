@@ -1,5 +1,5 @@
 module.exports = function (grunt) { //TODO minify
-    var version = grunt.config('pkg.version');
+    var version = grunt.config('pkg.version'); //todo build file code quality
 
     function getFileName(base, name) {
         return base + '/' + name + '.js';
@@ -84,11 +84,7 @@ module.exports = function (grunt) { //TODO minify
             dst: 'dist/grape.js',
             wrapper: 'js/grape/wrapper.js',
             wrapperPlaceholder: '//#FACTORY_PLACEHOLDER#',
-            banner: '/*!\n' +
-                '    Grape.js JavaScript game engine\n' +
-                '    (c) 2012-<%= grunt.template.today(\'yyyy\') %> Zoltan Mihalyi.\n' +
-                '    https://github.com/zoltan-mihalyi/grape2/blob/master/MIT-LICENSE.txt\n' +
-                '*/',
+            banner: grunt.file.read('js/grape/banner.js'),
             separator: '\n',
             useShort: false
         });
