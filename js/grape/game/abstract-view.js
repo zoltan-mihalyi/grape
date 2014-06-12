@@ -22,7 +22,6 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             this.originY = 0;
             this.x = 0;
             this.y = 0;
-            this.mouse = {x: 0, y: 0}; //TODO default values
             this.zoom = 1;
             this.alpha = 1;
             Utils.extend(this, opts);
@@ -33,6 +32,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
         'event start': function (game) {
             var el;
             this._game = game;
+            this.mouse = {x: game.input.mouse.x, y: game.input.mouse.y};
             /* istanbul ignore else */
             if (Env.browser) {
                 el = this.el = this.createDom();

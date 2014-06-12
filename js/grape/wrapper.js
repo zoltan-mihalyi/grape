@@ -11,6 +11,6 @@
             return Grape;
         });
     }
-}(function (originalRequire) { //todo dont use this?
+}(function (originalRequire) { //todo don't use this?
 //#FACTORY_PLACEHOLDER#
 }));

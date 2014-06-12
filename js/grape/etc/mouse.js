@@ -1,6 +1,6 @@
 define(['../class', '../game/game-object', './aabb'], function (Class, GameObject, AABB) { //TODO scroll fail
-    var detectMouseOver = function (el, ctx) {
-        var bounds = el.getBounds(), mouse = ctx.view.mouse;
+    var detectMouseOver = function (el, mouse) {
+        var bounds = el.getBounds();
         if (mouse.x >= bounds.left && mouse.x < bounds.right && mouse.y >= bounds.top && mouse.y < bounds.bottom) {
             if (!el._mouseOver) {
                 el._mouseOver = true;
@@ -13,13 +13,13 @@ define(['../class', '../game/game-object', './aabb'], function (Class, GameObjec
     }; //TODO only if mouse is on the screen!
 
     return Class('Mouse', [GameObject, AABB], {
-        init: function () {
-            //detectMouseOver(this);
+        'global-event start': function () {
+            this._inputMouse = this.getGame().input.mouse;
+            detectMouseOver(this, this._inputMouse);
         },
-        'global-event render': function (ctx) { //TODO what if there are more than one views
-            detectMouseOver(this, ctx);
+        'global-event mouseMove': function () {
+            detectMouseOver(this, this._inputMouse);
         },
-
         'global-event keyPress': { //TODO create with loop
             mouseLeft: function () {
                 if (this._mouseOver) {

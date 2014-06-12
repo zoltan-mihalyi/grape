@@ -63,6 +63,7 @@ define(['./utils'], function (Utils) {
      * tutorials
      *
      * LEVEL 2:
+     * update static partitions (remove and re-add objects)
      * example require config (nested require calls are ugly)
      * jscs
      * move examples to different repositories

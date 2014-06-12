@@ -50,6 +50,12 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
     };
     var REVERSED_KEYS = {};
     var i;
+    var mouseScreen = {
+        x: 0,
+        y: 0
+    };
+    //var mouseX = 0, mouseY = 0;
+    var instances = [];
 
 
     /*register letters*/
@@ -104,8 +110,15 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
     }
 
     if (Env.browser) {
-        Utils.addEventListener(document, 'mousemove', function () {
-            //todo
+        //TODOv2 have to be initialized: https://forum.jquery.com/topic/is-it-possible-to-get-mouse-position-when-the-page-has-loaded-without-moving-the-mouse
+        Utils.addEventListener(document, 'mousemove', function (event) {
+            var i;
+            mouseScreen.x = event.clientX;
+            mouseScreen.y = event.clientY;
+
+            for (i = 0; i < instances.length; i++) {
+                instances[i].onMouseMove();
+            }
         });
     }
     return Class('Input', {
@@ -116,11 +129,12 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.downKeys = {};
             this.pressedKeys = {};
             this.releasedKeys = {};
-            this.mouse = { //TODO initial values from global ones, and global ones have to be initialized: https://forum.jquery.com/topic/is-it-possible-to-get-mouse-position-when-the-page-has-loaded-without-moving-the-mouse
-                x: 0,
-                y: 0,
-                prevX: 0,
-                prevY: 0
+            this.mouse = {
+                x: mouseScreen.x,
+                y: mouseScreen.y,
+                prevX: mouseScreen.x,
+                prevY: mouseScreen.y,
+                screen: mouseScreen
             };
         },
         start: function (screen) {
@@ -161,17 +175,19 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.onMouseUp = function (event) {
                 up('mouse' + event.which);
             };
-            this.onMouseMove = function (event) {
+            this.onMouseMove = function () {
                 var rect = screen.getBoundingClientRect();
-                that.mouse.x = event.clientX - rect.left;
-                that.mouse.y = event.clientY - rect.top;
+                that.mouse.x = mouseScreen.x - rect.left;
+                that.mouse.y = mouseScreen.y - rect.top;
             };
+            this.onMouseMove(); //initial mouse calculation
             Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODOv2 to loop
-            Utils.addEventListener(document, 'keyup', this.onKeyUp);
+            Utils.addEventListener(document, 'keyup', this.onKeyUp); //TODOv2 handle all of these globally
             Utils.addEventListener(document, 'contextmenu', this.onContextMenu);
             Utils.addEventListener(document, 'mousedown', this.onMouseDown);
             Utils.addEventListener(document, 'mouseup', this.onMouseUp);
-            Utils.addEventListener(document, 'mousemove', this.onMouseMove);
+
+            instances.push(this);
 
         },
         stop: function () {
@@ -180,7 +196,8 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             Utils.removeEventListener(document, 'contextmenu', this.onContextMenu);
             Utils.removeEventListener(document, 'mousedown', this.onMouseDown);
             Utils.removeEventListener(document, 'mouseup', this.onMouseUp);
-            Utils.removeEventListener(document, 'mousemove', this.onMouseMove);
+
+            Utils.removeFromArray(instances, this);
         },
         emitEvents: function (target) {
             dispatchKeys(target, this.pressedKeys, 'keyPress');
