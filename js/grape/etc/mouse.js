@@ -1,26 +1,31 @@
-define(['../class', '../game/game-object', './aabb'], function (Class, GameObject, AABB) { //TODO scroll fail
-    var detectMouseOver = function (el, mouse) {
-        var bounds = el.getBounds();
-        if (mouse.x >= bounds.left && mouse.x < bounds.right && mouse.y >= bounds.top && mouse.y < bounds.bottom) {
-            if (!el._mouseOver) {
-                el._mouseOver = true;
-                el.emit('mouseOver');
-            }
-        } else if (el._mouseOver) {
-            el._mouseOver = false;
-            el.emit('mouseOut');
-        }
-    }; //TODO only if mouse is on the screen!
+define(['../class', '../game/game-object', './aabb'], function (Class, GameObject, AABB) {
 
     return Class('Mouse', [GameObject, AABB], {
-        'global-event start': function () {
-            this._inputMouse = this.getGame().input.mouse;
-            detectMouseOver(this, this._inputMouse);
+        isMouseOver: function () {
+            return this._mouseOver;
         },
-        'global-event mouseMove': function () {
-            detectMouseOver(this, this._inputMouse);
+        'global-event beforeMouseMove': function () { //pessimistic search
+            this._hasMouse = false;
         },
-        'global-event keyPress': { //TODO create with loop
+        'global-event mouseMoveView': function (view) {
+            var bounds = this.getBounds(),
+                mouse = view.mouse;
+            if (mouse.x >= bounds.left && mouse.x < bounds.right && mouse.y >= bounds.top && mouse.y < bounds.bottom) {
+                this._hasMouse = true;
+                if (!this._mouseOver) {
+                    this._mouseOver = true;
+                    this.emit('mouseOver');
+                }
+            }
+        },
+        'global-event afterMouseMove': function () { //if none of the view's mouse is inside the obj
+            if (!this._hasMouse && this._mouseOver) {
+                this._mouseOver = false;
+                this.emit('mouseOut');
+            }
+        },
+        'global-event keyPress': { //TODOv2 create with loop
+            //todov2 view stores instances under mouse and emits click events
             mouseLeft: function () {
                 if (this._mouseOver) {
                     this.emit('localPress.mouseLeft');

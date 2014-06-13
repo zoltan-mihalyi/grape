@@ -1,19 +1,13 @@
-define(['../class', './aabb', './position', '../game/game-object'], function (Class, AABB, Position, GameObject) {
-    return Class('SpriteVisualizer', [GameObject, Position, AABB], {
+define(['../class', './visualizer'], function (Class, Visualizer) {
+    return Class('SpriteVisualizer', Visualizer, {
         init: function (opts) {
             opts = opts || {};
-            if (opts.alpha === undefined) {
-                this.alpha = 1;
-            } else {
-                this.alpha = opts.alpha;
-            }
             this.subimage = opts.subimage || 0;
             this.sprite = opts.sprite;
         },
-        'global-event render': function (ctx) {
+        'override visualize': function (ctx) {
             var sprite = this.sprite;
             if (sprite && sprite.img) {
-                ctx.globalAlpha = this.alpha;
                 ctx.drawImage(sprite.img, sprite.left + sprite.width * (Math.round(this.subimage) % sprite.subimages), sprite.top, sprite.width, sprite.height, this.x - sprite.originX, this.y - sprite.originY, sprite.width, sprite.height);
             } else {
                 ctx.fillStyle = 'black';
@@ -22,7 +16,6 @@ define(['../class', './aabb', './position', '../game/game-object'], function (Cl
                 ctx.font = '20px Arial';
                 ctx.fillText('?', this.x + 11, this.y + 24);
             }
-            ctx.globalAlpha = 1;
         },
         'override getBounds': function () {
             var s = this.sprite;

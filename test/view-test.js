@@ -11,7 +11,13 @@ describe('view test', function () {
         getScreen: function () {
             return this._screen;
         },
-        _screen: document.createElement('div')
+        _screen: document.createElement('div'),
+        input: {
+            mouse: {
+                x: 0,
+                y: 0
+            }
+        }
     };
 
     describe('abstract view test', function () {
@@ -46,7 +52,8 @@ describe('view test', function () {
 
         it('should calculate dynamic properties', function () {
             var v = new View();
-
+            var layer = new Grape.Layer();
+            layer.addView(v);
             v.emit('start', game);
 
             var props = ['left', 'top', 'width', 'height', 'originX', 'originY'];

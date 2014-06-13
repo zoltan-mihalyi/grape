@@ -122,6 +122,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         });
     }
     return Class('Input', {
+        'static mouse': mouseScreen,
         'static setReservedKeys': function (/*key1, key2*/) {
             //TODO reservedKeys=arguments;
         },
@@ -155,6 +156,12 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
                 }
             }
 
+            function calculateMouse() {
+                var rect = screen.getBoundingClientRect();
+                that.mouse.x = mouseScreen.x - rect.left;
+                that.mouse.y = mouseScreen.y - rect.top;
+            }
+
             this.onKeyDown = function (event) {
                 down(event.which);
             };
@@ -175,12 +182,8 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.onMouseUp = function (event) {
                 up('mouse' + event.which);
             };
-            this.onMouseMove = function () {
-                var rect = screen.getBoundingClientRect();
-                that.mouse.x = mouseScreen.x - rect.left;
-                that.mouse.y = mouseScreen.y - rect.top;
-            };
-            this.onMouseMove(); //initial mouse calculation
+            this.onMouseMove = calculateMouse;
+            calculateMouse();
             Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODOv2 to loop
             Utils.addEventListener(document, 'keyup', this.onKeyUp); //TODOv2 handle all of these globally
             Utils.addEventListener(document, 'contextmenu', this.onContextMenu);
@@ -204,7 +207,9 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             dispatchKeys(target, this.downKeys, 'keyDown');
             dispatchKeys(target, this.releasedKeys, 'keyRelease');
             if (this.mouse.prevX !== this.mouse.x || this.mouse.prevY !== this.mouse.y) {
+                target.emit('beforeMouseMove', this.mouse);
                 target.emit('mouseMove', this.mouse);
+                target.emit('afterMouseMove', this.mouse);
             }
             this.mouse.prevX = this.mouse.x;
             this.mouse.prevY = this.mouse.y;

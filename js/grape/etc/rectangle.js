@@ -1,5 +1,5 @@
-define(['../class', './aabb', './position', '../game/game-object'], function (Class, AABB, Position, GameObject) {
-    return Class('Rectangle', [Position, AABB, GameObject], {
+define(['../class', './visualizer'], function (Class, Visualizer) {
+    return Class('Rectangle', Visualizer, {
         init: function (opts) {
             opts = opts || {};
             this.width = opts.width || 0;
@@ -8,7 +8,7 @@ define(['../class', './aabb', './position', '../game/game-object'], function (Cl
             this.backgroundColor = opts.backgroundColor || '#fff';
             this.borderColor = opts.borderColor || '#000';
         },
-        'global-event render': function (ctx) {
+        'override visualize': function (ctx) { //todov2 background api
             ctx.fillStyle = this.backgroundColor;
             ctx.borderStyle = this.borderColor;
             ctx.fillRect(this.x, this.y, this.width, this.height);

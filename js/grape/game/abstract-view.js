@@ -1,14 +1,29 @@
 define(['../class', '../env', '../game/system', '../utils'], function (Class, Env, System, Utils) {
     function propValue(prop, max) {
-        /*jslint evil: true */
         if (typeof (prop) === 'function') {
             return prop(max);
         }
         if (parseFloat(prop) + '' === prop + '') { //number format
             return prop * 1;
         } else {
-            return new Function('p', 'return ' + prop.replace(/%/, '/100*p') + ';')(max);
+            return createFunction('p', 'return ' + prop.replace(/%/g, '/100*p') + ';')(max);
         }
+    }
+
+    var fnCache = {}; //params+body -> function
+    var cacheOrder = []; //params+body
+
+    function createFunction(params, body) {
+        /*jslint evil: true */
+        var key = params + ';' + body;
+        if (!fnCache[key]) {
+            if (cacheOrder.length >= 100) { //cache full
+                delete fnCache[cacheOrder.shift()];
+            }
+            fnCache[key] = new Function(params, body);
+            cacheOrder.push(key);
+        }
+        return fnCache[key];
     }
 
     //TODOv2 follow player etc.
@@ -29,19 +44,30 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
         getGame: function () {
             return this._game;
         },
+        _calculateMouse: function (mouse) {
+            var viewX = this.mouse.view.x = mouse.x - this.getLeft();
+            var viewY = this.mouse.view.y = mouse.y - this.getTop();
+            this.mouse.x = viewX + this.x - this.getOriginX();
+            this.mouse.y = viewY + this.y - this.getOriginY();
+            if (viewX >= 0 && viewY >= 0 && viewX < this.getWidth() && viewY < this.getHeight()) {
+                this.getLayer().emit('mouseMoveView', this);
+            }
+        },
         'event start': function (game) {
             var el;
             this._game = game;
-            this.mouse = {x: game.input.mouse.x, y: game.input.mouse.y};
+            this.mouse = {
+                view: {}
+            };
             /* istanbul ignore else */
             if (Env.browser) {
                 el = this.el = this.createDom();
                 el.style.position = 'absolute';
-                el.width = this.getWidth();
-                el.height = this.getHeight();
+                this.updateSize();
                 this._game.getScreen().appendChild(el);
                 this.emit('domCreated', el);
             }
+            this._calculateMouse(game.input.mouse);
         },
         'event stop': function () {
             /* istanbul ignore else */
@@ -50,12 +76,16 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             }
         },
         'event renderLayer': function () {
-            this.el.style.left = this.getLeft();
-            this.el.style.top = this.getTop();
+            this.el.style.left = this.getLeft() + 'px';
+            this.el.style.top = this.getTop() + 'px';
+            this.updateSize();
         },
         'event mouseMove': function (mouse) {
-            this.mouse.x = mouse.x - this.getLeft();
-            this.mouse.y = mouse.y - this.getTop();
+            this._calculateMouse(mouse);
+        },
+        updateSize: function () {
+            this.el.style.width = this.getWidth() + 'px';
+            this.el.style.height = this.getHeight() + 'px';
         },
         getLeft: function () {
             return propValue(this.left, this._game.getScreenWidth());

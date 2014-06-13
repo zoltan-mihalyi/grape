@@ -49,7 +49,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
                 this.input.start(this._screen);
             }
             scene = scene || this.initialScene;
-            this.startScene(typeof scene === 'function' ? scene() : scene);
+            this.startScene(typeof scene === 'function' ? new scene() : scene);
             this._starting = false;
             this.gameLoop.start();
         },

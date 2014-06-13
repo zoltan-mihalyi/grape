@@ -63,9 +63,12 @@ define(['./utils'], function (Utils) {
      * tutorials
      *
      * LEVEL 2:
+     * phonegap
+     * event order
      * update static partitions (remove and re-add objects)
      * example require config (nested require calls are ugly)
      * jscs
+     * collision mask
      * move examples to different repositories
      * move node.js codes to grape.multiplayer
      * check if instance is at a place
