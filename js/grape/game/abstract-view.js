@@ -88,22 +88,22 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             this.el.style.height = this.getHeight() + 'px';
         },
         getLeft: function () {
-            return propValue(this.left, this._game.getScreenWidth());
+            return propValue(this.left, this._game.getScreenWidth()) >> 0;
         },
         getTop: function () {
-            return propValue(this.top, this._game.getScreenHeight());
+            return propValue(this.top, this._game.getScreenHeight()) >> 0;
         },
         getWidth: function () {
-            return propValue(this.width, this._game.getScreenWidth());
+            return propValue(this.width, this._game.getScreenWidth()) >> 0;
         },
         getHeight: function () {
-            return propValue(this.height, this._game.getScreenHeight());
+            return propValue(this.height, this._game.getScreenHeight()) >> 0;
         },
         getOriginX: function () {
-            return propValue(this.originX, this.getWidth());
+            return propValue(this.originX, this.getWidth()) >> 0;
         },
         getOriginY: function () {
-            return propValue(this.originY, this.getHeight());
+            return propValue(this.originY, this.getHeight()) >> 0;
         },
         'abstract createDom': null
     });
