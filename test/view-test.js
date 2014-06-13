@@ -21,8 +21,6 @@ describe('view test', function () {
     };
 
     describe('abstract view test', function () {
-        var PRECISION = 5;
-
         var View = Grape.AbstractView.extend({
             init: function () {
                 this.count = 0;
@@ -87,10 +85,10 @@ describe('view test', function () {
                 v[prop] = '20';
                 expect(v[getter]()).toBe(20);
                 v[prop] = '30% + 30';
-                expect(v[getter]()).toBeCloseTo(hundredPercent * 0.3 + 30, PRECISION);
+                expect(v[getter]()).toBe((hundredPercent * 0.3 + 30) >> 0);
 
                 v[prop] = propFn;
-                expect(v[getter]()).toBeCloseTo(hundredPercent * 0.4 + 40, PRECISION);
+                expect(v[getter]()).toBe((hundredPercent * 0.4 + 40) >> 0);
             }
         });
     });
