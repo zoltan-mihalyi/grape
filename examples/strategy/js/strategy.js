@@ -13,11 +13,14 @@ var MenuGui = Grape.GUIView.extend({
             if (e.target.className === 'startButton') {
                 view.getGame().startScene(new LevelScene());
             }
-        }
+        };
     }
 });
 
 var ResbarGui = Grape.GUIView.extend({
+    init: function () {
+        this.height = 20;
+    },
     render: function () {
         this.el.innerHTML = '<div style="background-color: brown; width: 800px;"><span class="gold"></span></div>';
     },
@@ -27,7 +30,7 @@ var ResbarGui = Grape.GUIView.extend({
             if (e.target.className === 'startButton') {
                 view.getGame().startScene(new LevelScene());
             }
-        }
+        };
         this.goldSpan = this.el.getElementsByClassName('gold')[0];
     },
     'event renderLayer': function () {
@@ -48,7 +51,7 @@ var SelectionGui = Grape.GUIView.extend({
     },
     'event renderLayer': function () {
         var res = '<ul>';
-        this.getLayer().getByTag('SELECTED').forEach(function (unit, i) {
+        this.getLayer().getByTag('SELECTED').forEach(function (unit) {
             res += '<li>' + unit.name + ' (hp: ' + unit.hp + '/' + unit.maxHp + ') ' + (unit.target ? '➜' : '') + '</li>';
         });
         res += '</ul>';
@@ -59,8 +62,6 @@ var SelectionGui = Grape.GUIView.extend({
 var LevelScene = Grape.Scene.extend('LevelScene', {
     init: function () {
         this.gold = 1000;
-        this.addView(new ResbarGui());
-        this.addView(new SelectionGui());
 
         var u1 = new Soldier({x: 100, y: 200});
         var u2 = new Soldier({x: 120, y: 220});
@@ -79,18 +80,23 @@ var LevelScene = Grape.Scene.extend('LevelScene', {
         });
     },
     'event keyPress.mouseRight': function () {
-        var mouse = this._systems[0].mouse; //todo access mouse
-        this.getByTag('SELECTED').forEach(function (unit, i) {
+        var mouse = this.getSystem('view').mouse; //todo access mouse
+        this.getByTag('SELECTED').forEach(function (unit) {
             unit.target = {type: 'move', x: mouse.x, y: mouse.y};
         });
     },
     'event frame': function () {
         this.gold += 0.05;
+    },
+    initViews: function () {
+        this.addView(new ResbarGui());
+        this.addView(new SelectionGui());
+        this.addView('view', new Grape.View({top: 20, height: 400}));
     }
 });
 
 var MenuScene = Grape.Scene.extend({
-    init: function () {
+    initViews: function () {
         this.addView(new MenuGui());
     }
 });
@@ -102,8 +108,8 @@ var Unit = Grape.Class('Unit', [Grape.Mouse, Grape.SpriteVisualizer], {
     },
     'event keyPress.mouseLeft': function () {
         if (!this.getGame().input.isDown('ctrl')) { //single selection
-            this.getLayer().getByTag('SELECTED').forEach(function (unit, i) {
-                unit.removeTag('SELECTED')
+            this.getLayer().getByTag('SELECTED').forEach(function (unit) {
+                unit.removeTag('SELECTED');
             });
         }
         this.addTag('SELECTED');

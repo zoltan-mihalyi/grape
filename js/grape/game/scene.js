@@ -7,7 +7,7 @@ define(['../class', './layer', './view'], function (Class, Layer, View) {
             this.initViews();
         },
         initViews: function () {
-            this.addView(new View());
+            this.addView('view', new View());
         }
     });
 });
