@@ -28,19 +28,19 @@ define(['../class', '../game/game-object', './aabb'], function (Class, GameObjec
             //todov2 view stores instances under mouse and emits click events
             mouseLeft: function () {
                 if (this._mouseOver) {
-                    this.emit('localPress.mouseLeft');
+                    this.emit('keyPress.mouseLeft');
                 }
             },
 
             mouseMiddle: function () {
                 if (this._mouseOver) {
-                    this.emit('localPress.mouseMiddle');
+                    this.emit('keyPress.mouseMiddle');
                 }
             },
 
             mouseRight: function () {
                 if (this._mouseOver) {
-                    this.emit('localPress.mouseRight');
+                    this.emit('keyPress.mouseRight');
                 }
             }
         },
@@ -48,19 +48,19 @@ define(['../class', '../game/game-object', './aabb'], function (Class, GameObjec
         'global-event keyRelease': {
             mouseLeft: function () {
                 if (this._mouseOver) {
-                    this.emit('localRelease.mouseLeft');
+                    this.emit('keyRelease.mouseLeft');
                 }
             },
 
             mouseMiddle: function () {
                 if (this._mouseOver) {
-                    this.emit('localRelease.mouseMiddle');
+                    this.emit('keyRelease.mouseMiddle');
                 }
             },
 
             mouseRight: function () {
                 if (this._mouseOver) {
-                    this.emit('localRelease.mouseRight');
+                    this.emit('keyRelease.mouseRight');
                 }
             }
         },
@@ -68,19 +68,19 @@ define(['../class', '../game/game-object', './aabb'], function (Class, GameObjec
         'global-event keyDown': {
             mouseLeft: function () {
                 if (this._mouseOver) {
-                    this.emit('localDown.mouseLeft');
+                    this.emit('keyDown.mouseLeft');
                 }
             },
 
             mouseMiddle: function () {
                 if (this._mouseOver) {
-                    this.emit('localDown.mouseMiddle');
+                    this.emit('keyDown.mouseMiddle');
                 }
             },
 
             mouseRight: function () {
                 if (this._mouseOver) {
-                    this.emit('localDown.mouseRight');
+                    this.emit('keyDown.mouseRight');
                 }
             }
         },

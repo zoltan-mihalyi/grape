@@ -100,7 +100,7 @@ var Unit = Grape.Class('Unit', [Grape.Mouse, Grape.SpriteVisualizer], {
         this.hp = this.maxHp = 100;
         this.target = null;
     },
-    'event localPress.mouseLeft': function () {
+    'event keyPress.mouseLeft': function () {
         if (!this.getGame().input.isDown('ctrl')) { //single selection
             this.getLayer().getByTag('SELECTED').forEach(function (unit, i) {
                 unit.removeTag('SELECTED')

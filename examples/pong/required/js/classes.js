@@ -11,7 +11,7 @@ define(['grape', 'resources'], function (Grape, Resources) {
         init: function () {
             this.alpha = 0.6;
         },
-        'event localPress.mouseLeft': function () {
+        'event keyPress.mouseLeft': function () {
             this.getGame().setCursor('auto');
             this.action();
         },

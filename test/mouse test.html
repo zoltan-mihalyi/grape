@@ -16,6 +16,9 @@
     var Test = Grape.Class([Grape.Rectangle, Grape.Mouse], {
         'global-event frame': function () {
             this.alpha = this.isMouseOver() ? 1 : 0.3;
+        },
+        'event keyPress.mouseLeft': function () {
+            this.backgroundColor = (this.backgroundColor === 'red') ? 'green' : 'red';
         }
     });
 
