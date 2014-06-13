@@ -49,7 +49,10 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             var viewY = this.mouse.view.y = mouse.y - this.getTop();
             this.mouse.x = viewX + this.x - this.getOriginX();
             this.mouse.y = viewY + this.y - this.getOriginY();
+            this.mouse.inView = false;
             if (viewX >= 0 && viewY >= 0 && viewX < this.getWidth() && viewY < this.getHeight()) {
+                this.mouse.inView = true;
+                mouse.view = this;
                 this.getLayer().emit('mouseMoveView', this);
             }
         },

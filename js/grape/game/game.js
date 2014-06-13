@@ -83,7 +83,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this.scene.emit('frame');
             /* istanbul ignore else */
             if (this.input) {
-                this.input.emitEvents(this.scene); //TODO is it wrong? ie. keyPress.none?
+                this.input.emitEvents(this.scene); //TODOv2 is it wrong? ie. keyPress.none?
             }
         },
         render: function () {
@@ -110,7 +110,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this._screen.style.cursor = cursor;
         },
         getScene: function () {
-            return this.scene; //todo rename to _scene
+            return this.scene; //todov2 rename to _scene
         },
         getRequiredFps: function () {
             return this.scene.fps;

@@ -218,7 +218,7 @@ describe('class tests', function () {
         }).toThrow();
     });
 
-    it('static modifier', function () { //TODO
+    it('static modifier', function () {
         var A = Grape.Class({
             'static A': 1
         });

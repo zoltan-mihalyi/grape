@@ -4,9 +4,6 @@ res.sprite('soldier', 'sprite/man.png', {
 });
 
 var MenuGui = Grape.GUIView.extend({
-    render: function () {
-        this.el.innerHTML = '<input type="button" class="startButton" value="Start"/>';
-    },
     'event domCreated': function () {
         var view = this;
         this.el.onclick = function (e) {
@@ -14,6 +11,7 @@ var MenuGui = Grape.GUIView.extend({
                 view.getGame().startScene(new LevelScene());
             }
         };
+        this.el.innerHTML = '<input type="button" class="startButton" value="Start"/>';
     }
 });
 
@@ -21,16 +19,8 @@ var ResbarGui = Grape.GUIView.extend({
     init: function () {
         this.height = 20;
     },
-    render: function () {
-        this.el.innerHTML = '<div style="background-color: brown; width: 800px;"><span class="gold"></span></div>';
-    },
     'event domCreated': function () {
-        var view = this;
-        this.el.onclick = function (e) {
-            if (e.target.className === 'startButton') {
-                view.getGame().startScene(new LevelScene());
-            }
-        };
+        this.el.innerHTML = '<div style="background-color: brown; width: 800px;"><span class="gold"></span></div>';
         this.goldSpan = this.el.getElementsByClassName('gold')[0];
     },
     'event renderLayer': function () {
@@ -43,10 +33,8 @@ var SelectionGui = Grape.GUIView.extend({
         this.top = 400;
         this.height = 200;
     },
-    render: function () {
-        this.el.innerHTML = '<div style="background-color: yellow; width: 800px; height: 200px" class="container"></div>';
-    },
     'event domCreated': function () {
+        this.el.innerHTML = '<div style="background-color: yellow; width: 800px; height: 200px" class="container"></div>';
         this.container = this.el.getElementsByClassName('container')[0];
     },
     'event renderLayer': function () {
@@ -80,10 +68,12 @@ var LevelScene = Grape.Scene.extend('LevelScene', {
         });
     },
     'event keyPress.mouseRight': function () {
-        var mouse = this.getSystem('view').mouse; //todo access mouse
-        this.getByTag('SELECTED').forEach(function (unit) {
-            unit.target = {type: 'move', x: mouse.x, y: mouse.y};
-        });
+        var mouse = this.getSystem('view').mouse;
+        if (mouse.inView) {
+            this.getByTag('SELECTED').forEach(function (unit) {
+                unit.target = {type: 'move', x: mouse.x, y: mouse.y};
+            });
+        }
     },
     'event frame': function () {
         this.gold += 0.05;

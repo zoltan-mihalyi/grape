@@ -64,6 +64,7 @@ define(['./utils'], function (Utils) {
      *
      * LEVEL 2:
      * phonegap
+     * tiled layer
      * event order
      * update static partitions (remove and re-add objects)
      * example require config (nested require calls are ugly)

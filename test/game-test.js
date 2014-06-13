@@ -219,7 +219,3 @@ describe('game object array test', function () {
         expect(g3.emit).toHaveBeenCalledWith('test', 123);
     });
 });
-
-
-//todo test array proxy methods+toArray
-//todo move attr, call, etc to array

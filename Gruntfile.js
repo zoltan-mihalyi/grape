@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        karma: { //todo test after build if we build
+        karma: { //todov2 test after build if we build
             all: {
                 configFile: 'karma.conf.all.js'
             },
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                 },
                 options: {
                     preserveComments: false,
-                    banner:grunt.file.read('js/grape/banner.js'),
+                    banner: grunt.file.read('js/grape/banner.js'),
                     sourceMap: "dist/grape.min.map",
                     sourceMappingURL: "grape.min.map",
                     report: "min",
@@ -65,6 +65,6 @@ module.exports = function (grunt) {
     grunt.registerTask('hint', ['jshint']);
     grunt.registerTask('test', ['karma:all']);
     grunt.registerTask('continuous testing', ['karma:continuous']);
-    //TODO dev
+    //TODOv2 dev
     grunt.registerTask('generate-docs', ['yuidoc']);
 };

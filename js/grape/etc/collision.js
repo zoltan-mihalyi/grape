@@ -100,7 +100,7 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
             }
         },
         'event frame': function () {
-            //collision is defined between classes and tags TODO: what can we optimize this way? self collision?
+            //collision is defined between classes and tags
             var classes = this._layer._getClasses(Collidable),
                 partitionsByTag = new this.TagPartition(),
                 partitionsByClass = new this.ClassPartition(),
