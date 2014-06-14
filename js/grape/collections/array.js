@@ -59,7 +59,7 @@ define(['../class'], function (Class) {
          * Creates a native Array by copying the items
          *
          * @method toArray
-         * @returns {Array} the native Array
+         * @returns {Array} The native Array
          */
         toArray: function () {
             return slice.call(this, 0);
@@ -100,7 +100,7 @@ define(['../class'], function (Class) {
          * Returns an item at the given position. Equivalent to arr[i].
          *
          * @method get
-         * @param i {number}
+         * @param i {number} the index of the item to return
          * @returns {*} the item at the given position
          */
         get: function (i) {

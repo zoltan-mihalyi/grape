@@ -1,11 +1,24 @@
 define(['../class', '../game/game-object'], function (Class, GameObject) {
+
+    /**
+     * A utility class for creating timeouts in a game.
+     *
+     * @class Grape.Alarm
+     */
     return Class('Alarm', GameObject, {
         init: function () {
             this._alarms = {};
         },
 
-        'final setAlarm': function (id, frames) {
-            this._alarms[id] = frames;
+        /**
+         * Sets a timeout with a given name.
+         *
+         * @method setAlarm
+         * @param name {String} alarm name
+         * @param frames {number} the number of frames after the alarm triggers
+         */
+        'final setAlarm': function (name, frames) {
+            this._alarms[name] = frames;
         },
 
         'final getAlarm': function (id) {
