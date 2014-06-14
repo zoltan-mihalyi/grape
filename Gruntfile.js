@@ -59,7 +59,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', ['jshint', 'test', 'build', 'generate-docs']);
+    grunt.registerTask('default', ['jshint', 'test', 'build', 'min', 'generate-docs']);
 
     grunt.registerTask('min', ['uglify']);
     grunt.registerTask('hint', ['jshint']);

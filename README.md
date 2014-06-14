@@ -4,7 +4,7 @@ Grape.js is a JavaScript game engine.
 
 Download: TODO
 
-## use
+## Usage
 
 ### Hello, my first game!
 
@@ -12,10 +12,10 @@ You can create a game by calling `new Grape.Game()`.
 
 ```javascript
 var myGame = new Grape.Game({container: document.body}); //container can be an id or a DOM element
-myGame.start(new MyScene());`
+myGame.start(new MyScene());
 ```
 
-Where MyScene comes from?
+We defined MyScene before like this
 
 ```javascript
 var MyScene = Grape.Scene.extend({ //create a new class by extending Grape.Scene
@@ -25,11 +25,32 @@ var MyScene = Grape.Scene.extend({ //create a new class by extending Grape.Scene
 });
 ```
 
-[I'm an inline-style link](https://www.google.com)
+[Check more tutorial](https://github.com/zoltan-mihalyi/grape2/wiki/Tutorial)
 
 
 
 TODO On every release, the built grape.js and grape.min.js are generated to the dist folder, you can use this!
+
+## Cool stuff
+
+Why is Grape special?
+
+- Strong class system
+    - Multiple inheritance
+    - Cool modifiers like "static" or "event"
+    - Feel safe with "abstract", "final" or "override" modifiers
+- Optimized CPU performance
+    - Compile "for" loops in the critical parts of the game
+    - Optimized collision detection
+        - Spatial partition, optimized for moving or standing objects
+        - Interest based broad phase algorithm: if there is no event listener for two object's collision, they aren't checked at all
+    - Array-based bag data structure for storing instances, which is faster than map or linked list
+- Create nested resource collections to organize your dependencies and track the loading progress
+- Create multiple views and layers to organize your game objects and GUI
+- Built-in utility classes for handling animations, basic physics and more
+- Build to mobile devices using phoneGap (soon)
+- Create multiplayer games easily and run the same game on node.js server (soon)
+- Particle system (soon)
 
 ## build
 
@@ -38,13 +59,13 @@ If you don't have grunt cli, run
 
     npm install -g grunt-cli
 
- To install development dependencies (grunt and grunt-contrib-requirejs) you have to
+To install development dependencies you have to
 
     npm install
 
 If you don't have npm, download node.js from http://nodejs.org
 If you installed the dependencies, you can build with
 
-    grunt
+    grunt build
 
-Then dist/grape.min.js appears.
+Then dist/grape.js appears.
