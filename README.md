@@ -2,9 +2,34 @@
 # Grape.js
 Grape.js is a JavaScript game engine.
 
+Download: TODO
+
 ## use
 
-On every release, the built grape.js and grape.min.js are generated to the dist folder, you can use this!
+### Hello, my first game!
+
+You can create a game by calling `new Grape.Game()`.
+
+```javascript
+var myGame = new Grape.Game({container: document.body}); //container can be an id or a DOM element
+myGame.start(new MyScene());`
+```
+
+Where MyScene comes from?
+
+```javascript
+var MyScene = Grape.Scene.extend({ //create a new class by extending Grape.Scene
+    'event render':function(ctx){ //event keyword creates an event listener
+        ctx.fillText('Hello, my first game!', 100, 100); //we can draw anything to the canvas context
+    }
+});
+```
+
+[I'm an inline-style link](https://www.google.com)
+
+
+
+TODO On every release, the built grape.js and grape.min.js are generated to the dist folder, you can use this!
 
 ## build
 
