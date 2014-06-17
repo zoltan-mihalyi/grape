@@ -1,4 +1,4 @@
-/**
+/*
  * A small implementation of amd module loader, used in the built file
  */
 var require, define;

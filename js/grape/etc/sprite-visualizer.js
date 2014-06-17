@@ -1,8 +1,30 @@
 define(['../class', './visualizer'], function (Class, Visualizer) {
+    /**
+     * Visualizes a sprite. If no sprite is set, draws a question mark to indicate the error.
+     *
+     * @class Grape.SpriteVisualizer
+     * @uses Grape.Visualizer
+     * @constructor
+     * @param {Object} [opts] Initial values of properties
+     */
     return Class('SpriteVisualizer', Visualizer, {
         init: function (opts) {
             opts = opts || {};
+            /**
+             * The image index of the sprite to show
+             *
+             * @property subimage
+             * @default 0
+             * @type {number}
+             */
             this.subimage = opts.subimage || 0;
+
+            /**
+             * The sprite
+             *
+             * @property sprite
+             * @type {Grape.Sprite}
+             */
             this.sprite = opts.sprite;
         },
         'override visualize': function (ctx) {

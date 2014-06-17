@@ -6,12 +6,13 @@ define(['../class'], function (Class) {
 
 
     /**
-     * An array class created with Grape.Class and using all of the Array.prototype methods and some new utility.
+     * An array class created with Grape.Class mixing all of the Array.prototype methods and some new utility.
      * Some functions are modified (like slice) to return a new instance of the current class instead of a plain array.
      * If you extend this class, these methods will return an instance of your class.
      * In the future, we should create implementations of default methods for old browsers.
      * Note that adding elements with indexing does not change the length property unlike the native Array.
      *
+     * @constructor
      * @class Grape.Array
      */
     methods = {
@@ -20,7 +21,7 @@ define(['../class'], function (Class) {
          *
          * @method call
          * @param which {String} The method name to call
-         * @returns {Grape.Array} this
+         * @return {Grape.Array} this
          */
         call: function (which/*,params*/) {
             var params = Array.prototype.slice.call(arguments, 1),
@@ -36,7 +37,7 @@ define(['../class'], function (Class) {
          * @method apply
          * @param which {String} The method name to call
          * @param params {Array} The method parameters
-         * @returns {Grape.Array} this
+         * @return {Grape.Array} this
          */
         apply: function (which, params) {
             var i = 0, max = this.length;
@@ -50,7 +51,7 @@ define(['../class'], function (Class) {
          * Returns true if the length of the array is 0.
          *
          * @method isEmpty
-         * @returns {boolean} true, if length is 0
+         * @return {boolean} true, if length is 0
          */
         isEmpty: function () {
             return this.length === 0;
@@ -60,7 +61,7 @@ define(['../class'], function (Class) {
          * Creates a native Array by copying the items
          *
          * @method toArray
-         * @returns {Array} The native Array
+         * @return {Array} The native Array
          */
         toArray: function () {
             return slice.call(this, 0);
@@ -72,7 +73,7 @@ define(['../class'], function (Class) {
          * @method attr
          * @param name {String} The attribute name
          * @param newVal {*} The new value of the attribute
-         * @returns {Grape.Array} this
+         * @return {Grape.Array} this
          */
         attr: function (name, newVal) { //todov2 use as attr({x:10, y:20})
             var i = 0, max = this.length;
@@ -86,8 +87,13 @@ define(['../class'], function (Class) {
          * Creates a new instance of the current class, containing the item at the index i if exists, or an empty array
          *
          * @method eq
+<<<<<<< HEAD
          * @param i {number} The index
          * @returns {Grape.Array} The array containing 0 or 1 item
+=======
+         * @param i {number}
+         * @return {Grape.Array} the array containing 0 or 1 item
+>>>>>>> 3911c8817bc6e3f7b3d130750c351e9b22cf2dde
          */
         eq: function (i) {
             var result = new (this.getClass())();
@@ -101,8 +107,13 @@ define(['../class'], function (Class) {
          * Returns an item at the given position. Equivalent to arr[i].
          *
          * @method get
+<<<<<<< HEAD
          * @param i {number} The index of the item to return
          * @returns {*} The item at the given position
+=======
+         * @param i {number} the index of the item to return
+         * @return {*} the item at the given position
+>>>>>>> 3911c8817bc6e3f7b3d130750c351e9b22cf2dde
          */
         get: function (i) {
             return this[i];
@@ -112,7 +123,11 @@ define(['../class'], function (Class) {
          * Returns one (the first) item from the array.
          *
          * @method one
+<<<<<<< HEAD
          * @returns {*} The first item
+=======
+         * @return {*} the first item
+>>>>>>> 3911c8817bc6e3f7b3d130750c351e9b22cf2dde
          */
         one: function () {
             return this[0];

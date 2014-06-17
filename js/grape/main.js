@@ -1,5 +1,8 @@
 /**
- * The entire Grape.js package
+ * The global Grape object containing the built-in classes.
+ *
+ * @static
+ * @class Grape
  */
 define(['./class', './collections/main', './env', './etc/main', './game/main', './resource/main', './utils'], function (Class, Collections, Env, Etc, Game, Resource, Utils) {
 
@@ -11,7 +14,14 @@ define(['./class', './collections/main', './env', './etc/main', './game/main', '
     Utils.extend(Grape, Etc);
     Utils.extend(Grape, Game);
     Utils.extend(Grape, Resource);
-    Grape.version="#VERSION#";
+    /**
+     * The version of the current Grape library
+     *
+     * @static
+     * @property version
+     * @type {string}
+     */
+    Grape.version = "#VERSION#";
 
     return Grape;
 });

@@ -1,6 +1,6 @@
 define(['../class'], function (Class) {
     /**
-     * An interface for axis-aligned bounding box methods
+     * An interface for axis-aligned bounding box methods. All methods are abstract.
      *
      * @class Grape.AABB
      */
@@ -9,7 +9,7 @@ define(['../class'], function (Class) {
          * Gets the left, right, top, bottom coordinates at once.
          *
          * @method getBounds
-         * @returns {Object} The bounding box coordinates, should contain "left", "right", "top" and "bottom" properties
+         * @return {Object} The bounding box coordinates, should contain "left", "right", "top" and "bottom" properties
          */
         'abstract getBounds': null,
 
@@ -17,7 +17,7 @@ define(['../class'], function (Class) {
          * Returns the left axis.
          *
          * @method getLeft
-         * @returns {number} the left axis
+         * @return {number} the left axis
          */
         'abstract getLeft': null,
 
@@ -25,7 +25,7 @@ define(['../class'], function (Class) {
          * Returns the top axis.
          *
          * @method getTop
-         * @returns {number} the top axis
+         * @return {number} the top axis
          */
         'abstract getTop': null,
 
@@ -33,7 +33,7 @@ define(['../class'], function (Class) {
          * Returns the right axis.
          *
          * @method getRight
-         * @returns {number} the right axis
+         * @return {number} the right axis
          */
         'abstract getRight': null,
 
@@ -41,7 +41,7 @@ define(['../class'], function (Class) {
          * Returns the bottom axis.
          *
          * @method getBottom
-         * @returns {number} the bottom axis
+         * @return {number} the bottom axis
          */
         'abstract getBottom': null,
 
@@ -49,7 +49,7 @@ define(['../class'], function (Class) {
          * Returns the width (right - left).
          *
          * @method getWidth
-         * @returns {number} the width, should be right - left
+         * @return {number} the width, should be right - left
          */
         'abstract getWidth': null,
 
@@ -57,7 +57,7 @@ define(['../class'], function (Class) {
          * Returns the height (bottom - top).
          *
          * @method getHeight
-         * @returns {number} the height, should be bottom - top
+         * @return {number} the height, should be bottom - top
          */
         'abstract getHeight': null
     });
