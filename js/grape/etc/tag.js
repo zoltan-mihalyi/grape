@@ -23,7 +23,7 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
          *
          * @method get
          * @param {String} tag The tag
-         * @returns {Array} Items containing the tag
+         * @return {Array} Items containing the tag
          */
         get: function (tag) { //TODOv2 multiple tags
             var i, instances, result = this.createResultContainer();
@@ -43,7 +43,7 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
          * this method.
          *
          * @method createResultContainer
-         * @returns {Array} An initial array.
+         * @return {Array} An initial array.
          * @see get
          */
         createResultContainer: function () {
@@ -106,7 +106,7 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
          *
          * @method addTag
          * @param {String} name Tag name
-         * @returns {boolean} true, if a new tag is added, false, if the tag was already added.
+         * @return {boolean} true, if a new tag is added, false, if the tag was already added.
          */
         addTag: function (name) {
             var container = this._tagContainer;
@@ -125,7 +125,7 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
          *
          * @method hasTag
          * @param {String} name Tag name
-         * @returns {boolean} true, if the instance has the tag
+         * @return {boolean} true, if the instance has the tag
          */
         hasTag: function (name) {
             return this._tags[name] !== undefined;

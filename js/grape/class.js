@@ -114,10 +114,11 @@ define(['./utils'], function (Utils) {
      *
      * @for Grape
      * @method Class
+     * @static
      * @param name {string} The name of the class (mainly for debugging purposes)
      * @param parents {}
      * @param methods
-     * @returns {*}
+     * @return {*}
      */
     function Class(name, parents, methods) {
         var classInfo = {}, constructor, i, id = ++nextId;
@@ -214,9 +215,8 @@ define(['./utils'], function (Utils) {
         classInfo.init = null;
     }
 
-    /**
+    /*
      * We create a custom function for performance and debugging reasons.
-     * @param classInfo
      */
     function createConstructor(classInfo) {
         /*jslint evil: true */
@@ -339,12 +339,8 @@ define(['./utils'], function (Utils) {
         };
     }
 
-    /**
+    /*
      * Leftmost iteration of parent tree.
-     * @param {Array} parents The array of parents
-     * @param {Object} directly The set of directly added parent ids.
-     * @param {Object} acc The accumulated parents data as list and set
-     * @returns {Array} Array of recursively added parents
      */
     function getAllParent(parents, directly, acc) {
         var i, parentsNum = parents.length, parent;

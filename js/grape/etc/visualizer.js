@@ -46,11 +46,10 @@ define(['../class', './aabb', './position', '../game/game-object'], function (Cl
             }
         },
         /**
-         * This method is called each render frame if visible is set to true.
+         * This abstract method is called each render frame if visible is set to true.
          *
          * @method visualize
          * @param {CanvasRenderingContext2D} ctx The rendering context
-         * @abstract
          */
         'abstract visualize': null,
         'abstract getBounds': null,

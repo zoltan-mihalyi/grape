@@ -20,7 +20,7 @@ define(['../class'], function (Class) {
          *
          * @method call
          * @param which {String} The method name to call
-         * @returns {Grape.Array} this
+         * @return {Grape.Array} this
          */
         call: function (which/*,params*/) {
             var params = Array.prototype.slice.call(arguments, 1),
@@ -36,7 +36,7 @@ define(['../class'], function (Class) {
          * @method apply
          * @param which {String} The method name to call
          * @param params {Array} The method parameters
-         * @returns {Grape.Array} this
+         * @return {Grape.Array} this
          */
         apply: function (which, params) {
             var i = 0, max = this.length;
@@ -50,7 +50,7 @@ define(['../class'], function (Class) {
          * Returns true if the length of the array is 0.
          *
          * @method isEmpty
-         * @returns {boolean} true, if length is 0
+         * @return {boolean} true, if length is 0
          */
         isEmpty: function () {
             return this.length === 0;
@@ -60,7 +60,7 @@ define(['../class'], function (Class) {
          * Creates a native Array by copying the items
          *
          * @method toArray
-         * @returns {Array} The native Array
+         * @return {Array} The native Array
          */
         toArray: function () {
             return slice.call(this, 0);
@@ -72,7 +72,7 @@ define(['../class'], function (Class) {
          * @method attr
          * @param name {String} The attribute name
          * @param newVal {*} The new value of the attribute
-         * @returns {Grape.Array} this
+         * @return {Grape.Array} this
          */
         attr: function (name, newVal) { //todov2 use as attr({x:10, y:20})
             var i = 0, max = this.length;
@@ -87,7 +87,7 @@ define(['../class'], function (Class) {
          *
          * @method eq
          * @param i {number}
-         * @returns {Grape.Array} the array containing 0 or 1 item
+         * @return {Grape.Array} the array containing 0 or 1 item
          */
         eq: function (i) {
             var result = new (this.getClass())();
@@ -102,7 +102,7 @@ define(['../class'], function (Class) {
          *
          * @method get
          * @param i {number} the index of the item to return
-         * @returns {*} the item at the given position
+         * @return {*} the item at the given position
          */
         get: function (i) {
             return this[i];
@@ -112,7 +112,7 @@ define(['../class'], function (Class) {
          * Returns one (the first) item from the array.
          *
          * @method one
-         * @returns {*} the first item
+         * @return {*} the first item
          */
         one: function () {
             return this[0];

@@ -12,13 +12,13 @@ define(['../class', './array'], function (Class, Arr) {
          * Adds an element to the bag. Equivalent to push()
          * @param item {*} The item to add
          * @method add
-         * @returns {number} the new size of the bag
+         * @return {number} the new size of the bag
          */
         add: Arr.prototype.push,
         /**
          * @method remove
          * @param index {number} The index to remove at
-         * @returns {*} The moved item (which replaces the removed item)
+         * @return {*} The moved item (which replaces the removed item)
          */
         remove: function (index) {
             if (index === this.length - 1) {

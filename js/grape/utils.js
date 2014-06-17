@@ -47,7 +47,7 @@ define(['./env'], function (Env) {
              * @param {HTMLElement} a The container element
              * @param {HTMLElement} b The contained element
              *
-             * @returns {boolean} true if the first element contains the second
+             * @return {boolean} true if the first element contains the second
              */
             domContains = function (a, b) {
                 return b.nodeType !== 9 && a !== b && (a.contains ? a.contains(b) : true);
@@ -72,7 +72,7 @@ define(['./env'], function (Env) {
          * @static
          * @method isArray
          * @param {*} obj The object to test
-         * @returns {boolean} true, if the object is an array
+         * @return {boolean} true, if the object is an array
          */
         isArray: function (obj) {
             return objToString.call(obj) === '[object Array]';
@@ -83,7 +83,7 @@ define(['./env'], function (Env) {
          * @static
          * @method isFunction
          * @param {*} obj The object to test
-         * @returns {boolean} true, if the object is a function
+         * @return {boolean} true, if the object is a function
          */
         isFunction: function (obj) {
             return objToString.call(obj) === '[object Function]';
@@ -109,7 +109,7 @@ define(['./env'], function (Env) {
          * @method removeFromArray
          * @param {Array} array The array
          * @param {*} element The element to remove
-         * @returns {boolean} true, if the item was found and removed
+         * @return {boolean} true, if the item was found and removed
          */
         removeFromArray: function (array, element) {
             var index = array.indexOf(element);
@@ -127,7 +127,7 @@ define(['./env'], function (Env) {
          * @method arrayContains
          * @param {Array} array The array
          * @param {*} element The element to find
-         * @returns {boolean} true, if found
+         * @return {boolean} true, if found
          */
         arrayContains: function (array, element) {
             return array.indexOf(element) !== -1;
@@ -171,6 +171,14 @@ define(['./env'], function (Env) {
 
             xhr.send();
         },
+        /**
+         * Parses a JSON document
+         *
+         * @method parseJSON
+         * @static
+         * @param {String} str The document
+         * @return {*} The JSON object
+         */
         parseJSON: function (str) {
             return JSON.parse(str); //TODOv2 fallback
         },
