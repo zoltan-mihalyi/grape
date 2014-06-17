@@ -6,11 +6,12 @@ define(['../class'], function (Class) {
 
 
     /**
-     * An array class created with Grape.Class and using all of the Array.prototype methods and some new utility.
+     * An array class created with Grape.Class mixing all of the Array.prototype methods and some new utility.
      * Some functions are modified (like slice) to return a new instance of the current class instead of a plain array.
      * If you extend this class, these methods will return an instance of your class.
      * In the future, we should create implementations of default methods for old browsers
      *
+     * @constructor
      * @class Grape.Array
      */
     methods = {

@@ -1,4 +1,16 @@
 define(['../class', './visualizer'], function (Class, Visualizer) {
+    /**
+     * A Rectangle visualizer.
+     *
+     * @constructor
+     * @param {Object} [opts] Options
+     * @param {Number} [opts.width=0] Width
+     * @param {Number} [opts.height=0] Height
+     * @param {Number} [opts.borderWidth=1] Border width
+     * @param {String} [opts.backgroundColor='#fff'] Background color
+     * @param {String} [opts.borderColor='#000'] Border color
+     * @class Grape.Rectangle
+     */
     return Class('Rectangle', Visualizer, {
         init: function (opts) {
             opts = opts || {};

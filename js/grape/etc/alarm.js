@@ -3,6 +3,7 @@ define(['../class', '../game/game-object'], function (Class, GameObject) {
     /**
      * A utility class for creating timeouts in a game.
      *
+     * @constructor
      * @class Grape.Alarm
      */
     return Class('Alarm', GameObject, {

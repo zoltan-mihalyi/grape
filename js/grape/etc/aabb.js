@@ -9,6 +9,7 @@ define(['../class'], function (Class) {
          * Gets the left, right, top, bottom coordinates at once.
          *
          * @method getBounds
+         * @abstract
          * @returns {Object} The bounding box coordinates, should contain "left", "right", "top" and "bottom" properties
          */
         'abstract getBounds': null,
@@ -17,6 +18,7 @@ define(['../class'], function (Class) {
          * Returns the left axis.
          *
          * @method getLeft
+         * @abstract
          * @returns {number} the left axis
          */
         'abstract getLeft': null,
@@ -25,6 +27,7 @@ define(['../class'], function (Class) {
          * Returns the top axis.
          *
          * @method getTop
+         * @abstract
          * @returns {number} the top axis
          */
         'abstract getTop': null,
@@ -33,6 +36,7 @@ define(['../class'], function (Class) {
          * Returns the right axis.
          *
          * @method getRight
+         * @abstract
          * @returns {number} the right axis
          */
         'abstract getRight': null,
@@ -41,6 +45,7 @@ define(['../class'], function (Class) {
          * Returns the bottom axis.
          *
          * @method getBottom
+         * @abstract
          * @returns {number} the bottom axis
          */
         'abstract getBottom': null,
@@ -49,6 +54,7 @@ define(['../class'], function (Class) {
          * Returns the width (right - left).
          *
          * @method getWidth
+         * @abstract
          * @returns {number} the width, should be right - left
          */
         'abstract getWidth': null,
@@ -57,6 +63,7 @@ define(['../class'], function (Class) {
          * Returns the height (bottom - top).
          *
          * @method getHeight
+         * @abstract
          * @returns {number} the height, should be bottom - top
          */
         'abstract getHeight': null

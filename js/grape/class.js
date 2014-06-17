@@ -109,13 +109,15 @@ define(['./utils'], function (Utils) {
      * */
 
 
-    /** TODOv2 doc
+    /** TODO doc
      * Creates a class.
+     *
+     * @for Grape
+     * @method Class
      * @param name {string} The name of the class (mainly for debugging purposes)
      * @param parents {}
      * @param methods
      * @returns {*}
-     * @constructor
      */
     function Class(name, parents, methods) {
         var classInfo = {}, constructor, i, id = ++nextId;
