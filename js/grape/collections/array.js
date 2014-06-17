@@ -9,7 +9,8 @@ define(['../class'], function (Class) {
      * An array class created with Grape.Class and using all of the Array.prototype methods and some new utility.
      * Some functions are modified (like slice) to return a new instance of the current class instead of a plain array.
      * If you extend this class, these methods will return an instance of your class.
-     * In the future, we should create implementations of default methods for old browsers
+     * In the future, we should create implementations of default methods for old browsers.
+     * Note that adding elements with indexing does not change the length property unlike the native Array.
      *
      * @class Grape.Array
      */
@@ -85,8 +86,8 @@ define(['../class'], function (Class) {
          * Creates a new instance of the current class, containing the item at the index i if exists, or an empty array
          *
          * @method eq
-         * @param i {number}
-         * @returns {Grape.Array} the array containing 0 or 1 item
+         * @param i {number} The index
+         * @returns {Grape.Array} The array containing 0 or 1 item
          */
         eq: function (i) {
             var result = new (this.getClass())();
@@ -100,8 +101,8 @@ define(['../class'], function (Class) {
          * Returns an item at the given position. Equivalent to arr[i].
          *
          * @method get
-         * @param i {number} the index of the item to return
-         * @returns {*} the item at the given position
+         * @param i {number} The index of the item to return
+         * @returns {*} The item at the given position
          */
         get: function (i) {
             return this[i];
@@ -111,7 +112,7 @@ define(['../class'], function (Class) {
          * Returns one (the first) item from the array.
          *
          * @method one
-         * @returns {*} the first item
+         * @returns {*} The first item
          */
         one: function () {
             return this[0];
@@ -121,8 +122,8 @@ define(['../class'], function (Class) {
          * Returns a new instance of the current class containing random items from the original array.
          *
          * @method random
-         * @param num {number|undefined} the number of random items. If not set returns one item.
-         * @return {Grape.Array} the random items
+         * @param num {number|undefined} The number of random items. If not set returns one item.
+         * @return {Grape.Array} The random items
          */
         random: function (num) {
             var result;
@@ -141,7 +142,7 @@ define(['../class'], function (Class) {
          * Clones the array (shallow copy) by creating a new instance of the current class.
          *
          * @method clone
-         * @return {*}
+         * @return {*} The cloned array
          */
         clone: function () {
             return this.slice(0);
@@ -151,7 +152,7 @@ define(['../class'], function (Class) {
          * Returns the length of the array.
          *
          * @method size
-         * @return {number} the size of the array
+         * @return {number} The size of the array
          */
         size: function () {
             return this.length;
