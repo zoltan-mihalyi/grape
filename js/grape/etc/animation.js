@@ -9,6 +9,7 @@ define(['../class', './sprite-visualizer'], function (Class, SpriteVisualizer) {
      */
     return Class('Animation', SpriteVisualizer, {
         init: function (opts) {
+            opts = opts || {};
             /**
              * The number the subimage is shifted with each second.
              *
