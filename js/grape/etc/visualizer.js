@@ -8,9 +8,7 @@ define(['../class', './aabb', './position', '../game/game-object'], function (Cl
      * @uses Grape.Position
      *
      * @constructor
-     * @param {Object} [opts] The config object
-     * @param {Number} [opts.alpha=1] The initial alpha value
-     * @param {Boolean} [opts.visible=true] The initial visible value
+     * @param {Object} [opts] Initial values of properties
      */
     return Class('Visualizer', [GameObject, Position, AABB], { //TODOv2
         init: function (opts) {
@@ -19,7 +17,6 @@ define(['../class', './aabb', './position', '../game/game-object'], function (Cl
                 /**
                  * The alpha value set before calling the visualize method
                  *
-                 * @attribute alpha
                  * @property alpha
                  * @default 1
                  * @type {number}
