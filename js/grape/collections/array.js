@@ -87,13 +87,8 @@ define(['../class'], function (Class) {
          * Creates a new instance of the current class, containing the item at the index i if exists, or an empty array
          *
          * @method eq
-<<<<<<< HEAD
          * @param i {number} The index
-         * @returns {Grape.Array} The array containing 0 or 1 item
-=======
-         * @param i {number}
-         * @return {Grape.Array} the array containing 0 or 1 item
->>>>>>> 3911c8817bc6e3f7b3d130750c351e9b22cf2dde
+         * @return {Grape.Array} The array containing 0 or 1 item
          */
         eq: function (i) {
             var result = new (this.getClass())();
@@ -107,13 +102,8 @@ define(['../class'], function (Class) {
          * Returns an item at the given position. Equivalent to arr[i].
          *
          * @method get
-<<<<<<< HEAD
          * @param i {number} The index of the item to return
-         * @returns {*} The item at the given position
-=======
-         * @param i {number} the index of the item to return
-         * @return {*} the item at the given position
->>>>>>> 3911c8817bc6e3f7b3d130750c351e9b22cf2dde
+         * @return {*} The item at the given position
          */
         get: function (i) {
             return this[i];
@@ -123,11 +113,7 @@ define(['../class'], function (Class) {
          * Returns one (the first) item from the array.
          *
          * @method one
-<<<<<<< HEAD
          * @returns {*} The first item
-=======
-         * @return {*} the first item
->>>>>>> 3911c8817bc6e3f7b3d130750c351e9b22cf2dde
          */
         one: function () {
             return this[0];
