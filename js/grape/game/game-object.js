@@ -39,6 +39,15 @@ define(['../class', '../collections/bag', '../etc/event-emitter', '../etc/tag'],
         });
     }
 
+    /**
+     * A GameObject is an object which can be added to a layer, and can subscribe to the layer's events with the
+     * onGlobal() method or the global-event keyword.
+     *
+     * @class Grape.GameObject
+     * @uses Grape.EventEmitter
+     * @uses Grape.Taggable
+     * @constructor
+     */
     GameObject = Class('GameObject', [EventEmitter, Tag.Taggable], {
         init: function () {
             this._layer = null;

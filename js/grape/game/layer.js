@@ -34,6 +34,18 @@ define([
         }
     }
 
+    /**
+     * A layer contains instances, systems, and other layers.
+     * When any event is emitted to the layer, it is emitted to the systems and layers of the layer too.
+     * When you want to subscribe to the layer events with a GameObject (which is added to the layer) you can use the
+     * gameObject.onGlobal() function or the global-event keyword.
+     *
+     * @class Grape.Layer
+     * @uses Grape.EventEmitter
+     * @uses Grape.TagContainer
+     * @constructor
+     * @param {Object} opts Initial properties
+     */
     return Class('Layer', [EventEmitter, Tag.TagContainer], {
         init: function (opts) {
             opts = opts || {};
@@ -58,8 +70,6 @@ define([
             }
             instance.setTagContainer(this);
             instance._layer = this;
-
-            this.emit('instanceAdded', instance);
 
             if (!(classData = this._classes[classId])) { //instance class is not registered yet
                 this._activeClasses[classId] = this._classes[classId] = classData = {
@@ -90,6 +100,12 @@ define([
             }
             this.instanceNumber++;
             instance._index = classData.instances.add(instance) - 1; //store the index in the bag for efficient remove
+
+            /**
+             * This event is emitted to the instance when it is added to the layer. The parameter is the layer.
+             *
+             * @event add (instance)
+             */
             instance.emit('add', this);
             return instance;
         },
@@ -104,6 +120,12 @@ define([
             }
             this.instanceNumber--;
             instance.removeTagContainer();
+
+            /**
+             * Emitted to the instance when it is removed from the layer.
+             *
+             * @event remove (instance)
+             */
             instance.emit('remove');
         },
         getByTag: function (/*tag1, tag2, ...*/) {
@@ -188,6 +210,12 @@ define([
             system = addWithOrWithoutName(this._systems, name, system);
             system._layer = this;
             if (this._started) {
+                /**
+                 * Emitted to a system when it is added to a running layer or when the layer is started with a system
+                 * added before.
+                 *
+                 * @event start (system)
+                 */
                 system.emit('start');
             }
         },
@@ -200,6 +228,11 @@ define([
         removeSystem: function (system) {
             system = remove(this._systems, system);
             if (this._started) {
+                /**
+                 * Emitted to a system when it is removed from the running layer or when the layer is stopped.
+                 *
+                 * @event stop (system)
+                 */
                 system.emit('stop');
             }
         },
@@ -238,9 +271,6 @@ define([
             var i;
             for (i in this._layers) {
                 this._layers[i].emit(event, payload);
-            }
-            for (i in this._views) {
-                this._views[i].emit(event, payload);
             }
             for (i in this._systems) {
                 this._systems[i].emit(event, payload);

@@ -1,4 +1,12 @@
 define(['../class', './position', '../game/game-object'], function (Class, Position, GameObject) {
+    //TODOv2 friction, acceleration...
+    /**
+     * Provides simple physics: velocity. In the future more features can be added like friction or acceleration
+     *
+     * @class Grape.Physical
+     * @uses Grape.Position
+     * @uses Grape.GameObject
+     */
     return Class('Physical', [Position, GameObject], { //TODOv2 more method
         init: function (opts) {
             opts = opts || {};

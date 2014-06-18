@@ -33,6 +33,12 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
         return 'file://' + path.substr(0, path.length - 10);
     }
 
+    /**
+     * Represents a sound. It decides from the extension of the given url which to use.
+     *
+     * @class Grape.Audio
+     * @uses Grape.Cacheable
+     */
     return Class('Audio', Cacheable, {
         init: function (opts, url1, url2, url3) {
             var url = null,
@@ -41,7 +47,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 url3 = url2;
                 url2 = url1;
                 url1 = opts;
-                opts = {};
+                opts = {}; //todov2 use
             }
 
 

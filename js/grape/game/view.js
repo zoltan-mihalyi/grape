@@ -1,7 +1,21 @@
 define(['../class', '../env', './abstract-view'], function (Class, Env, AbstractView) {
+    /**
+     * A view using canvas to render. It emits the render event with the canvas context as parameter in each render
+     * frame.
+     *
+     * @class Grape.View
+     * @uses Grape.AbstractView
+     * @constructor
+     */
     return Class('View', AbstractView, {
         'override createDom': function () {
             var canvas = document.createElement('canvas');
+            /**
+             * The context of the view
+             *
+             * @property ctx
+             * @type {CanvasRenderingContext2D}
+             */
             this.ctx = canvas.getContext('2d');
             this.ctx.view = this;
             return canvas;
@@ -9,6 +23,11 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
         'event renderLayer': function () {
             this.ctx.clearRect(0, 0, this.el.width, this.el.height);
             this.ctx.translate(-this.x + this.getOriginX(), -this.y + this.getOriginY());
+            /**
+             * The render event is emitted to the layer with the canvas context parameter.
+             *
+             * @event render (layer)
+             */
             this._layer.emit('render', this.ctx);
         },
         'override updateSize': function () {

@@ -12,6 +12,12 @@ define(['../class'], function (Class) {
         }
     }
 
+    /**
+     * An object which cna emit events, others can subscribe to it, and we can use the event keyword to make easier
+     * the subscription when extending this class.
+     *
+     * @class Grape.EventEmitter
+     */
     Class.registerKeyword('event', {
         onInit: function (classInfo) {
             classInfo.events = {};
@@ -71,6 +77,11 @@ define(['../class'], function (Class) {
                     listeners[i].call(this, payload);
                 }
             }
+            /**
+             * Emitted when any event is emitted. The parameters are the event and the payload.
+             *
+             * @event any
+             */
             listeners = this._events.any;
             if (listeners) {
                 for (i = 0, n = listeners.length; i < n; i++) {

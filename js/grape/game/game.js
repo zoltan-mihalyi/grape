@@ -1,12 +1,36 @@
 define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', './scene'], function (Class, Env, EventEmitter, GameLoop, Input, Scene) {
+    /**
+     * A class that represents a game. You can create and run multiple games in a single page.
+     *
+     * @class Grape.Game
+     * @uses Grape.EventEmitter
+     * @constructor
+     * @param {Object} opts Initial properties
+     */
     return Class('Game', EventEmitter, {
         init: function (opts) {
             opts = opts || {};
-            this.initialScene = opts.initialScene || function () {
-                return new Scene();
-            };
+            /**
+             *  The scene which starts when (re)starting the game.
+             * It should be a constructor or a function returning with the scene, not an instantiated scene.
+             *
+             * @property initialScene
+             * @type {Function}
+             * @default Grape.Scene
+             */
+            this.initialScene = opts.initialScene || Scene;
             /* istanbul ignore else */
             if (opts.hasOwnProperty('container')) { //null and undefined too
+                /**
+                 * The dom element which serves as the screen of the game. The size of the container is not manipulated
+                 * by the engine, therefore you should set the size of it. The engine handles when this "screen size"
+                 * changes and updates the displayed views. The container can be an id of a html element or a html
+                 * element itself.
+                 *
+                 * @property container
+                 * @type {String|HTMLElement}
+                 * @default document.body
+                 */
                 this.container = opts.container;
             } else if (Env.browser) {
                 this.container = document.body;
@@ -59,6 +83,11 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             if (this.input) {
                 this.input.stop();
             }
+            /**
+             * Fired when the stop() method is called.
+             *
+             * @event stop
+             */
             this.emit('stop');
         },
         startScene: function (scene) {
@@ -70,16 +99,36 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
                 throw new Error('Scene already started!');
             }
             if (this.scene) {
+                /**
+                 * Fired to the scene when the scene is stopped.
+                 *
+                 * @event stop (scene)
+                 */
                 this.scene.emit('stop');
                 this.scene._game = null;
             }
 
             scene._game = this;
             this.scene = scene;
+            /**
+             * Emitted to the scene when started. The parameter is the game.
+             *
+             * @event start (scene)
+             */
             scene.emit('start', this);
         },
         frame: function () {
+            /**
+             * Fired in each frame
+             *
+             * @event frame
+             */
             this.emit('frame');
+            /**
+             * Fired to the actual scene in each frame
+             *
+             * @event frame (scene)
+             */
             this.scene.emit('frame');
             /* istanbul ignore else */
             if (this.input) {
@@ -89,6 +138,11 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
         render: function () {
             /* istanbul ignore else */
             if (Env.browser) {
+                /**
+                 * Fired to the current scene in each render frame
+                 *
+                 * @event renderLayer (scene)
+                 */
                 this.scene.emit('renderLayer');
             }
         },

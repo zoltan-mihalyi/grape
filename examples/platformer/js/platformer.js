@@ -6,17 +6,15 @@ define(['grape'], function (Grape) {
     res.sprite('wall', 'sprite/wall.png');
 
     var IngameGUIView = Grape.Class('IngameGUIView', Grape.GUIView, {
-        render: function () {
-            this.el.innerHTML = '<input type="button" class="keyButton" value="LEFT" data-key="keyDown.left">' +
-                '<input type="button" class="keyButton" value="RIGHT" data-key="keyDown.right">';
-        },
         'event domCreated': function (el) {
             var view = this;
+            el.innerHTML = '<input type="button" class="keyButton" value="LEFT" data-key="keyDown.left">' +
+                '<input type="button" class="keyButton" value="RIGHT" data-key="keyDown.right">';
             el.onclick = function (e) {
                 if (e.target.className === 'keyButton') {
                     view.getGame().getScene().emit(e.target.getAttribute('data-key'));
                 }
-            }
+            };
         }
     });
 

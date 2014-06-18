@@ -1,50 +1,34 @@
 module.exports = function (grunt) {
 
-    function check(doc, name, obj, errs) {
-        var i;
-        if (obj) {
-            if (obj.___skip___) {
-                return;
-            }
-            obj.___skip___ = true;
+    function resolve(glob, path) {
+        var current = glob, i;
+        path = path.split('.');
+        for (i = 0; i < path.length; i++) {
+            current = current[path[i]];
         }
+        return current;
+    }
 
-        if (obj === null) {
+    function check(obj, path) {
+        if (obj.__skip__) {
             return;
-        } else if (typeof obj === "object") {
-            if (name) {
-                console.log(name);
-                if (!doc.objects[name]) {
-                    errs.push('Doc missing for object"' + name + '"');
+        }
+        if (!obj.__documented__) {
+            throw new Error(path + ' not documented.');
+        }
+        obj.__skip__ = true;
+        if (typeof obj === 'object') {
+            for (var i in obj) {
+                if (i !== '__documented__' && i !== '__skip__') {
+                    check(obj[i], path + '.' + i);
                 }
             }
-            for (i in obj) {
-                if (i === '___skip___') {
-                    continue;
-                }
-                check(doc, name ? name + '.' + i : i, obj[i], errs);
-            }
-        } else if (typeof obj === "function") {
-            if (obj)
-                if (doc.objects[name]) { //class
-                    for (i in obj.prototype) {
-                        check(doc, name + '#' + i, obj.prototype[i], errs);
-                    }
-                } else {
-                    if (!doc.methods[name]) {
-                        errs.push('Doc missing for method "' + name + '"');
-                    } else {
-                        if (doc.methods[name].params.length !== obj.length) {
-                            errs.push('param number mismatch: ' + name);
-                        }
-                    }
-                }
-
-
         }
     }
 
     grunt.registerTask('doc-coverage', function () {
+
+        var className, realClass;
         var options = this.options({
             src: 'dist/docs'
         });
@@ -52,44 +36,54 @@ module.exports = function (grunt) {
         var src = options.src + '/data.json';
         var data = grunt.file.readJSON(src);
 
-        if (data.warnings) {
-            data.warnings.forEach(function (w) {
-                grunt.log.error(w);
-            });
-            if (data.warnings.length) {
-                throw new Error('warnings found');
-            }
-        }
-
-        var doc = {
-            objects: {},
-            methods: {}
-        };
-
-        for (var i in data.classes) {
-            doc.objects[i] = 1;
-        }
-
-        data.classitems.forEach(function (item) {
-            if (item.itemtype === 'method') {
-                if (item.static) {
-                    doc.methods[item.class + '.' + item.name] = item;
-                } else {
-                    doc.methods[item.class + '#' + item.name] = item;
-                }
-            }
+        data.warnings.forEach(function (w) {
+            grunt.log.error(JSON.stringify(w));
         });
+        if (data.warnings.length) {
+            throw new Error('warnings found');
+        }
 
         var G = require('../dist/grape.js');
-        var errs = [];
-        check(doc, null, {Grape: G}, errs);
 
+        var glob = {Grape: G};
 
-        errs.forEach(function (err) {
-            grunt.log.error(err);
-        });
-        if (errs.length) {
-            throw new Error('errors found');
+        for (className in data.classes) {
+            realClass = resolve(glob, className);
+            if (realClass === undefined) {
+                throw new Error('Doc for not existing class: ' + className);
+            }
+            realClass.__documented__ = true;
         }
+
+        for (className = 0; className < data.classitems.length; ++className) {
+            var item = data.classitems[className];
+            var type = item.itemtype;
+            realClass = resolve(glob, item.class);
+            if (type === 'method') {
+                var methodSource;
+                if (item.static) {
+                    methodSource = realClass;
+                } else {
+                    methodSource = realClass.prototype[item.name] ? realClass.prototype : realClass.abstracts;
+                }
+                if (!(item.name in methodSource)) { //undefined methods count
+                    throw new Error('Doc for not existing method: ' + item.class + (item.static ? '.' : '#') + item.name);
+                }
+                if (!(methodSource[item.name] instanceof Object)) {
+                    methodSource[item.name] = new Object(methodSource[item.name]); //wrap
+                }
+                methodSource[item.name].__documented__ = true;
+            } else if (type === 'property' && item.static) {
+                var prop = realClass[item.name];
+                if (!(item.name in realClass)) { //undefined is allowed
+                    throw new Error('Doc for not existing property: ' + item.class + '.' + item.name);
+                }
+                if (!(prop instanceof Object)) { //primitive
+                    prop = realClass[item.name] = new Object(prop); //wrap
+                }
+                prop.__documented__ = true;
+            }
+        }
+        check(glob.Grape, 'Grape');
     });
 };

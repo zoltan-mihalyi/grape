@@ -27,24 +27,113 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
     }
 
     //TODOv2 follow player etc.
+    /**
+     * Provides a viewport to the game. The dimension properties (width, height, left, top, originX, originY) are
+     * calculated dynamically. You can set these properties as functions or evaluated strings, like '30%+40'.
+     *
+     * @class Grape.AbstractView
+     * @uses Grape.System
+     * @constructor
+     * @param {Object} opts Initial properties
+     */
     return Class('AbstractView', System, {
         init: function (opts) {
+            /**
+             * The width of the view. The maximum value (100%) is the container width.
+             *
+             * @property width
+             * @type {String|Number|Function}
+             * @default '100%'
+             */
             this.width = '100%';
+            /**
+             * The height of the view. The maximum value (100%) is the container height.
+             *
+             * @property height
+             * @type {String|Number|Function}
+             * @default '100%'
+             */
             this.height = '100%';
+            /**
+             * The left axis of the view in the container. The maximum value (100%) is the container width.
+             *
+             * @property left
+             * @type {String|Number|Function}
+             * @default 0
+             */
             this.left = 0;
+            /**
+             * The top axis of the view in the container. The maximum value (100%) is the container height.
+             *
+             * @property left
+             * @type {String|Number|Function}
+             * @default 0
+             */
             this.top = 0;
+            /**
+             * The horizontal origin of the view. Tells where should a point with x = view.x appear on the screen. The
+             * maximum value (100%) is the width of the view.
+             *
+             * @property originX
+             * @type {String|Number|Function}
+             * @default 0
+             */
             this.originX = 0;
+            /**
+             * The vertical origin of the view. Tells where should a point with y = view.y appear on the screen. The
+             * maximum value (100%) is the height of the view.
+             *
+             * @property originY
+             * @type {String|Number|Function}
+             * @default 0
+             */
             this.originY = 0;
+
+            /**
+             * The x coordinate of the showed area.
+             *
+             * @property x
+             * @type {Number}
+             * @default 0
+             */
             this.x = 0;
+
+            /**
+             * The y coordinate of the showed area.
+             *
+             * @property y
+             * @type {Number}
+             * @default 0
+             */
             this.y = 0;
-            this.zoom = 1;
+            /* TODOv2 doc
+             * The zoom level of the view.
+             *
+             * @property zoom
+             * @type {Number}
+             * @default 1
+             */
+            this.zoom = 1; //TODOv2 use
+            /**
+             * The global alpha value of the view.
+             *
+             * @property alpha
+             * @type {number}
+             * @default 1
+             */
             this.alpha = 1;
             Utils.extend(this, opts);
         },
         getGame: function () {
             return this._game;
         },
-        _calculateMouse: function (mouse) {
+        _calculateMouse: function (mouse) { //TODO properties in each file
+            /**
+             * Information about the mouse relative to the view.
+             *
+             * @property mouse
+             * @type {number}
+             */
             var viewX = this.mouse.view.x = mouse.x - this.getLeft();
             var viewY = this.mouse.view.y = mouse.y - this.getTop();
             this.mouse.x = viewX + this.x - this.getOriginX();
@@ -53,6 +142,12 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             if (viewX >= 0 && viewY >= 0 && viewX < this.getWidth() && viewY < this.getHeight()) {
                 this.mouse.inView = true;
                 mouse.view = this;
+                /**
+                 * Emitted to the containing layer when the mouse position changed according to the position in the
+                 * previous frame. The parameter is the view.
+                 *
+                 * @event mouseMoveView (layer)
+                 */
                 this.getLayer().emit('mouseMoveView', this);
             }
         },
@@ -68,6 +163,12 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
                 el.style.position = 'absolute';
                 this.updateSize();
                 this._game.getScreen().appendChild(el);
+                /**
+                 * This event is fired after the createDom() method is called and the DOM element is appended to the
+                 * container. The parameter is the element.
+                 *
+                 * @event domCreated
+                 */
                 this.emit('domCreated', el);
             }
             this._calculateMouse(game.input.mouse);
@@ -81,6 +182,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
         'event renderLayer': function () {
             this.el.style.left = this.getLeft() + 'px';
             this.el.style.top = this.getTop() + 'px';
+            this.el.style.opacity = this.alpha;
             this.updateSize();
         },
         'event mouseMove': function (mouse) {

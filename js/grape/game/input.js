@@ -93,6 +93,12 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         return keySet[REVERSED_KEYS[key]] === true;
     }
 
+    /*
+     * TODO events in the whole file
+     * @param target
+     * @param keys
+     * @param prefix
+     */
     function dispatchKeys(target, keys, prefix) {
         var keyNum = 0;
         for (var i in keys) {
@@ -114,6 +120,12 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             mouseScreen.y = event.clientY;
         });
     }
+    /**
+     * Handles which key is down, just pressed or just released in a game.
+     *
+     * @class Grape.Input
+     * @constructor
+     */
     return Class('Input', {
         'static mouse': mouseScreen,
         'static setReservedKeys': function (/*key1, key2*/) {

@@ -74,6 +74,14 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
         return partition;
     }
 
+    /**
+     * A system, which handles broad phase collision detection of Collidable instances added to the system's layer.
+     * It uses spatial partitioning algorithm, creating a partition for each class and tag only if they have collision
+     * event handler.
+     *
+     * @class Grape.CollisionSystem
+     * @uses Grape.System
+     */
     var CollisionSystem = Class('CollisionSystem', System, {
         init: function (settings) {
             settings = settings || {};
@@ -84,14 +92,25 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
             this.TagPartition = function () {
             };
         },
+        /**
+         * (Re)creates a partition table for a class or a tag. This table is used to check collision until removed.
+         *
+         * @method createStaticPartition
+         * @param {String|Class} name Tag or class
+         */
         createStaticPartition: function (name) {
-            var instances;
             if (name.id) {//class
                 this.ClassPartition.prototype[name.id] = createPartition(this._layer._get(name), this.blockSize); //store static partition in prototype to speed up the lookup
             } else {//tag
                 this.TagPartition.prototype[name] = createPartition(this._layer._getTag(name), this.blockSize); //store static partition in prototype to speed up the lookup
             }
         },
+        /**
+         * Removes a partition table for a class or a tag.
+         *
+         * @method removeStaticPartition
+         * @param {String|Class} name Tag or class
+         */
         removeStaticPartition: function (name) {
             if (name.id) {//class
                 delete this.ClassPartition.prototype[name.id];
@@ -174,6 +193,13 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
     });
 
     var nextId = 0;
+    /**
+     * A class, which can have collision events.
+     *
+     * @class Grape.Collidable
+     * @uses Grape.GameObject
+     * @uses Grape.AABB
+     */
     var Collidable = Class('Collidable', [GameObject, AABB], {
         init: function () {
             this.collisionId = nextId++;

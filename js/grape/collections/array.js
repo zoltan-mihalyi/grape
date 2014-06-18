@@ -113,7 +113,7 @@ define(['../class'], function (Class) {
          * Returns one (the first) item from the array.
          *
          * @method one
-         * @returns {*} The first item
+         * @return {*} The first item
          */
         one: function () {
             return this[0];
