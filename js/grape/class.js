@@ -3,10 +3,32 @@ define(['./utils'], function (Utils) {
     var nextId = 0;
     var registeredKeywords = {};
 
+    /**
+     * A fake class to represent default class methods
+     *
+     * @class Grape.Object
+     */
     var classMethods = {
-        extends: function (Class) {
-            return !!this.allParentId[Class.id];
+        /**
+         * Tells whether the given class is a parent of the current class.
+         *
+         * @method extends
+         * @static
+         * @param {Class} clazz The class
+         * @return {boolean} true, if the given class is a parent
+         */
+        extends: function (clazz) {
+            return !!this.allParentId[clazz.id];
         },
+        /**
+         * Creates a new class, which extends this class. X.extend(a, b) is the same as Grape.Class(a,X,b)
+         *
+         * @method extend
+         * @static
+         * @param {String} [name] The class name
+         * @param {Object} [methods] Class methods
+         * @return {Class} The new class
+         */
         extend: function (name, methods) {
             if (typeof name === 'string') { //name given
                 if (methods) { //avoid undefined arguments
@@ -25,9 +47,25 @@ define(['./utils'], function (Utils) {
     };
 
     var instanceMethods = {
+        /**
+         * Tells that the current instance is an instance of a class, or it's descendants.
+         *
+         * @method instanceOf
+         * @param {Class} clazz
+         * @return {boolean} true, if yes.
+         */
         instanceOf: function (clazz) {
             return (this instanceof clazz) || !!this.getClass().allParentId[clazz.id];
         },
+        /**
+         * Creates a proxy for calling a parent method
+         *
+         * @method parent
+         * @param {Class} clazz The parent, whose method will be called
+         * @param {String} method Method name
+         * @return {Function} Method proxy. When called, calls the parent method with the parameters, and original
+         * context.
+         */
         parent: function (clazz, method) {
             if (!this.instanceOf(clazz)) {
                 throw new Error('Accessing parent member of not inherited class');
@@ -41,6 +79,12 @@ define(['./utils'], function (Utils) {
                 return m;
             }
         },
+        /**
+         * Returns the instance's constructor class
+         *
+         * @method getClass
+         * @return {Class}
+         */
         getClass: function () {
             return this.constructor;
         }
@@ -108,6 +152,12 @@ define(['./utils'], function (Utils) {
      * unsafe class creation
      * */
 
+    /**
+     * A static class for storing keyword related functions. To see how to create a class, check the Class method in the
+     * Grape class.
+     *
+     * @class Grape.Class
+     */
 
     /** TODO doc
      * Creates a class.
@@ -147,7 +197,25 @@ define(['./utils'], function (Utils) {
             methods = {};
         }
 
+
+        /**
+         * The name of the class if set, or a generated string.
+         *
+         * @for Grape.Object
+         * @property className
+         * @static
+         * @type {String}
+         */
         classInfo.className = name;
+
+        /**
+         * An unique number for the class, mainly for indexing purposes
+         *
+         * @for Grape.Object
+         * @property id
+         * @static
+         * @type {Number}
+         */
         classInfo.id = id;
 
         for (i in classMethods) { //plugins can use 'extends' check
@@ -371,6 +439,19 @@ define(['./utils'], function (Utils) {
         return acc.list;
     }
 
+    /**
+     * Registers a new keyword (like 'final' or 'static').
+     * Todov2 callback params
+     *
+     * @for Grape.Class
+     * @method registerKeyword
+     * @static
+     * @param {String} name
+     * @param {Object} handlers The functions called during the class creation
+     * @param {Function} [handlers.onInit] Called when a new class is about to create
+     * @param {Function} [handlers.onAdd] Called when a method with the keyword is added to the class
+     * @param {Function} [handlers.onFinish] Called when the class is ready
+     */
     function registerKeyword(name, handlers) {
         if (registeredKeywords[name]) {
             throw new Error('keyword "' + name + '" already registered');
@@ -379,6 +460,16 @@ define(['./utils'], function (Utils) {
         registeredKeywords[name] = handlers;
     }
 
+    /**
+     * Tells to the Grape class system that two keywords can be used together. If not explicitly told, a keyword cannot
+     * be used with other ones. The order of keywords is irrelevant.
+     *
+     * @for Grape.Class
+     * @static
+     * @method registerKeywordMatching
+     * @param {String} k1 Keyword 1
+     * @param {String} k2 Keyword 2
+     */
     function registerKeywordMatching(k1, k2) {
         registeredKeywords[k1].matches[k2] = true;
         registeredKeywords[k2].matches[k1] = true;

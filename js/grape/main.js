@@ -10,6 +10,7 @@ define(['./class', './collections/main', './env', './etc/main', './game/main', '
     Grape.Class = Class;
     Grape.Env = Env;
     Grape.Utils = Utils;
+    Grape.Object = Grape.Class(); //fake class
     Utils.extend(Grape, Collections);
     Utils.extend(Grape, Etc);
     Utils.extend(Grape, Game);

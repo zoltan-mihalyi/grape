@@ -1,9 +1,33 @@
 define(['../class', '../game/scene', './cacheable', '../utils'], function (Class, Scene, Cacheable, Utils) {
+    /**
+     * Represents a JSON scene source. After the scene source is loaded, you can instantiate the scene. The type of the
+     * instances have to be defined in a type mapping.
+     *
+     * @class Grape.JSONSceneSource
+     * @uses Grape.Cacheable
+     * @constructor
+     * @param {String} url JSON url
+     * @param {Object} opts Initial properties
+     */
     return Class('JSONSceneSource', Cacheable, { //TODOv2 unload unnecessary scenes?
-        init: function (url, settings) {
+        init: function (url, opts) {
+            opts = opts || {};
             this.url = url;
-            this.typeMapping = settings.typeMapping || {};
-            this.type = settings.type || Scene;
+            /**
+             * The type mapping as key:class pairs.
+             *
+             * @property typeMapping
+             * @type {Object}
+             */
+            this.typeMapping = opts.typeMapping || {};
+            /**
+             * The type(class) of the scene to create.
+             *
+             * @property type
+             * @type Class
+             * @default Grape.Scene
+             */
+            this.type = opts.type || Scene;
             this.data = null;
         },
         'override loadResource': function (onFinish, onError) {
@@ -19,11 +43,18 @@ define(['../class', '../game/scene', './cacheable', '../utils'], function (Class
         'override process': function (data) {
             this.data = data;
         },
-        'create': function () {
-            var i, j, scene, row, inst, clazz, data, typeProp, w, h, instances = this.data.instances ? this.data.instances.slice(0) : [];
+        /**
+         * Instantiates the scene.
+         *
+         * @method create
+         * @return {Scene} The new scene instance
+         */
+        create: function () {
+            var i, j, scene, row, inst, clazz, data, typeProp, w, h, instances;
             if (this.data === null) {
                 throw new Error('Scene not loaded yet.');
             }
+            instances = this.data.instances ? this.data.instances.slice(0) : [];
             scene = new this.type();
 
             w = this.data.cellWidth || 1;
@@ -38,6 +69,7 @@ define(['../class', '../game/scene', './cacheable', '../utils'], function (Class
             if (this.data.matrix) {
                 for (i = 0; i < this.data.matrix.length; i++) {
                     row = this.data.matrix[i];
+                    res
                     for (j = 0; j < row.length; j++) {
                         instances.push([row[j], j * w, i * h]);
                     }

@@ -2,13 +2,36 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
     function empty() {
     }
 
+    /**
+     * Represents a collection of resources. You can add, get different kind of resources (nested collections are
+     * allowed) and load resources at once.
+     *
+     * @class Grape.ResourceCollection
+     * @uses Grape.Resource
+     * @constructor
+     * @param {Object} opts Initial properties
+     */
     return Class('ResourceCollection', Resource, {
         init: function (opts) {
             opts = opts || {};
+            /**
+             * When you create new items with the helpers(sprite(), audio()) this prefix is added to the url.
+             * Does NOT affect resources you manually add to the collection.
+             *
+             * @property prefix
+             * @type String
+             */
             this.prefix = opts.prefix || '';
             this.resources = [];
             this.resourcesByName = {};
         },
+        /**
+         * Adds a new resource to the collection.
+         *
+         * @method add
+         * @param {String} [name] The unique name of the resource
+         * @param {Grape.Resource} Resource
+         */
         add: function (name, res) {
             if (!res) { //no name given
                 res = name;
@@ -23,12 +46,27 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
             this.resources.push(res);
 
         },
+        /**
+         * Get a previously added resource by name.
+         *
+         * @method get
+         * @param {String} name Name
+         * @return {Grape.Resource} the resource
+         */
         get: function (name) {
             if (!this.resourcesByName[name]) {
                 throw new Error('Resource "' + name + '" not found');
             }
             return this.resourcesByName[name];
         },
+        /**
+         * Loads all resources.
+         *
+         * @method load
+         * @param {Function} onFinish Called when all resource is loaded
+         * @param {Function} onError Called when an error happens
+         * @param {Function} onProgress Called when a resource is loaded or progress changed
+         */
         'override load': function (onFinish, onError, onProgress) {
             var i, estimated, originalTimes = [], times = [],
                 estimatedTime = 0,

@@ -1,5 +1,26 @@
 module.exports = function (grunt) {
 
+    var toSkip = [
+        'parents',
+        'allParent',
+        'allParentId',
+        'methodDescriptors',
+        'methods',
+        'ownMethods',
+        'abstracts',
+        'isAbstract',
+        'parentFinals',
+        'finals',
+        'events',
+        'allEvent',
+        'globalEvents',
+        'allGlobalEvent',
+        'collisions',
+        'allCollision',
+        'toString',
+        'className'
+    ];
+
     function resolve(glob, path) {
         var current = glob, i;
         path = path.split('.');
@@ -10,18 +31,40 @@ module.exports = function (grunt) {
     }
 
     function check(obj, path) {
-        if (obj.__skip__) {
+        var i;
+        if (obj === null || obj.__skip__) {
             return;
         }
         if (!obj.__documented__) {
+            for (i = 0; i < toSkip.length; i++) {
+                var skip = '.' + toSkip[i];
+                if (path.indexOf(skip, path.length - skip.length) !== -1) { //ends with
+                    return;
+                }
+            }
             throw new Error(path + ' not documented.');
         }
+        console.log(path);
         obj.__skip__ = true;
         if (typeof obj === 'object') {
-            for (var i in obj) {
+
+            if (obj.valueOf() === obj) { //not wrapped obj
+                for (i in obj) {
+                    if (i !== '__documented__' && i !== '__skip__') {
+                        check(obj[i], path + '.' + i);
+                    }
+                }
+            }
+        } else if (typeof obj === 'function') {
+            for (i in obj) {
                 if (i !== '__documented__' && i !== '__skip__') {
                     check(obj[i], path + '.' + i);
                 }
+            }
+            for (i in obj.prototype) {
+                //if (i !== '__documented__' && i !== '__skip__') {
+                check(obj.prototype[i], path + '#' + i);
+                //}
             }
         }
     }

@@ -36,22 +36,107 @@ define(['../class', '../env', './cacheable'], function (Class, Env, Cacheable) {
         throw new Error('Failed to determine image size');
     }
 
+    /**
+     * A sprite is an image or an animation. It can be defined as a part of a real image (tile sets).
+     * When a sprite is an animation, the subsequent images have to be next to each other (left to right direction)
+     *
+     * @class Grape.Sprite
+     * @uses Grape.Cacheable
+     * @constructor
+     * @param {String} url
+     * @param {Object} opts Initial properties
+     */
     return Class('Sprite', Cacheable, {
-        init: function (url, settings) {
-            settings = settings || {};
-            this.left = settings.left || 0;
-            this.top = settings.top || 0;
-            this.leftBounding = settings.leftBounding || 0;
-            this.topBounding = settings.topBounding || 0;
-            this.originX = settings.originX || 0;
-            this.originY = settings.originY || 0;
+        init: function (url, opts) {
+            opts = opts || {};
+            /**
+             * The left position of the sprite in the image.
+             *
+             * @property left
+             * @type {Number}
+             * @default 0
+             */
+            this.left = opts.left || 0;
+            /**
+             * The top position of the sprite in the image.
+             *
+             * @property top
+             * @type {Number}
+             * @default 0
+             */
+            this.top = opts.top || 0;
+            /**
+             * The left side of the sprite's bounding box
+             *
+             * @property leftBounding
+             * @type {Number}
+             * @default 0
+             */
+            this.leftBounding = opts.leftBounding || 0;
+            /**
+             * The top side of the sprite's bounding box
+             *
+             * @property topBounding
+             * @type {Number}
+             * @default 0
+             */
+            this.topBounding = opts.topBounding || 0;
+
+            /**
+             * The x coordinate of the sprite origin
+             *
+             * @property originX
+             * @type {Number}
+             * @default 0
+             */
+            this.originX = opts.originX || 0;
+            /**
+             * The y coordinate of the sprite origin
+             *
+             * @property originY
+             * @type {Number}
+             * @default 0
+             */
+            this.originY = opts.originY || 0;
             this.url = url;
-            this.subimages = settings.subimages || 1;
+            /**
+             * The number of subimages (animation length). Subsequent images have to be arranged left to right.
+             *
+             * @property subimages
+             * @type {Number}
+             * @default 1
+             */
+            this.subimages = opts.subimages || 1;
+
             //if the following parameters are not set, they are set if the image is processed.
-            this.width = settings.width;
-            this.height = settings.height;
-            this.rightBounding = settings.rightBounding;
-            this.bottomBounding = settings.bottomBounding;
+            /**
+             * The width of the sprite. If not set, it will be calculated by the image width and the animation length.
+             *
+             * @property width
+             * @type {Number}
+             */
+            this.width = opts.width;
+            /**
+             * The height of the sprite. If not set, it will be the height of the image.
+             *
+             * @property height
+             * @type {Number}
+             */
+            this.height = opts.height;
+            /**
+             * The right side of the sprite's bounding box. If not set, it will be the image width.
+             *
+             * @property rightBounding
+             * @type {Number}
+             */
+            this.rightBounding = opts.rightBounding;
+            /**
+             * The bottom side of the sprite's bounding box. If not set it will be the image height.
+             *
+             * @property bottomBounding
+             * @type {Number}
+             */
+            this.bottomBounding = opts.bottomBounding;
         },
         'override loadResource': function (onFinish, onError) {
             if (Env.node) {
