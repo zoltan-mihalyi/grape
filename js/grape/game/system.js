@@ -9,6 +9,12 @@ define(['../class', '../etc/event-emitter'], function (Class, EventEmitter) {
      */
     return Class('System', EventEmitter, {
         /* istanbul ignore next */
+        /**
+         * Returns the layer the system is added to.
+         *
+         * @method getLayer
+         * @return {Grape.Layer|undefined} The layer
+         */
         'final getLayer': function () {
             return this._layer;
         }

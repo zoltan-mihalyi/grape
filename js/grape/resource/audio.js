@@ -107,6 +107,11 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
         'override process': function (buffer) {
             this.buffer = buffer;
         },
+        /**
+         * Plays the audio.
+         *
+         * @method play
+         */
         'play': function (opts) {
             var src, snd;
             if (this.buffer === undefined) {

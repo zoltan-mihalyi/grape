@@ -72,6 +72,11 @@ define(['../class', '../env'], function (Class, Env) {
             this.intervalId = null;
             this.game = game;
         },
+        /**
+         * Starts the game loop.
+         *
+         * @method start
+         */
         start: function () {
             if (this.isRunning()) {
                 throw new Error('already running');
@@ -99,6 +104,11 @@ define(['../class', '../env'], function (Class, Env) {
                 }
             }); //TODOv2 run once before set interval?
         },
+        /**
+         * Stops the game loop
+         *
+         * @method stop
+         */
         stop: function () {
             if (!this.isRunning()) {
                 throw new Error('not running');
@@ -106,6 +116,12 @@ define(['../class', '../env'], function (Class, Env) {
             clearReqInterval(this.intervalId);
             this.intervalId = null;
         },
+        /**
+         * Tells whether the game loop is running or not.
+         *
+         * @method isRunning
+         * @return {Boolean} true, if running
+         */
         isRunning: function () {
             return this.intervalId !== null;
         }

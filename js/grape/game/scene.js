@@ -13,6 +13,12 @@ define(['../class', './layer', './view'], function (Class, Layer, View) {
             this.fps = 30;
             this.initViews();
         },
+        /**
+         * This method is called in the constructor, and adds an initial view to the scene with name 'view'. If you
+         * don't want this view, you can override this method and add your own views.
+         *
+         * @method initViews
+         */
         initViews: function () {
             this.addView('view', new View());
         }

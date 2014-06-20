@@ -124,9 +124,6 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             this.alpha = 1;
             Utils.extend(this, opts);
         },
-        getGame: function () {
-            return this._game;
-        },
         _calculateMouse: function (mouse) { //TODO properties in each file
             /**
              * Information about the mouse relative to the view.
@@ -188,25 +185,67 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
         'event mouseMove': function (mouse) {
             this._calculateMouse(mouse);
         },
+        /**
+         * This method is called in each render frame, and should be update the displayed element's width.
+         * The default functionality is setting the style width and height, but for canvas it is different.
+         *
+         * @method updateSize
+         */
         updateSize: function () {
             this.el.style.width = this.getWidth() + 'px';
             this.el.style.height = this.getHeight() + 'px';
         },
+        /**
+         * Returns the calculated width left.
+         *
+         * @method getLeft
+         * @return {Number} calculated left
+         */
         getLeft: function () {
             return propValue(this.left, this._game.getScreenWidth()) >> 0;
         },
+        /**
+         * Returns the calculated top value.
+         *
+         * @method getTop
+         * @return {Number} calculated top
+         */
         getTop: function () {
             return propValue(this.top, this._game.getScreenHeight()) >> 0;
         },
+        /**
+         * Returns the calculated width value.
+         *
+         * @method getWidth
+         * @return {Number} calculated width
+         */
         getWidth: function () {
             return propValue(this.width, this._game.getScreenWidth()) >> 0;
         },
+        /**
+         * Returns the calculated height value.
+         *
+         * @method getHeight
+         * @return {Number} calculated height
+         */
         getHeight: function () {
             return propValue(this.height, this._game.getScreenHeight()) >> 0;
         },
+        /**
+         * Returns the calculated originX value.
+         *
+         * @method getOriginX
+         * @return {Number} calculated originX
+         */
         getOriginX: function () {
             return propValue(this.originX, this.getWidth()) >> 0;
         },
+        /**
+         * Returns the calculated originY value.
+         *
+         * @method getOriginY
+         * @return {Number} calculated originY
+         */
         getOriginY: function () {
             return propValue(this.originY, this.getHeight()) >> 0;
         },

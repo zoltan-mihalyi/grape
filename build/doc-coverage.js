@@ -18,8 +18,11 @@ module.exports = function (grunt) {
         'collisions',
         'allCollision',
         'toString',
-        'className'
+        'className',
+        'id',
+        'init'
     ];
+
 
     function resolve(glob, path) {
         var current = glob, i;
@@ -30,47 +33,44 @@ module.exports = function (grunt) {
         return current;
     }
 
-    function check(obj, path) {
+    function check(obj, path, errs) {
         var i;
-        if (obj === null || obj.__skip__) {
+        if (obj === null || obj.__skip__ || path.indexOf('_') !== -1) { //_ means private
             return;
         }
         if (!obj.__documented__) {
             for (i = 0; i < toSkip.length; i++) {
-                var skip = '.' + toSkip[i];
+                var skip = /* '.' +*/ toSkip[i];
                 if (path.indexOf(skip, path.length - skip.length) !== -1) { //ends with
                     return;
                 }
             }
-            throw new Error(path + ' not documented.');
+            errs.push(path + ' not documented.');
         }
-        console.log(path);
         obj.__skip__ = true;
         if (typeof obj === 'object') {
 
             if (obj.valueOf() === obj) { //not wrapped obj
                 for (i in obj) {
                     if (i !== '__documented__' && i !== '__skip__') {
-                        check(obj[i], path + '.' + i);
+                        check(obj[i], path + '.' + i, errs);
                     }
                 }
             }
         } else if (typeof obj === 'function') {
             for (i in obj) {
                 if (i !== '__documented__' && i !== '__skip__') {
-                    check(obj[i], path + '.' + i);
+                    check(obj[i], path + '.' + i, errs);
                 }
             }
             for (i in obj.prototype) {
-                //if (i !== '__documented__' && i !== '__skip__') {
-                check(obj.prototype[i], path + '#' + i);
-                //}
+                check(obj.prototype[i], path + '#' + i, errs);
             }
         }
     }
 
     grunt.registerTask('doc-coverage', function () {
-
+        var all = 0;
         var className, realClass;
         var options = this.options({
             src: 'dist/docs'
@@ -78,6 +78,18 @@ module.exports = function (grunt) {
 
         var src = options.src + '/data.json';
         var data = grunt.file.readJSON(src);
+
+
+        Object.getOwnPropertyNames(Array.prototype).forEach(function (i) { //fake array methods
+            if (i === 'length') {
+                return;
+            }
+            data.classitems.push({
+                class: 'Grape.Array',
+                name: i,
+                itemtype: 'method'
+            });
+        });
 
         data.warnings.forEach(function (w) {
             grunt.log.error(JSON.stringify(w));
@@ -96,18 +108,25 @@ module.exports = function (grunt) {
                 throw new Error('Doc for not existing class: ' + className);
             }
             realClass.__documented__ = true;
+            all++;
         }
 
         for (className = 0; className < data.classitems.length; ++className) {
             var item = data.classitems[className];
             var type = item.itemtype;
+            all++;
             realClass = resolve(glob, item.class);
             if (type === 'method') {
                 var methodSource;
                 if (item.static) {
                     methodSource = realClass;
                 } else {
-                    methodSource = realClass.prototype[item.name] ? realClass.prototype : realClass.abstracts;
+                    if (item.name in realClass.prototype) {
+                        methodSource = realClass.prototype;
+                    } else {
+                        methodSource = realClass.abstracts;
+                        toSkip.push(item.name); //abstract methods
+                    }
                 }
                 if (!(item.name in methodSource)) { //undefined methods count
                     throw new Error('Doc for not existing method: ' + item.class + (item.static ? '.' : '#') + item.name);
@@ -127,6 +146,16 @@ module.exports = function (grunt) {
                 prop.__documented__ = true;
             }
         }
-        check(glob.Grape, 'Grape');
+        var errs = [];
+        check(glob.Grape, 'Grape', errs);
+
+        errs.forEach(function (err) {
+            grunt.log.error(err);
+        });
+
+        if (errs.length) {
+            grunt.log.error(errs.length + ' doc missing (' + all + '/' + (all + errs.length) + ')');
+            throw new Error();
+        }
     });
 };

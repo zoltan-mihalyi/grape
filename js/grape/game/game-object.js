@@ -61,6 +61,14 @@ define(['../class', '../collections/bag', '../etc/event-emitter', '../etc/tag'],
                 }
             });
         },
+        /**
+         * Subscribes to an event on the layer the instance is added to. If the instance is not yet added to any layers,
+         * it will subscribe when added.
+         *
+         * @method onGlobal
+         * @param {String} event Event
+         * @param {Function} handler Event listener
+         */
         onGlobal: function (event, handler) {
             var that = this,
                 proxy = function (payload) {
@@ -77,17 +85,40 @@ define(['../class', '../collections/bag', '../etc/event-emitter', '../etc/tag'],
                 this._layer.off(event, proxy);
             });
         },
+        /**
+         * Removes the instance from the layer.
+         *
+         * @method remove
+         */
         'final remove': function () {
             this._layer.remove(this);
         },
+        /**
+         * Gets the current game instance through the current layer.
+         *
+         * @method getGame
+         * @return {Grape.Game|null} The current game, or null, if the lookup fails.
+         */
         getGame: function () {
             return this._layer === null ? null : this._layer.getGame();
         },
+        /**
+         * Gets the root layer.
+         *
+         * @method getScene
+         * @return {Grape.Scene|null} The root layer, or null, if the lookup fails.
+         */
         getScene: function () {
             return this._layer === null ? null : this._layer.getScene();
         },
+        /**
+         * Returns the layer the instance is added to.
+         *
+         * @method getLayer
+         * @return {Grape.Layer} The layer
+         */
         getLayer: function () {
-            return this._layer === null ? null : this._layer;
+            return this._layer;
         }
     });
 

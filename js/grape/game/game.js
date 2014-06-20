@@ -41,9 +41,22 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
                 this.input = new Input();
             }
         },
+        /**
+         * This method is called once when the game is created. If you want to use a custom game loop for your game, you
+         * can override this method.
+         *
+         * @method createGameLoop
+         * @return {Grape.GameLoop} The game loop
+         */
         createGameLoop: function () {
             return new GameLoop(this);
         },
+        /**
+         * Starts the game. Initializes the game screen, the input system, and the game loop.
+         *
+         * @method start
+         * @param {Grape.Scene} [scene] Initial scene, which overrides the initialScene property.
+         */
         'final start': function (scene) {
             if (this.gameLoop.isRunning()) {
                 throw new Error('already running');
@@ -58,6 +71,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
                 if (!this.container) {
                     throw new Error('Container does not exists!');
                 }
+                this.container.innerHTML = ''; //todov2 test restart
                 this._screen = document.createElement('div');
                 this._screen.style.position = 'relative';
                 this._screen.style.float = 'left';
@@ -77,7 +91,12 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this._starting = false;
             this.gameLoop.start();
         },
-        'final stop': function () {
+        /**
+         * Stops the game.
+         *
+         * @method stop
+         */
+        'final stop': function () { //TODOv2 remove screen
             this.gameLoop.stop();
             /* istanbul ignore else */
             if (this.input) {
@@ -90,6 +109,12 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
              */
             this.emit('stop');
         },
+        /**
+         * Starts a new scene in the game.
+         *
+         * @method startScene
+         * @param {Scene} scene The scene
+         */
         startScene: function (scene) {
             if (!this._starting && !this.gameLoop.isRunning()) {
                 throw new Error('Game is not running! You can game.start(scene).');
@@ -117,6 +142,11 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
              */
             scene.emit('start', this);
         },
+        /**
+         * Called by the game loop in each frame.
+         *
+         * @method frame
+         */
         frame: function () {
             /**
              * Fired in each frame
@@ -135,6 +165,11 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
                 this.input.emitEvents(this.scene); //TODOv2 is it wrong? ie. keyPress.none?
             }
         },
+        /**
+         * Called by the game loop when at least one frame was executed since the last screen update.
+         *
+         * @method render
+         */
         render: function () {
             /* istanbul ignore else */
             if (Env.browser) {
@@ -146,26 +181,67 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
                 this.scene.emit('renderLayer');
             }
         },
+        /**
+         * Returns the game screen which is appended to the container.
+         *
+         * @method getScreen
+         * @return {HTMLElement} Screen element
+         */
         getScreen: function () {
             return this._screen;
         },
+
+        /**
+         * Returns the width of the screen.
+         *
+         * @method getScreenWidth
+         * @return {Number} Width
+         */
         getScreenWidth: function () {
             /* istanbul ignore next */
             return this._screen ? this._screen.offsetWidth : 1;
         },
+
+        /**
+         * Returns the height of the screen.
+         *
+         * @method getScreenHeight
+         * @return {Number} Height
+         */
         getScreenHeight: function () {
             /* istanbul ignore next */
             return this._screen ? this._screen.offsetHeight : 1;
         },
+
+        /**
+         * Sets the cursor style for the screen.
+         *
+         * @method setCursor
+         * @param {String} cursor new cursor style
+         */
         setCursor: /* istanbul ignore next */ function (cursor) {
             if (!this._screen) {
                 return;
             }
             this._screen.style.cursor = cursor;
         },
+        /**
+         * Returns the current scene.
+         *
+         * @method getScene
+         * @return {Grape.Scene}
+         */
         getScene: function () {
             return this.scene; //todov2 rename to _scene
         },
+
+        /**
+         * This method is called by the game loop to determine what is the required FPS (Frames Per Second) for the
+         * game. By default, this is decided by the "fps" property of the current scene.
+         *
+         * @method getRequiredFps
+         * @return {Number} FPS
+         */
         getRequiredFps: function () {
             return this.scene.fps;
         }

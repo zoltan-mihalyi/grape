@@ -123,6 +123,12 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
                 }, createOnProgress(i));
             }
         },
+        /**
+         * Returns the sum of the estimated time of all resource.
+         *
+         * @method getEstimatedTime
+         * @return {Number} Sum
+         */
         'override getEstimatedTime': function () {
             var i, time = 0;
             for (i = 0; i < this.resources.length; i++) {
@@ -130,16 +136,36 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
             }
             return time;
         },
+        /**
+         * Creates a new sprite and adds to the collection.
+         *
+         * @method sprite
+         * @param {String} name Key
+         * @param {String} url Sprite URL
+         * @param {Object} settings Settings passed to the Sprite constructor
+         * @return {Grape.Sprite} The defined sprite
+         */
         sprite: function (name, url, settings) {
             var spr = new Sprite(this.prefix + url, settings);
             this.add(name, spr);
             return spr;
         },
+        /**
+         * Creates multiple sprites and adds to the collection. The sprites should have the same dimensions.
+         *
+         * @method tile
+         * @param {String} url Image url
+         * @param {Number} width Width of all sprite
+         * @param {Number} height Height of all sprite
+         * @param {Object} sprites Sprite names and positions as key:[left, top, subimages] The positions array is
+         * multiplied with the width and height, and the 'subimages' part is optional.
+         * @return {Object} The created sprites by name
+         */
         tile: function (url, width, height, sprites) {
-            var i, coords;
+            var i, coords, res = {};
             for (i in sprites) {
                 coords = sprites[i];
-                this.sprite(i, this.prefix + url, {
+                res[i] = this.sprite(i, this.prefix + url, {
                     subimages: coords.length === 2 ? 1 : coords[2],
                     left: coords[0] * width,
                     top: coords[1] * height,
@@ -147,12 +173,31 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
                     height: height
                 });
             }
+            return res;
         },
+        /**
+         * Creates an Audio resource and adds to the collection.
+         *
+         * @method audio
+         * @param {String} name Key
+         * @param {String} url Audio URL
+         * @param {Object} settings Settings passed as constructor parameter to Audio.
+         * @return {Grape.Audio} The Audio resource
+         */
         audio: function (name, url, settings) { //TODOv2 add from audio.js
             var audio = new GrapeAudio(this.prefix + url, settings);
             this.add(name, audio);
             return audio;
         },
+        /**
+         * Creates a new JSONSceneSource, and adds to the collection.
+         *
+         * @method scene
+         * @param {String} name Key
+         * @param {String} url Scene JSON URL
+         * @param {Object} settings Settings passed as constructor parameter to JSONSceneSource.
+         * @return {Grape.JSONSceneSource} The created JSONSceneSource
+         */
         scene: function (name, url, settings) {
             var scn = new JSONSceneSource(this.prefix + url, settings);
             this.add(name, scn);

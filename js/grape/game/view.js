@@ -8,6 +8,12 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
      * @constructor
      */
     return Class('View', AbstractView, {
+        /**
+         * Creates a HTML5 canvas.
+         *
+         * @method createDom
+         * @return {HTMLCanvasElement} Canvas
+         */
         'override createDom': function () {
             var canvas = document.createElement('canvas');
             /**
@@ -30,6 +36,11 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
              */
             this._layer.emit('render', this.ctx);
         },
+        /**
+         * Sets the width and height property for canvas (style.width and style.height are wrong).
+         *
+         * @method updateSize
+         */
         'override updateSize': function () {
             this.el.width = this.getWidth();
             this.el.height = this.getHeight();

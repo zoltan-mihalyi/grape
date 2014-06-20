@@ -1,23 +1,36 @@
 define(['../class'], function (Class) {
     var EventEmitter;
 
-    function decompose(method, target, prefix) {
+    /**
+     * A helper function for decomposing nested event handlers. When the method is a function, it is just added to the
+     * target. If the method is an object, all of it's element are added with name.key.
+     *
+     * @example
+     *      var target = {};
+     *      Grape.EventEmitter.decompose(function(){},target,'name1');
+     *      Grape.EventEmitter.decompose({
+     *          x:function(){}
+     *      },target,'name2');
+     *
+     *      //target will be {'name1':function(){},'name2.x':function(){}}
+     *
+     * @method decompose
+     * @static
+     * @param {Function|Object} method The method or methods
+     * @param {Object} target The target the methods are added to.
+     * @param {String} name method name or nested method prefix
+     */
+    function decompose(method, target, name) {
         var i;
         if (typeof method === 'object') { //nested methods
             for (i in method) {
-                decompose(method[i], target, prefix + '.' + i);
+                decompose(method[i], target, name + '.' + i);
             }
         } else {
-            target[prefix] = method;
+            target[name] = method;
         }
     }
 
-    /**
-     * An object which cna emit events, others can subscribe to it, and we can use the event keyword to make easier
-     * the subscription when extending this class.
-     *
-     * @class Grape.EventEmitter
-     */
     Class.registerKeyword('event', {
         onInit: function (classInfo) {
             classInfo.events = {};
@@ -47,6 +60,13 @@ define(['../class'], function (Class) {
         }
     });
 
+
+    /**
+     * An object which cna emit events, others can subscribe to it, and we can use the event keyword to make easier
+     * the subscription when extending this class.
+     *
+     * @class Grape.EventEmitter
+     */
     EventEmitter = Class('EventEmitter', {
         init: function () { //subscribe to events defined in class
             var i, myClass = this.getClass();
@@ -55,9 +75,24 @@ define(['../class'], function (Class) {
                 this._events[i] = myClass.allEvent[i].slice(0);
             }
         },
+        /**
+         * Subscribes to an event. The event handler will be called with this instance as context.
+         *
+         * @method on
+         * @param {String} event The event to subscribe
+         * @param {Function} listener Event listener
+         */
         on: function (event, listener) {
             (this._events[event] || (this._events[event] = [])).push(listener);
         },
+
+        /**
+         * Unsubscribes from an event.
+         *
+         * @method off
+         * @param {String} event Event
+         * @param {Function} listener Event listener
+         */
         off: function (event, listener) { //todov2 check remove with indexOf speed
             //todov2 remove all listeners
             var i, listeners = this._events[event];
@@ -69,6 +104,13 @@ define(['../class'], function (Class) {
             }
         },
         //todov2 once
+        /**
+         * Emits an event to the instance: calls all event listeners subscribed to this event, or the 'any' event.
+         *
+         * @method emit
+         * @param {String} event Event
+         * @param {*} payload An object passed as parameter to all event listeners.
+         */
         emit: function (event, payload) { //TODOv2 class level listeners?
             var i, listeners = this._events[event], n;
             if (listeners) {

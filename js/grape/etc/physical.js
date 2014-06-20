@@ -13,9 +13,24 @@ define(['../class', './position', '../game/game-object'], function (Class, Posit
             this.speedX = opts.speedX || 0;
             this.speedY = opts.speedY || 0;
         },
+        /**
+         * Returns the speed of the instance, calculated by the speedX and speedY properties.
+         *
+         * @method getSpeed
+         * @return {Number}
+         */
         getSpeed: function () {
             return Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY);
         },
+        /**
+         * Sets the speed of the instance, keeping the original direction (or the opposite if speed is negative). If
+         * Original speed is 0, the direction is considered as 0 (left-to right).
+         *
+         * @method setSpeed
+         * @param {Number} speed new Speed
+         * @chainable
+         * @return {Grape.Physical} this
+         */
         setSpeed: function (speed) {
             var s = this.getSpeed();
             if (s !== 0) {
@@ -26,8 +41,16 @@ define(['../class', './position', '../game/game-object'], function (Class, Posit
             }
             return this;
         },
+        /**
+         * Increases the speed by a given amount, keeping the original direction.
+         *
+         * @method accelerate
+         * @param {Number} plus The amount the speed is increased with
+         * @chainable
+         * @return {Grape.Physical} this
+         */
         accelerate: function (plus) {
-            this.setSpeed(this.getSpeed() + plus);
+            return this.setSpeed(this.getSpeed() + plus);
         },
         'global-event frame': function () {
             this.x += this.speedX;

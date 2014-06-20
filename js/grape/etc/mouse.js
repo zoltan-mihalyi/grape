@@ -10,6 +10,12 @@ define(['../class', '../game/game-object', './aabb'], function (Class, GameObjec
      * @uses Grape.AABB
      */
     return Class('Mouse', [GameObject, AABB], {
+        /**
+         * Returns the mouse is over the instance in any view.
+         *
+         * @method isMouseOver
+         * @return {Boolean} true, if mouse is over the instance in any view.
+         */
         isMouseOver: function () {
             return this._mouseOver;
         },

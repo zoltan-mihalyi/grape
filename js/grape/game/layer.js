@@ -63,6 +63,13 @@ define([
 
             this._parentLayer = null;
         },
+        /**
+         * Adds an instance to the layer and emits it's "add" event.
+         *
+         * @method add
+         * @param {Grape.GameObject} instance Instance
+         * @return {Grape.GameObject} The added instance
+         */
         add: function (instance) {
             var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
             if (!instance.instanceOf(GameObject)) {
@@ -109,6 +116,12 @@ define([
             instance.emit('add', this);
             return instance;
         },
+        /**
+         * Removes an instance from the layer and emits it's "remove" event.
+         *
+         * @method remove
+         * @param instance
+         */
         remove: function (instance) {
             var clazz = instance.getClass(), classId = clazz.id, typeData = this._classes[classId], instances = this._activeClasses[classId].instances, idx = instance._index, moved = instances.remove(idx);
             if (moved) {
@@ -128,6 +141,12 @@ define([
              */
             instance.emit('remove');
         },
+        /**
+         * Returns the instances with the given tag. Instances are indexed by tags.
+         *
+         * @method getByTag
+         * @return {Grape.GameObjectArray} Instances with the tag
+         */
         getByTag: function (/*tag1, tag2, ...*/) {
             return this.parent(Tag.TagContainer, 'get').apply(this, arguments);
         },
@@ -219,12 +238,24 @@ define([
                 system.emit('start');
             }
         },
+        /**
+         * Adds a view to the layer. A synonym for addSystem.
+         *
+         * @param {String} name View name
+         * @param {Grape.View} view The view
+         */
         addView: function (name, view) { //todv2o create with view class if config object is given
             this.addSystem(name, view);
         },
         removeLayer: function (name) { //todov2 stop event?
             remove(this._layers, name);
         },
+        /**
+         * Removes a system from the layer.
+         *
+         * @method removeSystem
+         * @param {String|Grape.System} system The name of the system or the system itself.
+         */
         removeSystem: function (system) {
             system = remove(this._systems, system);
             if (this._started) {
@@ -236,18 +267,43 @@ define([
                 system.emit('stop');
             }
         },
+        /**
+         * Removes a view from the layer. An alias for removeSystem.
+         *
+         * @method removeView
+         * @param {String|Grape.View} name View name or the view itself
+         */
         removeView: function (name) {
             this.removeSystem(name);
         },
+        /**
+         * Returns a system with the given name. Views are also considered as systems.
+         *
+         * @method getSystem
+         * @param {String} name System name
+         * @return {Grape.System} System
+         */
         getSystem: function (name) {
             return this._systems[name];
         },
+        /**
+         * Returns the root layer.
+         *
+         * @method getScene
+         * @return {Grape.Scene} The root layer
+         */
         getScene: function () {
             if (this._parentLayer) {
                 return this._parentLayer.getScene();
             }
             return this;
         },
+        /**
+         * Returns the current game.
+         *
+         * @method getGame
+         * @return {Grape.Game} The game
+         */
         getGame: function () {
             return this.getScene()._game;
         },
