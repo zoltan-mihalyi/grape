@@ -39,7 +39,6 @@ describe('view test', function () {
             var layer = new Grape.Layer();
             layer.addView('default', v);
             layer.emit('start', game);
-            expect(v.getGame()).toBe(game);
             layer.emit('renderLayer');
             expect(game.getScreen().innerHTML.indexOf('COUNT:0')).not.toBe(-1); //data appears on the screen
             layer.emit('renderLayer');

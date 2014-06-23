@@ -20,7 +20,8 @@ module.exports = function (grunt) {
         'toString',
         'className',
         'id',
-        'init'
+        'init',
+        'length'
     ];
 
 

@@ -170,9 +170,9 @@ define(['../class'], function (Class) {
     }
 
     for (i = methodNames.length - 1; i >= 0; i--) {
-        if (methodNames[i] !== 'length') {
+        //if (methodNames[i] !== 'length') {
             methods[methodNames[i]] = Array.prototype[methodNames[i]];
-        }
+        //}
     }
 
     function createProxy(orig) {
