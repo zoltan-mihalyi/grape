@@ -241,12 +241,19 @@ define([
         /**
          * Adds a view to the layer. A synonym for addSystem.
          *
+         * @method addView
          * @param {String} name View name
          * @param {Grape.View} view The view
          */
         addView: function (name, view) { //todv2o create with view class if config object is given
             this.addSystem(name, view);
         },
+        /**
+         * Removes a layer.
+         *
+         * @method removeLayer
+         * @param {String|Grape.Layer} name Name of the layer or the layer itself
+         */
         removeLayer: function (name) { //todov2 stop event?
             remove(this._layers, name);
         },
