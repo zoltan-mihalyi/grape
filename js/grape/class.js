@@ -159,15 +159,16 @@ define(['./utils'], function (Utils) {
      * @class Grape.Class
      */
 
-    /** TODO doc
-     * Creates a class.
+    /**
+     * Creates a class by optionally copying prototype methods of one or more class.
      *
      * @for Grape
      * @method Class
      * @static
-     * @param name {string} The name of the class (mainly for debugging purposes)
-     * @param parents {}
-     * @param methods
+     * @param {String} [name] The name of the class (mainly for debugging purposes)
+     * @param {Array|Class} [parents] Parent class or classes
+     * @param {Object} methods An object containing methods. If method name contains space, the keyword parts are parsed
+     * and keyword specific tasks are executed.
      * @return {*}
      */
     function Class(name, parents, methods) {
