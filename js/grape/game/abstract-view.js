@@ -249,6 +249,12 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
         getOriginY: function () {
             return propValue(this.originY, this.getHeight()) >> 0;
         },
+        /**
+         * This abstract method should create the HTMLElement which serves
+         *
+         * @method createDom
+         * @return {HTMLElement} Canvas
+         */
         'abstract createDom': null
     });
 });

@@ -50,8 +50,30 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
     };
     var REVERSED_KEYS = {};
     var i;
+    /**
+     * An object which stores the mouse position relative to the page. In the most cases you want to use the instance
+     * level mouse property instead.
+     *
+     * @property mouse
+     * @static
+     * @type {Object}
+     */
     var mouseScreen = {
+        /**
+         * Mouse x relative to document.
+         *
+         * @property mouse.x
+         * @static
+         * @type Number
+         */
         x: 0,
+        /**
+         * Mouse y relative to document.
+         *
+         * @property mouse.y
+         * @static
+         * @type Number
+         */
         y: 0
     };
 
@@ -133,6 +155,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         /**
          * Sets the keys which would prevent the browser's default action to be triggered.
          *
+         * @method setReservedKeys
          * @param {Array} keys Key ids
          */
         setReservedKeys: function (keys) {
@@ -152,6 +175,12 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.downKeys = {};
             this.pressedKeys = {};
             this.releasedKeys = {};
+            /**
+             * The x and y coordinates of the mouse relative to the game screen.
+             *
+             * @property mouse
+             * @type {Object}
+             */
             this.mouse = {
                 x: mouseScreen.x,
                 y: mouseScreen.y,

@@ -9,12 +9,6 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
      * @constructor
      */
     return Class('View', AbstractView, {
-        /**
-         * Creates a HTML5 canvas.
-         *
-         * @method createDom
-         * @return {HTMLCanvasElement} Canvas
-         */
         'override createDom': function () {
             var canvas = document.createElement('canvas');
             /**

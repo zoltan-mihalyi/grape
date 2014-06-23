@@ -24,11 +24,22 @@ module.exports = function (grunt) {
         'length'
     ];
 
+    var toSkipPrefix = ['Grape.GameObjectArray#'];
+
 
     function resolve(glob, path) {
         var current = glob, i;
         path = path.split('.');
         for (i = 0; i < path.length; i++) {
+            current = current[path[i]];
+        }
+        return current;
+    }
+
+    function resolveSource(glob, path) {
+        var current = glob, i;
+        path = path.split('.');
+        for (i = 0; i < path.length - 1; i++) { //stops at the parent
             current = current[path[i]];
         }
         return current;
@@ -43,6 +54,11 @@ module.exports = function (grunt) {
             for (i = 0; i < toSkip.length; i++) {
                 var skip = /* '.' +*/ toSkip[i];
                 if (path.indexOf(skip, path.length - skip.length) !== -1) { //ends with
+                    return;
+                }
+            }
+            for (i = 0; i < toSkipPrefix.length; i++) {
+                if (path.indexOf(toSkipPrefix[i]) === 0) { //starts with
                     return;
                 }
             }
@@ -115,16 +131,17 @@ module.exports = function (grunt) {
         for (className = 0; className < data.classitems.length; ++className) {
             var item = data.classitems[className];
             var type = item.itemtype;
+            var methodSource, name;
             all++;
             realClass = resolve(glob, item.class);
             if (type === 'method') {
-                var methodSource;
                 if (item.static) {
                     methodSource = realClass;
                 } else {
                     if (item.name in realClass.prototype) {
                         methodSource = realClass.prototype;
                     } else {
+                        console.log('TOSKIP', item.name);
                         methodSource = realClass.abstracts;
                         toSkip.push(item.name); //abstract methods
                     }
@@ -137,12 +154,14 @@ module.exports = function (grunt) {
                 }
                 methodSource[item.name].__documented__ = true;
             } else if (type === 'property' && item.static) {
-                var prop = realClass[item.name];
-                if (!(item.name in realClass)) { //undefined is allowed
+                methodSource = resolveSource(realClass, item.name);
+                name = item.name.split('.').pop(); //after last dot
+                var prop = methodSource[name];
+                if (!(name in methodSource)) { //undefined is allowed
                     throw new Error('Doc for not existing property: ' + item.class + '.' + item.name);
                 }
                 if (!(prop instanceof Object)) { //primitive
-                    prop = realClass[item.name] = new Object(prop); //wrap
+                    prop = methodSource[name] = new Object(prop); //wrap
                 }
                 prop.__documented__ = true;
             }
