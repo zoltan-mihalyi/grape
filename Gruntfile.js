@@ -66,5 +66,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['karma:all']);
     grunt.registerTask('continuous testing', ['karma:continuous']);
     //TODOv2 dev
-    grunt.registerTask('generate-docs', ['yuidoc']);
+    grunt.registerTask('generate-docs', ['yuidoc', 'doc-coverage']);
 };
