@@ -1,7 +1,8 @@
 define(['../class', '../env', './abstract-view'], function (Class, Env, AbstractView) {
     /**
-     * A view using canvas to render. It emits the render event with the canvas context as parameter in each render
-     * frame.
+     * A view using canvas to render. It emits the render event to the layer it is added to, with the canvas context as
+     * parameter in each render frame. Because the layer emits any event to its sub-layers, instances in sub-layers are
+     * alos visible.
      *
      * @class Grape.View
      * @uses Grape.AbstractView

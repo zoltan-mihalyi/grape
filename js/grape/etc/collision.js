@@ -77,7 +77,8 @@ define(['../class', './aabb', '../game/game-object', '../game/system'], function
     /**
      * A system, which handles broad phase collision detection of Collidable instances added to the system's layer.
      * It uses spatial partitioning algorithm, creating a partition for each class and tag only if they have collision
-     * event handler.
+     * event handler. Note that the collision system gets the instances of the layer directly, not through an event
+     * emission, so instances in sub-layers won't collide.
      *
      * @class Grape.CollisionSystem
      * @uses Grape.System

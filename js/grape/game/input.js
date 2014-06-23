@@ -1,6 +1,6 @@
 define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
     //TODOv2 node environment
-    var KEYS = {
+    var KEYS = { //TODO doc
         any: 'any',
         none: 'none',
         mouse1: 'mouseLeft',
@@ -54,7 +54,6 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         x: 0,
         y: 0
     };
-    //var mouseX = 0, mouseY = 0;
 
     /*register letters*/
     for (i = 65; i <= 90; ++i) {
@@ -121,17 +120,35 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         });
     }
     /**
-     * Handles which key is down, just pressed or just released in a game.
+     * Handles which key is down, just pressed or just released in a game. Also handles mouse.
      *
      * @class Grape.Input
      * @constructor
+     * @param {Object} [opts] Options
+     * @param {Array} [opts.reservedKeys] keys for which browser's default action will be prevented. The Game class
+     * passes this property when instantiating the input.
      */
     return Class('Input', {
         'static mouse': mouseScreen,
-        'static setReservedKeys': function (/*key1, key2*/) {
-            //TODO reservedKeys=arguments;
+        /**
+         * Sets the keys which would prevent the browser's default action to be triggered.
+         *
+         * @param {Array} keys Key ids
+         */
+        setReservedKeys: function (keys) {
+            var result = {},
+                i, key;
+            for (i = 0; i < keys.length; i++) {
+                key = REVERSED_KEYS[keys[i]];
+                if (!key) {
+                    throw new Error('Key ' + keys[i] + ' does not exist.');
+                }
+                result[key] = true;
+            }
+            this._reservedKeys = result;
         },
-        init: function () {
+        init: function (opts) {
+            opts = opts || {};
             this.downKeys = {};
             this.pressedKeys = {};
             this.releasedKeys = {};
@@ -142,6 +159,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
                 prevY: mouseScreen.y,
                 screen: mouseScreen
             };
+            this.setReservedKeys(opts.reservedKeys || []);
         },
         _calculateMouse: function () {
             var rect = this._screen.getBoundingClientRect();
@@ -149,16 +167,19 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.mouse.y = mouseScreen.y - rect.top;
             this.mouse.view = null;
         },
-        start: function (screen) {
+        _start: function (screen) {
             var that = this;
             this._screen = screen;
 
-            function down(key) {
+            function down(key, event) {
                 if (!that.downKeys[key]) {
                     that.pressedKeys[key] = true;
                 }
                 that.downKeys[key] = true;
-                // todo preventDefault reserved keys
+
+                if (that._reservedKeys[key]) {
+                    event.preventDefault();
+                }
             }
 
             function up(key) {
@@ -169,7 +190,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             }
 
             this.onKeyDown = function (event) {
-                down(event.which);
+                down(event.which, event);
             };
             this.onKeyUp = function (event) {
                 up(event.which);
@@ -181,7 +202,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             };
             this.onMouseDown = function (event) {
                 if (screen === event.target || Utils.domContains(screen, event.target)) {
-                    down('mouse' + event.which);
+                    down('mouse' + event.which, event);
                     event.preventDefault();
                 }
             };
@@ -195,14 +216,14 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             Utils.addEventListener(document, 'mousedown', this.onMouseDown);
             Utils.addEventListener(document, 'mouseup', this.onMouseUp);
         },
-        stop: function () {
+        _stop: function () {
             Utils.removeEventListener(document, 'keydown', this.onKeyDown);
             Utils.removeEventListener(document, 'keyup', this.onKeyUp);
             Utils.removeEventListener(document, 'contextmenu', this.onContextMenu);
             Utils.removeEventListener(document, 'mousedown', this.onMouseDown);
             Utils.removeEventListener(document, 'mouseup', this.onMouseUp);
         },
-        emitEvents: function (target) {
+        _emitEvents: function (target) {
             dispatchKeys(target, this.pressedKeys, 'keyPress');
             dispatchKeys(target, this.downKeys, 'keyDown');
             dispatchKeys(target, this.releasedKeys, 'keyRelease');
@@ -217,17 +238,44 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.pressedKeys = {};
             this.releasedKeys = {};
         },
+        /**
+         * Resets the status of the input system. Since this point all key is considered as it wasn't held. When a key
+         * is released when the document is not in focus (like during an alert call), it can be used.
+         *
+         * @method resetKeys
+         */
         resetKeys: function () {
             this.pressedKeys = {};
             this.releasedKeys = {};
             this.downKeys = {};
         },
+        /**
+         * Tells whether the given key was pressed since the previous frame.
+         *
+         * @method isPressed
+         * @param {String key Key id
+         * @return {Boolean} true, if the key wasn't held in the last frame but now is.
+         */
         isPressed: function (key) {
             return isKeyIn(key, this.pressedKeys);
         },
+        /**
+         * Tells whether the given key was released since the last frame.
+         *
+         * @method isReleased
+         * @param {String} key Key id
+         * @return {Boolean} true, if the key was held in the last frame and now isn't.
+         */
         isReleased: function (key) {
             return isKeyIn(key, this.releasedKeys);
         },
+        /**
+         * Tells whether the user is holding a key.
+         *
+         * @method isDown
+         * @param {String} key Key id
+         * @return {Boolean} true, if held.
+         */
         isDown: function (key) {
             return isKeyIn(key, this.downKeys);
         }

@@ -155,7 +155,8 @@
 
     //START GAME
     var pong = new Grape.Game({
-        container: 'game'
+        container: 'game',
+        reservedKeys: ['up', 'down']
     });
     res.load(function () {
         pong.start(new MenuScene());

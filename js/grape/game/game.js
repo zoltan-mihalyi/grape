@@ -38,7 +38,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this.gameLoop = this.createGameLoop();
             /* istanbul ignore else */
             if (Env.browser) {
-                this.input = new Input();
+                this.input = new Input({reservedKeys: opts.reservedKeys});
             }
         },
         /**
@@ -84,7 +84,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this._starting = true; //startScene can run now
             /* istanbul ignore else */
             if (this.input) {
-                this.input.start(this._screen);
+                this.input._start(this._screen);
             }
             scene = scene || this.initialScene;
             this.startScene(typeof scene === 'function' ? new scene() : scene);
@@ -100,7 +100,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this.gameLoop.stop();
             /* istanbul ignore else */
             if (this.input) {
-                this.input.stop();
+                this.input._stop();
             }
             /**
              * Fired when the stop() method is called.
@@ -162,7 +162,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             this.scene.emit('frame');
             /* istanbul ignore else */
             if (this.input) {
-                this.input.emitEvents(this.scene); //TODOv2 is it wrong? ie. keyPress.none?
+                this.input._emitEvents(this.scene); //TODOv2 is it wrong? ie. keyPress.none?
             }
         },
         /**

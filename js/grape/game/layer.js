@@ -150,6 +150,12 @@ define([
         getByTag: function (/*tag1, tag2, ...*/) {
             return this.parent(Tag.TagContainer, 'get').apply(this, arguments);
         },
+        /**
+         * Overrides the TagContainer's method so getByTag calls produce GameObjectArray results instead of Array.
+         *
+         * @method createResultContainer
+         * @return {Grape.GameObjectArray}
+         */
         'override createResultContainer': function () {
             return new GameObjectArray();
         },
@@ -175,6 +181,14 @@ define([
             }
             return [];
         },
+        /**
+         * Gets the instances of one or more class in the current layer (sub-layers not included).
+         *
+         * @method get
+         * @param {Class|Array} classes Class or classes
+         * @param {Boolean} [descendants=false] Get the descendants of that class or just instances of the class itself
+         * @return {GameObjectArray} Instances
+         */
         get: function (classes, descendants) {
             var i, j, instances,
                 classData, classDataArr = [], addedClasses = {}, result = new GameObjectArray();
@@ -218,6 +232,13 @@ define([
             }
             return result;
         },
+        /**
+         * Adds a sub-layer to the current layer.
+         *
+         * @method addLayer
+         * @param {String} [name] Layer name
+         * @param {Grape.Layer} layer Sub-layer
+         */
         addLayer: function (name, layer) {
             layer = addWithOrWithoutName(this._layers, name, layer);
             layer._parentLayer = this;
@@ -225,6 +246,13 @@ define([
              layer.emit('start');
              }*/
         },
+        /**
+         * Adds a system to the layer. All events are emitted to all added systems.
+         *
+         * @method addSystem
+         * @param {String} [name] Name
+         * @param {Grape.System} system The system
+         */
         addSystem: function (name, system) { //todov2 add without name
             system = addWithOrWithoutName(this._systems, name, system);
             system._layer = this;
