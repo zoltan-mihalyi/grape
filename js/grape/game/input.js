@@ -142,7 +142,48 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         });
     }
     /**
-     * Handles which key is down, just pressed or just released in a game. Also handles mouse.
+     * Handles which key is down, just pressed or just released in a game. A Game  Also handles mouse. The following
+     * keys are available:
+     *  <ul>
+     *      <li><code>any</code> (matches any key)</li>
+     *      <li><code>none</code></li>
+     *      <li><code>mouseLeft</code></li>
+     *      <li><code>mouseMiddle</code></li>
+     *      <li><code>mouseRight</code></li>
+     *      <li><code>a</code> ... <code>z</code> (letter keys)</li>
+     *      <li><code>0</code> ... <code>9</code> (digit keys)</li>
+     *      <li><code>num0</code> ... <code>num9</code> (numpad keys)</li>
+     *      <li><code>f1</code> ... <code>f12</code> (function keys)</li>
+     *      <li><code>backspace</code></li>
+     *      <li><code>tab</code></li>
+     *      <li><code>enter</code></li>
+     *      <li><code>lshift</code> (left shift)</li>
+     *      <li><code>rshift</code> (right shift)</li>
+     *      <li><code>ctrl</code></li>
+     *      <li><code>alt</code></li>
+     *      <li><code>pause</code></li>
+     *      <li><code>clear</code></li>
+     *      <li><code>esc</code></li>
+     *      <li><code>space</code></li>
+     *      <li><code>pageup</code></li>
+     *      <li><code>pagedown</code></li>
+     *      <li><code>end</code></li>
+     *      <li><code>home</code></li>
+     *      <li><code>left</code></li>
+     *      <li><code>right</code></li>
+     *      <li><code>up</code></li>
+     *      <li><code>down<</code>/li>
+     *      <li><code>insert</code></li>
+     *      <li><code>delete</code></li>
+     *      <li><code>windows</code></li>
+     *      <li><code>contextmenu</code></li>
+     *      <li><code>+</code></li>
+     *      <li><code>-</code></li>
+     *      <li><code>*</code></li>
+     *      <li><code>.</code></li>
+     *      <li><code>/</code></li>
+     *      <li><code>numlock</code></li>
+     *  </ul>
      *
      * @class Grape.Input
      * @constructor
@@ -253,13 +294,46 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             Utils.removeEventListener(document, 'mouseup', this.onMouseUp);
         },
         _emitEvents: function (target) {
+            /**
+             * Fires when the <key> was pressed since the last frame.
+             *
+             * @event keyPress.<key>
+             */
             dispatchKeys(target, this.pressedKeys, 'keyPress');
+            /**
+             * Fires when the <key> is held in the current frame.
+             *
+             * @event keyDown.<key>
+             */
             dispatchKeys(target, this.downKeys, 'keyDown');
+            /**
+             * Fires when the <key> was released since the last frame.
+             *
+             * @event keyRelease.<key>
+             */
             dispatchKeys(target, this.releasedKeys, 'keyRelease');
             this._calculateMouse();
             if (this.mouse.prevX !== this.mouse.x || this.mouse.prevY !== this.mouse.y) {
+                /**
+                 * When the mouse moves, this is the first event emitted. The parameter is the mouse property of the
+                 * input instance.
+                 *
+                 * @event beforeMouseMove
+                 */
                 target.emit('beforeMouseMove', this.mouse);
+                /**
+                 * When the mouse moves, this is the second event emitted. The parameter is the mouse property of the
+                 * input instance.
+                 *
+                 * @event mouseMove
+                 */
                 target.emit('mouseMove', this.mouse);
+                /**
+                 * When the mouse moves, this is the third event emitted. The parameter is the mouse property of the
+                 * input instance.
+                 *
+                 * @event afterMouseMove
+                 */
                 target.emit('afterMouseMove', this.mouse);
             }
             this.mouse.prevX = this.mouse.x;
