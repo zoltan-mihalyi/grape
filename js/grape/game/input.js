@@ -1,6 +1,6 @@
 define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
     //TODOv2 node environment
-    var KEYS = { //TODO doc
+    var KEYS = {
         any: 'any',
         none: 'none',
         mouse1: 'mouseLeft',
@@ -114,12 +114,6 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         return keySet[REVERSED_KEYS[key]] === true;
     }
 
-    /*
-     * TODO events in the whole file
-     * @param target
-     * @param keys
-     * @param prefix
-     */
     function dispatchKeys(target, keys, prefix) {
         var keyNum = 0;
         for (var i in keys) {

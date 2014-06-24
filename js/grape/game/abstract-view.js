@@ -124,7 +124,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             this.alpha = 1;
             Utils.extend(this, opts);
         },
-        _calculateMouse: function (mouse) { //TODO properties in each file
+        _calculateMouse: function (mouse) {
             /**
              * Information about the mouse relative to the view.
              *
