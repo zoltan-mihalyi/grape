@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/zoltan-mihalyi/grape2.svg?branch=master)](https://travis-ci.org/zoltan-mihalyi/grape2)
+[![Build Status](https://travis-ci.org/zoltan-mihalyi/grape2.svg?branch=master)](https://travis-ci.org/zoltan-mihalyi/grape2) [![Coverage Status](https://coveralls.io/repos/zoltan-mihalyi/grape2/badge.png)](https://coveralls.io/r/zoltan-mihalyi/grape2)
 # Grape.js
 Grape.js is a JavaScript game engine.
 
