@@ -9,3 +9,7 @@ before_script:
 
 notifications:
     email: false
+
+env:
+  global:
+    secure: IIKh4IO+SXlPtm57GiG9tmLQbWqQNZKLiig88rku9AvbqlQtIOe0tNgMqMU/RG8e2FjlvtPnNyYI9XpIyKBXBKl/lfv4X0Iql2v7rSrH132EO8AI0ls6n2YOAbsjfLoKtpDcb9/6govhvavkS6tAe2i5l0a61PlK5mvfHzKktNM=
