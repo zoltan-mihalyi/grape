@@ -141,7 +141,6 @@ module.exports = function (grunt) {
                     if (item.name in realClass.prototype) {
                         methodSource = realClass.prototype;
                     } else {
-                        console.log('TOSKIP', item.name);
                         methodSource = realClass.abstracts;
                         toSkip.push(item.name); //abstract methods
                     }

@@ -1,5 +1,5 @@
 define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, Cacheable, Utils) {
-    /*global Audio, AudioBuffer, Media*/
+    /*global Audio, AudioBuffer, Media, Cordova*/
     //TODOv2 partial preload for large files
     var defaultPlayOpts = {
         volume: 100
@@ -83,7 +83,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 }, function () {
                     onError();
                 });
-            } else if (typeof Audio === 'function') {
+            } else if (typeof Audio === 'function' && typeof Cordova === 'undefined') {
                 //TODOv2 IE9 loads a sound multiple times
                 var a = new Audio();
                 a.src = this.url;
@@ -96,6 +96,8 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                     onFinish(arr);
                 }, false);
                 a.load();
+            } else if (typeof Media === 'function') {
+                onFinish('cordova');
             } else {
                 //No audio support
                 onFinish(null);
@@ -130,13 +132,13 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 src.buffer = this.buffer;
                 src.connect(context.destination);
                 src.noteOn(0);
-            } else if (typeof Audio === 'function' && this.buffer instanceof Array) { //IE9
+            } else if (typeof Audio === 'function' && typeof Cordova === 'undefined' && this.buffer instanceof Array) { //IE9
                 snd = this.buffer[this.buffer.next++];
                 if (this.buffer.next === this.buffer.length) {
                     this.buffer.next = 0;
                 }
                 snd.play();
-            } else if (typeof Media !== 'undefined') { //phoneGap
+            } else if (typeof Media !== 'undefined') { //Cordova
                 src = getPhoneGapPath() + this.url;
                 snd = new Media(src, function () {
                     snd.release();

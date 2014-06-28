@@ -69,7 +69,6 @@ define(['../class', '../game/scene', './cacheable', '../utils'], function (Class
             if (this.data.matrix) {
                 for (i = 0; i < this.data.matrix.length; i++) {
                     row = this.data.matrix[i];
-                    res
                     for (j = 0; j < row.length; j++) {
                         instances.push([row[j], j * w, i * h]);
                     }
