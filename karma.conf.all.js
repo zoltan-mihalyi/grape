@@ -32,14 +32,20 @@ module.exports = function (config) {
 
         // optionally, configure the reporter
         coverageReporter: {
-            type: 'html',
+            type: 'lcov',
             dir: 'coverage/'
         },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['dots', 'coverage'],
+        reporters: (function () {
+            var reporters = ['dots', 'coverage'];
+            if (process.env.COVERALLS_REPO_TOKEN) { //on travis ci only
+                reporters.push('coveralls');
+            }
+            return reporters;
+        })(),
 
 
         // web server port

@@ -20,7 +20,8 @@
         "karma-ie-launcher": "~0.1.5",
         "karma-jasmine": "~0.2.1",
         "karma-phantomjs-launcher": "~0.1",
-        "phantomjs": "~1.9.7"
+        "phantomjs": "~1.9.7",
+        "karma-coveralls": "~0.1.4"
     },
     "scripts": {
         "test": "grunt test",
