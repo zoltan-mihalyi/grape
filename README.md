@@ -26,7 +26,7 @@ var MyScene = Grape.Scene.extend({ //create a new class by extending Grape.Scene
 });
 ```
 
-[Check more tutorial](https://github.com/zoltan-mihalyi/grape2/wiki/Tutorial)
+[Check more tutorial](https://github.com/zoltan-mihalyi/grape/wiki/Tutorial)
 
 
 

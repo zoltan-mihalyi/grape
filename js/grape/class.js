@@ -93,62 +93,6 @@ define(['./utils'], function (Utils) {
     function empty() {
     }
 
-    /*
-     * TODO:
-     * LEVEL 1:
-     * tests
-     * npm, bower
-     * readme update
-     * examples
-     * tutorials
-     * release
-     *
-     * LEVEL 2:
-     * phonegap
-     * tiled layer
-     * event order
-     * update static partitions (remove and re-add objects)
-     * example require config (nested require calls are ugly)
-     * jscs
-     * collision mask
-     * move examples to different repositories
-     * move node.js codes to grape.multiplayer
-     * check if instance is at a place
-     *      indexed by position
-     * fullscreen
-     * Entity-System pattern
-     *      how systems work? get classes? tags? emit events?
-     * avoid nested require calls?
-     * no override: warning
-     * rendering sometimes skip frames?
-     * general loop class, turn based games
-     * audio
-     * environment information, features (audio, webgl, canvas, node...)
-     * change layer to _layer, etc.
-     * particle system
-     * spatial partitioning in rendering, static rendering
-     * deactivate instances
-     * .hitTest function
-     * move default options to prototype?
-     * collision with two objects:
-     *      bounce back?
-     *      increase score and destroy?
-     *          the only
-     *          the two
-     *
-     * gui
-     * layer, view order, depth
-     * disable views, layers
-     * prototype-based (single), /mix-in (multiple)?
-     * karma on node: https://www.npmjs.org/package/jasmine-node-karma
-     * multiplayer support
-     *
-     * LEVEL 3:
-     * protocolbuffer-like way to compress data in communication
-     * Backbone view
-     * unsafe class creation
-     * */
-
     /**
      * A static class for storing keyword related functions. To see how to create a class, check the Class method in the
      * Grape class.
