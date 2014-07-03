@@ -1,7 +1,11 @@
 {
     "name": "grape",
-    "description": "A JavaScript game engine",
+    "description": "A really fast JavaScript game engine",
     "author": "Mihályi Zoltán",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zoltan-mihalyi/grape.git"
+    },
     "version": "0.0.1",
     "devDependencies": {
         "grunt": "~0.4.2",

@@ -96,15 +96,12 @@ define(['./utils'], function (Utils) {
     /*
      * TODO:
      * LEVEL 1:
-     * mouse fix
-     * which view is under mouse, mouse pos relative to views
-     * check todos
      * tests
-     * documentation, doc coverage check
      * npm, bower
-     * readme update: build status, https://github.com/cainus/node-coveralls
+     * readme update
      * examples
      * tutorials
+     * release
      *
      * LEVEL 2:
      * phonegap
