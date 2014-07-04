@@ -59,7 +59,7 @@ module.exports = function (grunt) {
             var mname = load(base, deps[i], result);
             names.push(result.loaded[mname]);
         }
-        var shortName = result.useShort ? 'm' + (result.nextId++) : moduleName.substring(result.base.length + 1);
+        var shortName = result.useShort ? 'm' + (result.nextId++).toString(36) : moduleName.substring(result.base.length + 1);
         factory = preprocess(factory + '');
         var content = 'define(\'' + shortName + '\', ' + depsToString(names) + ', ' + factory + ');';
         if (usereq) {
@@ -86,7 +86,7 @@ module.exports = function (grunt) {
             wrapperPlaceholder: '//#FACTORY_PLACEHOLDER#',
             banner: grunt.file.read('js/grape/banner.js'),
             separator: '\n',
-            useShort: false
+            useShort: true
         });
         var wrapper = grunt.file.read(options.wrapper);
         var parts = wrapper.split(options.wrapperPlaceholder);
