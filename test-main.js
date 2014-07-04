@@ -12,15 +12,21 @@ Object.keys(window.__karma__.files).forEach(function (file) {
     }
 });
 
-
-require.config({
-    baseUrl: '/base/js/grape',
-    paths: {
-        grape: 'main'
-    }
-});
-
-Grape = 42;
+if (__karma__.config.useBuilt) {
+    require.config({
+        baseUrl: '/base',
+        paths: {
+            grape: 'dist/grape'
+        }
+    });
+} else {
+    require.config({
+        baseUrl: '/base/js/grape',
+        paths: {
+            grape: 'main'
+        }
+    });
+}
 
 require(['grape'], function () {
     require.config({

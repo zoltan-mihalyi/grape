@@ -5,7 +5,10 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         karma: { //todov2 test after build if we build
             all: {
-                configFile: 'karma.conf.all.js'
+                configFile: 'karma.conf.all.js',
+                client: {
+                    useBuilt: true //test-main.js requires the built file instead of the development version
+                }
             },
             continuous: {
                 configFile: 'karma.conf.continuous.js'
@@ -63,7 +66,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('min', ['uglify']);
     grunt.registerTask('hint', ['jshint']);
-    grunt.registerTask('test', ['karma:all']);
+    grunt.registerTask('test', ['build', 'karma:all']);
     grunt.registerTask('continuous testing', ['karma:continuous']);
     //TODOv2 dev
     grunt.registerTask('generate-docs', ['yuidoc', 'doc-coverage']);

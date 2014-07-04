@@ -176,5 +176,6 @@ module.exports = function (grunt) {
             grunt.log.error(errs.length + ' doc missing (' + all + '/' + (all + errs.length) + ')');
             throw new Error();
         }
+        grunt.log.write('Ok. ' + all + ' doc found.');
     });
 };
