@@ -69,7 +69,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 onFinish(null);
             } else if (location.protocol !== 'file:' && typeof Blob === 'function') { //load as blob
                 Utils.ajax(this.url, {responseType: 'arraybuffer'}, function (response) {
-                    if (context) {
+                    if (context && typeof intel==='undefined') {
                         context.decodeAudioData(response, function (buffer) {
                             onFinish(buffer);
                         });
