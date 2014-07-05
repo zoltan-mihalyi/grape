@@ -22,12 +22,15 @@ define(['../class', '../env'], function (Class, Env) {
 
             function run() {
                 callback();
-                handle = reqTimeout(run);
+                if (handle !== null) { //clearInterval not called inside callback
+                    handle = reqTimeout(run);
+                }
             }
 
             handle = reqTimeout(run);
             return {
                 _stop: function () {
+                    handle = null;
                     clearReqTimeout(handle);
                 }
             };
@@ -58,6 +61,11 @@ define(['../class', '../env'], function (Class, Env) {
         return new Date().getTime();
     };
 
+    function StopFrame() {
+    }
+
+    StopFrame.prototype = new Error();
+    StopFrame.prototype.name = 'StopFrame';
     /**
      * A class which serves as a loop. It uses requestAnimationFrame if possible. It tries to execute the game.frame()
      * game.getRequiredFps() times a second. The game.render() method will be executed 0 or 1 times in each
@@ -71,6 +79,7 @@ define(['../class', '../env'], function (Class, Env) {
         init: function (game) {
             this.intervalId = null;
             this.game = game;
+            this.insideFrame = false;
         },
         /**
          * Starts the game loop.
@@ -82,6 +91,7 @@ define(['../class', '../env'], function (Class, Env) {
                 throw new Error('already running');
             }
             var game = this.game;
+            var loop = this;
             var backlog = 0;
             var last = now();
             var lastRenderStart = last;
@@ -89,18 +99,29 @@ define(['../class', '../env'], function (Class, Env) {
 
                 var start = now(), wasFrame = false;
                 backlog += start - last;
-                while (backlog > 0) {
-                    backlog -= 1000 / game.getRequiredFps();
-                    wasFrame = true;
-                    game.frame();
-                    if (now() - lastRenderStart > 16 + DROP_FRAME_THRESHOLD + 1000 / game.getRequiredFps()) { //can't keep up
-                        backlog = 0;
+
+                loop.insideFrame = true;
+                try {
+                    while (backlog > 0) {
+                        backlog -= 1000 / game.getRequiredFps();
+                        wasFrame = true;
+                        game.frame();
+                        //can't keep up
+                        if (now() - lastRenderStart > 16 + DROP_FRAME_THRESHOLD + 1000 / game.getRequiredFps()) {
+                            backlog = 0;
+                        }
                     }
-                }
-                if (wasFrame) {
-                    last = start;
-                    lastRenderStart = now();
-                    game.render(); //TODOv2 can skip render?
+                    if (wasFrame) {
+                        last = start;
+                        lastRenderStart = now();
+                        game.render(); //TODOv2 can skip render?
+                    }
+                } catch (e) {
+                    if (!(e instanceof StopFrame)) {
+                        throw e;
+                    }
+                } finally {
+                    loop.insideFrame = false;
                 }
             }); //TODOv2 run once before set interval?
         },
@@ -115,6 +136,10 @@ define(['../class', '../env'], function (Class, Env) {
             }
             clearReqInterval(this.intervalId);
             this.intervalId = null;
+
+            if (this.insideFrame) {
+                throw new StopFrame();
+            }
         },
         /**
          * Tells whether the game loop is running or not.

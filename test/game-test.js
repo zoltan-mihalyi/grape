@@ -86,7 +86,14 @@ describe('game loop test', function () {
     var Grape = require('grape');
 
     it('game loop start, stop', function () {
-        var loop = new Grape.GameLoop();
+        var loop = new Grape.GameLoop({
+            frame: function () {
+            },
+            render: function () {
+            },
+            getRequiredFps: function () {
+            }
+        });
 
         expect(loop.isRunning()).toBe(false);
 
@@ -110,6 +117,32 @@ describe('game loop test', function () {
         loop.stop();
 
         expect(loop.isRunning()).toBe(false);
+    });
+
+    it('game loop stop inside execution', function (done) {
+        var i;
+        var loop = new Grape.GameLoop({
+            frame: function () {
+                for (i = 0; i < 10; i++) {
+                    if (i == 5) {
+                        //should stop the for loop, and the batch execution. If the batch is not stopped, multiple
+                        //stop() calls throw error
+                        loop.stop();
+                    }
+                }
+            },
+            render: function () {
+            },
+            getRequiredFps: function () {
+                //so waiting 50 ms should be enough, and probably multiple frames are executed in a render frame
+                return 1000;
+            }
+        });
+        loop.start();
+        setTimeout(function () {
+            expect(i).toBe(5);
+            done();
+        }, 50);
     });
 });
 
