@@ -5,10 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         karma: { //todov2 test after build if we build
             all: {
-                configFile: 'karma.conf.all.js',
-                client: {
-                    useBuilt: true //test-main.js requires the built file instead of the development version
-                }
+                configFile: 'karma.conf.all.js'
             },
             continuous: {
                 configFile: 'karma.conf.continuous.js'

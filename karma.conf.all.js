@@ -14,8 +14,7 @@ module.exports = function (config) {
         files: [
             'test-main.js',
             {pattern: 'js/**/*.js', included: false},
-            {pattern: 'test/*.js', included: false},
-            {pattern: 'dist/grape.js', included: false}
+            {pattern: 'test/*.js', included: false}
         ],
 
 
