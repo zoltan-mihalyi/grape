@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js\grape\collections\array.js - grape</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="grape"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Grape.html">Grape</a></li>
+            
+                <li><a href="../classes/Grape.AABB.html">Grape.AABB</a></li>
+            
+                <li><a href="../classes/Grape.AbstractView.html">Grape.AbstractView</a></li>
+            
+                <li><a href="../classes/Grape.Alarm.html">Grape.Alarm</a></li>
+            
+                <li><a href="../classes/Grape.Animation.html">Grape.Animation</a></li>
+            
+                <li><a href="../classes/Grape.Array.html">Grape.Array</a></li>
+            
+                <li><a href="../classes/Grape.Audio.html">Grape.Audio</a></li>
+            
+                <li><a href="../classes/Grape.Bag.html">Grape.Bag</a></li>
+            
+                <li><a href="../classes/Grape.Cacheable.html">Grape.Cacheable</a></li>
+            
+                <li><a href="../classes/Grape.Class.html">Grape.Class</a></li>
+            
+                <li><a href="../classes/Grape.Collidable.html">Grape.Collidable</a></li>
+            
+                <li><a href="../classes/Grape.CollisionSystem.html">Grape.CollisionSystem</a></li>
+            
+                <li><a href="../classes/Grape.Env.html">Grape.Env</a></li>
+            
+                <li><a href="../classes/Grape.EventEmitter.html">Grape.EventEmitter</a></li>
+            
+                <li><a href="../classes/Grape.Game.html">Grape.Game</a></li>
+            
+                <li><a href="../classes/Grape.GameLoop.html">Grape.GameLoop</a></li>
+            
+                <li><a href="../classes/Grape.GameObject.html">Grape.GameObject</a></li>
+            
+                <li><a href="../classes/Grape.GameObjectArray.html">Grape.GameObjectArray</a></li>
+            
+                <li><a href="../classes/Grape.GUIView.html">Grape.GUIView</a></li>
+            
+                <li><a href="../classes/Grape.Input.html">Grape.Input</a></li>
+            
+                <li><a href="../classes/Grape.JSONSceneSource.html">Grape.JSONSceneSource</a></li>
+            
+                <li><a href="../classes/Grape.Layer.html">Grape.Layer</a></li>
+            
+                <li><a href="../classes/Grape.Mouse.html">Grape.Mouse</a></li>
+            
+                <li><a href="../classes/Grape.Object.html">Grape.Object</a></li>
+            
+                <li><a href="../classes/Grape.Physical.html">Grape.Physical</a></li>
+            
+                <li><a href="../classes/Grape.Position.html">Grape.Position</a></li>
+            
+                <li><a href="../classes/Grape.Rectangle.html">Grape.Rectangle</a></li>
+            
+                <li><a href="../classes/Grape.Resource.html">Grape.Resource</a></li>
+            
+                <li><a href="../classes/Grape.ResourceCollection.html">Grape.ResourceCollection</a></li>
+            
+                <li><a href="../classes/Grape.Scene.html">Grape.Scene</a></li>
+            
+                <li><a href="../classes/Grape.Sprite.html">Grape.Sprite</a></li>
+            
+                <li><a href="../classes/Grape.SpriteVisualizer.html">Grape.SpriteVisualizer</a></li>
+            
+                <li><a href="../classes/Grape.System.html">Grape.System</a></li>
+            
+                <li><a href="../classes/Grape.TagContainer.html">Grape.TagContainer</a></li>
+            
+                <li><a href="../classes/Grape.Taggable.html">Grape.Taggable</a></li>
+            
+                <li><a href="../classes/Grape.Utils.html">Grape.Utils</a></li>
+            
+                <li><a href="../classes/Grape.View.html">Grape.View</a></li>
+            
+                <li><a href="../classes/Grape.Visualizer.html">Grape.Visualizer</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: js\grape\collections\array.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+define([&#x27;../class&#x27;], function (Class) {
+    var returnsNewArray = [&#x27;slice&#x27;, &#x27;filter&#x27;, &#x27;map&#x27;], //must return a new instance of the class instead of the native array
+        slice = Array.prototype.slice,
+        splice = Array.prototype.splice,
+        methods, methodNames, i, orig;
+
+
+    /**
+     * An array class created with Grape.Class mixing all of the Array.prototype methods and some new utility.
+     * Some functions are modified (like slice) to return a new instance of the current class instead of a plain array.
+     * If you extend this class, these methods will return an instance of your class.
+     * In the future, we should create implementations of default methods for old browsers.
+     * Note that adding elements with indexing does not change the length property unlike the native Array.
+     *
+     * @constructor
+     * @class Grape.Array
+     */
+    methods = {
+        /**
+         * Calls a method of each item. The subsequent parameters are passed to the method.
+         *
+         * @method call
+         * @param which {String} The method name to call
+         * @return {Grape.Array} this
+         */
+        call: function (which/*,params*/) {
+            var params = Array.prototype.slice.call(arguments, 1),
+                i = 0, max = this.length;
+            for (; i &lt; max; ++i) {
+                this[i][which].apply(this[i], params);
+            }
+            return this;
+        },
+        /**
+         * Calls a method of each item, but the parameters are passed as an array like in Function.prototype.apply
+         *
+         * @method apply
+         * @param which {String} The method name to call
+         * @param params {Array} The method parameters
+         * @return {Grape.Array} this
+         */
+        apply: function (which, params) {
+            var i = 0, max = this.length;
+            for (; i &lt; max; ++i) {
+                this[i][which].apply(this[i], params);
+            }
+            return this;
+        },
+
+        /**
+         * Returns true if the length of the array is 0.
+         *
+         * @method isEmpty
+         * @return {boolean} true, if length is 0
+         */
+        isEmpty: function () {
+            return this.length === 0;
+        },
+
+        /**
+         * Creates a native Array by copying the items
+         *
+         * @method toArray
+         * @return {Array} The native Array
+         */
+        toArray: function () {
+            return slice.call(this, 0);
+        },
+
+        /**
+         * Sets an attribute on each item.
+         *
+         * @method attr
+         * @param name {String} The attribute name
+         * @param newVal {*} The new value of the attribute
+         * @return {Grape.Array} this
+         */
+        attr: function (name, newVal) { //todov2 use as attr({x:10, y:20})
+            var i = 0, max = this.length;
+            for (; i &lt; max; ++i) {
+                this[i][name] = newVal;
+            }
+            return this;
+        },
+
+        /**
+         * Creates a new instance of the current class, containing the item at the index i if exists, or an empty array
+         *
+         * @method eq
+         * @param i {number} The index
+         * @return {Grape.Array} The array containing 0 or 1 item
+         */
+        eq: function (i) {
+            var result = new (this.getClass())();
+            if (this.length &gt; i) {
+                result.push(this[i]);
+            }
+            return result;
+        },
+
+        /**
+         * Returns an item at the given position. Equivalent to arr[i].
+         *
+         * @method get
+         * @param i {number} The index of the item to return
+         * @return {*} The item at the given position
+         */
+        get: function (i) {
+            return this[i];
+        },
+
+        /**
+         * Returns one (the first) item from the array.
+         *
+         * @method one
+         * @return {*} The first item
+         */
+        one: function () {
+            return this[0];
+        },
+
+        /**
+         * Returns a new instance of the current class containing random items from the original array.
+         *
+         * @method random
+         * @param num {number|undefined} The number of random items. If not set returns one item.
+         * @return {Grape.Array} The random items
+         */
+        random: function (num) {
+            var result;
+            if (num === undefined) {
+                return this[Math.random() * this.length &gt;&gt; 0];
+            }
+
+            result = this.clone(); //todov2 performance
+            while (result.length &gt; num) {
+                result.splice(Math.random() * result.length &gt;&gt; 0, 1);
+            }
+            return result;
+        },
+
+        /**
+         * Clones the array (shallow copy) by creating a new instance of the current class.
+         *
+         * @method clone
+         * @return {*} The cloned array
+         */
+        clone: function () {
+            return this.slice(0);
+        },
+
+        /**
+         * Returns the length of the array.
+         *
+         * @method size
+         * @return {number} The size of the array
+         */
+        size: function () {
+            return this.length;
+        }
+        //TODOv2 union, intersect, complement, etc.);
+
+    };
+
+    //TODOv2 implement methods if not available
+    if (Object.getOwnPropertyNames) {
+        methodNames = Object.getOwnPropertyNames(Array.prototype);
+    } else {
+        methodNames = [&#x27;concat&#x27;, &#x27;constructor&#x27;, &#x27;indexOf&#x27;, &#x27;join&#x27;, &#x27;pop&#x27;, &#x27;push&#x27;, &#x27;reverse&#x27;, &#x27;shift&#x27;, &#x27;slice&#x27;, &#x27;splice&#x27;, &#x27;sort&#x27;, &#x27;toString&#x27;, &#x27;unshift&#x27;, &#x27;valueOf&#x27;]; //IE8
+    }
+
+    for (i = methodNames.length - 1; i &gt;= 0; i--) {
+        //if (methodNames[i] !== &#x27;length&#x27;) {
+            methods[methodNames[i]] = Array.prototype[methodNames[i]];
+        //}
+    }
+
+    function createProxy(orig) {
+        return function () {
+            var result = new (this.getClass())();
+            var origResult = orig.apply(this, arguments);
+            origResult.splice(0, 0, 0, 0); //push 0 twitce at the beginning
+            splice.apply(result, origResult); //result.splice(0,0,r1,r2,r3..): push all items to the result array
+            return result;
+        };
+    }
+
+    for (i = returnsNewArray.length - 1; i &gt;= 0; i--) {
+        orig = methods[returnsNewArray[i]];
+        methods[returnsNewArray[i]] = createProxy(orig);
+    }
+
+
+    return Class(&#x27;Array&#x27;, methods);
+});
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

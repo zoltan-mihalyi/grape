@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js\grape\etc\event-emitter.js - grape</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="grape"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Grape.html">Grape</a></li>
+            
+                <li><a href="../classes/Grape.AABB.html">Grape.AABB</a></li>
+            
+                <li><a href="../classes/Grape.AbstractView.html">Grape.AbstractView</a></li>
+            
+                <li><a href="../classes/Grape.Alarm.html">Grape.Alarm</a></li>
+            
+                <li><a href="../classes/Grape.Animation.html">Grape.Animation</a></li>
+            
+                <li><a href="../classes/Grape.Array.html">Grape.Array</a></li>
+            
+                <li><a href="../classes/Grape.Audio.html">Grape.Audio</a></li>
+            
+                <li><a href="../classes/Grape.Bag.html">Grape.Bag</a></li>
+            
+                <li><a href="../classes/Grape.Cacheable.html">Grape.Cacheable</a></li>
+            
+                <li><a href="../classes/Grape.Class.html">Grape.Class</a></li>
+            
+                <li><a href="../classes/Grape.Collidable.html">Grape.Collidable</a></li>
+            
+                <li><a href="../classes/Grape.CollisionSystem.html">Grape.CollisionSystem</a></li>
+            
+                <li><a href="../classes/Grape.Env.html">Grape.Env</a></li>
+            
+                <li><a href="../classes/Grape.EventEmitter.html">Grape.EventEmitter</a></li>
+            
+                <li><a href="../classes/Grape.Game.html">Grape.Game</a></li>
+            
+                <li><a href="../classes/Grape.GameLoop.html">Grape.GameLoop</a></li>
+            
+                <li><a href="../classes/Grape.GameObject.html">Grape.GameObject</a></li>
+            
+                <li><a href="../classes/Grape.GameObjectArray.html">Grape.GameObjectArray</a></li>
+            
+                <li><a href="../classes/Grape.GUIView.html">Grape.GUIView</a></li>
+            
+                <li><a href="../classes/Grape.Input.html">Grape.Input</a></li>
+            
+                <li><a href="../classes/Grape.JSONSceneSource.html">Grape.JSONSceneSource</a></li>
+            
+                <li><a href="../classes/Grape.Layer.html">Grape.Layer</a></li>
+            
+                <li><a href="../classes/Grape.Mouse.html">Grape.Mouse</a></li>
+            
+                <li><a href="../classes/Grape.Object.html">Grape.Object</a></li>
+            
+                <li><a href="../classes/Grape.Physical.html">Grape.Physical</a></li>
+            
+                <li><a href="../classes/Grape.Position.html">Grape.Position</a></li>
+            
+                <li><a href="../classes/Grape.Rectangle.html">Grape.Rectangle</a></li>
+            
+                <li><a href="../classes/Grape.Resource.html">Grape.Resource</a></li>
+            
+                <li><a href="../classes/Grape.ResourceCollection.html">Grape.ResourceCollection</a></li>
+            
+                <li><a href="../classes/Grape.Scene.html">Grape.Scene</a></li>
+            
+                <li><a href="../classes/Grape.Sprite.html">Grape.Sprite</a></li>
+            
+                <li><a href="../classes/Grape.SpriteVisualizer.html">Grape.SpriteVisualizer</a></li>
+            
+                <li><a href="../classes/Grape.System.html">Grape.System</a></li>
+            
+                <li><a href="../classes/Grape.TagContainer.html">Grape.TagContainer</a></li>
+            
+                <li><a href="../classes/Grape.Taggable.html">Grape.Taggable</a></li>
+            
+                <li><a href="../classes/Grape.Utils.html">Grape.Utils</a></li>
+            
+                <li><a href="../classes/Grape.View.html">Grape.View</a></li>
+            
+                <li><a href="../classes/Grape.Visualizer.html">Grape.Visualizer</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: js\grape\etc\event-emitter.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+define([&#x27;../class&#x27;], function (Class) {
+    var EventEmitter;
+
+    /**
+     * A helper function for decomposing nested event handlers. When the method is a function, it is just added to the
+     * target. If the method is an object, all of it&#x27;s element are added with name.key.
+     *
+     * @example
+     *      var target = {};
+     *      Grape.EventEmitter.decompose(function(){},target,&#x27;name1&#x27;);
+     *      Grape.EventEmitter.decompose({
+     *          x:function(){}
+     *      },target,&#x27;name2&#x27;);
+     *
+     *      //target will be {&#x27;name1&#x27;:function(){},&#x27;name2.x&#x27;:function(){}}
+     *
+     * @method decompose
+     * @static
+     * @param {Function|Object} method The method or methods
+     * @param {Object} target The target the methods are added to.
+     * @param {String} name method name or nested method prefix
+     */
+    function decompose(method, target, name) {
+        var i;
+        if (typeof method === &#x27;object&#x27;) { //nested methods
+            for (i in method) {
+                decompose(method[i], target, name + &#x27;.&#x27; + i);
+            }
+        } else {
+            target[name] = method;
+        }
+    }
+
+    Class.registerKeyword(&#x27;event&#x27;, {
+        onInit: function (classInfo) {
+            classInfo.events = {};
+            classInfo.allEvent = {};
+        },
+        onAdd: function (classInfo, methodDescriptor) {
+            if (!classInfo.extends(EventEmitter)) {
+                throw new Error(&#x27;To use &quot;event&quot; keyword, inherit the Grape.EventEmitter class!&#x27;);
+            }
+            decompose(methodDescriptor.method, classInfo.events, methodDescriptor.name);
+            return false;
+        },
+        onFinish: function (classInfo) {
+            var i, event, events;
+            //add parent events
+            for (i = 0; i &lt; classInfo.allParent.length; i++) {
+                events = classInfo.allParent[i].events;
+                for (event in events) {
+                    (classInfo.allEvent[event] || (classInfo.allEvent[event] = [])).push(events[event]);
+                }
+            }
+            //add own events
+            events = classInfo.events;
+            for (event in events) {
+                (classInfo.allEvent[event] || (classInfo.allEvent[event] = [])).push(events[event]);
+            }
+        }
+    });
+
+
+    /**
+     * An object which cna emit events, others can subscribe to it, and we can use the event keyword to make easier
+     * the subscription when extending this class.
+     *
+     * @class Grape.EventEmitter
+     */
+    EventEmitter = Class(&#x27;EventEmitter&#x27;, {
+        init: function () { //subscribe to events defined in class
+            var i, myClass = this.getClass();
+            this._events = {};
+            for (i in myClass.allEvent) { //TODOv2 separate static and dynamic subscriptions
+                this._events[i] = myClass.allEvent[i].slice(0);
+            }
+        },
+        /**
+         * Subscribes to an event. The event handler will be called with this instance as context.
+         *
+         * @method on
+         * @param {String} event The event to subscribe
+         * @param {Function} listener Event listener
+         */
+        on: function (event, listener) {
+            (this._events[event] || (this._events[event] = [])).push(listener);
+        },
+
+        /**
+         * Unsubscribes from an event.
+         *
+         * @method off
+         * @param {String} event Event
+         * @param {Function} listener Event listener
+         */
+        off: function (event, listener) { //todov2 check remove with indexOf speed
+            //todov2 remove all listeners
+            var i, listeners = this._events[event];
+            for (i = 0; i &lt; listeners.length; i++) {
+                if (listeners[i] === listener) {
+                    listeners.splice(i, 1);
+                    i--;
+                }
+            }
+        },
+        //todov2 once
+        /**
+         * Emits an event to the instance: calls all event listeners subscribed to this event, or the &#x27;any&#x27; event.
+         *
+         * @method emit
+         * @param {String} event Event
+         * @param {*} payload An object passed as parameter to all event listeners.
+         */
+        emit: function (event, payload) { //TODOv2 class level listeners?
+            var i, listeners = this._events[event], n;
+            if (listeners) {
+
+                for (i = 0, n = listeners.length; i &lt; n; i++) {
+                    listeners[i].call(this, payload);
+                }
+            }
+            /**
+             * Emitted when any event is emitted. The parameters are the event and the payload.
+             *
+             * @event any
+             */
+            listeners = this._events.any;
+            if (listeners) {
+                for (i = 0, n = listeners.length; i &lt; n; i++) {
+                    listeners[i].call(this, event, payload);
+                }
+            }
+        },
+        &#x27;static decompose&#x27;: decompose
+    });
+
+
+    return EventEmitter;
+});
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

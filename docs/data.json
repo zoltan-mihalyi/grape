@@ -1,0 +1,3879 @@
+{
+    "project": {
+        "name": "grape",
+        "description": "A really fast JavaScript game engine",
+        "version": "0.0.1",
+        "url": ""
+    },
+    "files": {
+        "js\\grape\\collections\\array.js": {
+            "name": "js\\grape\\collections\\array.js",
+            "modules": {},
+            "classes": {
+                "Grape.Array": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\collections\\bag.js": {
+            "name": "js\\grape\\collections\\bag.js",
+            "modules": {},
+            "classes": {
+                "Grape.Bag": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\aabb.js": {
+            "name": "js\\grape\\etc\\aabb.js",
+            "modules": {},
+            "classes": {
+                "Grape.AABB": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\alarm.js": {
+            "name": "js\\grape\\etc\\alarm.js",
+            "modules": {},
+            "classes": {
+                "Grape.Alarm": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\animation.js": {
+            "name": "js\\grape\\etc\\animation.js",
+            "modules": {},
+            "classes": {
+                "Grape.Animation": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\collision.js": {
+            "name": "js\\grape\\etc\\collision.js",
+            "modules": {},
+            "classes": {
+                "Grape.CollisionSystem": 1,
+                "Grape.Collidable": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\event-emitter.js": {
+            "name": "js\\grape\\etc\\event-emitter.js",
+            "modules": {},
+            "classes": {
+                "Grape.EventEmitter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\mouse.js": {
+            "name": "js\\grape\\etc\\mouse.js",
+            "modules": {},
+            "classes": {
+                "Grape.Mouse": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\physical.js": {
+            "name": "js\\grape\\etc\\physical.js",
+            "modules": {},
+            "classes": {
+                "Grape.Physical": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\position.js": {
+            "name": "js\\grape\\etc\\position.js",
+            "modules": {},
+            "classes": {
+                "Grape.Position": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\rectangle.js": {
+            "name": "js\\grape\\etc\\rectangle.js",
+            "modules": {},
+            "classes": {
+                "Grape.Rectangle": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\sprite-visualizer.js": {
+            "name": "js\\grape\\etc\\sprite-visualizer.js",
+            "modules": {},
+            "classes": {
+                "Grape.SpriteVisualizer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\tag.js": {
+            "name": "js\\grape\\etc\\tag.js",
+            "modules": {},
+            "classes": {
+                "Grape.TagContainer": 1,
+                "Grape.Taggable": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\etc\\visualizer.js": {
+            "name": "js\\grape\\etc\\visualizer.js",
+            "modules": {},
+            "classes": {
+                "Grape.Visualizer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\abstract-view.js": {
+            "name": "js\\grape\\game\\abstract-view.js",
+            "modules": {},
+            "classes": {
+                "Grape.AbstractView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\game-loop.js": {
+            "name": "js\\grape\\game\\game-loop.js",
+            "modules": {},
+            "classes": {
+                "Grape.GameLoop": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\game-object-array.js": {
+            "name": "js\\grape\\game\\game-object-array.js",
+            "modules": {},
+            "classes": {
+                "Grape.GameObjectArray": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\game-object.js": {
+            "name": "js\\grape\\game\\game-object.js",
+            "modules": {},
+            "classes": {
+                "Grape.GameObject": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\game.js": {
+            "name": "js\\grape\\game\\game.js",
+            "modules": {},
+            "classes": {
+                "Grape.Game": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\gui-view.js": {
+            "name": "js\\grape\\game\\gui-view.js",
+            "modules": {},
+            "classes": {
+                "Grape.GUIView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\input.js": {
+            "name": "js\\grape\\game\\input.js",
+            "modules": {},
+            "classes": {
+                "Grape.Input": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\layer.js": {
+            "name": "js\\grape\\game\\layer.js",
+            "modules": {},
+            "classes": {
+                "Grape.Layer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\scene.js": {
+            "name": "js\\grape\\game\\scene.js",
+            "modules": {},
+            "classes": {
+                "Grape.Scene": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\system.js": {
+            "name": "js\\grape\\game\\system.js",
+            "modules": {},
+            "classes": {
+                "Grape.System": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\game\\view.js": {
+            "name": "js\\grape\\game\\view.js",
+            "modules": {},
+            "classes": {
+                "Grape.View": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\resource\\audio.js": {
+            "name": "js\\grape\\resource\\audio.js",
+            "modules": {},
+            "classes": {
+                "Grape.Audio": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\resource\\cacheable.js": {
+            "name": "js\\grape\\resource\\cacheable.js",
+            "modules": {},
+            "classes": {
+                "Grape.Cacheable": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\resource\\json-scene-source.js": {
+            "name": "js\\grape\\resource\\json-scene-source.js",
+            "modules": {},
+            "classes": {
+                "Grape.JSONSceneSource": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\resource\\resource-collection.js": {
+            "name": "js\\grape\\resource\\resource-collection.js",
+            "modules": {},
+            "classes": {
+                "Grape.ResourceCollection": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\resource\\resource.js": {
+            "name": "js\\grape\\resource\\resource.js",
+            "modules": {},
+            "classes": {
+                "Grape.Resource": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\resource\\sprite.js": {
+            "name": "js\\grape\\resource\\sprite.js",
+            "modules": {},
+            "classes": {
+                "Grape.Sprite": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\class.js": {
+            "name": "js\\grape\\class.js",
+            "modules": {},
+            "classes": {
+                "Grape.Object": 1,
+                "Grape.Class": 1
+            },
+            "fors": {
+                "Grape": 1,
+                "Grape.Object": 1,
+                "Grape.Class": 1
+            },
+            "namespaces": {}
+        },
+        "js\\grape\\env.js": {
+            "name": "js\\grape\\env.js",
+            "modules": {},
+            "classes": {
+                "Grape.Env": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\main.js": {
+            "name": "js\\grape\\main.js",
+            "modules": {},
+            "classes": {
+                "Grape": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\grape\\utils.js": {
+            "name": "js\\grape\\utils.js",
+            "modules": {},
+            "classes": {
+                "Grape.Utils": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Grape.Array": {
+            "name": "Grape.Array",
+            "shortname": "Grape.Array",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.GameObjectArray"
+            ],
+            "file": "js\\grape\\collections\\array.js",
+            "line": 8,
+            "description": "An array class created with Grape.Class mixing all of the Array.prototype methods and some new utility.\nSome functions are modified (like slice) to return a new instance of the current class instead of a plain array.\nIf you extend this class, these methods will return an instance of your class.\nIn the future, we should create implementations of default methods for old browsers.\nNote that adding elements with indexing does not change the length property unlike the native Array.",
+            "is_constructor": 1
+        },
+        "Grape.Bag": {
+            "name": "Grape.Bag",
+            "shortname": "Grape.Bag",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\collections\\bag.js",
+            "line": 2,
+            "description": "A bag class, ie. an unordered list.\nIt is an array, but if you remove an item, and the bag contains at least one more item, the last item replaces the item, and length is reduced by 1.",
+            "is_constructor": 1,
+            "uses": [
+                "Array"
+            ]
+        },
+        "Grape.AABB": {
+            "name": "Grape.AABB",
+            "shortname": "Grape.AABB",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Collidable",
+                "Grape.Mouse"
+            ],
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 2,
+            "description": "An interface for axis-aligned bounding box methods. All methods are abstract."
+        },
+        "Grape.Alarm": {
+            "name": "Grape.Alarm",
+            "shortname": "Grape.Alarm",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\etc\\alarm.js",
+            "line": 3,
+            "description": "A utility class for creating timeouts in a game.",
+            "is_constructor": 1,
+            "uses": [
+                "Grape.GameObject"
+            ]
+        },
+        "Grape.Animation": {
+            "name": "Grape.Animation",
+            "shortname": "Grape.Animation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\etc\\animation.js",
+            "line": 2,
+            "description": "A utility class which increases a the subimage of a SpriteVisualizer in each frame by a given amount.",
+            "is_constructor": 1,
+            "uses": [
+                "Grape.SpriteVisualizer"
+            ],
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "The initial properties",
+                    "optional": true
+                }
+            ]
+        },
+        "Grape.CollisionSystem": {
+            "name": "Grape.CollisionSystem",
+            "shortname": "Grape.CollisionSystem",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\etc\\collision.js",
+            "line": 77,
+            "description": "A system, which handles broad phase collision detection of Collidable instances added to the system's layer.\nIt uses spatial partitioning algorithm, creating a partition for each class and tag only if they have collision\nevent handler. Note that the collision system gets the instances of the layer directly, not through an event\nemission, so instances in sub-layers won't collide.",
+            "uses": [
+                "Grape.System"
+            ]
+        },
+        "Grape.Collidable": {
+            "name": "Grape.Collidable",
+            "shortname": "Grape.Collidable",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\etc\\collision.js",
+            "line": 197,
+            "description": "A class, which can have collision events.",
+            "uses": [
+                "Grape.GameObject",
+                "Grape.AABB"
+            ]
+        },
+        "Grape.EventEmitter": {
+            "name": "Grape.EventEmitter",
+            "shortname": "Grape.EventEmitter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.GameObject",
+                "Grape.Game",
+                "Grape.Layer",
+                "Grape.System",
+                "Grape.Resource"
+            ],
+            "file": "js\\grape\\etc\\event-emitter.js",
+            "line": 64,
+            "description": "An object which cna emit events, others can subscribe to it, and we can use the event keyword to make easier\nthe subscription when extending this class."
+        },
+        "Grape.Mouse": {
+            "name": "Grape.Mouse",
+            "shortname": "Grape.Mouse",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\etc\\mouse.js",
+            "line": 3,
+            "description": "Can decide whether the mouse is over it (in any view). If the mouse enters or leaves, mouseOver and mouseOut\nevents are emitted. When global mouse events are emitted (keyPress.mouseLeft, etc.) and the mouse is over the\ninstance, the event is emitted locally. This class works when AABB interface is implemented.",
+            "uses": [
+                "Grape.GameObject",
+                "Grape.AABB"
+            ]
+        },
+        "Grape.Physical": {
+            "name": "Grape.Physical",
+            "shortname": "Grape.Physical",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\etc\\physical.js",
+            "line": 3,
+            "description": "Provides simple physics: velocity. In the future more features can be added like friction or acceleration",
+            "uses": [
+                "Grape.Position",
+                "Grape.GameObject"
+            ]
+        },
+        "Grape.Position": {
+            "name": "Grape.Position",
+            "shortname": "Grape.Position",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Physical",
+                "Grape.Visualizer"
+            ],
+            "file": "js\\grape\\etc\\position.js",
+            "line": 2,
+            "description": "Stores x and y properties",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial values of properties",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
+        },
+        "Grape.Rectangle": {
+            "name": "Grape.Rectangle",
+            "shortname": "Grape.Rectangle",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\etc\\rectangle.js",
+            "line": 2,
+            "description": "A Rectangle visualizer.",
+            "is_constructor": 1,
+            "uses": [
+                "Grape.Visualizer"
+            ],
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial values of properties",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
+        },
+        "Grape.SpriteVisualizer": {
+            "name": "Grape.SpriteVisualizer",
+            "shortname": "Grape.SpriteVisualizer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Animation"
+            ],
+            "file": "js\\grape\\etc\\sprite-visualizer.js",
+            "line": 2,
+            "description": "Visualizes a sprite. If no sprite is set, draws a question mark to indicate the error.",
+            "uses": [
+                "Grape.Visualizer"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial values of properties",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
+        },
+        "Grape.TagContainer": {
+            "name": "Grape.TagContainer",
+            "shortname": "Grape.TagContainer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Layer"
+            ],
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 2,
+            "description": "A container for tagging. You can get items by tags.",
+            "is_constructor": 1,
+            "see": [
+                "Grape.Tag"
+            ]
+        },
+        "Grape.Taggable": {
+            "name": "Grape.Taggable",
+            "shortname": "Grape.Taggable",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.GameObject"
+            ],
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 73,
+            "description": "A taggable class. If you add a tag to an instance, you can get it from the container.",
+            "see": [
+                "Grape.TagContainer"
+            ],
+            "is_constructor": 1
+        },
+        "Grape.Visualizer": {
+            "name": "Grape.Visualizer",
+            "shortname": "Grape.Visualizer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Rectangle",
+                "Grape.SpriteVisualizer"
+            ],
+            "file": "js\\grape\\etc\\visualizer.js",
+            "line": 2,
+            "description": "An abstract class for visualizing different things. This class provides alpha and visible properties.\nIt calls the visualize method with the rendering context in each render frame if visible is set to true.",
+            "uses": [
+                "Grape.GameObject",
+                "Grape.Position"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial values of properties",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
+        },
+        "Grape.AbstractView": {
+            "name": "Grape.AbstractView",
+            "shortname": "Grape.AbstractView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.GUIView",
+                "Grape.View"
+            ],
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 30,
+            "description": "Provides a viewport to the game. The dimension properties (width, height, left, top, originX, originY) are\ncalculated dynamically. You can set these properties as functions or evaluated strings, like '30%+40'.",
+            "uses": [
+                "Grape.System"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial properties",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Grape.GameLoop": {
+            "name": "Grape.GameLoop",
+            "shortname": "Grape.GameLoop",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\game\\game-loop.js",
+            "line": 69,
+            "description": "A class which serves as a loop. It uses requestAnimationFrame if possible. It tries to execute the game.frame()\ngame.getRequiredFps() times a second. The game.render() method will be executed 0 or 1 times in each\nanimation frame, depending on the game.frame() was executed at least once or not.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "the game for frame(), render() and getRequiredFps() calls",
+                    "type": "Grape.Game"
+                }
+            ]
+        },
+        "Grape.GameObjectArray": {
+            "name": "Grape.GameObjectArray",
+            "shortname": "Grape.GameObjectArray",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\game\\game-object-array.js",
+            "line": 18,
+            "description": "A special array, which contains GameObjects and provides the same methods as the GameObject. The methods iterate\nthrough the elements, and calls the same method for each element with the given parameters.",
+            "uses": [
+                "Grape.Array"
+            ],
+            "is_constructor": 1
+        },
+        "Grape.GameObject": {
+            "name": "Grape.GameObject",
+            "shortname": "Grape.GameObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Alarm",
+                "Grape.Collidable",
+                "Grape.Mouse",
+                "Grape.Physical",
+                "Grape.Visualizer"
+            ],
+            "file": "js\\grape\\game\\game-object.js",
+            "line": 42,
+            "description": "A GameObject is an object which can be added to a layer, and can subscribe to the layer's events with the\nonGlobal() method or the global-event keyword.",
+            "uses": [
+                "Grape.EventEmitter",
+                "Grape.Taggable"
+            ],
+            "is_constructor": 1
+        },
+        "Grape.Game": {
+            "name": "Grape.Game",
+            "shortname": "Grape.Game",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\game\\game.js",
+            "line": 2,
+            "description": "A class that represents a game. You can create and run multiple games in a single page.",
+            "uses": [
+                "Grape.EventEmitter"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial properties",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Grape.GUIView": {
+            "name": "Grape.GUIView",
+            "shortname": "Grape.GUIView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\game\\gui-view.js",
+            "line": 2,
+            "description": "A View which creates a simple div as view, which can be used to render real DOM elements.",
+            "uses": [
+                "Grape.AbstractView"
+            ],
+            "is_constructor": 1
+        },
+        "Grape.Input": {
+            "name": "Grape.Input",
+            "shortname": "Grape.Input",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\game\\input.js",
+            "line": 138,
+            "description": "Handles which key is down, just pressed or just released in a game. A Game  Also handles mouse. The following\nkeys are available:\n <ul>\n     <li><code>any</code> (matches any key)</li>\n     <li><code>none</code></li>\n     <li><code>mouseLeft</code></li>\n     <li><code>mouseMiddle</code></li>\n     <li><code>mouseRight</code></li>\n     <li><code>a</code> ... <code>z</code> (letter keys)</li>\n     <li><code>0</code> ... <code>9</code> (digit keys)</li>\n     <li><code>num0</code> ... <code>num9</code> (numpad keys)</li>\n     <li><code>f1</code> ... <code>f12</code> (function keys)</li>\n     <li><code>backspace</code></li>\n     <li><code>tab</code></li>\n     <li><code>enter</code></li>\n     <li><code>lshift</code> (left shift)</li>\n     <li><code>rshift</code> (right shift)</li>\n     <li><code>ctrl</code></li>\n     <li><code>alt</code></li>\n     <li><code>pause</code></li>\n     <li><code>clear</code></li>\n     <li><code>esc</code></li>\n     <li><code>space</code></li>\n     <li><code>pageup</code></li>\n     <li><code>pagedown</code></li>\n     <li><code>end</code></li>\n     <li><code>home</code></li>\n     <li><code>left</code></li>\n     <li><code>right</code></li>\n     <li><code>up</code></li>\n     <li><code>down<</code>/li>\n     <li><code>insert</code></li>\n     <li><code>delete</code></li>\n     <li><code>windows</code></li>\n     <li><code>contextmenu</code></li>\n     <li><code>+</code></li>\n     <li><code>-</code></li>\n     <li><code>*</code></li>\n     <li><code>.</code></li>\n     <li><code>/</code></li>\n     <li><code>numlock</code></li>\n </ul>",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Options",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "reservedKeys",
+                            "description": "keys for which browser's default action will be prevented. The Game class\npasses this property when instantiating the input.",
+                            "type": "Array",
+                            "optional": true
+                        }
+                    ]
+                }
+            ]
+        },
+        "Grape.Layer": {
+            "name": "Grape.Layer",
+            "shortname": "Grape.Layer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Scene"
+            ],
+            "file": "js\\grape\\game\\layer.js",
+            "line": 37,
+            "description": "A layer contains instances, systems, and other layers.\nWhen any event is emitted to the layer, it is emitted to the systems and layers of the layer too.\nWhen you want to subscribe to the layer events with a GameObject (which is added to the layer) you can use the\ngameObject.onGlobal() function or the global-event keyword.",
+            "uses": [
+                "Grape.EventEmitter",
+                "Grape.TagContainer"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial properties",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Grape.Scene": {
+            "name": "Grape.Scene",
+            "shortname": "Grape.Scene",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\game\\scene.js",
+            "line": 3,
+            "description": "The root layer in a game. It describes the game FPS and has a default view which can be overridden with\ninitViews.",
+            "uses": [
+                "Grape.Layer"
+            ]
+        },
+        "Grape.System": {
+            "name": "Grape.System",
+            "shortname": "Grape.System",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.CollisionSystem",
+                "Grape.AbstractView"
+            ],
+            "file": "js\\grape\\game\\system.js",
+            "line": 2,
+            "description": "A system can be added to a layer, and the layer emits all of its event to the system. The system can access the\nlayer through the getLayer method.",
+            "uses": [
+                "Grape.EventEmitter"
+            ],
+            "is_constructor": 1
+        },
+        "Grape.View": {
+            "name": "Grape.View",
+            "shortname": "Grape.View",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\game\\view.js",
+            "line": 2,
+            "description": "A view using canvas to render. It emits the render event to the layer it is added to, with the canvas context as\nparameter in each render frame. Because the layer emits any event to its sub-layers, instances in sub-layers are\nalos visible.",
+            "uses": [
+                "Grape.AbstractView"
+            ],
+            "is_constructor": 1
+        },
+        "Grape.Audio": {
+            "name": "Grape.Audio",
+            "shortname": "Grape.Audio",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\resource\\audio.js",
+            "line": 36,
+            "description": "Represents a sound. It decides from the extension of the given url which to use.",
+            "uses": [
+                "Grape.Cacheable"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Audio options",
+                    "type": "Object"
+                },
+                {
+                    "name": "url1",
+                    "description": "Audio URL",
+                    "type": "String"
+                },
+                {
+                    "name": "url2",
+                    "description": "Audio URL fallback if url1 extension is not supported",
+                    "type": "String"
+                },
+                {
+                    "name": "url3",
+                    "description": "Audio URL fallback if url2 extension is not supported",
+                    "type": "String"
+                }
+            ]
+        },
+        "Grape.Cacheable": {
+            "name": "Grape.Cacheable",
+            "shortname": "Grape.Cacheable",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Audio",
+                "Grape.JSONSceneSource",
+                "Grape.Sprite"
+            ],
+            "file": "js\\grape\\resource\\cacheable.js",
+            "line": 4,
+            "description": "Provides a cache feature for a resource: when a resource is loaded multiple times, the expensive operations are\nexecuted only once. The resource uses the loadResource method to tell what to do when the resource should be\nactually loaded. A typical usage is for tile maps, when multiple sprites are on the same image.",
+            "uses": [
+                "Grape.Resource"
+            ],
+            "is_constructor": 1
+        },
+        "Grape.JSONSceneSource": {
+            "name": "Grape.JSONSceneSource",
+            "shortname": "Grape.JSONSceneSource",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\resource\\json-scene-source.js",
+            "line": 2,
+            "description": "Represents a JSON scene source. After the scene source is loaded, you can instantiate the scene. The type of the\ninstances have to be defined in a type mapping.",
+            "uses": [
+                "Grape.Cacheable"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "JSON url",
+                    "type": "String"
+                },
+                {
+                    "name": "opts",
+                    "description": "Initial properties",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Grape.ResourceCollection": {
+            "name": "Grape.ResourceCollection",
+            "shortname": "Grape.ResourceCollection",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 5,
+            "description": "Represents a collection of resources. You can add, get different kind of resources (nested collections are\nallowed) and load resources at once.",
+            "uses": [
+                "Grape.Resource"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "Initial properties",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Grape.Resource": {
+            "name": "Grape.Resource",
+            "shortname": "Grape.Resource",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Grape.Cacheable",
+                "Grape.ResourceCollection"
+            ],
+            "file": "js\\grape\\resource\\resource.js",
+            "line": 2,
+            "description": "An abstract class to represent a resource. A resource can load itself, and can tell the estimated time to load\nit (default:1).",
+            "uses": [
+                "Grape.EventEmitter"
+            ]
+        },
+        "Grape.Sprite": {
+            "name": "Grape.Sprite",
+            "shortname": "Grape.Sprite",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 39,
+            "description": "A sprite is an image or an animation. It can be defined as a part of a real image (tile sets).\nWhen a sprite is an animation, the subsequent images have to be next to each other (left to right direction)",
+            "uses": [
+                "Grape.Cacheable"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "opts",
+                    "description": "Initial properties",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Grape.Object": {
+            "name": "Grape.Object",
+            "shortname": "Grape.Object",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\class.js",
+            "line": 6,
+            "description": "A fake class to represent default class methods"
+        },
+        "Grape.Class": {
+            "name": "Grape.Class",
+            "shortname": "Grape.Class",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\class.js",
+            "line": 96,
+            "description": "A static class for storing keyword related functions. To see how to create a class, check the Class method in the\nGrape class."
+        },
+        "Grape": {
+            "name": "Grape",
+            "shortname": "Grape",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\main.js",
+            "line": 1,
+            "description": "The global Grape object containing the built-in classes.",
+            "static": 1
+        },
+        "Grape.Env": {
+            "name": "Grape.Env",
+            "shortname": "Grape.Env",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\env.js",
+            "line": 2,
+            "description": "Environment information",
+            "static": 1
+        },
+        "Grape.Utils": {
+            "name": "Grape.Utils",
+            "shortname": "Grape.Utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js\\grape\\utils.js",
+            "line": 62,
+            "description": "Utility class.",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 19,
+            "description": "Calls a method of each item. The subsequent parameters are passed to the method.",
+            "itemtype": "method",
+            "name": "call",
+            "params": [
+                {
+                    "name": "which",
+                    "description": "The method name to call",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "this",
+                "type": "Grape.Array"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 34,
+            "description": "Calls a method of each item, but the parameters are passed as an array like in Function.prototype.apply",
+            "itemtype": "method",
+            "name": "apply",
+            "params": [
+                {
+                    "name": "which",
+                    "description": "The method name to call",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "The method parameters",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "this",
+                "type": "Grape.Array"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 50,
+            "description": "Returns true if the length of the array is 0.",
+            "itemtype": "method",
+            "name": "isEmpty",
+            "return": {
+                "description": "true, if length is 0",
+                "type": "Boolean"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 60,
+            "description": "Creates a native Array by copying the items",
+            "itemtype": "method",
+            "name": "toArray",
+            "return": {
+                "description": "The native Array",
+                "type": "Array"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 70,
+            "description": "Sets an attribute on each item.",
+            "itemtype": "method",
+            "name": "attr",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The attribute name",
+                    "type": "String"
+                },
+                {
+                    "name": "newVal",
+                    "description": "The new value of the attribute",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "this",
+                "type": "Grape.Array"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 86,
+            "description": "Creates a new instance of the current class, containing the item at the index i if exists, or an empty array",
+            "itemtype": "method",
+            "name": "eq",
+            "params": [
+                {
+                    "name": "i",
+                    "description": "The index",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The array containing 0 or 1 item",
+                "type": "Grape.Array"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 101,
+            "description": "Returns an item at the given position. Equivalent to arr[i].",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "i",
+                    "description": "The index of the item to return",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The item at the given position",
+                "type": "*"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 112,
+            "description": "Returns one (the first) item from the array.",
+            "itemtype": "method",
+            "name": "one",
+            "return": {
+                "description": "The first item",
+                "type": "*"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 122,
+            "description": "Returns a new instance of the current class containing random items from the original array.",
+            "itemtype": "method",
+            "name": "random",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The number of random items. If not set returns one item.",
+                    "type": "Number|undefined"
+                }
+            ],
+            "return": {
+                "description": "The random items",
+                "type": "Grape.Array"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 142,
+            "description": "Clones the array (shallow copy) by creating a new instance of the current class.",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "The cloned array",
+                "type": "*"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\array.js",
+            "line": 152,
+            "description": "Returns the length of the array.",
+            "itemtype": "method",
+            "name": "size",
+            "return": {
+                "description": "The size of the array",
+                "type": "Number"
+            },
+            "class": "Grape.Array"
+        },
+        {
+            "file": "js\\grape\\collections\\bag.js",
+            "line": 11,
+            "description": "Adds an element to the bag. Equivalent to push()",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "The item to add",
+                    "type": "*"
+                }
+            ],
+            "itemtype": "method",
+            "name": "add",
+            "return": {
+                "description": "the new size of the bag",
+                "type": "Number"
+            },
+            "class": "Grape.Bag"
+        },
+        {
+            "file": "js\\grape\\collections\\bag.js",
+            "line": 18,
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The index to remove at",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The moved item (which replaces the removed item)",
+                "type": "*"
+            },
+            "class": "Grape.Bag"
+        },
+        {
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 8,
+            "description": "Gets the left, right, top, bottom coordinates at once.",
+            "itemtype": "method",
+            "name": "getBounds",
+            "return": {
+                "description": "The bounding box coordinates, should contain \"left\", \"right\", \"top\" and \"bottom\" properties",
+                "type": "Object"
+            },
+            "class": "Grape.AABB"
+        },
+        {
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 16,
+            "description": "Returns the left axis.",
+            "itemtype": "method",
+            "name": "getLeft",
+            "return": {
+                "description": "the left axis",
+                "type": "Number"
+            },
+            "class": "Grape.AABB"
+        },
+        {
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 24,
+            "description": "Returns the top axis.",
+            "itemtype": "method",
+            "name": "getTop",
+            "return": {
+                "description": "the top axis",
+                "type": "Number"
+            },
+            "class": "Grape.AABB"
+        },
+        {
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 32,
+            "description": "Returns the right axis.",
+            "itemtype": "method",
+            "name": "getRight",
+            "return": {
+                "description": "the right axis",
+                "type": "Number"
+            },
+            "class": "Grape.AABB"
+        },
+        {
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 40,
+            "description": "Returns the bottom axis.",
+            "itemtype": "method",
+            "name": "getBottom",
+            "return": {
+                "description": "the bottom axis",
+                "type": "Number"
+            },
+            "class": "Grape.AABB"
+        },
+        {
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 48,
+            "description": "Returns the width (right - left).",
+            "itemtype": "method",
+            "name": "getWidth",
+            "return": {
+                "description": "the width, should be right - left",
+                "type": "Number"
+            },
+            "class": "Grape.AABB"
+        },
+        {
+            "file": "js\\grape\\etc\\aabb.js",
+            "line": 56,
+            "description": "Returns the height (bottom - top).",
+            "itemtype": "method",
+            "name": "getHeight",
+            "return": {
+                "description": "the height, should be bottom - top",
+                "type": "Number"
+            },
+            "class": "Grape.AABB"
+        },
+        {
+            "file": "js\\grape\\etc\\alarm.js",
+            "line": 16,
+            "description": "Sets a timeout with a given name in frames.",
+            "itemtype": "method",
+            "name": "setAlarm",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Alarm name",
+                    "type": "String"
+                },
+                {
+                    "name": "frames",
+                    "description": "The number of frames after the alarm triggers",
+                    "type": "Number"
+                }
+            ],
+            "class": "Grape.Alarm"
+        },
+        {
+            "file": "js\\grape\\etc\\alarm.js",
+            "line": 27,
+            "description": "Returns the remaining frames of a timeout",
+            "itemtype": "method",
+            "name": "getAlarm",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Alarm name",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The remaining time",
+                "type": "Number"
+            },
+            "class": "Grape.Alarm"
+        },
+        {
+            "file": "js\\grape\\etc\\alarm.js",
+            "line": 38,
+            "description": "Increases the duration of a timeout by a given amount. If timeout does not exist, the method creates it.",
+            "itemtype": "method",
+            "name": "increaseAlarm",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Alarm name",
+                    "type": "String"
+                },
+                {
+                    "name": "frames",
+                    "description": "Number of frames to increase with",
+                    "type": "Number"
+                }
+            ],
+            "class": "Grape.Alarm"
+        },
+        {
+            "file": "js\\grape\\etc\\alarm.js",
+            "line": 53,
+            "description": "Tells whether a timeout with a given name exists.",
+            "itemtype": "method",
+            "name": "hasAlarm",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "Name of the timeout",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "true, if the timeout exists",
+                "type": "Boolean"
+            },
+            "class": "Grape.Alarm"
+        },
+        {
+            "file": "js\\grape\\etc\\alarm.js",
+            "line": 69,
+            "description": "When a timeout ends, this event occurs. The parameter is the name of the timeout.",
+            "itemtype": "event",
+            "name": "alarm",
+            "class": "Grape.Alarm"
+        },
+        {
+            "file": "js\\grape\\etc\\alarm.js",
+            "line": 74,
+            "description": "When a timeout ends, this event occurs too.",
+            "itemtype": "event",
+            "name": "alarm.<name>",
+            "class": "Grape.Alarm"
+        },
+        {
+            "file": "js\\grape\\etc\\animation.js",
+            "line": 13,
+            "description": "The number the subimage is shifted with each second.",
+            "itemtype": "property",
+            "name": "imageSpeed",
+            "type": "number",
+            "default": "1",
+            "class": "Grape.Animation"
+        },
+        {
+            "file": "js\\grape\\etc\\animation.js",
+            "line": 32,
+            "description": "Occurs when the animation falls through the last image (or the first if imageSpeed is negative)",
+            "itemtype": "event",
+            "name": "animationEnd",
+            "class": "Grape.Animation"
+        },
+        {
+            "file": "js\\grape\\etc\\collision.js",
+            "line": 96,
+            "description": "(Re)creates a partition table for a class or a tag. This table is used to check collision until removed.",
+            "itemtype": "method",
+            "name": "createStaticPartition",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Tag or class",
+                    "type": "String|Class"
+                }
+            ],
+            "class": "Grape.CollisionSystem"
+        },
+        {
+            "file": "js\\grape\\etc\\collision.js",
+            "line": 109,
+            "description": "Removes a partition table for a class or a tag.",
+            "itemtype": "method",
+            "name": "removeStaticPartition",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Tag or class",
+                    "type": "String|Class"
+                }
+            ],
+            "class": "Grape.CollisionSystem"
+        },
+        {
+            "file": "js\\grape\\etc\\event-emitter.js",
+            "line": 4,
+            "description": "A helper function for decomposing nested event handlers. When the method is a function, it is just added to the\ntarget. If the method is an object, all of it's element are added with name.key.",
+            "example": [
+                "\n     var target = {};\n     Grape.EventEmitter.decompose(function(){},target,'name1');\n     Grape.EventEmitter.decompose({\n         x:function(){}\n     },target,'name2');\n\n     //target will be {'name1':function(){},'name2.x':function(){}}"
+            ],
+            "itemtype": "method",
+            "name": "decompose",
+            "static": 1,
+            "params": [
+                {
+                    "name": "method",
+                    "description": "The method or methods",
+                    "type": "Function|Object"
+                },
+                {
+                    "name": "target",
+                    "description": "The target the methods are added to.",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "method name or nested method prefix",
+                    "type": "String"
+                }
+            ],
+            "class": "Grape.EventEmitter"
+        },
+        {
+            "file": "js\\grape\\etc\\event-emitter.js",
+            "line": 78,
+            "description": "Subscribes to an event. The event handler will be called with this instance as context.",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event to subscribe",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "Event listener",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.EventEmitter"
+        },
+        {
+            "file": "js\\grape\\etc\\event-emitter.js",
+            "line": 89,
+            "description": "Unsubscribes from an event.",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Event",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "Event listener",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.EventEmitter"
+        },
+        {
+            "file": "js\\grape\\etc\\event-emitter.js",
+            "line": 107,
+            "description": "Emits an event to the instance: calls all event listeners subscribed to this event, or the 'any' event.",
+            "itemtype": "method",
+            "name": "emit",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Event",
+                    "type": "String"
+                },
+                {
+                    "name": "payload",
+                    "description": "An object passed as parameter to all event listeners.",
+                    "type": "*"
+                }
+            ],
+            "class": "Grape.EventEmitter"
+        },
+        {
+            "file": "js\\grape\\etc\\event-emitter.js",
+            "line": 122,
+            "description": "Emitted when any event is emitted. The parameters are the event and the payload.",
+            "itemtype": "event",
+            "name": "any",
+            "class": "Grape.EventEmitter"
+        },
+        {
+            "file": "js\\grape\\etc\\mouse.js",
+            "line": 13,
+            "description": "Returns the mouse is over the instance in any view.",
+            "itemtype": "method",
+            "name": "isMouseOver",
+            "return": {
+                "description": "true, if mouse is over the instance in any view.",
+                "type": "Boolean"
+            },
+            "class": "Grape.Mouse"
+        },
+        {
+            "file": "js\\grape\\etc\\mouse.js",
+            "line": 32,
+            "description": "When the mouse enters, this event is emitted.",
+            "itemtype": "event",
+            "name": "mouseOut",
+            "class": "Grape.Mouse"
+        },
+        {
+            "file": "js\\grape\\etc\\mouse.js",
+            "line": 44,
+            "description": "When the mouse leaves, this event is emitted.",
+            "itemtype": "event",
+            "name": "mouseOut",
+            "class": "Grape.Mouse"
+        },
+        {
+            "file": "js\\grape\\etc\\mouse.js",
+            "line": 52,
+            "description": "Fires the global mouse event locally, when a global mouse event is emitted and the mouse is over the\ninstance.",
+            "itemtype": "event",
+            "name": "<mouse events>",
+            "class": "Grape.Mouse"
+        },
+        {
+            "file": "js\\grape\\etc\\physical.js",
+            "line": 16,
+            "description": "Returns the speed of the instance, calculated by the speedX and speedY properties.",
+            "itemtype": "method",
+            "name": "getSpeed",
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Grape.Physical"
+        },
+        {
+            "file": "js\\grape\\etc\\physical.js",
+            "line": 25,
+            "description": "Sets the speed of the instance, keeping the original direction (or the opposite if speed is negative). If\nOriginal speed is 0, the direction is considered as 0 (left-to right).",
+            "itemtype": "method",
+            "name": "setSpeed",
+            "params": [
+                {
+                    "name": "speed",
+                    "description": "new Speed",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "return": {
+                "description": "this",
+                "type": "Grape.Physical"
+            },
+            "class": "Grape.Physical"
+        },
+        {
+            "file": "js\\grape\\etc\\physical.js",
+            "line": 44,
+            "description": "Increases the speed by a given amount, keeping the original direction.",
+            "itemtype": "method",
+            "name": "accelerate",
+            "params": [
+                {
+                    "name": "plus",
+                    "description": "The amount the speed is increased with",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "return": {
+                "description": "this",
+                "type": "Grape.Physical"
+            },
+            "class": "Grape.Physical"
+        },
+        {
+            "file": "js\\grape\\etc\\position.js",
+            "line": 12,
+            "description": "X coordinate",
+            "itemtype": "property",
+            "name": "x",
+            "type": "{number}",
+            "default": "0",
+            "class": "Grape.Position"
+        },
+        {
+            "file": "js\\grape\\etc\\position.js",
+            "line": 20,
+            "description": "Y coordinate",
+            "itemtype": "property",
+            "name": "y",
+            "type": "{number}",
+            "default": "0",
+            "class": "Grape.Position"
+        },
+        {
+            "file": "js\\grape\\etc\\rectangle.js",
+            "line": 14,
+            "description": "The width of the rectangle",
+            "itemtype": "property",
+            "name": "width",
+            "default": "0",
+            "type": "{number}",
+            "class": "Grape.Rectangle"
+        },
+        {
+            "file": "js\\grape\\etc\\rectangle.js",
+            "line": 22,
+            "description": "The height of the rectangle",
+            "itemtype": "property",
+            "name": "height",
+            "default": "0",
+            "type": "{number}",
+            "class": "Grape.Rectangle"
+        },
+        {
+            "file": "js\\grape\\etc\\rectangle.js",
+            "line": 30,
+            "description": "The border width",
+            "itemtype": "property",
+            "name": "borderWidth",
+            "default": "1",
+            "type": "{number}",
+            "class": "Grape.Rectangle"
+        },
+        {
+            "file": "js\\grape\\etc\\rectangle.js",
+            "line": 38,
+            "description": "The background color",
+            "itemtype": "property",
+            "name": "backgroundColor",
+            "default": "'#fff'",
+            "type": "{number}",
+            "class": "Grape.Rectangle"
+        },
+        {
+            "file": "js\\grape\\etc\\sprite-visualizer.js",
+            "line": 13,
+            "description": "The image index of the sprite to show",
+            "itemtype": "property",
+            "name": "subimage",
+            "default": "0",
+            "type": "{number}",
+            "class": "Grape.SpriteVisualizer"
+        },
+        {
+            "file": "js\\grape\\etc\\sprite-visualizer.js",
+            "line": 22,
+            "description": "The sprite",
+            "itemtype": "property",
+            "name": "sprite",
+            "type": "{Grape.Sprite}",
+            "class": "Grape.SpriteVisualizer"
+        },
+        {
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 13,
+            "description": "Gets items stored in the container by a tag.",
+            "example": [
+                "\n     var container = new Grape.TagContainer();\n     var obj = new Grape.Taggable();\n     obj.setTagContainer(container);\n     obj.addTag('my tag');\n     container.get('my tag'); //returns an array containing obj"
+            ],
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "tag",
+                    "description": "The tag",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Items containing the tag",
+                "type": "Array"
+            },
+            "class": "Grape.TagContainer"
+        },
+        {
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 41,
+            "description": "Creates an array-like object. If you want to redefine the result type of the get method, you can override\nthis method.",
+            "itemtype": "method",
+            "name": "createResultContainer",
+            "return": {
+                "description": "An initial array.",
+                "type": "Array"
+            },
+            "see": [
+                "get"
+            ],
+            "class": "Grape.TagContainer"
+        },
+        {
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 84,
+            "description": "Sets the tag container for the instance. If tags are added already, they will appear in the new container.\nIf the instance already has a tagContainer, it will be removed first.",
+            "itemtype": "method",
+            "name": "setTagContainer",
+            "params": [
+                {
+                    "name": "container",
+                    "description": "The container",
+                    "type": "TagContainer"
+                }
+            ],
+            "class": "Grape.Taggable"
+        },
+        {
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 104,
+            "description": "Adds a tag to a taggable object.",
+            "itemtype": "method",
+            "name": "addTag",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Tag name",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "true, if a new tag is added, false, if the tag was already added.",
+                "type": "Boolean"
+            },
+            "class": "Grape.Taggable"
+        },
+        {
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 123,
+            "description": "Checks if a tag is added or not.",
+            "itemtype": "method",
+            "name": "hasTag",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Tag name",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "true, if the instance has the tag",
+                "type": "Boolean"
+            },
+            "class": "Grape.Taggable"
+        },
+        {
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 133,
+            "description": "Removes a tag from a taggable object. If the tag is not added, does nothing.",
+            "itemtype": "method",
+            "name": "removeTag",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Tag name",
+                    "type": "String"
+                }
+            ],
+            "class": "Grape.Taggable"
+        },
+        {
+            "file": "js\\grape\\etc\\tag.js",
+            "line": 149,
+            "description": "Detaches the TagContainer. The instance is no more queryable through the container.",
+            "itemtype": "method",
+            "name": "removeTagContainer",
+            "class": "Grape.Taggable"
+        },
+        {
+            "file": "js\\grape\\etc\\visualizer.js",
+            "line": 17,
+            "description": "The alpha value set before calling the visualize method",
+            "itemtype": "property",
+            "name": "alpha",
+            "default": "1",
+            "type": "{number}",
+            "class": "Grape.Visualizer"
+        },
+        {
+            "file": "js\\grape\\etc\\visualizer.js",
+            "line": 29,
+            "description": "If set false, the visualize method is not called.",
+            "itemtype": "property",
+            "name": "visible",
+            "default": "true",
+            "type": "{number}",
+            "class": "Grape.Visualizer"
+        },
+        {
+            "file": "js\\grape\\etc\\visualizer.js",
+            "line": 48,
+            "description": "This abstract method is called each render frame if visible is set to true.",
+            "itemtype": "method",
+            "name": "visualize",
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "The rendering context",
+                    "type": "CanvasRenderingContext2D"
+                }
+            ],
+            "class": "Grape.Visualizer"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 41,
+            "description": "The width of the view. The maximum value (100%) is the container width.",
+            "itemtype": "property",
+            "name": "width",
+            "type": "{String|Number|Function}",
+            "default": "'100%'",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 49,
+            "description": "The height of the view. The maximum value (100%) is the container height.",
+            "itemtype": "property",
+            "name": "height",
+            "type": "{String|Number|Function}",
+            "default": "'100%'",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 57,
+            "description": "The left axis of the view in the container. The maximum value (100%) is the container width.",
+            "itemtype": "property",
+            "name": "left",
+            "type": "{String|Number|Function}",
+            "default": "0",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 65,
+            "description": "The top axis of the view in the container. The maximum value (100%) is the container height.",
+            "itemtype": "property",
+            "name": "top",
+            "type": "{String|Number|Function}",
+            "default": "0",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 73,
+            "description": "The horizontal origin of the view. Tells where should a point with x = view.x appear on the screen. The\nmaximum value (100%) is the width of the view.",
+            "itemtype": "property",
+            "name": "originX",
+            "type": "{String|Number|Function}",
+            "default": "0",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 82,
+            "description": "The vertical origin of the view. Tells where should a point with y = view.y appear on the screen. The\nmaximum value (100%) is the height of the view.",
+            "itemtype": "property",
+            "name": "originY",
+            "type": "{String|Number|Function}",
+            "default": "0",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 92,
+            "description": "The x coordinate of the showed area.",
+            "itemtype": "property",
+            "name": "x",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 101,
+            "description": "The y coordinate of the showed area.",
+            "itemtype": "property",
+            "name": "y",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 117,
+            "description": "The global alpha value of the view.",
+            "itemtype": "property",
+            "name": "alpha",
+            "type": "{number}",
+            "default": "1",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 128,
+            "description": "Information about the mouse relative to the view.",
+            "itemtype": "property",
+            "name": "mouse",
+            "type": "{number}",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 142,
+            "description": "Emitted to the containing layer when the mouse position changed according to the position in the\nprevious frame. The parameter is the view.",
+            "itemtype": "event",
+            "name": "mouseMoveView (layer)",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 163,
+            "description": "This event is fired after the createDom() method is called and the DOM element is appended to the\ncontainer. The parameter is the element.",
+            "itemtype": "event",
+            "name": "domCreated",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 188,
+            "description": "This method is called in each render frame, and should be update the displayed element's width.\nThe default functionality is setting the style width and height, but for canvas it is different.",
+            "itemtype": "method",
+            "name": "updateSize",
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 198,
+            "description": "Returns the calculated width left.",
+            "itemtype": "method",
+            "name": "getLeft",
+            "return": {
+                "description": "calculated left",
+                "type": "Number"
+            },
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 207,
+            "description": "Returns the calculated top value.",
+            "itemtype": "method",
+            "name": "getTop",
+            "return": {
+                "description": "calculated top",
+                "type": "Number"
+            },
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 216,
+            "description": "Returns the calculated width value.",
+            "itemtype": "method",
+            "name": "getWidth",
+            "return": {
+                "description": "calculated width",
+                "type": "Number"
+            },
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 225,
+            "description": "Returns the calculated height value.",
+            "itemtype": "method",
+            "name": "getHeight",
+            "return": {
+                "description": "calculated height",
+                "type": "Number"
+            },
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 234,
+            "description": "Returns the calculated originX value.",
+            "itemtype": "method",
+            "name": "getOriginX",
+            "return": {
+                "description": "calculated originX",
+                "type": "Number"
+            },
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 243,
+            "description": "Returns the calculated originY value.",
+            "itemtype": "method",
+            "name": "getOriginY",
+            "return": {
+                "description": "calculated originY",
+                "type": "Number"
+            },
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\abstract-view.js",
+            "line": 252,
+            "description": "This abstract method should create the HTMLElement which serves",
+            "itemtype": "method",
+            "name": "createDom",
+            "return": {
+                "description": "Canvas",
+                "type": "HTMLElement"
+            },
+            "class": "Grape.AbstractView"
+        },
+        {
+            "file": "js\\grape\\game\\game-loop.js",
+            "line": 84,
+            "description": "Starts the game loop.",
+            "itemtype": "method",
+            "name": "start",
+            "class": "Grape.GameLoop"
+        },
+        {
+            "file": "js\\grape\\game\\game-loop.js",
+            "line": 128,
+            "description": "Stops the game loop",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "Grape.GameLoop"
+        },
+        {
+            "file": "js\\grape\\game\\game-loop.js",
+            "line": 144,
+            "description": "Tells whether the game loop is running or not.",
+            "itemtype": "method",
+            "name": "isRunning",
+            "return": {
+                "description": "true, if running",
+                "type": "Boolean"
+            },
+            "class": "Grape.GameLoop"
+        },
+        {
+            "file": "js\\grape\\game\\game-object.js",
+            "line": 64,
+            "description": "Subscribes to an event on the layer the instance is added to. If the instance is not yet added to any layers,\nit will subscribe when added.",
+            "itemtype": "method",
+            "name": "onGlobal",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Event",
+                    "type": "String"
+                },
+                {
+                    "name": "handler",
+                    "description": "Event listener",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.GameObject"
+        },
+        {
+            "file": "js\\grape\\game\\game-object.js",
+            "line": 88,
+            "description": "Removes the instance from the layer.",
+            "itemtype": "method",
+            "name": "remove",
+            "class": "Grape.GameObject"
+        },
+        {
+            "file": "js\\grape\\game\\game-object.js",
+            "line": 96,
+            "description": "Gets the current game instance through the current layer.",
+            "itemtype": "method",
+            "name": "getGame",
+            "return": {
+                "description": "The current game, or null, if the lookup fails.",
+                "type": "Grape.Game|null"
+            },
+            "class": "Grape.GameObject"
+        },
+        {
+            "file": "js\\grape\\game\\game-object.js",
+            "line": 105,
+            "description": "Gets the root layer.",
+            "itemtype": "method",
+            "name": "getScene",
+            "return": {
+                "description": "The root layer, or null, if the lookup fails.",
+                "type": "Grape.Scene|null"
+            },
+            "class": "Grape.GameObject"
+        },
+        {
+            "file": "js\\grape\\game\\game-object.js",
+            "line": 114,
+            "description": "Returns the layer the instance is added to.",
+            "itemtype": "method",
+            "name": "getLayer",
+            "return": {
+                "description": "The layer",
+                "type": "Grape.Layer"
+            },
+            "class": "Grape.GameObject"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 13,
+            "description": "The scene which starts when (re)starting the game.\n It should be a constructor or a function returning with the scene, not an instantiated scene.",
+            "itemtype": "property",
+            "name": "initialScene",
+            "type": "{Function}",
+            "default": "Grape.Scene",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 24,
+            "description": "The dom element which serves as the screen of the game. The size of the container is not manipulated\nby the engine, therefore you should set the size of it. The engine handles when this \"screen size\"\nchanges and updates the displayed views. The container can be an id of a html element or a html\nelement itself.",
+            "itemtype": "property",
+            "name": "container",
+            "type": "{String|HTMLElement}",
+            "default": "document.body",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 44,
+            "description": "This method is called once when the game is created. If you want to use a custom game loop for your game, you\ncan override this method.",
+            "itemtype": "method",
+            "name": "createGameLoop",
+            "return": {
+                "description": "The game loop",
+                "type": "Grape.GameLoop"
+            },
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 54,
+            "description": "Starts the game. Initializes the game screen, the input system, and the game loop.",
+            "itemtype": "method",
+            "name": "start",
+            "params": [
+                {
+                    "name": "scene",
+                    "description": "Initial scene, which overrides the initialScene property.",
+                    "type": "Grape.Scene",
+                    "optional": true
+                }
+            ],
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 94,
+            "description": "Stops the game.",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 105,
+            "description": "Fired when the stop() method is called.",
+            "itemtype": "event",
+            "name": "stop",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 112,
+            "description": "Starts a new scene in the game.",
+            "itemtype": "method",
+            "name": "startScene",
+            "params": [
+                {
+                    "name": "scene",
+                    "description": "The scene",
+                    "type": "Scene"
+                }
+            ],
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 127,
+            "description": "Fired to the scene when the scene is stopped.",
+            "itemtype": "event",
+            "name": "stop (scene)",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 138,
+            "description": "Emitted to the scene when started. The parameter is the game.",
+            "itemtype": "event",
+            "name": "start (scene)",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 145,
+            "description": "Called by the game loop in each frame.",
+            "itemtype": "method",
+            "name": "frame",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 151,
+            "description": "Fired in each frame",
+            "itemtype": "event",
+            "name": "frame",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 157,
+            "description": "Fired to the actual scene in each frame",
+            "itemtype": "event",
+            "name": "frame (scene)",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 168,
+            "description": "Called by the game loop when at least one frame was executed since the last screen update.",
+            "itemtype": "method",
+            "name": "render",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 176,
+            "description": "Fired to the current scene in each render frame",
+            "itemtype": "event",
+            "name": "renderLayer (scene)",
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 184,
+            "description": "Returns the game screen which is appended to the container.",
+            "itemtype": "method",
+            "name": "getScreen",
+            "return": {
+                "description": "Screen element",
+                "type": "HTMLElement"
+            },
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 194,
+            "description": "Returns the width of the screen.",
+            "itemtype": "method",
+            "name": "getScreenWidth",
+            "return": {
+                "description": "Width",
+                "type": "Number"
+            },
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 205,
+            "description": "Returns the height of the screen.",
+            "itemtype": "method",
+            "name": "getScreenHeight",
+            "return": {
+                "description": "Height",
+                "type": "Number"
+            },
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 216,
+            "description": "Sets the cursor style for the screen.",
+            "itemtype": "method",
+            "name": "setCursor",
+            "params": [
+                {
+                    "name": "cursor",
+                    "description": "new cursor style",
+                    "type": "String"
+                }
+            ],
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 228,
+            "description": "Returns the current scene.",
+            "itemtype": "method",
+            "name": "getScene",
+            "return": {
+                "description": "",
+                "type": "Grape.Scene"
+            },
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\game.js",
+            "line": 238,
+            "description": "This method is called by the game loop to determine what is the required FPS (Frames Per Second) for the\ngame. By default, this is decided by the \"fps\" property of the current scene.",
+            "itemtype": "method",
+            "name": "getRequiredFps",
+            "return": {
+                "description": "FPS",
+                "type": "Number"
+            },
+            "class": "Grape.Game"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 53,
+            "description": "An object which stores the mouse position relative to the page. In the most cases you want to use the instance\nlevel mouse property instead.",
+            "itemtype": "property",
+            "name": "mouse",
+            "static": 1,
+            "type": "{Object}",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 62,
+            "description": "Mouse x relative to document.",
+            "itemtype": "property",
+            "name": "mouse.x",
+            "static": 1,
+            "type": "Number",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 70,
+            "description": "Mouse y relative to document.",
+            "itemtype": "property",
+            "name": "mouse.y",
+            "static": 1,
+            "type": "Number",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 190,
+            "description": "Sets the keys which would prevent the browser's default action to be triggered.",
+            "itemtype": "method",
+            "name": "setReservedKeys",
+            "params": [
+                {
+                    "name": "keys",
+                    "description": "Key ids",
+                    "type": "Array"
+                }
+            ],
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 213,
+            "description": "The x and y coordinates of the mouse relative to the game screen.",
+            "itemtype": "property",
+            "name": "mouse",
+            "type": "{Object}",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 291,
+            "description": "Fires when the <key> was pressed since the last frame.",
+            "itemtype": "event",
+            "name": "keyPress.<key>",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 297,
+            "description": "Fires when the <key> is held in the current frame.",
+            "itemtype": "event",
+            "name": "keyDown.<key>",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 303,
+            "description": "Fires when the <key> was released since the last frame.",
+            "itemtype": "event",
+            "name": "keyRelease.<key>",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 311,
+            "description": "When the mouse moves, this is the first event emitted. The parameter is the mouse property of the\ninput instance.",
+            "itemtype": "event",
+            "name": "beforeMouseMove",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 318,
+            "description": "When the mouse moves, this is the second event emitted. The parameter is the mouse property of the\ninput instance.",
+            "itemtype": "event",
+            "name": "mouseMove",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 325,
+            "description": "When the mouse moves, this is the third event emitted. The parameter is the mouse property of the\ninput instance.",
+            "itemtype": "event",
+            "name": "afterMouseMove",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 338,
+            "description": "Resets the status of the input system. Since this point all key is considered as it wasn't held. When a key\nis released when the document is not in focus (like during an alert call), it can be used.",
+            "itemtype": "method",
+            "name": "resetKeys",
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 349,
+            "description": "Tells whether the given key was pressed since the previous frame.",
+            "itemtype": "method",
+            "name": "isPressed",
+            "params": [
+                {
+                    "name": "{String",
+                    "description": "key Key id"
+                }
+            ],
+            "return": {
+                "description": "true, if the key wasn't held in the last frame but now is.",
+                "type": "Boolean"
+            },
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 359,
+            "description": "Tells whether the given key was released since the last frame.",
+            "itemtype": "method",
+            "name": "isReleased",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Key id",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "true, if the key was held in the last frame and now isn't.",
+                "type": "Boolean"
+            },
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\input.js",
+            "line": 369,
+            "description": "Tells whether the user is holding a key.",
+            "itemtype": "method",
+            "name": "isDown",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "Key id",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "true, if held.",
+                "type": "Boolean"
+            },
+            "class": "Grape.Input"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 66,
+            "description": "Adds an instance to the layer and emits it's \"add\" event.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "instance",
+                    "description": "Instance",
+                    "type": "Grape.GameObject"
+                }
+            ],
+            "return": {
+                "description": "The added instance",
+                "type": "Grape.GameObject"
+            },
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 111,
+            "description": "This event is emitted to the instance when it is added to the layer. The parameter is the layer.",
+            "itemtype": "event",
+            "name": "add (instance)",
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 119,
+            "description": "Removes an instance from the layer and emits it's \"remove\" event.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "instance",
+                    "description": ""
+                }
+            ],
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 137,
+            "description": "Emitted to the instance when it is removed from the layer.",
+            "itemtype": "event",
+            "name": "remove (instance)",
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 144,
+            "description": "Returns the instances with the given tag. Instances are indexed by tags.",
+            "itemtype": "method",
+            "name": "getByTag",
+            "return": {
+                "description": "Instances with the tag",
+                "type": "Grape.GameObjectArray"
+            },
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 153,
+            "description": "Overrides the TagContainer's method so getByTag calls produce GameObjectArray results instead of Array.",
+            "itemtype": "method",
+            "name": "createResultContainer",
+            "return": {
+                "description": "",
+                "type": "Grape.GameObjectArray"
+            },
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 184,
+            "description": "Gets the instances of one or more class in the current layer (sub-layers not included).",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "classes",
+                    "description": "Class or classes",
+                    "type": "Class|Array"
+                },
+                {
+                    "name": "descendants",
+                    "description": "Get the descendants of that class or just instances of the class itself",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "Instances",
+                "type": "GameObjectArray"
+            },
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 235,
+            "description": "Adds a sub-layer to the current layer.",
+            "itemtype": "method",
+            "name": "addLayer",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Layer name",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "layer",
+                    "description": "Sub-layer",
+                    "type": "Grape.Layer"
+                }
+            ],
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 249,
+            "description": "Adds a system to the layer. All events are emitted to all added systems.",
+            "itemtype": "method",
+            "name": "addSystem",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "system",
+                    "description": "The system",
+                    "type": "Grape.System"
+                }
+            ],
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 260,
+            "description": "Emitted to a system when it is added to a running layer or when the layer is started with a system\nadded before.",
+            "itemtype": "event",
+            "name": "start (system)",
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 269,
+            "description": "Adds a view to the layer. A synonym for addSystem.",
+            "itemtype": "method",
+            "name": "addView",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "View name",
+                    "type": "String"
+                },
+                {
+                    "name": "view",
+                    "description": "The view",
+                    "type": "Grape.View"
+                }
+            ],
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 279,
+            "description": "Removes a layer.",
+            "itemtype": "method",
+            "name": "removeLayer",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the layer or the layer itself",
+                    "type": "String|Grape.Layer"
+                }
+            ],
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 288,
+            "description": "Removes a system from the layer.",
+            "itemtype": "method",
+            "name": "removeSystem",
+            "params": [
+                {
+                    "name": "system",
+                    "description": "The name of the system or the system itself.",
+                    "type": "String|Grape.System"
+                }
+            ],
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 297,
+            "description": "Emitted to a system when it is removed from the running layer or when the layer is stopped.",
+            "itemtype": "event",
+            "name": "stop (system)",
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 305,
+            "description": "Removes a view from the layer. An alias for removeSystem.",
+            "itemtype": "method",
+            "name": "removeView",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "View name or the view itself",
+                    "type": "String|Grape.View"
+                }
+            ],
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 314,
+            "description": "Returns a system with the given name. Views are also considered as systems.",
+            "itemtype": "method",
+            "name": "getSystem",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "System name",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "System",
+                "type": "Grape.System"
+            },
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 324,
+            "description": "Returns the root layer.",
+            "itemtype": "method",
+            "name": "getScene",
+            "return": {
+                "description": "The root layer",
+                "type": "Grape.Scene"
+            },
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\layer.js",
+            "line": 336,
+            "description": "Returns the current game.",
+            "itemtype": "method",
+            "name": "getGame",
+            "return": {
+                "description": "The game",
+                "type": "Grape.Game"
+            },
+            "class": "Grape.Layer"
+        },
+        {
+            "file": "js\\grape\\game\\scene.js",
+            "line": 16,
+            "description": "This method is called in the constructor, and adds an initial view to the scene with name 'view'. If you\ndon't want this view, you can override this method and add your own views.",
+            "itemtype": "method",
+            "name": "initViews",
+            "class": "Grape.Scene"
+        },
+        {
+            "file": "js\\grape\\game\\system.js",
+            "line": 12,
+            "description": "Returns the layer the system is added to.",
+            "itemtype": "method",
+            "name": "getLayer",
+            "return": {
+                "description": "The layer",
+                "type": "Grape.Layer|undefined"
+            },
+            "class": "Grape.System"
+        },
+        {
+            "file": "js\\grape\\game\\view.js",
+            "line": 14,
+            "description": "The context of the view",
+            "itemtype": "property",
+            "name": "ctx",
+            "type": "{CanvasRenderingContext2D}",
+            "class": "Grape.View"
+        },
+        {
+            "file": "js\\grape\\game\\view.js",
+            "line": 27,
+            "description": "The render event is emitted to the layer with the canvas context parameter.",
+            "itemtype": "event",
+            "name": "render (layer)",
+            "class": "Grape.View"
+        },
+        {
+            "file": "js\\grape\\game\\view.js",
+            "line": 34,
+            "description": "Sets the width and height property for canvas (style.width and style.height are wrong).",
+            "itemtype": "method",
+            "name": "updateSize",
+            "class": "Grape.View"
+        },
+        {
+            "file": "js\\grape\\resource\\audio.js",
+            "line": 117,
+            "description": "Plays the audio.",
+            "itemtype": "method",
+            "name": "play",
+            "class": "Grape.Audio"
+        },
+        {
+            "file": "js\\grape\\resource\\cacheable.js",
+            "line": 31,
+            "description": "An abstract method which should return the same key when the resource is the same, it is used as cache key.\nA typical key is the url.",
+            "itemtype": "method",
+            "name": "getResourceKey",
+            "class": "Grape.Cacheable"
+        },
+        {
+            "file": "js\\grape\\resource\\cacheable.js",
+            "line": 39,
+            "description": "This method is called when we want to load the resource and it is not in the cache.",
+            "itemtype": "method",
+            "name": "loadResource",
+            "params": [
+                {
+                    "name": "onFinish",
+                    "description": "Should be called when the resource is ready. The parameter is the loaded data.",
+                    "type": "Function"
+                },
+                {
+                    "name": "onError",
+                    "description": "Should be called when an error occurs",
+                    "type": "Function"
+                },
+                {
+                    "name": "onProgress",
+                    "description": "Should be called when the loading progress changes (0-100)",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.Cacheable"
+        },
+        {
+            "file": "js\\grape\\resource\\cacheable.js",
+            "line": 48,
+            "description": "This method is called after load is called. If load is called multiple times, this method is not called more\nthan once. It should initialize the resource with the loaded data.",
+            "itemtype": "method",
+            "name": "process",
+            "params": [
+                {
+                    "name": "(*)",
+                    "description": "data The loaded data (passed to the onFinish method in loadResource"
+                }
+            ],
+            "class": "Grape.Cacheable"
+        },
+        {
+            "file": "js\\grape\\resource\\json-scene-source.js",
+            "line": 16,
+            "description": "The type mapping as key:class pairs.",
+            "itemtype": "property",
+            "name": "typeMapping",
+            "type": "{Object}",
+            "class": "Grape.JSONSceneSource"
+        },
+        {
+            "file": "js\\grape\\resource\\json-scene-source.js",
+            "line": 23,
+            "description": "The type(class) of the scene to create.",
+            "itemtype": "property",
+            "name": "type",
+            "type": "Class",
+            "default": "Grape.Scene",
+            "class": "Grape.JSONSceneSource"
+        },
+        {
+            "file": "js\\grape\\resource\\json-scene-source.js",
+            "line": 46,
+            "description": "Instantiates the scene.",
+            "itemtype": "method",
+            "name": "create",
+            "return": {
+                "description": "The new scene instance",
+                "type": "Scene"
+            },
+            "class": "Grape.JSONSceneSource"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 17,
+            "description": "When you create new items with the helpers(sprite(), audio()) this prefix is added to the url.\nDoes NOT affect resources you manually add to the collection.",
+            "itemtype": "property",
+            "name": "prefix",
+            "type": "String",
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 28,
+            "description": "Adds a new resource to the collection.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The unique name of the resource",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "Resource",
+                    "description": "",
+                    "type": "Grape.Resource"
+                }
+            ],
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 49,
+            "description": "Get a previously added resource by name.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "the resource",
+                "type": "Grape.Resource"
+            },
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 62,
+            "description": "Loads all resources.",
+            "itemtype": "method",
+            "name": "load",
+            "params": [
+                {
+                    "name": "onFinish",
+                    "description": "Called when all resource is loaded",
+                    "type": "Function"
+                },
+                {
+                    "name": "onError",
+                    "description": "Called when an error happens",
+                    "type": "Function"
+                },
+                {
+                    "name": "onProgress",
+                    "description": "Called when a resource is loaded or progress changed",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 126,
+            "description": "Returns the sum of the estimated time of all resource.",
+            "itemtype": "method",
+            "name": "getEstimatedTime",
+            "return": {
+                "description": "Sum",
+                "type": "Number"
+            },
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 139,
+            "description": "Creates a new sprite and adds to the collection.",
+            "itemtype": "method",
+            "name": "sprite",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Key",
+                    "type": "String"
+                },
+                {
+                    "name": "url",
+                    "description": "Sprite URL",
+                    "type": "String"
+                },
+                {
+                    "name": "settings",
+                    "description": "Settings passed to the Sprite constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The defined sprite",
+                "type": "Grape.Sprite"
+            },
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 153,
+            "description": "Creates multiple sprites and adds to the collection. The sprites should have the same dimensions.",
+            "itemtype": "method",
+            "name": "tile",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "Image url",
+                    "type": "String"
+                },
+                {
+                    "name": "width",
+                    "description": "Width of all sprite",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "Height of all sprite",
+                    "type": "Number"
+                },
+                {
+                    "name": "sprites",
+                    "description": "Sprite names and positions as key:[left, top, subimages] The positions array is\nmultiplied with the width and height, and the 'subimages' part is optional.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The created sprites by name",
+                "type": "Object"
+            },
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 178,
+            "description": "Creates an Audio resource and adds to the collection. Check Grape.Audio for more information.",
+            "itemtype": "method",
+            "name": "audio",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Key",
+                    "type": "String"
+                },
+                {
+                    "name": "opts",
+                    "description": "Audio options",
+                    "type": "Object"
+                },
+                {
+                    "name": "url1",
+                    "description": "Audio URL",
+                    "type": "String"
+                },
+                {
+                    "name": "url2",
+                    "description": "Audio URL fallback if url1 extension is not supported",
+                    "type": "String"
+                },
+                {
+                    "name": "url3",
+                    "description": "Audio URL fallback if url2 extension is not supported",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The Audio resource",
+                "type": "Grape.Audio"
+            },
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource-collection.js",
+            "line": 200,
+            "description": "Creates a new JSONSceneSource, and adds to the collection.",
+            "itemtype": "method",
+            "name": "scene",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Key",
+                    "type": "String"
+                },
+                {
+                    "name": "url",
+                    "description": "Scene JSON URL",
+                    "type": "String"
+                },
+                {
+                    "name": "settings",
+                    "description": "Settings passed as constructor parameter to JSONSceneSource.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The created JSONSceneSource",
+                "type": "Grape.JSONSceneSource"
+            },
+            "class": "Grape.ResourceCollection"
+        },
+        {
+            "file": "js\\grape\\resource\\resource.js",
+            "line": 10,
+            "description": "Returns the estimated time to load the resource. Can be overridden.",
+            "itemtype": "method",
+            "name": "getEstimatedTime",
+            "return": {
+                "description": "The estimated time",
+                "type": "Number"
+            },
+            "class": "Grape.Resource"
+        },
+        {
+            "file": "js\\grape\\resource\\resource.js",
+            "line": 18,
+            "description": "Called when the resource is needed to load.",
+            "itemtype": "method",
+            "name": "load",
+            "params": [
+                {
+                    "name": "onFinish",
+                    "description": "have to be called when the resource is finished",
+                    "type": "Function"
+                },
+                {
+                    "name": "onError",
+                    "description": "have to be called when an error occurs",
+                    "type": "Function"
+                },
+                {
+                    "name": "onProgress",
+                    "description": "may be called when the progress changes (value in percent)",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.Resource"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 52,
+            "description": "The left position of the sprite in the image.",
+            "itemtype": "property",
+            "name": "left",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 60,
+            "description": "The top position of the sprite in the image.",
+            "itemtype": "property",
+            "name": "top",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 68,
+            "description": "The left side of the sprite's bounding box",
+            "itemtype": "property",
+            "name": "leftBounding",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 76,
+            "description": "The top side of the sprite's bounding box",
+            "itemtype": "property",
+            "name": "topBounding",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 85,
+            "description": "The x coordinate of the sprite origin",
+            "itemtype": "property",
+            "name": "originX",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 93,
+            "description": "The y coordinate of the sprite origin",
+            "itemtype": "property",
+            "name": "originY",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 102,
+            "description": "The number of subimages (animation length). Subsequent images have to be arranged left to right.",
+            "itemtype": "property",
+            "name": "subimages",
+            "type": "{Number}",
+            "default": "1",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 112,
+            "description": "The width of the sprite. If not set, it will be calculated by the image width and the animation length.",
+            "itemtype": "property",
+            "name": "width",
+            "type": "{Number}",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 119,
+            "description": "The height of the sprite. If not set, it will be the height of the image.",
+            "itemtype": "property",
+            "name": "height",
+            "type": "{Number}",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 126,
+            "description": "The right side of the sprite's bounding box. If not set, it will be the image width.",
+            "itemtype": "property",
+            "name": "rightBounding",
+            "type": "{Number}",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\resource\\sprite.js",
+            "line": 133,
+            "description": "The bottom side of the sprite's bounding box. If not set it will be the image height.",
+            "itemtype": "property",
+            "name": "bottomBounding",
+            "type": "{Number}",
+            "class": "Grape.Sprite"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 12,
+            "description": "Tells whether the given class is a parent of the current class.",
+            "itemtype": "method",
+            "name": "extends",
+            "static": 1,
+            "params": [
+                {
+                    "name": "clazz",
+                    "description": "The class",
+                    "type": "Class"
+                }
+            ],
+            "return": {
+                "description": "true, if the given class is a parent",
+                "type": "Boolean"
+            },
+            "class": "Grape.Object"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 23,
+            "description": "Creates a new class, which extends this class. X.extend(a, b) is the same as Grape.Class(a,X,b)",
+            "itemtype": "method",
+            "name": "extend",
+            "static": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The class name",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "methods",
+                    "description": "Class methods",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The new class",
+                "type": "Class"
+            },
+            "class": "Grape.Object"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 50,
+            "description": "Tells that the current instance is an instance of a class, or it's descendants.",
+            "itemtype": "method",
+            "name": "instanceOf",
+            "params": [
+                {
+                    "name": "clazz",
+                    "description": "",
+                    "type": "Class"
+                }
+            ],
+            "return": {
+                "description": "true, if yes.",
+                "type": "Boolean"
+            },
+            "class": "Grape.Object"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 60,
+            "description": "Creates a proxy for calling a parent method",
+            "itemtype": "method",
+            "name": "parent",
+            "params": [
+                {
+                    "name": "clazz",
+                    "description": "The parent, whose method will be called",
+                    "type": "Class"
+                },
+                {
+                    "name": "method",
+                    "description": "Method name",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Method proxy. When called, calls the parent method with the parameters, and original\ncontext.",
+                "type": "Function"
+            },
+            "class": "Grape.Object"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 82,
+            "description": "Returns the instance's constructor class",
+            "itemtype": "method",
+            "name": "getClass",
+            "return": {
+                "description": "",
+                "type": "Class"
+            },
+            "class": "Grape.Object"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 103,
+            "description": "Creates a class by optionally copying prototype methods of one or more class.",
+            "itemtype": "method",
+            "name": "Class",
+            "static": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the class (mainly for debugging purposes)",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "parents",
+                    "description": "Parent class or classes",
+                    "type": "Array|Class",
+                    "optional": true
+                },
+                {
+                    "name": "methods",
+                    "description": "An object containing methods. If method name contains space, the keyword parts are parsed\nand keyword specific tasks are executed.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "*"
+            },
+            "class": "Grape"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 143,
+            "description": "The name of the class if set, or a generated string.",
+            "itemtype": "property",
+            "name": "className",
+            "static": 1,
+            "type": "{String}",
+            "class": "Grape.Object"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 153,
+            "description": "An unique number for the class, mainly for indexing purposes",
+            "itemtype": "property",
+            "name": "id",
+            "static": 1,
+            "type": "{Number}",
+            "class": "Grape.Object"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 384,
+            "description": "Registers a new keyword (like 'final' or 'static').\nTodov2 callback params",
+            "itemtype": "method",
+            "name": "registerKeyword",
+            "static": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "handlers",
+                    "description": "The functions called during the class creation",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "onInit",
+                            "description": "Called when a new class is about to create",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "onAdd",
+                            "description": "Called when a method with the keyword is added to the class",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "onFinish",
+                            "description": "Called when the class is ready",
+                            "type": "Function",
+                            "optional": true
+                        }
+                    ]
+                }
+            ],
+            "class": "Grape.Class"
+        },
+        {
+            "file": "js\\grape\\class.js",
+            "line": 405,
+            "description": "Tells to the Grape class system that two keywords can be used together. If not explicitly told, a keyword cannot\nbe used with other ones. The order of keywords is irrelevant.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "registerKeywordMatching",
+            "params": [
+                {
+                    "name": "k1",
+                    "description": "Keyword 1",
+                    "type": "String"
+                },
+                {
+                    "name": "k2",
+                    "description": "Keyword 2",
+                    "type": "String"
+                }
+            ],
+            "class": "Grape.Class"
+        },
+        {
+            "file": "js\\grape\\env.js",
+            "line": 9,
+            "description": "Is the current environment a browser?",
+            "type": "boolean",
+            "itemtype": "property",
+            "name": "browser",
+            "static": 1,
+            "class": "Grape.Env"
+        },
+        {
+            "file": "js\\grape\\env.js",
+            "line": 17,
+            "description": "Is the current environment node.js?",
+            "type": "boolean",
+            "itemtype": "property",
+            "name": "node",
+            "static": 1,
+            "class": "Grape.Env"
+        },
+        {
+            "file": "js\\grape\\main.js",
+            "line": 18,
+            "description": "The version of the current Grape library",
+            "static": 1,
+            "itemtype": "property",
+            "name": "version",
+            "type": "{string}",
+            "class": "Grape"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 8,
+            "description": "Adds an event listener to a DOM element.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "addEventListener",
+            "params": [
+                {
+                    "name": "el",
+                    "description": "DOM element",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "ev",
+                    "description": "Event name",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "Event handler",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 20,
+            "description": "Removes an event listener from a DOM element.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "removeEventListener",
+            "params": [
+                {
+                    "name": "el",
+                    "description": "DOM element",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "ev",
+                    "description": "Event name",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "Event handler",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 42,
+            "description": "Decides whether a DOM element contains an other one",
+            "static": 1,
+            "itemtype": "method",
+            "name": "domContains",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "The container element",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "b",
+                    "description": "The contained element",
+                    "type": "HTMLElement"
+                }
+            ],
+            "return": {
+                "description": "true if the first element contains the second",
+                "type": "Boolean"
+            },
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 69,
+            "description": "Decides whether an object is an array.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "isArray",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to test",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "true, if the object is an array",
+                "type": "Boolean"
+            },
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 80,
+            "description": "Decides whether an object is a function.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "isFunction",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to test",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "true, if the object is a function",
+                "type": "Boolean"
+            },
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 91,
+            "description": "Copies properties to an object from an other object.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "extend",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "The properties are copied to this object.",
+                    "type": "Object"
+                },
+                {
+                    "name": "options",
+                    "description": "The properties are copied from this object",
+                    "type": "Object"
+                }
+            ],
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 105,
+            "description": "Finds an element in an array and removes it.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "removeFromArray",
+            "params": [
+                {
+                    "name": "array",
+                    "description": "The array",
+                    "type": "Array"
+                },
+                {
+                    "name": "element",
+                    "description": "The element to remove",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "true, if the item was found and removed",
+                "type": "Boolean"
+            },
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 123,
+            "description": "Decides whether an array contains an element.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "arrayContains",
+            "params": [
+                {
+                    "name": "array",
+                    "description": "The array",
+                    "type": "Array"
+                },
+                {
+                    "name": "element",
+                    "description": "The element to find",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "true, if found",
+                "type": "Boolean"
+            },
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 136,
+            "description": "Sends an AJAX request",
+            "static": 1,
+            "itemtype": "method",
+            "name": "ajax",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "Request url",
+                    "type": "String"
+                },
+                {
+                    "name": "opts",
+                    "description": "Options AJAX options",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "async",
+                            "description": "The request is asynchronous",
+                            "type": "Boolean",
+                            "optional": true
+                        },
+                        {
+                            "name": "responseType",
+                            "description": "the XHR responseType",
+                            "type": "String",
+                            "optional": true
+                        }
+                    ]
+                },
+                {
+                    "name": "onSuccess",
+                    "description": "Success event handler. The parameter is the response text.",
+                    "type": "Function"
+                },
+                {
+                    "name": "onError",
+                    "description": "Error callback",
+                    "type": "Function"
+                }
+            ],
+            "class": "Grape.Utils"
+        },
+        {
+            "file": "js\\grape\\utils.js",
+            "line": 174,
+            "description": "Parses a JSON document",
+            "itemtype": "method",
+            "name": "parseJSON",
+            "static": 1,
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The document",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The JSON object",
+                "type": "*"
+            },
+            "class": "Grape.Utils"
+        }
+    ],
+    "warnings": []
+}

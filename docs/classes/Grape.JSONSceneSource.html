@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Grape.JSONSceneSource - grape</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="grape"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Grape.html">Grape</a></li>
+            
+                <li><a href="../classes/Grape.AABB.html">Grape.AABB</a></li>
+            
+                <li><a href="../classes/Grape.AbstractView.html">Grape.AbstractView</a></li>
+            
+                <li><a href="../classes/Grape.Alarm.html">Grape.Alarm</a></li>
+            
+                <li><a href="../classes/Grape.Animation.html">Grape.Animation</a></li>
+            
+                <li><a href="../classes/Grape.Array.html">Grape.Array</a></li>
+            
+                <li><a href="../classes/Grape.Audio.html">Grape.Audio</a></li>
+            
+                <li><a href="../classes/Grape.Bag.html">Grape.Bag</a></li>
+            
+                <li><a href="../classes/Grape.Cacheable.html">Grape.Cacheable</a></li>
+            
+                <li><a href="../classes/Grape.Class.html">Grape.Class</a></li>
+            
+                <li><a href="../classes/Grape.Collidable.html">Grape.Collidable</a></li>
+            
+                <li><a href="../classes/Grape.CollisionSystem.html">Grape.CollisionSystem</a></li>
+            
+                <li><a href="../classes/Grape.Env.html">Grape.Env</a></li>
+            
+                <li><a href="../classes/Grape.EventEmitter.html">Grape.EventEmitter</a></li>
+            
+                <li><a href="../classes/Grape.Game.html">Grape.Game</a></li>
+            
+                <li><a href="../classes/Grape.GameLoop.html">Grape.GameLoop</a></li>
+            
+                <li><a href="../classes/Grape.GameObject.html">Grape.GameObject</a></li>
+            
+                <li><a href="../classes/Grape.GameObjectArray.html">Grape.GameObjectArray</a></li>
+            
+                <li><a href="../classes/Grape.GUIView.html">Grape.GUIView</a></li>
+            
+                <li><a href="../classes/Grape.Input.html">Grape.Input</a></li>
+            
+                <li><a href="../classes/Grape.JSONSceneSource.html">Grape.JSONSceneSource</a></li>
+            
+                <li><a href="../classes/Grape.Layer.html">Grape.Layer</a></li>
+            
+                <li><a href="../classes/Grape.Mouse.html">Grape.Mouse</a></li>
+            
+                <li><a href="../classes/Grape.Object.html">Grape.Object</a></li>
+            
+                <li><a href="../classes/Grape.Physical.html">Grape.Physical</a></li>
+            
+                <li><a href="../classes/Grape.Position.html">Grape.Position</a></li>
+            
+                <li><a href="../classes/Grape.Rectangle.html">Grape.Rectangle</a></li>
+            
+                <li><a href="../classes/Grape.Resource.html">Grape.Resource</a></li>
+            
+                <li><a href="../classes/Grape.ResourceCollection.html">Grape.ResourceCollection</a></li>
+            
+                <li><a href="../classes/Grape.Scene.html">Grape.Scene</a></li>
+            
+                <li><a href="../classes/Grape.Sprite.html">Grape.Sprite</a></li>
+            
+                <li><a href="../classes/Grape.SpriteVisualizer.html">Grape.SpriteVisualizer</a></li>
+            
+                <li><a href="../classes/Grape.System.html">Grape.System</a></li>
+            
+                <li><a href="../classes/Grape.TagContainer.html">Grape.TagContainer</a></li>
+            
+                <li><a href="../classes/Grape.Taggable.html">Grape.Taggable</a></li>
+            
+                <li><a href="../classes/Grape.Utils.html">Grape.Utils</a></li>
+            
+                <li><a href="../classes/Grape.View.html">Grape.View</a></li>
+            
+                <li><a href="../classes/Grape.Visualizer.html">Grape.Visualizer</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>Grape.JSONSceneSource Class</h1>
+<div class="box meta">
+    
+        <div class="uses">
+            Uses
+            <ul class="inline commas">
+                
+                    <li><a href="Grape.Cacheable.html">Grape.Cacheable</a></li>
+                
+            </ul>
+        </div>
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/js_grape_resource_json-scene-source.js.html#l2"><code>js\grape\resource\json-scene-source.js:2</code></a>
+        </div>
+    
+
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Represents a JSON scene source. After the scene source is loaded, you can instantiate the scene. The type of the
+instances have to be defined in a type mapping.</p>
+
+</div>
+
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_Grape.JSONSceneSource" class="method item">
+    <h3 class="name"><code>Grape.JSONSceneSource</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>opts</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/js_grape_resource_json-scene-source.js.html#l2"><code>js\grape\resource\json-scene-source.js:2</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>JSON url</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">opts</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Initial properties</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method">
+                                <a href="#method_create">create</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_getResourceKey">getResourceKey</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_loadResource">loadResource</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_process">process</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property">
+                                <a href="#property_type">type</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_typeMapping">typeMapping</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_create" class="method item">
+    <h3 class="name"><code>create</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Scene</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/js_grape_resource_json-scene-source.js.html#l46"><code>js\grape\resource\json-scene-source.js:46</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Instantiates the scene.</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Scene</span>:
+                    
+                    <p>The new scene instance</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getResourceKey" class="method item inherited">
+    <h3 class="name"><code>getResourceKey</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Grape.Cacheable.html#method_getResourceKey">Grape.Cacheable</a>:
+            
+        
+        
+        <a href="../files/js_grape_resource_cacheable.js.html#l31"><code>js\grape\resource\cacheable.js:31</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>An abstract method which should return the same key when the resource is the same, it is used as cache key.
+A typical key is the url.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_loadResource" class="method item inherited">
+    <h3 class="name"><code>loadResource</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>onFinish</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>onError</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>onProgress</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Grape.Cacheable.html#method_loadResource">Grape.Cacheable</a>:
+            
+        
+        
+        <a href="../files/js_grape_resource_cacheable.js.html#l39"><code>js\grape\resource\cacheable.js:39</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>This method is called when we want to load the resource and it is not in the cache.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">onFinish</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Should be called when the resource is ready. The parameter is the loaded data.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">onError</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Should be called when an error occurs</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">onProgress</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Should be called when the loading progress changes (0-100)</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_process" class="method item inherited">
+    <h3 class="name"><code>process</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>(*)</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Grape.Cacheable.html#method_process">Grape.Cacheable</a>:
+            
+        
+        
+        <a href="../files/js_grape_resource_cacheable.js.html#l48"><code>js\grape\resource\cacheable.js:48</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>This method is called after load is called. If load is called multiple times, this method is not called more
+than once. It should initialize the resource with the loaded data.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">(*)</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>data The loaded data (passed to the onFinish method in loadResource</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property_type" class="property item">
+    <h3 class="name"><code>type</code></h3>
+    <span class="type">Class</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/js_grape_resource_json-scene-source.js.html#l23"><code>js\grape\resource\json-scene-source.js:23</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The type(class) of the scene to create.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> Grape.Scene</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_typeMapping" class="property item">
+    <h3 class="name"><code>typeMapping</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/js_grape_resource_json-scene-source.js.html#l16"><code>js\grape\resource\json-scene-source.js:16</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The type mapping as key:class pairs.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
