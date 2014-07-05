@@ -59,12 +59,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', ['jshint', 'test', 'build', 'min', 'generate-docs']);
+    grunt.registerTask('default', ['jshint', 'test', 'build', 'min', 'doc']);
 
     grunt.registerTask('min', ['uglify']);
     grunt.registerTask('hint', ['jshint']);
-    grunt.registerTask('test', ['build', 'karma:all']);
-    grunt.registerTask('continuous testing', ['karma:continuous']);
+    grunt.registerTask('test', ['karma:all']);
+    grunt.registerTask('test-dev', ['karma:continuous']);
     //TODOv2 dev
-    grunt.registerTask('generate-docs', ['yuidoc', 'doc-coverage']);
+    grunt.registerTask('doc', ['yuidoc', 'doc-coverage']);
 };

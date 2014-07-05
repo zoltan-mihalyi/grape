@@ -28,7 +28,7 @@
         "karma-coveralls": "~0.1.4"
     },
     "scripts": {
-        "test": "grunt test",
+        "test": "grunt build && grunt test",
         "build": "npm install && grunt"
     }
 }
