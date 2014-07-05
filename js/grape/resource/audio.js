@@ -38,6 +38,11 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
      *
      * @class Grape.Audio
      * @uses Grape.Cacheable
+     * @constructor
+     * @param {Object} opts Audio options
+     * @param {String} url1 Audio URL
+     * @param {String} url2 Audio URL fallback if url1 extension is not supported
+     * @param {String} url3 Audio URL fallback if url2 extension is not supported
      */
     return Class('Audio', Cacheable, {
         init: function (opts, url1, url2, url3) {

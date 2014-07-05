@@ -7,12 +7,11 @@ Grape.js is a JavaScript game engine.
 
 
 
-Download: http://zoltan-mihalyi.github.io/grape/download
+Download: http://zoltan-mihalyi.github.io/grape/
 
 Pong example: http://zoltan-mihalyi.github.io/grape/pong
 
-Full API documentation: http://zoltan-mihalyi.github.io/grape/doc
-
+Full API documentation: http://zoltan-mihalyi.github.io/grape/docs
 
 ## Cool stuff
 
@@ -41,7 +40,7 @@ Why is Grape special?
 
 ## Getting started
 
-Download the engine from the download page: http://zoltan-mihalyi.github.io/grape/download
+Download the engine from the download page: http://zoltan-mihalyi.github.io/grape/
 
 The library is AMD compatible, you can use it with require.js.
 
@@ -196,12 +195,12 @@ res.load( //load resources at all
     function () { //finish handler
         console.log('loading finished');
         res.get('die').play(); //plays the loaded sound
-    },
-    function (progress) { //progress handler
-        console.log('loading progress:' + progress);
     }, 
     function () { //error handler
         console.log('loading failed!');
+    },
+    function (progress) { //progress handler
+        console.log('loading progress:' + progress);
     }
 );
 ```
@@ -238,9 +237,9 @@ new Grape.Game({initialScene: Level1}).start();
 
 Pong example: http://zoltan-mihalyi.github.io/grape/pong
 
-Full API documentation: http://zoltan-mihalyi.github.io/grape/doc
+Full API documentation: http://zoltan-mihalyi.github.io/grape/docs
 
-## Contribute
+## Contributing
 
 Feel free to submit issues, fork and create pull request! This article can help: https://help.github.com/articles/using-pull-requests
 

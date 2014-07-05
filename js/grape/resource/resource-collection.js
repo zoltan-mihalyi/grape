@@ -176,16 +176,24 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
             return res;
         },
         /**
-         * Creates an Audio resource and adds to the collection.
+         * Creates an Audio resource and adds to the collection. Check Grape.Audio for more information.
          *
          * @method audio
          * @param {String} name Key
-         * @param {String} url Audio URL
-         * @param {Object} settings Settings passed as constructor parameter to Audio.
+         * @param {Object} opts Audio options
+         * @param {String} url1 Audio URL
+         * @param {String} url2 Audio URL fallback if url1 extension is not supported
+         * @param {String} url3 Audio URL fallback if url2 extension is not supported
          * @return {Grape.Audio} The Audio resource
          */
-        audio: function (name, url, settings) { //TODOv2 add from audio.js
-            var audio = new GrapeAudio(this.prefix + url, settings); //TODO wrong params and url prefixes
+        audio: function (name, opts, url1, url2, url3) { //TODOv2 add from audio.js
+            if (typeof opts === 'string') {
+                url3 = url2 ? this.prefix + url2 : url2;
+                url2 = url1 ? this.prefix + url1 : url1;
+                url1 = opts ? this.prefix + opts : opts;
+                opts = {};
+            }
+            var audio = new GrapeAudio(opts, url1, url2, url3);
             this.add(name, audio);
             return audio;
         },
