@@ -185,7 +185,7 @@ define(['../class', './audio', './json-scene-source', './resource', './sprite'],
          * @return {Grape.Audio} The Audio resource
          */
         audio: function (name, url, settings) { //TODOv2 add from audio.js
-            var audio = new GrapeAudio(this.prefix + url, settings);
+            var audio = new GrapeAudio(this.prefix + url, settings); //TODO wrong params and url prefixes
             this.add(name, audio);
             return audio;
         },

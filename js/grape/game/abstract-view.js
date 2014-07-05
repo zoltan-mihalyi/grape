@@ -65,7 +65,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             /**
              * The top axis of the view in the container. The maximum value (100%) is the container height.
              *
-             * @property left
+             * @property top
              * @type {String|Number|Function}
              * @default 0
              */

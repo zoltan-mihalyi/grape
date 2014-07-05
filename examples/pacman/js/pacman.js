@@ -24,7 +24,7 @@ define(['grape'], function (Grape) {
 
 
     var Pickupable = Grape.Class('Pickupable', [Grape.Collidable, Grape.SpriteVisualizer], {
-        sprite:res.get('dot'),
+        sprite: res.get('dot'),
         'event add': function () {
             this.addTag('PICKUPABLE');
         },
@@ -96,9 +96,10 @@ define(['grape'], function (Grape) {
         }
     });
 
-    Grape.Input.setReservedKeys();
-
-    var Pacman = window.Pacman = new Grape.Game();
+    var Pacman = window.Pacman = new Grape.Game({
+        reservedKeys: ['up', 'down'],
+        container: 'game'
+    });
     res.load(function () {
         Pacman.start(res.get('level1').create());
     });

@@ -8,7 +8,7 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
      * @uses Grape.AbstractView
      * @constructor
      */
-    return Class('View', AbstractView, {
+    return Class('View', AbstractView, { //TODOv2 custom functions like ctx.extra.drawBackground()
         'override createDom': function () {
             var canvas = document.createElement('canvas');
             /**
@@ -22,7 +22,7 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
             return canvas;
         },
         'event renderLayer': function () {
-            this.ctx.clearRect(0, 0, this.el.width, this.el.height);
+            this.ctx.clearRect(0, 0, this.el.width, this.el.height); //TODOv2 preserve surface (optional)
             this.ctx.translate(-this.x + this.getOriginX(), -this.y + this.getOriginY());
             /**
              * The render event is emitted to the layer with the canvas context parameter.
@@ -36,7 +36,7 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
          *
          * @method updateSize
          */
-        'override updateSize': function () {
+        'override updateSize': function () { //TODOv2 preserve data on resizing (optional)
             this.el.width = this.getWidth();
             this.el.height = this.getHeight();
         }
