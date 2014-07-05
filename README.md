@@ -41,6 +41,10 @@ Why is Grape special?
 
 ## Getting started
 
+Download the engine from the download page: http://zoltan-mihalyi.github.io/grape/download
+
+The library is AMD compatible, you can use it with require.js.
+
 ### Class system
 
 Creating applications is much easier with a good OOP class system. Grape uses it's own for developing games and the engine itself.
@@ -48,11 +52,11 @@ Let's see some basic thing about classes in Grape!
 
 ```javascript
 var Greeter = Grape.Class({ //If you pass an object parameter, it will define the prototype of the class.
-	init:function(name){ //Function named 'init' becomes the constructor
+    init: function (name) { //Function named 'init' becomes the constructor
         this.name = name || 'anonymus';
     },
-    greet:function(){
-    	return 'Hello, ' + this.name;
+    greet: function () {
+        return 'Hello, ' + this.name;
     }
 });
 
@@ -76,17 +80,17 @@ If you put spaces to method names, the words will be parsed as keywords, and wil
 
 ```javascript
 var Greeter = Grape.Class('Greeter', [Grape.EventEmitter], { //An Array or a class as parameter defines the parent class(es).
-	'static MESSAGE': 'Hello, ', //you can use different keywords, 'static' works exactly as you expect.
-	init:function(name){
+    'static MESSAGE': 'Hello, ', //you can use different keywords, 'static' works exactly as you expect.
+    init: function (name) {
         this.name = name || 'anonymus';
     },
-    greet:function(){
-    	var message = Greeter.MESSAGE + this.name;
+    greet: function () {
+        var message = Greeter.MESSAGE + this.name;
         this.emit('greet', message); //the emit function comes from EventEmitter. Callbacks registered for the greet event is called.
-    	return message;
+        return message;
     },
-    'event greet':function(message){ //class-level event handler
-    	console.log('Someone was greeted with the message: ' + message);
+    'event greet': function (message) { //class-level event handler
+        console.log('Someone was greeted with the message: ' + message);
     }
 });
 ```
@@ -113,7 +117,7 @@ var MyScene = Grape.Scene.extend({ //create a new class by extending Grape.Scene
 
     //Grape.Scene creates an initial view, which can be overridden in initViews.
     //The view emits the render event to the container layer with the canvas context as parameter.
-    'event render':function(ctx){
+    'event render': function (ctx) {
         ctx.fillText('Hello, my first game!', 100, 100); //we can draw anything to the canvas context
     }
 });
@@ -127,34 +131,34 @@ A sample setting for a split-screen game with a 30px heigh GUI bar:
 
 ```javascript
 var MultiplayerScene = Grape.Scene.extend({
-	init:function(){
-   		//...
-    	this.getLayer('level').addView('player1-view', new Grape.View({
-        	left:0, //position on the screen
-            top:30,
-            width:'50%', //relative to screen
-            height:'100%',
-            originX:'50%', //current x and y is displayed in the center of the view (origins are relative to view size)
-            originY:'50%'
+    init: function () {
+        //...
+        this.getLayer('level').addView('player1-view', new Grape.View({
+            left: 0, //position on the screen
+            top: 30,
+            width: '50%', //relative to screen
+            height: '100%',
+            originX: '50%', //current x and y is displayed in the center of the view (origins are relative to view size)
+            originY: '50%'
         }));
-        
-    	this.getLayer('level').addView('player2-view', new Grape.View({
-        	left:'50%',
-            top:30,
-            width:'50%',
-            height:'100%',
-            originX:'50%',
-            originY:'50%'
+
+        this.getLayer('level').addView('player2-view', new Grape.View({
+            left: '50%',
+            top: 30,
+            width: '50%',
+            height: '100%',
+            originX: '50%',
+            originY: '50%'
         }));
-        
+
         this.getLayer('infobar-objects').addView('infobar-view', new Grape.View({
-        	left:0,
-            top:0,
-            width:'100%'
-            height:30
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: 30
         }));
     },
-	'override initViews':function(){ //don't need the default view
+    'override initViews': function () { //don't need the default view
     }
 });
 ```
@@ -167,14 +171,15 @@ Resource handling and preloading can be a painful task, but you can easily solve
 Let's see how to define different resources:
 ```javascript
 var player = new Grape.Sprite('images/player.png', {
-	originX: 16, //the center of the sprite will show at the (0, 0) coordinates if the sprite size is 32x32.
+    originX: 16, //the center of the sprite will show at the (0, 0) coordinates if the sprite size is 32x32.
     originY: 16
 });
 
 var shoot = new Grape.Audio('audio/shoot.mp3', 'audio/shoot.ogg', 'audio/shoot.wav'); //fallback urls (browser's audio format support is very bad)
 
-player.load(function(){ console.log('player sprite loaded')}); //resources can be loaded individually
-
+player.load(function () { //resources can be loaded one by one
+    console.log('player sprite loaded')
+});
 ```
 
 Using *ResourceCollections* makes things easier:
@@ -188,12 +193,16 @@ res.audio('die', 'audio/die.mp3', 'audio/die.ogg', 'audio/die.wav'); //helper fu
 
 //resource collections can be nested
 res.load( //load resources at all
-	function (){ //finish handler
-    	console.log('loading finished');
+    function () { //finish handler
+        console.log('loading finished');
         res.get('die').play(); //plays the loaded sound
     },
-    function (progress){console.log('loading progress:' + progress);}, //progress handler
-    function (){console.log('loading failed!');} //error handler
+    function (progress) { //progress handler
+        console.log('loading progress:' + progress);
+    }, 
+    function () { //error handler
+        console.log('loading failed!');
+    }
 );
 ```
 
@@ -203,24 +212,24 @@ The core of every game are the game objects. These objects can be added to scene
 
 ```
 var Player = Grape.Class('Player', [Grape.SpriteVisualizer, Grape.Collidable, Grape.Physical], {
-	init:function(){
-    	this.sprite = res.get('player'); //sprite property is required by SpriteVisualizer for displaying the game object.
+    init: function () {
+        this.sprite = res.get('player'); //sprite property is required by SpriteVisualizer for displaying the game object.
     },
-    'global-event keyDown.left':function(){ //moving with arrows
-    	this.x -= 4;
+    'global-event keyDown.left': function () { //moving with arrows
+        this.x -= 4;
     },
-    'global-event keyDown.right':function(){
-    	this.x += 4;
+    'global-event keyDown.right': function () {
+        this.x += 4;
     },
-    'global-event keyPress.space':function(){
-    	this.getLayer().add(new Bullet({x:this.x, y: this.y, speedX:20}));        
+    'global-event keyPress.space': function () {
+        this.getLayer().add(new Bullet({x: this.x, y: this.y, speedX: 20}));
         res.get('shoot').play();
     }
 });
 
 var Level1 = Grape.Scene.extend({
-	init:function(){
-    	this.add(new Player({x:200, y: 200}));
+    init: function () {
+        this.add(new Player({x: 200, y: 200}));
     }
 });
 
@@ -233,21 +242,55 @@ Full API documentation: http://zoltan-mihalyi.github.io/grape/doc
 
 ## Contribute
 
+Feel free to submit issues, fork and create pull request! This article can help: https://help.github.com/articles/using-pull-requests
 
-## Build
+### Setting up development environment
 
-Project is built with grunt.
-If you don't have grunt cli, run
+You can edit and test the result using a require.js config similar to the **examples/pong/required/index.grape-dev.html**. If you want to build, generate documentation or test, you should do the following:
+
+make sure node.js is installed to your system ( http://nodejs.org )
+
+Install Grunt CLI: 
 
     npm install -g grunt-cli
 
-To install development dependencies you have to
+Install development dependencies: 
 
-    npm install
+	npm install
 
-If you don't have npm, download node.js from http://nodejs.org
-If you installed the dependencies, you can build with
+
+### Building
+
+Creating **dist/grape.js**:
 
     grunt build
 
-Then dist/grape.js appears.
+Making a minified version from the built file to **dist/grape.min.js** and **dist/grape.min.map**:
+
+	grunt min
+    
+Generate documentation to **dist/docs/**:
+
+	grunt doc
+    
+Hint, test, build, min, documentation:
+
+	grunt
+
+### Testing
+
+Running all test and create coverage to **coverage/**:
+
+	grunt test
+    
+Continuous testing:
+	
+    grunt test-dev
+
+JSHint validation:
+
+	grunt hint
+    
+Checking documentation coverage with an internal script:
+
+	grunt doc-coverage
