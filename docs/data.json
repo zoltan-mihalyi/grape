@@ -2,7 +2,7 @@
     "project": {
         "name": "grape",
         "description": "A really fast JavaScript game engine",
-        "version": "0.0.1",
+        "version": "1.0.0",
         "url": ""
     },
     "files": {

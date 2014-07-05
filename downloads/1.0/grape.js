@@ -4696,7 +4696,7 @@ define('m14', ['m3', 'm6', 'm1', 'mm', 'mw', 'm13', 'm2'], function (Class, Coll
      * @property version
      * @type {string}
      */
-    Grape.version = "0.0.1";
+    Grape.version = "1.0.0";
 
     return Grape;
 });
