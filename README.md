@@ -1,10 +1,9 @@
 [![Build Status](https://travis-ci.org/zoltan-mihalyi/grape.svg?branch=master)](https://travis-ci.org/zoltan-mihalyi/grape)
 [![Coverage Status](https://coveralls.io/repos/zoltan-mihalyi/grape/badge.png)](https://coveralls.io/r/zoltan-mihalyi/grape)
 
-# Grape.js
+<img src="http://zoltan-mihalyi.github.io/grape/docs/assets/css/logo.png" width="240" />
 
-Grape.js is a JavaScript game engine.
-
+Grape is a JavaScript game engine designed to be fast and modular.
 
 
 Download: http://zoltan-mihalyi.github.io/grape/
@@ -13,16 +12,16 @@ Pong example: http://zoltan-mihalyi.github.io/grape/pong
 
 Full API documentation: http://zoltan-mihalyi.github.io/grape/docs
 
-## Cool stuff
+# Cool stuff
 
 Why is Grape special?
 
-### Strong class system
+## Strong class system
 - Multiple inheritance
 - Cool modifiers like "static" or "event"
 - Feel safe with "abstract", "final" or "override" modifiers
 
-### Optimized CPU performance
+## Optimized CPU performance
 - Compile loops in the critical parts of the game
 - Optimized collision detection
 - Spatial partition, optimized for moving or standing objects
@@ -30,7 +29,7 @@ Why is Grape special?
 - Array-based bag data structure for storing instances, which is faster than map or linked list
 - Game scales well with increasing number of instances by design
 
-### Extensible features, just for you!
+## Extensible features, just for you!
 - Create nested resource collections to organize your dependencies and track the loading progress
 - Create multiple views and layers to organize your game objects and GUI
 - Built-in utility classes for handling animations, basic physics and more
@@ -38,13 +37,13 @@ Why is Grape special?
 - Create multiplayer games easily and run the same game on node.js server (soon)
 - Particle system (soon)
 
-## Getting started
+# Getting started
 
 Download the engine from the download page: http://zoltan-mihalyi.github.io/grape/
 
 The library is AMD compatible, you can use it with require.js.
 
-### Class system
+## Class system
 
 Creating applications is much easier with a good OOP class system. Grape uses it's own for developing games and the engine itself.
 Let's see some basic thing about classes in Grape!
@@ -94,7 +93,7 @@ var Greeter = Grape.Class('Greeter', [Grape.EventEmitter], { //An Array or a cla
 });
 ```
 
-### Creating a game
+## Creating a game
 
 You can create a game by creating an instance of `Grape.Game`.
 
@@ -105,7 +104,7 @@ myGame.start(new MyScene()); //starts the game with a custom scene.
 ```
 
 
-### Scenes and layers
+## Scenes and layers
 
 A *scene* is a stage of the game, containing **game objects, views, layers** and **systems**. It can be a menu, a game level, or something similar. A game can have exactly one scene at a time. A scene is a child class of **layer** (`Grape.Layer`), but it has an fps property and an initial view by default. Layers can be used to separate game objects inside a scene, or an another layer.
 
@@ -122,7 +121,7 @@ var MyScene = Grape.Scene.extend({ //create a new class by extending Grape.Scene
 });
 ```
 
-### Views
+## Views
 
 You can specify which subset of game objects are visible and where are they displayed on the screeen. You can create multiple views for displaying the same instances (split-screen game) or GUI. If you add the view to a layer, only the instances of the layer (and sub-layers) will be displayed.
 
@@ -162,7 +161,7 @@ var MultiplayerScene = Grape.Scene.extend({
 });
 ```
 
-### Resources
+## Resources
 
 Resource handling and preloading can be a painful task, but you can easily solve this problem using Grape.
 
@@ -205,7 +204,7 @@ res.load( //load resources at all
 );
 ```
 
-### Game objects
+## Game objects
 
 The core of every game are the game objects. These objects can be added to scenes(layers), and they can be players, terrain, enemies, menu buttons and so on.
 
@@ -239,11 +238,11 @@ Pong example: http://zoltan-mihalyi.github.io/grape/pong
 
 Full API documentation: http://zoltan-mihalyi.github.io/grape/docs
 
-## Contributing
+# Contributing
 
 Feel free to submit issues, fork and create pull request! This article can help: https://help.github.com/articles/using-pull-requests
 
-### Setting up development environment
+## Setting up development environment
 
 You can edit and test the result using a require.js config similar to the **examples/pong/required/index.grape-dev.html**. If you want to build, generate documentation or test, you should do the following:
 
@@ -258,7 +257,7 @@ Install development dependencies:
 	npm install
 
 
-### Building
+## Building
 
 Creating **dist/grape.js**:
 
@@ -276,7 +275,7 @@ Hint, test, build, min, documentation:
 
 	grunt
 
-### Testing
+## Testing
 
 Running all test and create coverage to **coverage/**:
 
