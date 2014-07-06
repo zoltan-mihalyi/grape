@@ -13,13 +13,13 @@ module.exports = function (grunt) {
         },
         yuidoc: {
             compile: {
-                name: '<%= pkg.name %>',
+                name: 'Grape',
                 description: '<%= pkg.description %>',
                 version: '<%= pkg.version %>',
                 url: '<%= pkg.homepage %>',
                 options: {
                     paths: 'js/',
-                    /*themedir: 'path/to/custom/theme/',*/
+                    themedir: 'doc-theme/',
                     outdir: 'dist/docs'
                 }
             }
