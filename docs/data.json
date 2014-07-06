@@ -1,8 +1,8 @@
 {
     "project": {
-        "name": "grape",
+        "name": "Grape",
         "description": "A really fast JavaScript game engine",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "url": ""
     },
     "files": {

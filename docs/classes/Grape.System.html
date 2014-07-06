@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Grape.System - grape</title>
+    <title>Grape.System - Grape</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,11 +15,11 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="../assets/css/logo.png" title="grape"></h1>
+                <h1><img id="logo" src="../assets/css/logo.png" title="Grape"></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.0.1</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -27,100 +27,96 @@
         <div class="yui3-u-1-4">
             <div id="docs-sidebar" class="sidebar apidocs">
                 <div id="api-list">
-    <h2 class="off-left">APIs</h2>
+    <h1 class="off-left">APIs</h1>
+
     <div id="api-tabview" class="tabview">
-        <ul class="tabs">
+        <ul class="tabs" style="display:none;">
             <li><a href="#api-classes">Classes</a></li>
-            <li><a href="#api-modules">Modules</a></li>
         </ul>
 
         <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+            <input type="search" id="api-filter" placeholder="Type to search classes">
         </div>
 
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
-            
-                <li><a href="../classes/Grape.html">Grape</a></li>
-            
-                <li><a href="../classes/Grape.AABB.html">Grape.AABB</a></li>
-            
-                <li><a href="../classes/Grape.AbstractView.html">Grape.AbstractView</a></li>
-            
-                <li><a href="../classes/Grape.Alarm.html">Grape.Alarm</a></li>
-            
-                <li><a href="../classes/Grape.Animation.html">Grape.Animation</a></li>
-            
-                <li><a href="../classes/Grape.Array.html">Grape.Array</a></li>
-            
-                <li><a href="../classes/Grape.Audio.html">Grape.Audio</a></li>
-            
-                <li><a href="../classes/Grape.Bag.html">Grape.Bag</a></li>
-            
-                <li><a href="../classes/Grape.Cacheable.html">Grape.Cacheable</a></li>
-            
-                <li><a href="../classes/Grape.Class.html">Grape.Class</a></li>
-            
-                <li><a href="../classes/Grape.Collidable.html">Grape.Collidable</a></li>
-            
-                <li><a href="../classes/Grape.CollisionSystem.html">Grape.CollisionSystem</a></li>
-            
-                <li><a href="../classes/Grape.Env.html">Grape.Env</a></li>
-            
-                <li><a href="../classes/Grape.EventEmitter.html">Grape.EventEmitter</a></li>
-            
-                <li><a href="../classes/Grape.Game.html">Grape.Game</a></li>
-            
-                <li><a href="../classes/Grape.GameLoop.html">Grape.GameLoop</a></li>
-            
-                <li><a href="../classes/Grape.GameObject.html">Grape.GameObject</a></li>
-            
-                <li><a href="../classes/Grape.GameObjectArray.html">Grape.GameObjectArray</a></li>
-            
-                <li><a href="../classes/Grape.GUIView.html">Grape.GUIView</a></li>
-            
-                <li><a href="../classes/Grape.Input.html">Grape.Input</a></li>
-            
-                <li><a href="../classes/Grape.JSONSceneSource.html">Grape.JSONSceneSource</a></li>
-            
-                <li><a href="../classes/Grape.Layer.html">Grape.Layer</a></li>
-            
-                <li><a href="../classes/Grape.Mouse.html">Grape.Mouse</a></li>
-            
-                <li><a href="../classes/Grape.Object.html">Grape.Object</a></li>
-            
-                <li><a href="../classes/Grape.Physical.html">Grape.Physical</a></li>
-            
-                <li><a href="../classes/Grape.Position.html">Grape.Position</a></li>
-            
-                <li><a href="../classes/Grape.Rectangle.html">Grape.Rectangle</a></li>
-            
-                <li><a href="../classes/Grape.Resource.html">Grape.Resource</a></li>
-            
-                <li><a href="../classes/Grape.ResourceCollection.html">Grape.ResourceCollection</a></li>
-            
-                <li><a href="../classes/Grape.Scene.html">Grape.Scene</a></li>
-            
-                <li><a href="../classes/Grape.Sprite.html">Grape.Sprite</a></li>
-            
-                <li><a href="../classes/Grape.SpriteVisualizer.html">Grape.SpriteVisualizer</a></li>
-            
-                <li><a href="../classes/Grape.System.html">Grape.System</a></li>
-            
-                <li><a href="../classes/Grape.TagContainer.html">Grape.TagContainer</a></li>
-            
-                <li><a href="../classes/Grape.Taggable.html">Grape.Taggable</a></li>
-            
-                <li><a href="../classes/Grape.Utils.html">Grape.Utils</a></li>
-            
-                <li><a href="../classes/Grape.View.html">Grape.View</a></li>
-            
-                <li><a href="../classes/Grape.Visualizer.html">Grape.Visualizer</a></li>
-            
-            </ul>
-
-            <ul id="api-modules" class="apis modules">
-            
+                
+                    <li><a href="../classes/Grape.html">Grape</a></li>
+                
+                    <li><a href="../classes/Grape.AABB.html">Grape.AABB</a></li>
+                
+                    <li><a href="../classes/Grape.AbstractView.html">Grape.AbstractView</a></li>
+                
+                    <li><a href="../classes/Grape.Alarm.html">Grape.Alarm</a></li>
+                
+                    <li><a href="../classes/Grape.Animation.html">Grape.Animation</a></li>
+                
+                    <li><a href="../classes/Grape.Array.html">Grape.Array</a></li>
+                
+                    <li><a href="../classes/Grape.Audio.html">Grape.Audio</a></li>
+                
+                    <li><a href="../classes/Grape.Bag.html">Grape.Bag</a></li>
+                
+                    <li><a href="../classes/Grape.Cacheable.html">Grape.Cacheable</a></li>
+                
+                    <li><a href="../classes/Grape.Class.html">Grape.Class</a></li>
+                
+                    <li><a href="../classes/Grape.Collidable.html">Grape.Collidable</a></li>
+                
+                    <li><a href="../classes/Grape.CollisionSystem.html">Grape.CollisionSystem</a></li>
+                
+                    <li><a href="../classes/Grape.Env.html">Grape.Env</a></li>
+                
+                    <li><a href="../classes/Grape.EventEmitter.html">Grape.EventEmitter</a></li>
+                
+                    <li><a href="../classes/Grape.Game.html">Grape.Game</a></li>
+                
+                    <li><a href="../classes/Grape.GameLoop.html">Grape.GameLoop</a></li>
+                
+                    <li><a href="../classes/Grape.GameObject.html">Grape.GameObject</a></li>
+                
+                    <li><a href="../classes/Grape.GameObjectArray.html">Grape.GameObjectArray</a></li>
+                
+                    <li><a href="../classes/Grape.GUIView.html">Grape.GUIView</a></li>
+                
+                    <li><a href="../classes/Grape.Input.html">Grape.Input</a></li>
+                
+                    <li><a href="../classes/Grape.JSONSceneSource.html">Grape.JSONSceneSource</a></li>
+                
+                    <li><a href="../classes/Grape.Layer.html">Grape.Layer</a></li>
+                
+                    <li><a href="../classes/Grape.Mouse.html">Grape.Mouse</a></li>
+                
+                    <li><a href="../classes/Grape.Object.html">Grape.Object</a></li>
+                
+                    <li><a href="../classes/Grape.Physical.html">Grape.Physical</a></li>
+                
+                    <li><a href="../classes/Grape.Position.html">Grape.Position</a></li>
+                
+                    <li><a href="../classes/Grape.Rectangle.html">Grape.Rectangle</a></li>
+                
+                    <li><a href="../classes/Grape.Resource.html">Grape.Resource</a></li>
+                
+                    <li><a href="../classes/Grape.ResourceCollection.html">Grape.ResourceCollection</a></li>
+                
+                    <li><a href="../classes/Grape.Scene.html">Grape.Scene</a></li>
+                
+                    <li><a href="../classes/Grape.Sprite.html">Grape.Sprite</a></li>
+                
+                    <li><a href="../classes/Grape.SpriteVisualizer.html">Grape.SpriteVisualizer</a></li>
+                
+                    <li><a href="../classes/Grape.System.html">Grape.System</a></li>
+                
+                    <li><a href="../classes/Grape.TagContainer.html">Grape.TagContainer</a></li>
+                
+                    <li><a href="../classes/Grape.Taggable.html">Grape.Taggable</a></li>
+                
+                    <li><a href="../classes/Grape.Utils.html">Grape.Utils</a></li>
+                
+                    <li><a href="../classes/Grape.View.html">Grape.View</a></li>
+                
+                    <li><a href="../classes/Grape.Visualizer.html">Grape.Visualizer</a></li>
+                
             </ul>
         </div>
     </div>
@@ -129,10 +125,10 @@
             </div>
         </div>
         <div class="yui3-u-3-4">
-                <div id="api-options">
+                <div id="api-options" style="display: none;">
         Show:
         <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
+            <input type="checkbox" id="api-show-inherited">
             Inherited
         </label>
 
@@ -160,7 +156,7 @@
 <div class="box meta">
     
         <div class="uses">
-            Uses
+            Extends
             <ul class="inline commas">
                 
                     <li><a href="Grape.EventEmitter.html">Grape.EventEmitter</a></li>
@@ -801,5 +797,15 @@ layer through the getLayer method.</p>
 <script src="../assets/js/api-list.js"></script>
 <script src="../assets/js/api-search.js"></script>
 <script src="../assets/js/apidocs.js"></script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52569559-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
 </body>
 </html>
