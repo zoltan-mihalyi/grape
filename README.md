@@ -1,10 +1,9 @@
+<img src="http://zoltan-mihalyi.github.io/grape/docs/assets/css/logo.png" width="240" />
+
 [![Build Status](https://travis-ci.org/zoltan-mihalyi/grape.svg?branch=master)](https://travis-ci.org/zoltan-mihalyi/grape)
 [![Coverage Status](https://coveralls.io/repos/zoltan-mihalyi/grape/badge.png)](https://coveralls.io/r/zoltan-mihalyi/grape)
 
-<img src="http://zoltan-mihalyi.github.io/grape/docs/assets/css/logo.png" width="240" />
-
 Grape is a JavaScript game engine designed to be fast and modular.
-
 
 Download: http://zoltan-mihalyi.github.io/grape/
 
