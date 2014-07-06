@@ -6,7 +6,11 @@
         "type": "git",
         "url": "https://github.com/zoltan-mihalyi/grape.git"
     },
+    "main": "index.js",
     "version": "1.0.0",
+    "dependencies": {
+        "requirejs": "~2.1.14"
+    },
     "devDependencies": {
         "grunt": "~0.4.2",
         "grunt-cli": "~0.1.13",
@@ -30,5 +34,6 @@
     "scripts": {
         "test": "grunt build && grunt test",
         "build": "npm install && grunt"
-    }
+    },
+    "readmeFilename": "README.md"
 }
