@@ -1,0 +1,20 @@
+<div id="game" style="height: 400px; width: 80%; position: absolute;">
+
+</div>
+
+<script src="../lib/require.js"></script>
+<script>
+    requirejs.config({
+        baseUrl: '../../js/grape', //grape engine folder
+        paths: {
+            grape: 'main'
+        }
+    });
+    require(['grape'], function (Grape) {
+        requirejs.config({
+            baseUrl: '.'
+        });
+        require(['particles'], function () {
+        });
+    });
+</script>

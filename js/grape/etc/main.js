@@ -6,13 +6,14 @@ define([
     './collision',
     './event-emitter',
     './mouse',
+    './particle-system',
     './physical',
     './position',
     './rectangle',
     './sprite-visualizer',
     './tag',
     './visualizer'
-], function (AABB, Alarm, Animation, Chainable, Collision, EventEmitter, Mouse, Physical, Position, Rectangle, SpriteVisualizer, Tag, Visualizer) {
+], function (AABB, Alarm, Animation, Chainable, Collision, EventEmitter, Mouse, ParticleSystem, Physical, Position, Rectangle, SpriteVisualizer, Tag, Visualizer) {
     return {
         AABB: AABB,
         Alarm: Alarm,
@@ -21,6 +22,7 @@ define([
         CollisionSystem: Collision.CollisionSystem,
         EventEmitter: EventEmitter,
         Mouse: Mouse,
+        ParticleSystem: ParticleSystem,
         Physical: Physical,
         Position: Position,
         Rectangle: Rectangle,
