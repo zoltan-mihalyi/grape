@@ -36,7 +36,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
      * @constructor
      * @param {Object} opts Initial properties
      */
-    return Class('AbstractView', System, {
+    return Class('AbstractView', System, { //todo calculated values should be cached!
         init: function (opts) {
             /**
              * The width of the view. The maximum value (100%) is the container width.
@@ -196,7 +196,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             this.el.style.height = this.getHeight() + 'px';
         },
         /**
-         * Returns the calculated width left.
+         * Returns the calculated left value.
          *
          * @method getLeft
          * @return {Number} calculated left
@@ -250,7 +250,23 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             return propValue(this.originY, this.getHeight()) >> 0;
         },
         /**
-         * This abstract method should create the HTMLElement which serves
+         * Returns the visible area of the view.
+         *
+         * @method getVisibleArea
+         * @returns {Object} The left, top, right, and bottom properties
+         */
+        getVisibleArea: function () {
+            var left = this.x - this.getOriginX(),
+                top = this.y - this.getOriginY();
+            return {
+                left: left,
+                top: top,
+                right: left + this.getWidth(),
+                bottom: top + this.getHeight()
+            };
+        },
+        /**
+         * This abstract method should create the HTMLElement which serves as the view.
          *
          * @method createDom
          * @return {HTMLElement} Canvas
