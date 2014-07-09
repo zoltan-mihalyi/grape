@@ -35,5 +35,6 @@
         "test": "grunt build && grunt test",
         "build": "npm install && grunt"
     },
-    "readmeFilename": "README.md"
+    "readmeFilename": "README.md",
+    "keywords": ["grape", "game engine", "engine", "html5"]
 }
