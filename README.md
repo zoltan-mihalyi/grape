@@ -207,7 +207,7 @@ res.load( //load resources at all
 
 The core of every game are the game objects. These objects can be added to scenes(layers), and they can be players, terrain, enemies, menu buttons and so on.
 
-```
+```javascript
 var Player = Grape.Class('Player', [Grape.SpriteVisualizer, Grape.Collidable, Grape.Physical], {
     init: function () {
         this.sprite = res.get('player'); //sprite property is required by SpriteVisualizer for displaying the game object.
