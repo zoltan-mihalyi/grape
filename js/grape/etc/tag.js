@@ -159,6 +159,7 @@ define(['../class', '../collections/bag'], function (Class, Bag) {
             for (name in this._tags) {
                 this._tagContainer._remove(this, name);
             }
+            this._tagContainer = null;
         }
     });
 

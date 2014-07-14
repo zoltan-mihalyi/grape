@@ -37,9 +37,7 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
             }
             this.gameLoop = this.createGameLoop();
             /* istanbul ignore else */
-            if (Env.browser) {
-                this.input = new Input({reservedKeys: opts.reservedKeys});
-            }
+            this.input = new Input({reservedKeys: opts.reservedKeys});
         },
         /**
          * This method is called once when the game is created. If you want to use a custom game loop for your game, you
@@ -172,14 +170,12 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
          */
         render: function () {
             /* istanbul ignore else */
-            if (Env.browser) {
-                /**
-                 * Fired to the current scene in each render frame
-                 *
-                 * @event renderLayer (scene)
-                 */
-                this.scene.emit('renderLayer');
-            }
+            /**
+             * Fired to the current scene in each render frame
+             *
+             * @event renderLayer (scene)
+             */
+            this.scene.emit('renderLayer');
         },
         /**
          * Returns the game screen which is appended to the container.

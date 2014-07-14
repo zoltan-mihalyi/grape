@@ -226,7 +226,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.setReservedKeys(opts.reservedKeys || []);
         },
         _calculateMouse: function () {
-            var rect = this._screen.getBoundingClientRect();
+            var rect = Env.browser ? this._screen.getBoundingClientRect() : {left: 0, top: 0};
             this.mouse.x = mouseScreen.x - rect.left;
             this.mouse.y = mouseScreen.y - rect.top;
             this.mouse.view = null;
@@ -274,18 +274,22 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
                 up('mouse' + event.which);
             };
             this._calculateMouse();
-            Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODOv2 to loop
-            Utils.addEventListener(document, 'keyup', this.onKeyUp); //TODOv2 handle all of these globally
-            Utils.addEventListener(document, 'contextmenu', this.onContextMenu);
-            Utils.addEventListener(document, 'mousedown', this.onMouseDown);
-            Utils.addEventListener(document, 'mouseup', this.onMouseUp);
+            if(Env.browser) {
+                Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODOv2 to loop
+                Utils.addEventListener(document, 'keyup', this.onKeyUp); //TODOv2 handle all of these globally
+                Utils.addEventListener(document, 'contextmenu', this.onContextMenu);
+                Utils.addEventListener(document, 'mousedown', this.onMouseDown);
+                Utils.addEventListener(document, 'mouseup', this.onMouseUp);
+            }
         },
         _stop: function () {
-            Utils.removeEventListener(document, 'keydown', this.onKeyDown);
-            Utils.removeEventListener(document, 'keyup', this.onKeyUp);
-            Utils.removeEventListener(document, 'contextmenu', this.onContextMenu);
-            Utils.removeEventListener(document, 'mousedown', this.onMouseDown);
-            Utils.removeEventListener(document, 'mouseup', this.onMouseUp);
+            if(Env.browser) {
+                Utils.removeEventListener(document, 'keydown', this.onKeyDown);
+                Utils.removeEventListener(document, 'keyup', this.onKeyUp);
+                Utils.removeEventListener(document, 'contextmenu', this.onContextMenu);
+                Utils.removeEventListener(document, 'mousedown', this.onMouseDown);
+                Utils.removeEventListener(document, 'mouseup', this.onMouseUp);
+            }
         },
         _emitEvents: function (target) {
             /**

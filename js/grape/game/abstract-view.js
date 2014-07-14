@@ -36,7 +36,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
      * @constructor
      * @param {Object} opts Initial properties
      */
-    return Class('AbstractView', System, { //todo calculated values should be cached!
+    return Class('AbstractView', System, {
         init: function (opts) {
             /**
              * The width of the view. The maximum value (100%) is the container width.
@@ -177,10 +177,12 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             }
         },
         'event renderLayer': function () {
-            this.el.style.left = this.getLeft() + 'px';
-            this.el.style.top = this.getTop() + 'px';
-            this.el.style.opacity = this.alpha;
-            this.updateSize();
+            if(Env.browser) {
+                this.el.style.left = this.getLeft() + 'px';
+                this.el.style.top = this.getTop() + 'px';
+                this.el.style.opacity = this.alpha;
+                this.updateSize();
+            }
         },
         'event mouseMove': function (mouse) {
             this._calculateMouse(mouse);
@@ -196,7 +198,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             this.el.style.height = this.getHeight() + 'px';
         },
         /**
-         * Returns the calculated left value.
+         * Returns the calculated width left.
          *
          * @method getLeft
          * @return {Number} calculated left
@@ -250,23 +252,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             return propValue(this.originY, this.getHeight()) >> 0;
         },
         /**
-         * Returns the visible area of the view.
-         *
-         * @method getVisibleArea
-         * @return {Object} The left, top, right, and bottom properties
-         */
-        getVisibleArea: function () {
-            var left = this.x - this.getOriginX(),
-                top = this.y - this.getOriginY();
-            return {
-                left: left,
-                top: top,
-                right: left + this.getWidth(),
-                bottom: top + this.getHeight()
-            };
-        },
-        /**
-         * This abstract method should create the HTMLElement which serves as the view.
+         * This abstract method should create the HTMLElement which serves
          *
          * @method createDom
          * @return {HTMLElement} Canvas

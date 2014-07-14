@@ -406,6 +406,15 @@ describe('tag test', function () {
         t1.removeTagContainer(); //no problem
     });
 
+    it('remove tag container twice', function () {
+        var t1 = new Grape.Taggable();
+        var c = new Grape.TagContainer();
+        t1.addTag('T1');
+        t1.setTagContainer(c);
+        t1.removeTagContainer();
+        t1.removeTagContainer();
+    });
+
     it('tag add remove has when added to tagContainer', function () {
         var t = new Grape.Taggable();
         var c = new Grape.TagContainer();

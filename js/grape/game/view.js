@@ -22,14 +22,16 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
             return canvas;
         },
         'event renderLayer': function () {
-            this.ctx.clearRect(0, 0, this.el.width, this.el.height); //TODOv2 preserve surface (optional)
-            this.ctx.translate(-this.x + this.getOriginX(), -this.y + this.getOriginY());
-            /**
-             * The render event is emitted to the layer with the canvas context parameter.
-             *
-             * @event render (layer)
-             */
-            this._layer.emit('render', this.ctx);
+            if (Env.browser) {
+                this.ctx.clearRect(0, 0, this.el.width, this.el.height); //TODOv2 preserve surface (optional)
+                this.ctx.translate(-this.x + this.getOriginX(), -this.y + this.getOriginY());
+                /**
+                 * The render event is emitted to the layer with the canvas context parameter.
+                 *
+                 * @event render (layer)
+                 */
+                this._layer.emit('render', this.ctx);
+            }
         },
         /**
          * Sets the width and height property for canvas (style.width and style.height are wrong).
