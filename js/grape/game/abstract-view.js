@@ -253,7 +253,7 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
          * Returns the visible area of the view.
          *
          * @method getVisibleArea
-         * @returns {Object} The left, top, right, and bottom properties
+         * @return {Object} The left, top, right, and bottom properties
          */
         getVisibleArea: function () {
             var left = this.x - this.getOriginX(),
