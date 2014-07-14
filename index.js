@@ -3,7 +3,8 @@
  */
 
 var requirejs = require('requirejs');
-requirejs.config({
+var requireGrape = requirejs.config({
+    context: 'grape-engine',
     baseUrl: __dirname + '/' + 'js/grape'
 });
-module.exports = requirejs('main');
+module.exports = requireGrape('main');
