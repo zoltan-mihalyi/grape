@@ -6,7 +6,7 @@
  */
 define(['./class', './collections/main', './env', './etc/main', './game/main', './resource/main', './utils'], function (Class, Collections, Env, Etc, Game, Resource, Utils) {
 
-    var Grape = {};
+    var Grape = this.Grape = {}; //populate to global namespace for plugins in server and client side.
     Grape.Class = Class;
     Grape.Env = Env;
     Grape.Utils = Utils;
@@ -22,7 +22,16 @@ define(['./class', './collections/main', './env', './etc/main', './game/main', '
      * @property version
      * @type {string}
      */
-    Grape.version = "#VERSION#";
+    Grape.version = '#VERSION#';
+
+    //version not substituted, but we can read it from package.json
+    if (typeof module !== 'undefined' && module.exports && Grape.version[0] === '#') {
+        var fs = require('fs');
+        try {
+            Grape.version = JSON.parse(fs.readFileSync('package.json')).version;
+        } catch (e) {
+        }
+    }
 
     return Grape;
 });
