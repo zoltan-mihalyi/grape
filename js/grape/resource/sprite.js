@@ -141,7 +141,7 @@ define(['../class', '../env', './cacheable'], function (Class, Env, Cacheable) {
         'override loadResource': function (onFinish, onError) {
             if (Env.node) {
                 /*global originalRequire*/
-                var fs = typeof originalRequire == 'function' ? originalRequire('fs') : require('fs'); //built or not built
+                var fs = typeof originalRequire === 'function' ? originalRequire('fs') : require('fs'); //built or not built
                 fs.readFile(this.url, function (err, file) {
                     if (err) {
                         onError();

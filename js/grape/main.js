@@ -5,8 +5,8 @@
  * @class Grape
  */
 define(['./class', './collections/main', './env', './etc/main', './game/main', './resource/main', './utils'], function (Class, Collections, Env, Etc, Game, Resource, Utils) {
-
-    var Grape = this.Grape = {}; //populate to global namespace for plugins in server and client side.
+    /*jslint evil: true */
+    var Grape = new Function('return this')().Grape = {}; //populate to global namespace for plugins in server and client side.
     Grape.Class = Class;
     Grape.Env = Env;
     Grape.Utils = Utils;
