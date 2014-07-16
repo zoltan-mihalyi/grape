@@ -70,6 +70,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
             this.url = url;
         },
         'override loadResource': function (onFinish, onError) { //TODOv2 preload phonegap audio
+            /*global intel*/
             if (Env.node) {
                 onFinish(null);
             } else if (typeof intel !== 'undefined') {
@@ -82,7 +83,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                         onFinish({url: url, xdk: true});
                         return true;
                     }
-                }
+                };
                 if (!check()) {
                     iid = setInterval(check, 50);
                 }
