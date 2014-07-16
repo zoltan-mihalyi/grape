@@ -72,14 +72,45 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
         'override loadResource': function (onFinish, onError) { //TODOv2 preload phonegap audio
             if (Env.node) {
                 onFinish(null);
+            } else if (typeof intel !== 'undefined') {
+                var iid, url = this.url, check = function () {
+                    if (typeof intel.xdk.player !== 'undefined') {
+                        intel.xdk.player.loadSound(url, 8);
+                        if (iid) {
+                            clearInterval(iid);
+                        }
+                        onFinish({url: url, xdk: true});
+                        return true;
+                    }
+                }
+                if (!check()) {
+                    iid = setInterval(check, 50);
+                }
             } else if (location.protocol !== 'file:' && typeof Blob === 'function') { //load as blob
                 Utils.ajax(this.url, {responseType: 'arraybuffer'}, function (response) {
-                    if (context && typeof intel==='undefined') {
+                    if (context && typeof intel === 'undefined') {
                         context.decodeAudioData(response, function (buffer) {
                             onFinish(buffer);
                         });
                     } else {
-                        var blob = new Blob([response], {type: 'audio'});
+                        var blob, URL;
+                        try {
+                            blob = new Blob([response], {type: 'audio'});
+                        } catch (e) {
+                            var BlobBuilder = window.BlobBuilder ||
+                                window.WebKitBlobBuilder ||
+                                window.MozBlobBuilder ||
+                                window.MSBlobBuilder;
+                            if (e.name === 'TypeError' && BlobBuilder) {
+                                var bb = new BlobBuilder();
+                                bb.append(response);
+                                blob = bb.getBlob('audio');
+                            }
+                            else if (e.name === 'InvalidStateError') {
+                                blob = new Blob(response, {type: "audio"}); //todo test
+                            }
+                        }
+                        URL = window.URL || window.webkitURL;
                         onFinish({
                             url: URL.createObjectURL(blob),
                             blob: blob
@@ -130,8 +161,12 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
             if (this.buffer === null) { //no sound
 
             } else if (typeof this.buffer === 'object' && this.buffer.url) { //loading created a blob url
-                snd = new Audio(this.buffer.url);
-                snd.play();
+                if (this.buffer.xdk) {
+                    intel.xdk.player.playSound(this.buffer.url);
+                } else {
+                    snd = new Audio(this.buffer.url);
+                    snd.play();
+                }
             } else if (context && this.buffer instanceof AudioBuffer) {//webAudio
                 src = context.createBufferSource();
                 src.buffer = this.buffer;
