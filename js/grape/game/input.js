@@ -128,12 +128,26 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
         }
     }
 
-    if (Env.browser) {
-        //TODOv2 have to be initialized: https://forum.jquery.com/topic/is-it-possible-to-get-mouse-position-when-the-page-has-loaded-without-moving-the-mouse
-        Utils.addEventListener(document, 'mousemove', function (event) {
+    function moved(event) {
+        if ('clientX' in event) {
             mouseScreen.x = event.clientX;
             mouseScreen.y = event.clientY;
-        });
+        } else if (event.touches && event.touches.length) {
+            var touch = event.touches[0];
+            mouseScreen.x = touch.pageX;
+            mouseScreen.y = touch.pageY;
+        }
+        if (event.type !== 'touchend' && event.type !== 'touchstart') {
+            event.preventDefault();
+        }
+    }
+
+    if (Env.browser) {
+        //TODOv2 have to be initialized: https://forum.jquery.com/topic/is-it-possible-to-get-mouse-position-when-the-page-has-loaded-without-moving-the-mouse
+        Utils.addEventListener(document, 'mousemove', moved);
+        Utils.addEventListener(document, 'touchstart', moved);
+        Utils.addEventListener(document, 'touchmove', moved);
+        Utils.addEventListener(document, 'touchend', moved);
     }
     /**
      * Handles which key is down, just pressed or just released in a game. A Game  Also handles mouse. The following
@@ -216,7 +230,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
              * @property mouse
              * @type {Object}
              */
-            this.mouse = {
+            this.mouse = { //todo bad initial values?
                 x: mouseScreen.x,
                 y: mouseScreen.y,
                 prevX: mouseScreen.x,
@@ -226,9 +240,19 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             this.setReservedKeys(opts.reservedKeys || []);
         },
         _calculateMouse: function () {
-            var rect = Env.browser ? this._screen.getBoundingClientRect() : {left: 0, top: 0};
-            this.mouse.x = mouseScreen.x - rect.left;
-            this.mouse.y = mouseScreen.y - rect.top;
+            var rect, zoom;
+            if (Env.browser) {
+                rect = this._screen.getBoundingClientRect();
+                zoom = this._screen.parentNode.style.zoom || 1;
+            } else {
+                rect = {
+                    left: 0,
+                    top: 0
+                };
+                zoom = 1;
+            }
+            this.mouse.x = mouseScreen.x / zoom - rect.left;
+            this.mouse.y = mouseScreen.y / zoom - rect.top;
             this.mouse.view = null;
         },
         _start: function (screen) {
@@ -274,7 +298,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
                 up('mouse' + event.which);
             };
             this._calculateMouse();
-            if(Env.browser) {
+            if (Env.browser) {
                 Utils.addEventListener(document, 'keydown', this.onKeyDown); //TODOv2 to loop
                 Utils.addEventListener(document, 'keyup', this.onKeyUp); //TODOv2 handle all of these globally
                 Utils.addEventListener(document, 'contextmenu', this.onContextMenu);
@@ -283,7 +307,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             }
         },
         _stop: function () {
-            if(Env.browser) {
+            if (Env.browser) {
                 Utils.removeEventListener(document, 'keydown', this.onKeyDown);
                 Utils.removeEventListener(document, 'keyup', this.onKeyUp);
                 Utils.removeEventListener(document, 'contextmenu', this.onContextMenu);

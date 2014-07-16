@@ -13,7 +13,7 @@ define([], function () {
          * @property browser
          * @static
          */
-        browser: typeof window !== 'undefined',
+        browser: typeof window !== 'undefined', //todo rename
         /**
          * Is the current environment node.js?
          *
@@ -21,6 +21,15 @@ define([], function () {
          * @property node
          * @static
          */
-        node: typeof process === 'object' && typeof process.env === 'object'
+        node: typeof process === 'object' && typeof process.env === 'object',
+
+        /**
+         * Is the current environment a touch device?
+         *
+         * @type boolean
+         * @property touch
+         * @static
+         */
+        touch: typeof window !=='undefined' && 'ontouchstart' in window
     };
 });
