@@ -1,5 +1,5 @@
 define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, Cacheable, Utils) {
-    /*global Audio, AudioBuffer, Media, Cordova*/
+    /*global Audio, AudioBuffer, Media, Cordova, intel*/
     //TODOv2 partial preload for large files
     var defaultPlayOpts = {
         volume: 100
@@ -23,6 +23,10 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 }
             }
             return canPlayTypes;
+        } else if (typeof intel !== 'undefined') {
+            return {
+                mp3: true
+            };
         } else {
             return {};
         }
@@ -70,7 +74,6 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
             this.url = url;
         },
         'override loadResource': function (onFinish, onError) { //TODOv2 preload phonegap audio
-            /*global intel*/
             if (Env.node) {
                 onFinish(null);
             } else if (typeof intel !== 'undefined') {
