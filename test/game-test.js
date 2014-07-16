@@ -6,6 +6,7 @@ describe('game tests', function () {
         expect(function () {
             g.start();
         }).toThrow();
+        g.stop();
     });
 
     var GameMock = Grape.Game.extend({
@@ -24,6 +25,9 @@ describe('game tests', function () {
                 },
                 tick: function () {
                     this._game.frame();
+                },
+                restart:function(callback){
+                    callback();
                 }
             };
         }
@@ -92,6 +96,7 @@ describe('game loop test', function () {
             render: function () {
             },
             getRequiredFps: function () {
+                return 10;
             }
         });
 
@@ -223,6 +228,7 @@ describe('game object test', function () {
         expect(g.getLayer()).toBe(layer);
         expect(g.getScene()).toBe(scene);
         expect(g.getGame()).toBe(game);
+        game.stop();
     });
 });
 

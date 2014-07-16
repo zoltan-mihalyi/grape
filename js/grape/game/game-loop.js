@@ -80,6 +80,7 @@ define(['../class', '../env'], function (Class, Env) {
             this.intervalId = null;
             this.game = game;
             this.insideFrame = false;
+            this.scheduledCallbacks = [];
         },
         /**
          * Starts the game loop.
@@ -91,6 +92,7 @@ define(['../class', '../env'], function (Class, Env) {
                 throw new Error('already running');
             }
             var game = this.game;
+            var that = this;
             var loop = this;
             var backlog = 0;
             var last = now();
@@ -123,6 +125,13 @@ define(['../class', '../env'], function (Class, Env) {
                 } finally {
                     loop.insideFrame = false;
                 }
+                for (var i = 0; i < that.scheduledCallbacks.length; i++) {
+                    var cb = that.scheduledCallbacks[i];
+                    cb();
+                }
+                if (that.scheduledCallbacks.length) {
+                    that.scheduledCallbacks = [];
+                }
             }); //TODOv2 run once before set interval?
         },
         /**
@@ -149,6 +158,23 @@ define(['../class', '../env'], function (Class, Env) {
          */
         isRunning: function () {
             return this.intervalId !== null;
+        },
+
+        /**
+         * Restarts the game loop. If inside the frame, the thread stops.
+         *
+         * @param {Function} [callback] Called after the restart
+         * @method restart
+         */
+        restart: function (callback) { //TODO test
+            callback = callback || function () {
+            };
+            if (this.insideFrame) {
+                this.scheduledCallbacks.push(callback);
+                throw new StopFrame();
+            }else{
+                callback();
+            }
         }
     });
 });

@@ -114,31 +114,35 @@ define(['../class', '../env', '../etc/event-emitter', './game-loop', './input', 
          * @param {Scene} scene The scene
          */
         startScene: function (scene) {
-            if (!this._starting && !this.gameLoop.isRunning()) {
+            var gameLoop = this.gameLoop, that = this;
+            if (!this._starting && !gameLoop.isRunning()) {
                 throw new Error('Game is not running! You can game.start(scene).');
             }
 
             if (scene._game) {
                 throw new Error('Scene already started!');
             }
-            if (this.scene) {
-                /**
-                 * Fired to the scene when the scene is stopped.
-                 *
-                 * @event stop (scene)
-                 */
-                this.scene.emit('stop');
-                this.scene._game = null;
-            }
 
-            scene._game = this;
-            this.scene = scene;
-            /**
-             * Emitted to the scene when started. The parameter is the game.
-             *
-             * @event start (scene)
-             */
-            scene.emit('start', this);
+            gameLoop.restart(function () {
+                if (that.scene) {
+                    /**
+                     * Fired to the scene when the scene is stopped.
+                     *
+                     * @event stop (scene)
+                     */
+                    that.scene.emit('stop');
+                    that.scene._game = null;
+                }
+
+                scene._game = that;
+                that.scene = scene;
+                /**
+                 * Emitted to the scene when started. The parameter is the game.
+                 *
+                 * @event start (scene)
+                 */
+                scene.emit('start', that);
+            });
         },
         /**
          * Called by the game loop in each frame.
