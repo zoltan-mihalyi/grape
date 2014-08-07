@@ -48,7 +48,7 @@ Creating applications is much easier with a good OOP class system. Grape uses it
 Let's see some basic thing about classes in Grape!
 
 ```javascript
-var Greeter = Grape.Class({ //If you pass an object parameter, it will define the prototype of the class.
+var Greeter = Grape.Class({ //Passing an object parameter will define the prototype of the class.
     init: function (name) { //Function named 'init' becomes the constructor
         this.name = name || 'anonymus';
     },
@@ -76,14 +76,16 @@ If you put spaces to method names, the words will be parsed as keywords, and wil
 
 
 ```javascript
-var Greeter = Grape.Class('Greeter', [Grape.EventEmitter], { //An Array or a class as parameter defines the parent class(es).
-    'static MESSAGE': 'Hello, ', //you can use different keywords, 'static' works exactly as you expect.
+//An Array or a class as parameter defines the parent class(es).
+var Greeter = Grape.Class('Greeter', [Grape.EventEmitter], {
+    'static MESSAGE': 'Hello, ', //you can use different keywords, 'static' works as you expect.
     init: function (name) {
         this.name = name || 'anonymus';
     },
     greet: function () {
         var message = Greeter.MESSAGE + this.name;
-        this.emit('greet', message); //the emit function comes from EventEmitter. Callbacks registered for the greet event is called.
+        //the emit function comes from EventEmitter. Callbacks for the 'greet' event are called.
+        this.emit('greet', message);
         return message;
     },
     'event greet': function (message) { //class-level event handler
@@ -97,7 +99,7 @@ var Greeter = Grape.Class('Greeter', [Grape.EventEmitter], { //An Array or a cla
 You can create a game by creating an instance of `Grape.Game`.
 
 ```javascript
-var myGame = new Grape.Game({container: document.body}); //container (game screen) can be an id or a DOM element
+var myGame = new Grape.Game({container: document.body}); //the 'screen' can be an id or a DOM element
 
 myGame.start(new MyScene()); //starts the game with a custom scene.
 ```
@@ -110,9 +112,10 @@ A *scene* is a stage of the game, containing **game objects, views, layers** and
 We defined MyScene before starting the game like this:
 
 ```javascript
-var MyScene = Grape.Scene.extend({ //create a new class by extending Grape.Scene: same as Grape.Class(Grape.Scene, {...})
+//create a new class by extending Grape.Scene
+var MyScene = Grape.Scene.extend({ //same as Grape.Class(Grape.Scene, {...})
 
-    //Grape.Scene creates an initial view, which can be overridden in initViews.
+    //Grape.Scene creates an initial view (which can be overridden in initViews).
     //The view emits the render event to the container layer with the canvas context as parameter.
     'event render': function (ctx) {
         ctx.fillText('Hello, my first game!', 100, 100); //we can draw anything to the canvas context
@@ -129,14 +132,14 @@ A sample setting for a split-screen game with a 30px heigh GUI bar:
 ```javascript
 var MultiplayerScene = Grape.Scene.extend({
     init: function () {
-        //...
+        // ... (create layers and instances)
         this.getLayer('level').addView('player1-view', new Grape.View({
             left: 0, //position on the screen
             top: 30,
             width: '50%', //relative to screen
             height: '100%',
-            originX: '50%', //current x and y is displayed in the center of the view (origins are relative to view size)
-            originY: '50%'
+            originX: '50%', //current x and y is displayed in the center of the view
+            originY: '50%' //origins are relative to view size
         }));
 
         this.getLayer('level').addView('player2-view', new Grape.View({
@@ -168,11 +171,12 @@ Resource handling and preloading can be a painful task, but you can easily solve
 Let's see how to define different resources:
 ```javascript
 var player = new Grape.Sprite('images/player.png', {
-    originX: 16, //the center of the sprite will show at the (0, 0) coordinates if the sprite size is 32x32.
+    originX: 16, //the center of the image with size 32x32
     originY: 16
 });
 
-var shoot = new Grape.Audio('audio/shoot.mp3', 'audio/shoot.ogg', 'audio/shoot.wav'); //fallback urls (browser's audio format support is very bad)
+//audio with fallback URLs (browser's audio format support is very bad)
+var shoot = new Grape.Audio('audio/shoot.mp3', 'audio/shoot.ogg', 'audio/shoot.wav');
 
 player.load(function () { //resources can be loaded one by one
     console.log('player sprite loaded')
@@ -186,9 +190,10 @@ var res = new Grape.ResourceCollection();
 res.add(player);
 res.add(shoot);
 
-res.audio('die', 'audio/die.mp3', 'audio/die.ogg', 'audio/die.wav'); //helper functions for creating and adding
+//helper functions for creating and adding resources
+res.audio('die', 'audio/die.mp3', 'audio/die.ogg', 'audio/die.wav');
 
-//resource collections can be nested
+//resource collections can be nested since a collection is a resource too
 res.load( //load resources at all
     function () { //finish handler
         console.log('loading finished');
@@ -208,9 +213,14 @@ res.load( //load resources at all
 The core of every game are the game objects. These objects can be added to scenes(layers), and they can be players, terrain, enemies, menu buttons and so on.
 
 ```javascript
-var Player = Grape.Class('Player', [Grape.SpriteVisualizer, Grape.Collidable, Grape.Physical], {
+var Player = Grape.Class('Player', [
+        Grape.SpriteVisualizer,
+        Grape.Collidable,
+        Grape.Physical
+    ], {
     init: function () {
-        this.sprite = res.get('player'); //sprite property is required by SpriteVisualizer for displaying the game object.
+        //sprite property is required by SpriteVisualizer for displaying the game object.
+        this.sprite = res.get('player');
     },
     'global-event keyDown.left': function () { //moving with arrows
         this.x -= 4;
