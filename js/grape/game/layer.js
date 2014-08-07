@@ -22,13 +22,20 @@ define([
     }
 
     function remove(target, name) {
+        var i;
         if (typeof  name === 'string') { //by name
             if (!target[name]) {
                 throw new Error('Element "' + name + '" does not exist.');
             }
             delete target[name];
         } else { //by object
-            if (!Utils.removeFromArray(target, name)) {
+            if (!Utils.removeFromArray(target, name)) { //try to remove as array item
+                for (i in target) { //remove as poperty
+                    if (target[i] === name) {
+                        delete target[i];
+                        return;
+                    }
+                }
                 throw new Error('Element does not exist.');
             }
         }
@@ -71,10 +78,13 @@ define([
          * @return {Grape.GameObject} The added instance
          */
         add: function (instance) {
-            var i, classData, parentId, clazz = instance.getClass(), classId = clazz.id, allParent;
-            if (!instance.instanceOf(GameObject)) {
+            var i, classData, parentId, clazz , classId, allParent;
+            if (!instance.getClass || !instance.instanceOf(GameObject)) {
                 throw new Error('The instance must be a descendant of Grape.GameObject.');
             }
+            clazz = instance.getClass();
+            classId = clazz.id;
+
             instance.setTagContainer(this);
             instance._layer = this;
 
@@ -320,6 +330,26 @@ define([
          */
         getSystem: function (name) {
             return this._systems[name];
+        },
+        /**
+         * Tells whether the layer has a system added
+         *
+         * @method hasSystem
+         * @param {String|Grape.System} name System name or the system itself
+         * @return {boolean} true if the layer contains the given system or system name
+         */
+        hasSystem: function (name) {
+            var i;
+            if (typeof name === 'string') {
+                return this._systems[name] !== undefined;
+            } else {
+                for (i in this._systems) {
+                    if (this._systems[i] === name) {
+                        return true;
+                    }
+                }
+                return false;
+            }
         },
         /**
          * Returns the root layer.

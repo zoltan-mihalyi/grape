@@ -52,6 +52,20 @@ describe('visual tests', function () {
             expect(ctx.fillStyle).toBe('red');
             expect(ctx.borderStyle).toBe('black');
         });
+
+        it('invisible render', function () {
+            var opts2 = Grape.Utils.extend({}, opts);
+            opts2.visible = false;
+            var r = new Grape.Rectangle(opts2);
+            var layer = new Grape.Layer();
+            layer.add(r);
+
+            var ctx = {};
+            ctx.fillRect = jasmine.createSpy('fillRect() spy');
+
+            layer.emit('render', ctx);
+            expect(ctx.fillRect).not.toHaveBeenCalled();
+        });
     });
 
 

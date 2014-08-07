@@ -243,7 +243,7 @@ define(['../class', '../env', '../utils'], function (Class, Env, Utils) {
             var rect, zoom;
             if (Env.browser) {
                 rect = this._screen.getBoundingClientRect();
-                zoom = this._screen.parentNode.style.zoom || 1;
+                zoom = this._screen.parentNode ? (this._screen.parentNode.style.zoom || 1) : 1;
             } else {
                 rect = {
                     left: 0,

@@ -95,12 +95,14 @@ define(['./env'], function (Env) {
          * @method extend
          * @param {Object} target The properties are copied to this object.
          * @param {Object} options The properties are copied from this object
+         * @return {Object} target object
          */
         extend: function (target, options) {
             var i;
             for (i in options) {
                 target[i] = options[i];
             }
+            return target;
         },
         /**
          * Finds an element in an array and removes it.

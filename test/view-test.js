@@ -90,6 +90,25 @@ describe('view test', function () {
                 expect(v[getter]()).toBe((hundredPercent * 0.4 + 40) >> 0);
             }
         });
+
+        it('should work with gui view', function () {
+            var screen = document.createElement('div');
+            var MyView = Grape.GUIView.extend({
+                'event domCreated': function (el) {
+                    el.innerHTML = 'test 123';
+                }
+            });
+            var TestScene = Grape.Scene.extend({
+                'override initViews': function () {
+                    this.addView(new MyView());
+                }
+            });
+            var game = new Grape.Game({initialScene: TestScene, container: screen});
+            game.start();
+            expect(screen.innerHTML).toContain('test 123');
+            game.stop();
+
+        });
     });
 });
 //todo other view tests

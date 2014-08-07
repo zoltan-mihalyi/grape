@@ -252,9 +252,21 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
         getOriginY: function () {
             return propValue(this.originY, this.getHeight()) >> 0;
         },
+        /**
+         * Returns the width of the visible part of the scene (if zoom is increased, becomes smaller)
+         *
+         * @method getZoomedWidth
+         * @return {number} width of the visible part
+         */
         getZoomedWidth: function () {
             return this.getWidth() / this.zoom;
         },
+        /**
+         * Returns the height of the visible part of the scene (if zoom is increased, becomes smaller)
+         *
+         * @method getZoomedHeight
+         * @return {number} height of the visible part
+         */
         getZoomedHeight: function () {
             return this.getHeight() / this.zoom;
         },
