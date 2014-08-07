@@ -131,8 +131,8 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
              * @property mouse
              * @type {number}
              */
-            var viewX = this.mouse.view.x = mouse.x - this.getLeft();
-            var viewY = this.mouse.view.y = mouse.y - this.getTop();
+            var viewX = this.mouse.view.x = (mouse.x - this.getLeft()) / this.zoom;
+            var viewY = this.mouse.view.y = (mouse.y - this.getTop()) / this.zoom;
             this.mouse.x = viewX + this.x - this.getOriginX();
             this.mouse.y = viewY + this.y - this.getOriginY();
             this.mouse.inView = false;
@@ -177,10 +177,11 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
             }
         },
         'event renderLayer': function () {
-            if(Env.browser) {
-                this.el.style.left = this.getLeft() + 'px';
-                this.el.style.top = this.getTop() + 'px';
+            if (Env.browser) {
+                this.el.style.left = this.getLeft() / this.zoom + 'px';
+                this.el.style.top = this.getTop() / this.zoom + 'px';
                 this.el.style.opacity = this.alpha;
+                this.el.style.zoom = this.zoom;
                 this.updateSize();
             }
         },
@@ -194,8 +195,8 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
          * @method updateSize
          */
         updateSize: function () {
-            this.el.style.width = this.getWidth() + 'px';
-            this.el.style.height = this.getHeight() + 'px';
+            this.el.style.width = this.getZoomedWidth() + 'px';
+            this.el.style.height = this.getZoomedHeight() + 'px';
         },
         /**
          * Returns the calculated width left.
@@ -250,6 +251,12 @@ define(['../class', '../env', '../game/system', '../utils'], function (Class, En
          */
         getOriginY: function () {
             return propValue(this.originY, this.getHeight()) >> 0;
+        },
+        getZoomedWidth: function () {
+            return this.getWidth() / this.zoom;
+        },
+        getZoomedHeight: function () {
+            return this.getHeight() / this.zoom;
         },
         /**
          * This abstract method should create the HTMLElement which serves

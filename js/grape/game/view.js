@@ -39,8 +39,8 @@ define(['../class', '../env', './abstract-view'], function (Class, Env, Abstract
          * @method updateSize
          */
         'override updateSize': function () { //TODOv2 preserve data on resizing (optional)
-            this.el.width = this.getWidth();
-            this.el.height = this.getHeight();
+            this.el.width = this.getZoomedWidth();
+            this.el.height = this.getZoomedHeight();
         }
     });
 });

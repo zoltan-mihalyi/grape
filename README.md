@@ -99,7 +99,8 @@ var Greeter = Grape.Class('Greeter', [Grape.EventEmitter], {
 You can create a game by creating an instance of `Grape.Game`.
 
 ```javascript
-var myGame = new Grape.Game({container: document.body}); //the 'screen' can be an id or a DOM element
+//the 'screen' can be an id or a DOM element
+var myGame = new Grape.Game({container: document.body});
 
 myGame.start(new MyScene()); //starts the game with a custom scene.
 ```
@@ -115,10 +116,13 @@ We defined MyScene before starting the game like this:
 //create a new class by extending Grape.Scene
 var MyScene = Grape.Scene.extend({ //same as Grape.Class(Grape.Scene, {...})
 
-    //Grape.Scene creates an initial view (which can be overridden in initViews).
-    //The view emits the render event to the container layer with the canvas context as parameter.
+    /* Grape.Scene creates an initial view (which can be overridden in initViews).
+     * The view emits the 'render' event to the container layer with the
+     * canvas context as parameter.
+     */
     'event render': function (ctx) {
-        ctx.fillText('Hello, my first game!', 100, 100); //we can draw anything to the canvas context
+        //we can draw anything to the canvas context.
+        ctx.fillText('Hello, my first game!', 100, 100);
     }
 });
 ```
@@ -219,7 +223,7 @@ var Player = Grape.Class('Player', [
         Grape.Physical
     ], {
     init: function () {
-        //sprite property is required by SpriteVisualizer for displaying the game object.
+        //sprite property is required by SpriteVisualizer.
         this.sprite = res.get('player');
     },
     'global-event keyDown.left': function () { //moving with arrows
