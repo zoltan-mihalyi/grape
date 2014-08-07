@@ -175,7 +175,11 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 src = context.createBufferSource();
                 src.buffer = this.buffer;
                 src.connect(context.destination);
-                src.noteOn(0);
+                if (src.start) {
+                    src.start(0);
+                } else {
+                    src.noteOn();
+                }
             } else if (typeof Audio === 'function' && typeof Cordova === 'undefined' && this.buffer instanceof Array) { //IE9
                 snd = this.buffer[this.buffer.next++];
                 if (this.buffer.next === this.buffer.length) {
