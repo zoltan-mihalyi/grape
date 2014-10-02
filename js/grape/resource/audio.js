@@ -178,7 +178,7 @@ define(['../class', '../env', './cacheable', '../utils'], function (Class, Env, 
                 if (src.start) {
                     src.start(0);
                 } else {
-                    src.noteOn();
+                    src.start();
                 }
             } else if (typeof Audio === 'function' && typeof Cordova === 'undefined' && this.buffer instanceof Array) { //IE9
                 snd = this.buffer[this.buffer.next++];
